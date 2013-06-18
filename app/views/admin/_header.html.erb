@@ -1,0 +1,16 @@
+<h3>
+  Admin > <%= link_to @settings.site_name, root_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  <span class="loader" data-loader="admin_header" style="display:none"></span>  
+</h3>
+
+<ul class="nav nav-pills">
+  <li class="<%= website %>">
+    <%= link_to "Website", admin_website_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  </li>
+  <li class="<%= campaigns %>">
+    <%= link_to "Campaigns", admin_campaigns_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  </li>
+  <li class="<%= bank %>">
+    <%= link_to "Bank Setup", admin_bank_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  </li>
+</ul>

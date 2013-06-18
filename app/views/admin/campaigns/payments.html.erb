@@ -1,0 +1,65 @@
+<div id="admin">
+  <div class="container content_box clearfix">
+
+  <%= render 'admin/header', website: '', campaigns: 'active', bank: '' %>
+
+  <div id="admin_payments">
+    <h4><%= @campaign.name %></h4>
+    
+    <% if @payments.count > 0 %>
+    
+      <div class="search">
+        <form accept-charset="UTF-8" action="<%= admin_campaigns_payments_path(@campaign) %>" method="get">
+          
+          <input id="payment_id" type="text" name="payment_id" placeholder="Search by ID" value="<%= params[:payment_id] if params.has_key?(:payment_id) %>"/>  
+          <button type="submit" class="btn btn-primary show_loader" data-loader="admin_header">Search</button>
+        
+        </form>
+        <% if params.has_key?(:payment_id) %>
+          <%= link_to "clear", admin_campaigns_payments_path(@campaign), :class => 'show_loader', :'data-loader' => "admin_header" %>
+        <% end %>
+      </div>
+  
+      <table class="table table-striped">
+        <thead>
+          <tr>         
+            <th>Name</th>
+            <th>Email</th>
+            <% if @campaign.goal_type == 'orders' %>
+            <th>Quantity</th>
+            <% end %>
+            <th>Amount</th>
+            <th>User Fee</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @payments.each do |payment| %>
+          <tr>      
+            <td><%= payment.fullname %></td>
+            <td><%= payment.email %></td>
+            <% if @campaign.goal_type == 'orders' %>
+            <td><%= payment.quantity %></td>
+            <% end %>
+            <td>$<%= number_with_precision(payment.amount.to_f/100.0, precision: 2) %></td>
+            <td>$<%= number_with_precision(payment.user_fee_amount.to_f/100.0, precision: 2) %></td>
+            <td><%= payment.created_at.strftime("%m/%d/%Y") %></td>
+            <td><%= payment.status %></td>
+            <td><%= payment.ct_payment_id %></td>
+          </tr>
+          <% end %>  
+        </tbody>
+      </table>
+  
+      <%# if @total_pages > 1 %>
+        <%#= render 'shared/paginate', path: :admin_campaigns_contributors_path, object: @campaign, page: @page, total_pages: @total_pages %>
+      <%# end %>
+    <% else %>
+      <p>No payments yet!</p>
+    <% end %>
+    
+  </div>  
+  </div>
+</div>

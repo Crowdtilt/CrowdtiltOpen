@@ -1,0 +1,288 @@
+#campaign {
+  /*************************************
+  ********** FUNDING AREA **************
+  **************************************/
+  #funding_area {
+    width: 100%;
+    padding: 40px 0;
+    background: #f6f6f6;
+    border-bottom: 1px solid #c4c4c4;
+    
+    .campaign_title {
+    	a {
+    		text-decoration: none;
+    		color: #4b4b4b;
+    		&:hover {
+    			text-decoration: none;
+    			color: #4b4b4b;
+    		}
+    	}
+    }
+    
+    #video {
+      float: left;
+      width: 512px;
+      height: 385px;
+      background: #fff;
+      -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
+      -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
+      box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
+      img:hover
+      {
+    	 opacity: 0.5;
+    	 cursor: pointer;
+      }
+    }
+    
+    #image {
+      float: left;
+      width: 512px;
+      height: 385px;
+      -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
+      -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
+      box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */    
+    }
+      
+    #reserve_container {
+      width: 100%;
+      float: left;
+      padding-top: 20px;
+      border-top: 1px solid #fff;
+      -moz-box-shadow:    0 -1px 0 #cbcbcb; /* drop shadow */
+      -webkit-box-shadow: 0 -1px 0 #cbcbcb; /* drop shadow */
+      box-shadow:         0 -1px 0 #cbcbcb; /* drop shadow */
+      margin-top: 30px;
+      
+      .call_to_action_button {
+        text-align: center;
+      }
+  
+      .call_to_action_description {   
+        p, span {
+          line-height: 1;
+        }
+      }
+    }
+    
+    #backing {
+      float: left;
+      width: 392px;
+      margin: 20px 0 0 34px;
+      
+      ul {
+        margin: 0;
+      }
+      
+      #backers {
+        border-left: none;
+        padding-left: 0;
+        ul {
+          float: left;
+        }
+      }
+      
+      #days {
+        border-right: none;
+        padding-right: 0;
+      }
+      
+      ul {
+        text-align: center;
+      }
+      
+      .stats {
+        margin: 0 auto;
+        color: #3f3f3f;
+        font-size: 24px;
+        display: block;
+        display: inline-block;
+        font-family: $primary_font, $secondary_font, $tertiary_font;
+        border-right: 1px solid #cbcbcb;
+        padding-right: 23px;
+        padding-left: 23px;
+        text-align: left;
+        span {
+          color: #868686;
+          font-size: 18px;
+          margin-top: 5px;
+          display: block;
+          font-family: $primary_font, $secondary_font, $tertiary_font;
+        }
+      }
+    }
+    
+    body.lt-ie9
+    {
+      #progress {
+        background-image: none !important;
+        background-color: #1392dc !important;
+      }
+    }
+    
+    #progress_bg {
+      margin-top: 20px;
+      float: left;
+      height: 40px;
+      -moz-box-shadow: 0 1px 1px rgba(0,0,0,.41); /* drop shadow */
+      -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.41); /* drop shadow */
+      box-shadow: 0 1px 1px rgba(0,0,0,.41); /* drop shadow */
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      border-radius: 30px;
+      width: 383px;
+      background: #dbdbdb;
+      
+      #progress {
+        height: 40px;
+        -moz-box-shadow: 0 1px 1px rgba(0,0,0,.59); /* drop shadow */
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.59); /* drop shadow */
+        box-shadow: 0 1px 1px rgba(0,0,0,.59); /* drop shadow */
+        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGxpbmVhckdyYWRpZW50IGlkPSJoYXQwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSIwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMzkyZGMiIHN0b3Atb3BhY2l0eT0iMSIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNjlkZjQiIHN0b3Atb3BhY2l0eT0iMSIvPgogICA8L2xpbmVhckdyYWRpZW50PgoKPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+); /* gradient fill */
+        background-image: -moz-linear-gradient(90deg, #1392dc 0%, #069df4 100%); /* gradient fill */
+        background-image: -o-linear-gradient(90deg, #1392dc 0%, #069df4 100%); /* gradient fill */
+        background-image: -webkit-linear-gradient(90deg, #1392dc 0%, #069df4 100%); /* gradient fill */
+        background-image: linear-gradient(90deg, #1392dc 0%, #069df4 100%); /* gradient fill */
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        min-width: 2%;
+        width: 100%;
+        max-width: 100%;
+        display: inline-block;
+      }
+      
+      #progress_text {
+        margin: 0 auto;
+        width: 100%;
+        font-size: 14pt;
+        display: inline-block;
+        color: white;
+        text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.37);
+        text-align: center;
+        position: relative;
+        top: -35px;
+      }
+    }
+    
+    .small {
+      height: 20px !important;
+      
+      #progress {
+        height: 20px !important;
+      }
+    }
+    
+    .share {
+      margin-left: 100px;
+      margin-top: 24px;
+    }
+  }
+  
+  /*************************************
+  ********** CAMPAIGN BODY *************
+  **************************************/
+  #campaign_body {
+    width: 100%;
+    padding: 50px 0 40px;
+    border-bottom: 1px solid #c4c4c4;
+    .main_content {
+    }
+    .main_content.narrow {
+    	width: 620px;
+    	float: left;
+    }
+    .rewards_sidebar {
+    	float: right;
+    	width: 280px;
+    	background: #f6f6f6;
+    	-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			h3 {
+				margin: 20px 0px 0px 20px;
+			}
+			ul {
+				margin: 0px;
+				li {
+					padding: 20px 20px;
+					border-bottom: 1px solid gray;
+					p {
+						font-size: 14px;
+						margin: 0px;
+						color: #4b4b4b;
+					}
+				
+					p.price {
+						font-size: 24px;
+						font-weight: bold;
+					}
+					p.title {
+						font-size: 16px;
+						font-weight: bold;
+						margin-bottom: 12px;
+					}
+					p.description {
+						margin-bottom: 12px;
+					}
+					p.delivery {
+						font-size: 12px;
+						font-weight: bold;
+						font-style: italic;
+						margin-bottom: 12px;
+					}
+					p.claimed {
+						font-weight: bold;
+					}
+				
+					&:last-child {
+						border-bottom: none;
+					}
+					
+				}
+			}
+			
+    }
+  }
+  
+  /*************************************
+  ******** SECOND CALL TO ACTION *******
+  **************************************/
+  #second_call_to_action {
+    width: 100%;
+    padding: 50px 0 40px;
+    background: #f6f6f6;
+    border-bottom: 1px solid #c4c4c4;
+    
+    h2 {
+      margin-bottom: 26px;
+    }
+  }
+  
+  /*************************************
+  ************* FAQ ********************
+  **************************************/
+  #faq {
+    width: 100%;
+    padding: 50px 0 40px;
+    border-bottom: 1px solid #c4c4c4;
+    
+    ul {
+      margin-top: 30px;
+      float: left;
+      width: 45%;
+      
+      li {
+        width: 400px;
+        margin: 0 49px 30px 0;
+        padding-left: 18px;
+        background: image-url('bullet.png') no-repeat left 8px;
+        
+        p {
+          margin-top: 10px;
+          line-height: 1.4;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

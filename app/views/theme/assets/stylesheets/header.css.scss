@@ -1,0 +1,24 @@
+#header {
+  width: 100%;
+  padding: 26px 0;
+  text-shadow: 0 1px 0px white;
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.29);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.29);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.29);
+  background: #ffffff;
+  position: relative;
+  .container {
+  	position: relative;
+  	
+  	h1 {
+  		width: 800px;
+  	}
+  	
+  	.header_link {
+  		position: absolute;
+  		top: 6px;
+  		right: 0px;
+  	}
+  }
+  
+}	

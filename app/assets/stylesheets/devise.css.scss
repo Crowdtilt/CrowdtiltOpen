@@ -1,0 +1,61 @@
+#signin {
+  padding: 50px 0;
+  
+  .well {
+    width: 400px;
+    margin: 0 auto;
+    padding: 35px;
+  
+    form {
+      margin-bottom: 0px;
+      
+      input[type="checkbox"] {
+        vertical-align: top;
+        &+ label {
+          display: inline-block;
+        }
+      }
+      
+      button {
+        display: inline-block;
+        margin: 10px 0px;
+      }
+    }
+  }
+}
+
+#signup {
+  padding: 50px 0;
+  
+  .well {
+    width: 400px;
+    margin: 0 auto;
+    padding: 35px;
+  
+    form {
+      margin-bottom: 0px;
+      
+      button {
+        display: inline-block;
+        margin: 10px 0px;
+      }
+    }
+  }
+}
+
+#error_explanation {
+  h2 {
+    margin-bottom: 0px;
+    color: red;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  
+  ul {
+    list-style: disc;
+  }
+}
+
+#password {
+  padding: 50px 0;
+}

@@ -1,0 +1,111 @@
+<div id="admin">
+  <div class="container content_box clearfix">
+
+  <%= render 'admin/header', website: '', campaigns: '', bank: 'active' %>
+
+  <div id="admin_bank_setup">
+
+    <div class="main_content">
+      
+      <% if @bank['is_default'] %>
+      
+      	<h4>Your bank is all set up!</h4>
+      	<p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
+      	<p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
+
+      <% else %>
+        
+      	<%= form_tag(admin_bank_setup_path, method: "post", id: "bank_form") %>
+        
+        <h4>Account Owner Information</h4>
+        <fieldset>
+          
+          <div class="form-row clearfix">
+            <div class="field">
+              <label for="full_legal_name">Full Legal Name</label>
+              <input id="full_legal_name" type="text">
+            </div>
+            
+            <div class="field">
+              <label for="phone">Phone (XXX-XXX-XXXX)</label>
+              <input id="phone" type="text">
+            </div>
+          </div>
+          
+          <div class="form-row clearfix">
+            <div class="field">
+              <label for="street_address">Street Address</label>
+              <input id="street_address" type="text" style="width: 320px">
+            </div>
+            
+            <div class="field">
+              <label for="zip">Zip Code</label>
+              <input id="zip" type="text" style="width: 100px">
+            </div>
+          </div>
+          
+          <div class="form-row clearfix">
+            <div class="field">
+            <label>Birth Month</label>
+              <select id="birth_month" style="width: 110px">
+                  <option value="01" selected>January</option>
+                  <option value="02">February</option>
+                  <option value="03">March</option>
+                  <option value="04">April</option>
+                  <option value="05">May</option>
+                  <option value="06">June</option>
+                  <option value="07">July</option>
+                  <option value="08">August</option>
+                  <option value="09">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+              </select>
+            </div>
+            
+            <div class="field">
+              <label for="birth_year">Birth Year (YYYY)</label>
+              <input id="birth_year" type="text" style="width: 100px">
+            </div>
+          </div>       
+          
+        </fieldset>
+        
+        <h4>Bank Information</h4>
+        <fieldset>
+          <div class="form-row clearfix">
+            <div class="field">
+              <label for="routing_number">Bank Routing Number</label>
+              <input id="bank_routing_number" type="text">
+            </div>
+            
+            <div class="field">
+              <label for="routing_number">Account Number</label>
+              <input id="account_number" type="text">
+            </div>
+          </div>
+        </fieldset>
+        
+        <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @settings.ct_production_admin_id %>" >
+  
+        <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
+        <span class="loader" data-loader="bank_form" style="display:none"></span>    
+      </form>
+      <div id="errors"></div>
+      
+      <% end %>
+       
+    </div>  
+    
+    <div class="settlements">
+      
+    </div>
+    
+  </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>
+<%= javascript_tag do %>
+  crowdtilt.init('production')
+<% end %>

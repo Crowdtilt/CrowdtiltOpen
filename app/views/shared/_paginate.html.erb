@@ -1,0 +1,28 @@
+<div class="pagination pull-right">
+  <ul>
+
+    <% if page > 1 %>
+      <li><%= link_to "⇐", send(path, object, page: 1), title: "First Page" %></li>       
+      <li><%= link_to "←", send(path, object, page: 1), title: "Previous Page" %></li>
+    <% else %>
+      <li class="disabled"><%= link_to "⇐", send(path, object, page: 1), title: "First Page" %></li>
+      <li class="disabled"><%= link_to "←", send(path, object, page: 1), title: "Previous Page" %></li>                       
+    <% end %>
+
+    <% (1..total_pages).each do |p| %>
+      <% if p == page %>
+        <li class="active"><%= link_to p.to_s, send(path, page: p), title: p.to_s %></li>
+      <% else %>
+        <li><%= link_to p.to_s, send(path, object, page: p), title: p.to_s %></li>
+      <% end %>
+    <% end %>
+    
+    <% if page < total_pages %>
+      <li><%= link_to "→", send(path, object, page: page + 1), title: "Next Page" %></li>       
+      <li><%= link_to "⇒", send(path, object, page: total_pages), title: "Last Page" %></li>
+    <% else %>
+      <li class="disabled"><%= link_to "→", send(path, object, page: total_pages), title: "Next Page" %></li>        
+      <li class="disabled"><%= link_to "⇒", send(path, object, page: total_pages), title: "Last Page" %></li>          
+    <% end %>
+  </ul>
+</div>

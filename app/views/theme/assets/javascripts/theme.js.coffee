@@ -1,0 +1,4 @@
+Selfstarter.theme =
+  
+  init: ->
+    return

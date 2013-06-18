@@ -1,0 +1,214 @@
+#checkout {
+  width: 100%;
+  padding: 50px 0;
+  
+  .main_content {
+    width: 560px;
+    float: left;
+    h3 {
+      margin: 0px 0px 30px;
+      color: #4b4b4b;
+      a {
+      	color: #4b4b4b;
+      	text-decoration: none;
+      	&:hover {
+      		text-decoration: none;
+      	}
+      }
+    }
+    
+    .checkout_block {
+    	background-color: #ffffff;
+    	padding: 30px;
+    	margin-bottom: 0px;
+    }
+    
+    p {
+      line-height: 1;
+      margin-bottom: 0px;
+    }
+    
+		h4.amount_header {
+			margin-top: 0px;
+		}
+    
+    .quantity_input {
+    	font-size: 20px;
+    	color: #6b6b6b;
+    	font-weight: 200;
+    }
+    
+		.amount_input {
+      position: relative;
+      display: inline-block;
+      
+      input {
+        padding-left: 24px;
+        width: 200px;
+      }
+      
+      span {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+      }
+    }
+    
+    #reward_select {
+    	ul {
+    		margin-left: 0px;
+    		li.reward_option {
+    			padding: 20px 0px;
+    			border-bottom: 1px solid gray;
+    			opacity: 0.7;
+	    		input, label {
+	    			display: inline;
+	    			float: left;
+	    			margin-left: 10px;
+	    			font-weight: bold;
+	    		}
+	    		.reward_description {
+	    			margin-left: 120px;
+	    			p {
+							font-size: 14px;
+							margin: 0px;
+							color: #4b4b4b;
+						}
+						p.price {
+							font-size: 24px;
+							font-weight: bold;
+						}
+						p.title {
+							font-size: 16px;
+							font-weight: bold;
+							margin-bottom: 12px;
+						}
+						p.claimed {
+							font-weight: bold;
+							margin-bottom: 12px;
+						}
+						p.description {
+							margin-bottom: 12px;
+							line-height: 16px;
+						}
+						p.delivery {
+							font-size: 12px;
+						}
+	    		}
+	    	}
+	    	li.reward_option.active {
+					opacity: 1;
+					&:hover {
+    				background-color: #e6e6e6;
+    				cursor: pointer;
+    			}
+	    	}
+    	}
+    }
+    
+    .btn {
+    	margin-top: 20px;
+    }
+    
+    h4 {
+    	margin-top: 20px;
+    	i {
+    		margin-top: 6px;
+    	}
+    }
+    
+		h4.contact {
+    	margin-top: 0px;
+		}
+    
+    fieldset {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+    #fullname, #email, #address_one, #address_two, #additional_info{
+    	width: 470px;
+    }
+    
+    .billing_address {
+    	margin-top: 7px;
+    	font-size: 14px;
+    	padding-bottom: 10px;
+    }
+    
+    .payment-submit {
+    	margin-top: 20px;
+    	.btn {
+    		margin-top: 0px;
+    	}
+    }
+    
+    form {
+    	margin-bottom: 0px;
+    }
+    
+    #errors {
+    	margin-top: 20px;
+    }
+  }
+   
+  .sidebar {
+    float: right;
+    width: 345px;
+    
+    .crowdtilt-powered {
+    	margin-bottom: 34px;
+      img {
+        float: right;
+      }
+    }
+    
+    .well {
+    	background: white;
+    	h4 {
+    		margin-top: 0px;
+    	}
+    	p {
+    		font-size: 14px;
+    	}
+    	table {
+	    	p {
+	    		margin-top: 15px;
+	    		margin-bottom: 0px
+	    	}
+	    }
+    }
+    .well.rewards {  	
+    	p {
+    		&:last-child {
+    			margin-bottom: 0px;
+    		}
+    	}
+    }
+    
+    .custom_content {
+    	padding: 7px;
+	    p {
+	      font-size: 18px;
+	      margin-bottom: 30px;
+	      line-height: 1.3;
+	    }
+    }
+  }
+  
+  .share {
+    margin-top: 30px;
+  }
+  
+  .confirmation_sidebar {
+    float: left;
+    background: white;
+    margin-left: 20px;
+    width: 315px;
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+

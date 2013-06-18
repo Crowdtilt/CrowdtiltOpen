@@ -1,0 +1,57 @@
+<div id="admin">
+  <div class="container content_box clearfix">
+  
+  <%= render 'admin/header', website: '', campaigns: 'active', bank: '' %>
+
+    <div id="admin_campaigns">
+  
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Goal</th>
+          <th>Raised</th>
+          <th>Expiration<br/>Date</th>
+          <th>Published?</th>
+          <th>Payments<br/>Activated?</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      
+      <% @campaigns.each do |campaign| %>
+        <tr>
+          <td><%= campaign.name %></td>
+          
+          <td>
+          	<% if campaign.goal_type == "dollars" %>
+          		$<%= number_with_precision(campaign.goal_dollars.to_f, precision: 2) %>
+          	<% else %>
+          		<%= campaign.goal_orders %>
+          	<% end %>
+          </td>
+          <td>      	
+          	<% if campaign.goal_type == "dollars" %>
+          		$<%= number_with_precision(campaign.stats_raised_amount.to_f, precision: 2) %>
+          	<% else %>
+          		<%= campaign.orders %>
+          	<% end %>
+          </td>
+          
+          <td><%= Date.parse(campaign.expiration_date.to_s).strftime("%m/%d/%Y") %></td>
+          <td><%= campaign.published_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
+          <td><%= campaign.production_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
+          <td><%= link_to 'Edit', edit_admin_campaign_path(campaign) %></td>
+          <td><%= link_to 'View', campaign_home_path(campaign) %></td>
+          <td><%= link_to 'Payments', admin_campaigns_payments_path(campaign) %></td>
+          <td><%= link_to 'Copy', admin_campaigns_copy_path(campaign) %></td>
+        </tr>
+      <% end %>
+      </table>
+      
+      <br />
+    
+      <%= link_to 'New Campaign', new_admin_campaign_path %>  
+    </div>   
+  </div>
+</div>

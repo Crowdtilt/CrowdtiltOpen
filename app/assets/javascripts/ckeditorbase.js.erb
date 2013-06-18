@@ -1,0 +1,9 @@
+<% if Rails.env == 'production' %>
+<%
+base_path = ''
+base_path << Rails.configuration.action_controller.asset_host
+base_path << Rails.configuration.assets.prefix
+base_path << '/ckeditor/'
+%>
+var CKEDITOR_BASEPATH = '<%= base_path %>';
+<% end %>
