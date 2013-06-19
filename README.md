@@ -18,7 +18,6 @@ Quick Links:
 ## Install
 
 ### Dependencies
-
 To run Crowdhoster you'll need the following prerequisites installed:
 
 * [Homebrew](http://mxcl.github.io/homebrew/)    
@@ -41,7 +40,6 @@ brew install imagemagick
 ```
 
 ### Service Providers
-
 To run Crowdhoster you'll also need to complete the following:
 
 * Sign up for a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)    
