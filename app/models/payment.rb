@@ -14,6 +14,8 @@ class Payment < ActiveRecord::Base
     db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
     csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Status', 'ID']
 
+    db_columns.delete('quantity') and csv_columns.delete('Quantity') if self.first.campaign.goal_type == 'dollars'
+
     CSV.generate do |csv|
       csv << csv_columns
       all.each do |payment|
