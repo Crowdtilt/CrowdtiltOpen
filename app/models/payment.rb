@@ -3,13 +3,22 @@ class Payment < ActiveRecord::Base
   								:card_type, :card_last_four, :card_expiration_month, :card_expiration_year,
   								:address_one, :address_two, :city, :state, :postal_code, :country, :quantity,
   								:additional_info
- 	
+
  	validates :fullname, :quantity, presence: true
  	validate :email, presence: true, email: true
- 								
+
   belongs_to :campaign
   belongs_to :reward
-  
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |payment|
+        csv << payment.attributes.values_at(*column_names)
+      end
+    end
+  end
+
   def update_api_data(payment)
     self.ct_payment_id = payment['id']
     self.status = payment['status']
