@@ -56,8 +56,8 @@ Clone the Crowdhoster repo into a new directory
 git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
 ```
 
+Change the .env.example file to .env and add all of your credentials / configuration:    
 ```
-# Change the .env.example file to .env and add all of your credentials / configuration:
 mv .env.example .env
 vi .env
 
