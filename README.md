@@ -134,4 +134,10 @@ heroku open
 
 ## Contribute
 
+Coming soon!
+
+Can't wait? Email [team@crowdhoster.com](mailto:team@crowdhoster.com).
+
 ## Contact, Credits, and License
+
+Want to get in touch? Email [team@crowdhoster.com](mailto:team@crowdhoster.com).
