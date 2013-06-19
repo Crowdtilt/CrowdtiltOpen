@@ -11,10 +11,13 @@ class Payment < ActiveRecord::Base
   belongs_to :reward
 
   def self.to_csv
+    db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
+    csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Status', 'ID']
+
     CSV.generate do |csv|
-      csv << column_names
+      csv << csv_columns
       all.each do |payment|
-        csv << payment.attributes.values_at(*column_names)
+        csv << payment.attributes.values_at(*db_columns)
       end
     end
   end
