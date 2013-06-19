@@ -14,15 +14,20 @@ class Payment < ActiveRecord::Base
     db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
     csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Status', 'ID']
 
-    db_columns.delete('quantity') and csv_columns.delete('Quantity') if self.first.campaign.goal_type == 'dollars'
-
     CSV.generate(options) do |csv|
       csv << csv_columns
       all.each do |payment|
-        csv << payment.attributes.values_at(*db_columns)
+        csv << [payment.fullname,
+                    payment.email,
+                    payment.quantity,
+                    display_dollars(payment.amount),
+                    display_dollars(payment.user_fee_amount),
+                    display_date(payment.created_at),
+                    payment.status,
+                    payment.ct_payment_id]
+        end
       end
     end
-  end
 
   def update_api_data(payment)
     self.ct_payment_id = payment['id']
@@ -34,6 +39,14 @@ class Payment < ActiveRecord::Base
     self.card_last_four = payment['card']['last_four']
     self.card_expiration_month = payment['card']['expiration_month']
     self.card_expiration_year = payment['card']['expiration_year']
+  end
+
+  def self.display_dollars(amount)
+    "$#{(amount.to_f/100.0).round(2)}"
+  end
+
+  def self.display_date(date)
+    date.strftime("%m/%d/%Y")
   end
 
 end
