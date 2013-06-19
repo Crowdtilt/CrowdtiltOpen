@@ -51,13 +51,13 @@ To run Crowdhoster you'll also need to complete the following:
 
 ### Local Setup
 
+Clone the Crowdhoster repo into a new directory    
 ```
-// Clone the Crowdhoster repo into a new directory
 git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
 ```
 
 ```
-// Change the .env.example file to .env and add all of your credentials / configuration:
+# Change the .env.example file to .env and add all of your credentials / configuration:
 mv .env.example .env
 vi .env
 
@@ -75,32 +75,32 @@ MAILGUN_PASSWORD=mailgunpassword
 MAILGUN_USERNAME=postmaster@myawesomeapp.mailgun.org
 ```
 
+Install the gems    
 ```
-// Install the gems
 bundle install
 ```
 
+Create and migrate the DB    
 ```
-// Create and migrate the DB
 foreman run rake db:create
 foreman run rake db:migrate
 ```
 
+Start the server    
 ```
-// Start the server
 foreman start
 ```
 
+Run the console    
 ```
-// Run the console
 foreman run rails c
 ```
 
 ### Deploying to Heroku
 
-* [Sign up for a Heroku Account](https://www.heroku.com/)    
-* [Install the Heroku Toolbelt](https://toolbelt.heroku.com/)    
-* [Install the Heroku config plugin](https://devcenter.heroku.com/articles/config-vars#using-foreman-and-heroku-config)
+1. [Sign up for a Heroku Account](https://www.heroku.com/)    
+2. [Install the Heroku Toolbelt](https://toolbelt.heroku.com/)    
+3. [Install the Heroku config plugin](https://devcenter.heroku.com/articles/config-vars#using-foreman-and-heroku-config)
 
 Create a new Heroku app    
 ```
