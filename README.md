@@ -54,10 +54,8 @@ Clone the Crowdhoster repo into a new directory
 git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
 ```
 
-Change the .env.example file to .env and add all of your credentials / configuration:    
+If you haven't already, create a .env file in the root directy of the app and fill it with the following:  
 ```
-mv .env.example .env
-vi .env
 
 APP_NAME=myawesomeapp
 CROWDTILT_SANDBOX_KEY=crowdtiltsandboxkey
