@@ -9,7 +9,8 @@
     <% if @payments.count > 0 %>
 
       Download:
-      <%= link_to "CSV", admin_campaigns_payments_path(format: "csv") %>
+      <%= link_to "CSV", admin_campaigns_payments_path(format: "csv") %> |
+      <%= link_to "Excel", admin_campaigns_payments_path(format: "xls") %>
 
       <div class="search">
         <form accept-charset="UTF-8" action="<%= admin_campaigns_payments_path(@campaign) %>" method="get">
