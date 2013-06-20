@@ -54,7 +54,7 @@ Clone the Crowdhoster repo into a new directory
 git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
 ```
 
-If you haven't already, create a .env file in the root directy of the app and fill it with the following:  
+If you haven't already, create a .env file in the root directory of the app and fill it with the following:  
 ```
 
 APP_NAME=myawesomeapp
