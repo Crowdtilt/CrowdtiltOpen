@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
   								:additional_info
  	
  	validates :fullname, :quantity, presence: true
- 	validate :email, presence: true, email: true
+ 	validates :email, presence: true, email: true
  								
   belongs_to :campaign
   belongs_to :reward
