@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607043849) do
+ActiveRecord::Schema.define(:version => 20130620222620) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(:version => 20130607043849) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "site_name",                   :default => "Selfstarter",          :null => false
+    t.string   "site_name",                   :default => "Crowdhoster",          :null => false
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
