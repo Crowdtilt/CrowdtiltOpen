@@ -51,7 +51,7 @@ To run Crowdhoster you'll also need to complete the following:
 
 Clone the Crowdhoster repo into a new directory    
 ```
-git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
+$ git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
 ```
 
 If you haven't already, create a .env file in the root directory of the app and fill it with the following:  
@@ -73,59 +73,64 @@ MAILGUN_USERNAME=postmaster@myawesomeapp.mailgun.org
 
 Install the gems    
 ```
-bundle install
+$ bundle install
 ```
 
 Create and migrate the DB    
 ```
-foreman run rake db:create
-foreman run rake db:migrate
+$ foreman run rake db:create
+$ foreman run rake db:migrate
 ```
 
 Start the server    
 ```
-foreman start
+$ foreman start
 ```
 
 Run the console    
 ```
-foreman run rails c
+$ foreman run rails c
 ```
 
 ### Deploying to Heroku
 
 1. [Sign up for a Heroku Account](https://www.heroku.com/)    
 2. [Install the Heroku Toolbelt](https://toolbelt.heroku.com/)    
-3. [Install the Heroku config plugin](https://devcenter.heroku.com/articles/config-vars#using-foreman-and-heroku-config)
 
 Create a new Heroku app    
 ```
-heroku create {APP NAME}
+$ heroku create {APP NAME}
 ```
 
 Enable the use of environment variables during asset precompiling    
 ```
-heroku labs:enable user-env-compile
+$ heroku labs:enable user-env-compile
+```
+
+Install the Heroku config plugin if you don't already have it installed    
+```
+$ heroku plugins:install git://github.com/ddollar/heroku-config.git
+
 ```
 
 Push the configuration to Heroku    
 ```
-heroku config:push 
+$ heroku config:push 
 ```
 
 Deploy the code to Heroku    
 ```
-git push heroku master
+$ git push heroku master
 ```
 
 Migrate the database    
 ```
-heroku run rake db:migrate
+$ heroku run rake db:migrate
 ```
 
 Launch the app!    
 ```
-heroku open
+$ heroku open
 ```
 
 ## Contribute
