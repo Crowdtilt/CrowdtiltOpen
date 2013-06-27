@@ -1,7 +1,6 @@
-# Crowdhoster 
----
+# Crowdhoster
 
-![Crowdhoster index](https://raw.github.com/mattlebel/Crowdhoster/master/app/assets/images/readmeScreenshot.png)
+![Crowdhoster index](https://s3.amazonaws.com/crowdhoster/github_assets/readmeScreenshot.png)
 
 "Launch your own crowdfunding site...without touching a line of code"
 
@@ -33,7 +32,7 @@ $ brew install git
 
 ```
 $ \curl -L https://get.rvm.io | bash -s stable --rails --ruby=1.9.3
-rvm use 1.9.3 --default
+$ rvm use 1.9.3 --default
 ```
 * Install [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) (database)
 
