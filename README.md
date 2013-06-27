@@ -110,7 +110,6 @@ $ heroku labs:enable user-env-compile
 Install the Heroku config plugin if you don't already have it installed    
 ```
 $ heroku plugins:install git://github.com/ddollar/heroku-config.git
-
 ```
 
 Push the configuration to Heroku    
