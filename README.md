@@ -64,11 +64,11 @@ Switch to the newly created project directory
 $ cd {DIRECTORY}
 ```
 
-Create a .env file in the project root…easiest way is to create a copy of the example.env file
+Create a .env file in the project root…easiest way is to create a copy of the .env.example file
 
 
 ```
-$ cp example.env .env
+$ cp .env.example .env
 ```
 
 
