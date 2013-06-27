@@ -51,6 +51,12 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.0.0)
     builder (3.0.4)
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     ckeditor (4.0.4)
       mime-types
       orm_adapter
@@ -82,6 +88,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
@@ -210,6 +218,8 @@ GEM
     uuidtools (2.1.4)
     warden (1.2.1)
       rack (>= 1.0)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -219,11 +229,13 @@ DEPENDENCIES
   asset_sync
   aws-sdk
   bootstrap-sass (= 2.1)
+  capybara
   ckeditor
   coffee-rails (~> 3.2.1)
   crowdtilt!
   devise
   factory_girl_rails
+  faker
   foreman
   friendly_id (~> 4.0.9)
   jquery-rails

@@ -8,5 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :fullname
   
-  validates :fullname, presence: true  
+  # Validate presece of user inputs.
+  # (most in this model are handled by Devise -- email, password, and password_confirmation)
+  validates :fullname, presence: true
 end
