@@ -37,6 +37,11 @@ group :development, :test do
   gem 'factory_girl_rails'
 end
 
+group :test do
+	gem "faker"
+	gem "capybara"
+end
+
 # jQuery & jQuery UI
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

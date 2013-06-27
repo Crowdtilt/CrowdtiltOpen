@@ -39,4 +39,7 @@ RSpec.configure do |config|
   def create(*args)
     FactoryGirl.create(*args)
   end
+
+  # Include Factory Girl syntax to simplify calls to factories 
+  config.include FactoryGirl::Syntax::Methods
 end
