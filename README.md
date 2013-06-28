@@ -46,7 +46,7 @@ $ brew install imagemagick
 To run Crowdhoster you'll also need to complete the following:
 
 * Sign up for a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)    
-* Sign up for the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com) to get your API keys    
+* Sign up for the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys    
 * Sign up for [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets    
 * Sign up for [Mailgun](http://www.mailgun.com/) (free)    
 
@@ -55,7 +55,7 @@ To run Crowdhoster you'll also need to complete the following:
 Clone the Crowdhoster repo into a new directory    
 
 ```
-$ git clone https://github.com/Crowdtilt/selfstarter.git {DIRECTORY}
+$ git clone https://github.com/Crowdtilt/Crowdhoster {DIRECTORY}
 ```
 
 Switch to the newly created project directory
@@ -160,7 +160,6 @@ Launch the app!
 ```
 $ heroku open
 ```
-
 
 ## Contribute
 
