@@ -9,11 +9,7 @@
     <% if @payments.count > 0 %>
       <br />
 
-      Download:
-      <%= link_to "CSV", admin_campaigns_payments_path(format: "csv") %> |
-      <%= link_to "Excel", admin_campaigns_payments_path(format: "xls") %>
-
-      <div class="search">
+      <div class="search pull-left">
         <form accept-charset="UTF-8" action="<%= admin_campaigns_payments_path(@campaign) %>" method="get">
 
           <input id="payment_id" type="text" name="payment_id" placeholder="Search by ID" value="<%= params[:payment_id] if params.has_key?(:payment_id) %>"/>
@@ -24,6 +20,12 @@
           <%= link_to "clear", admin_campaigns_payments_path(@campaign), :class => 'show_loader', :'data-loader' => "admin_header" %>
         <% end %>
       </div>
+      
+      <a href="<%= admin_campaigns_payments_path(format: "csv") %>" class="pull-right">
+        <button type="button" class="btn btn-default">
+          <i class="icon-download"></i> Download CSV
+        </button>
+      </a>
 
       <table class="table table-striped">
         <thead>

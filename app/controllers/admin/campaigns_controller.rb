@@ -273,11 +273,11 @@ class Admin::CampaignsController < ApplicationController
       end
     else
       @payments = @campaign.payments.order("created_at ASC")
-      respond_to do |format|
-        format.html
-        format.csv { send_data @payments.to_csv, filename: "#{@campaign.name}.csv" }
-        format.xls { send_data @payments.to_csv(col_sep: "\t"), filename: "#{@campaign.name}.xls" }
-      end
+    end
+    
+    respond_to do |format|
+      format.html
+      format.csv { send_data @payments.to_csv, filename: "#{@campaign.name}.csv" }
     end
   end
 end

@@ -11,23 +11,37 @@ class Payment < ActiveRecord::Base
   belongs_to :reward
 
   def self.to_csv(options={})
-    db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
-    csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Status', 'ID']
+    #db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
+    csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date',
+                   'Card Type', 'Card Last Four', 'Card Expiration Month', 'Card Expiration Year',
+                   'Address One', 'Address Two', 'City', 'State', 'Postal Code', 'Country',
+                   'Additional Info','Status', 'ID']
 
     CSV.generate(options) do |csv|
       csv << csv_columns
       all.each do |payment|
         csv << [payment.fullname,
-                    payment.email,
-                    payment.quantity,
-                    display_dollars(payment.amount),
-                    display_dollars(payment.user_fee_amount),
-                    display_date(payment.created_at),
-                    payment.status,
-                    payment.ct_payment_id]
+                payment.email,
+                payment.quantity,
+                display_dollars(payment.amount),
+                display_dollars(payment.user_fee_amount),
+                display_date(payment.created_at),
+                payment.card_type,
+                payment.card_last_four,
+                payment.card_expiration_month,
+                payment.card_expiration_year,
+                payment.address_one,
+                payment.address_two,
+                payment.city,
+                payment.state,
+                payment.postal_code,
+                payment.country,
+                payment.additional_info,
+                payment.status,
+                payment.ct_payment_id]
         end
       end
-    end
+  end
 
   def update_api_data(payment)
     self.ct_payment_id = payment['id']

@@ -1,7 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
 require 'csv'
+require 'rails/all'
 
 if defined?(Bundler)
   Bundler.require(*Rails.groups(:assets => %w(development test)))
