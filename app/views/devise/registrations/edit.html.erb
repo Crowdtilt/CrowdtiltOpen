@@ -14,10 +14,11 @@
       <div><%= f.label :email %>
       <%= f.email_field :email, :autofocus => true %></div>
     
-      <div><%= f.label :password %>
+      <div><p>Change your password:</p></div>
+      <div><%= f.label :password, "Enter your new password" %>
       <%= f.password_field :password, :autocomplete => "off" %></div>
     
-      <div><%= f.label :password_confirmation %>
+      <div><%= f.label :password_confirmation, "Re-enter your new password" %>
       <%= f.password_field :password_confirmation %></div>
       <br/><br/>
       <div><%= f.label :current_password, "Current Password (we need this to confirm your changes)" %>
