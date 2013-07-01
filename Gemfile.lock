@@ -241,6 +241,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   newrelic_rpm
+  nokogiri
   paperclip (~> 3.0)
   pg
   pry-rails
