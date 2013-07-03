@@ -112,9 +112,41 @@
 
 	<div id="campaign_body">
 	  <div class="container clearfix">
-	  	<div class="main_content <%= 'narrow' if @campaign.rewards? %>">
-	   		<%= raw(@campaign.main_content) %>
-	  	</div>
+
+	  	<% if @campaign.has_comments? %>
+			<div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
+			    <ul class="nav nav-tabs">
+			      <li class="active"><a href="#tab1" data-toggle="tab">Campaign Home</a></li>
+			      <li><a href="#tab2" data-toggle="tab">Comments</a></li>
+			    </ul>
+			    <div class="tab-content">
+					<div class="tab-pane fade active in" id="tab1">
+					  	<div class="main_content">
+					   		<%= raw(@campaign.main_content) %>
+					  	</div>
+			  		</div>
+			  		<div class="tab-pane fade in" id="tab2">
+				  		<div class="comment_content">
+						    <div id="disqus_thread"></div>
+						    <script type="text/javascript">
+						        var disqus_shortname = '<%= raw(@campaign.has_comments_label).downcase %>';
+						        (function() {
+						            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+						            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+						            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+						        })();
+						    </script>
+						    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
+				  		</div>
+					</div>
+				</div>
+			</div>
+			<% else %>
+			  	<div class="main_content <%= 'narrow' if @campaign.rewards? %>">
+			   		<%= raw(@campaign.main_content) %>
+			  	</div>
+			<% end %>
+
 	  	<% if @campaign.rewards? %>
 	  		<div class="rewards_sidebar">
 	  			<h3><%= @campaign.reward_reference.pluralize.titleize %></h3>

@@ -181,6 +181,17 @@
   /*************************************
   ********** CAMPAIGN BODY *************
   **************************************/
+
+  #tabbable {
+    width: 100%;
+    float: left;
+  }
+
+  .narrow {
+    width: 620px;
+    float:left
+  }
+
   #campaign_body {
     width: 100%;
     padding: 50px 0 40px;

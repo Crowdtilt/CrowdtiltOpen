@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620222620) do
+ActiveRecord::Schema.define(:version => 20130702233004) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(:version => 20130620222620) do
     t.string   "reward_reference",                     :default => "reward",     :null => false
     t.boolean  "collect_additional_info",              :default => false,        :null => false
     t.string   "additional_info_label"
+    t.boolean  "has_comments",                         :default => false,        :null => false
+    t.string   "has_comments_label"
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
