@@ -2,6 +2,7 @@
   /*************************************
   ********** FUNDING AREA **************
   **************************************/
+
   #funding_area {
     width: 100%;
     padding: 40px 0;
@@ -181,12 +182,6 @@
   /*************************************
   ********** CAMPAIGN BODY *************
   **************************************/
-
-  #tabbable {
-    width: 100%;
-    float: left;
-  }
-
   .narrow {
     width: 620px;
     float:left
@@ -196,6 +191,10 @@
     width: 100%;
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
+    .tabbable {
+      width: 100%;
+      float: left;
+    }
     .main_content {
     }
     .main_content.narrow {
@@ -296,4 +295,12 @@
       }
     }
   }
+
+  /*************************************
+  ********** COMMENT COUNT *************
+  **************************************/
+
+  .count_hidden {
+    display: show;
+  }  
 }
