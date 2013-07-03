@@ -112,7 +112,7 @@
 
 	<div id="campaign_body">
 	  <div class="container clearfix">
-<!-- ******************************************************************** -->
+	  	
 	  	<% if @campaign.has_comments? %>
 			<div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
 			    <ul class="nav nav-tabs">
@@ -141,12 +141,12 @@
 					</div>
 				</div>
 			</div>
-			<% else %>
-			  	<div class="main_content <%= 'narrow' if @campaign.rewards? %>">
-			   		<%= raw(@campaign.main_content) %>
-			  	</div>
-			<% end %>
-<!-- ******************************************************************** -->
+		<% else %>
+		  	<div class="main_content <%= 'narrow' if @campaign.rewards? %>">
+		   		<%= raw(@campaign.main_content) %>
+		  	</div>
+		<% end %>
+
 	  	<% if @campaign.rewards? %>
 	  		<div class="rewards_sidebar">
 	  			<h3><%= @campaign.reward_reference.pluralize.titleize %></h3>
