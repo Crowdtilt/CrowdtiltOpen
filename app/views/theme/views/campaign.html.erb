@@ -112,7 +112,7 @@
 
 	<div id="campaign_body">
 	  <div class="container clearfix">
-
+<!-- ******************************************************************** -->
 	  	<% if @campaign.has_comments? %>
 			<div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
 			    <ul class="nav nav-tabs">
@@ -129,7 +129,7 @@
 				  		<div class="comment_content">
 						    <div id="disqus_thread"></div>
 						    <script type="text/javascript">
-						        var disqus_shortname = '<%= raw(@campaign.has_comments_label).downcase %>';
+						        var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
 						        (function() {
 						            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 						            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -146,7 +146,7 @@
 			   		<%= raw(@campaign.main_content) %>
 			  	</div>
 			<% end %>
-
+<!-- ******************************************************************** -->
 	  	<% if @campaign.rewards? %>
 	  		<div class="rewards_sidebar">
 	  			<h3><%= @campaign.reward_reference.pluralize.titleize %></h3>

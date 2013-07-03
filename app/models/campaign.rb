@@ -15,7 +15,7 @@ class Campaign < ActiveRecord::Base
                   :stats_number_of_contributions, :stats_raised_amount, :stats_tilt_percent,
                   :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag,
                   :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label, 
-                  :has_comments, :has_comments_label
+                  :has_comments, :has_comments_shortname
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   

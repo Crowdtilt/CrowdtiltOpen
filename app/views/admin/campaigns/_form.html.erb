@@ -236,7 +236,7 @@
       <a id="faq-add" href="#">Add FAQ</a>
     </div>
   </fieldset>
-
+<!-- ******************************************************************** -->
   <fieldset>
   <legend>Comments (Optional)</legend>
     <div class="field clearfix">
@@ -245,11 +245,11 @@
       <%= f.check_box :has_comments %>
       <div class="has_comments_input" style="<%= @campaign.has_comments ? "" : "display:none" %>">
         <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/">Need one?</a>)</label>
-        <%= f.text_field :has_comments_label%>
+        <%= f.text_field :has_comments_shortname %>
       </div>
     </div>
   </fieldset>
-
+<!-- ******************************************************************** -->
   <fieldset>
   <legend>Checkout Page Content</legend>
 
