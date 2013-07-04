@@ -191,11 +191,11 @@
     width: 100%;
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
-    .tabbable {
-      width: 100%;
-      float: left;
-    }
     .main_content {
+      .tabbable {
+        width: 100%;
+        float: left;
+      }
     }
     .main_content.narrow {
     	width: 620px;

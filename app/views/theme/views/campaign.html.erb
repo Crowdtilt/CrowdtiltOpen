@@ -112,40 +112,41 @@
 
 	<div id="campaign_body">
 	  <div class="container clearfix">
-	  	
-	  <% if @campaign.has_comments? %>
-			<div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
-			    <ul class="nav nav-tabs">
-			      <li class="active"><a href="#tab1" data-toggle="tab">Campaign Home</a></li>
-			      <li><a href="#tab2" data-toggle="tab" onclick="load_disqus()">Comments</a></li>
-			    </ul>
-			    <div class="tab-content">
-					<div class="tab-pane fade active in" id="tab1">
-					  	<div class="main_content">
-					   		<%= raw(@campaign.main_content) %>
-					  	</div>
-			  		</div>
-			  		<div class="tab-pane fade in" id="tab2">
-				  		<div class="comment_content">
-						    <div id="disqus_thread"></div>
-						    <script type="text/javascript">
-						        var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
-						        var load_disqus = function() {
-						            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-						            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-						            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-						        };
-						    </script>
-						    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
-				  		</div>
-					</div>
-				</div>
-			</div>
-		<% else %>
-	  	<div class="main_content <%= 'narrow' if @campaign.rewards? %>">
-	   		<%= raw(@campaign.main_content) %>
-	  	</div>
-		<% end %>
+      <div class="main_content <%= 'narrow' if @campaign.rewards? %>">
+    	  <% if @campaign.has_comments? %>
+    			<div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
+    			    <ul class="nav nav-tabs">
+    			      <li class="active"><a href="#tab1" data-toggle="tab">Campaign Home</a></li>
+    			      <li><a href="#tab2" data-toggle="tab" onclick="load_disqus()">Comments <span class="badge badge-info" id="count"></span></a></li>
+    			    </ul>
+    			    <div class="tab-content">
+    					<div class="tab-pane fade active in" id="tab1">
+    					  
+    					   		<%= raw(@campaign.main_content) %>
+
+    			  		</div>
+    			  		<div class="tab-pane fade in" id="tab2">
+    				  		<div class="comment_content">
+    						    <div id="disqus_thread"></div>
+    						    <script type="text/javascript">
+    						        var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
+                        var disqus_identifier = '<%= @campaign.slug %>';
+                        var disqus_developer = 1;
+    						        var load_disqus = function() {
+    						            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    						            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    						            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    						        };
+    						    </script>
+    						    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
+    				  		</div>
+    					</div>
+    				</div>
+    			</div>
+    		<% else %>
+    	   		<%= raw(@campaign.main_content) %>
+    		<% end %>
+      </div>
 
 	  	<% if @campaign.rewards? %>
 	  		<div class="rewards_sidebar">
@@ -214,5 +215,26 @@
 		  </div>
 		</div>
   <% end %>
-<div class="count_hidden"><a href="#disqus_thread"></a></div>   
 </div>
+
+<% if @campaign.has_comments? %>
+  <div class="count_hidden"><a href="<%= request.url %>#disqus_thread" id="parse"></a></div>   
+  <script type="text/javascript">
+    var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
+    (function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+  </script>
+  <script>
+    window.onload = function(){
+
+      var parse = document.getElementById('parse');
+      var count = document.getElementById('count');
+
+      count.innerHTML=parseInt(parse.innerHTML,10);
+    };
+  </script>
+  <% end %>
