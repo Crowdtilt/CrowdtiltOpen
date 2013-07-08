@@ -218,7 +218,7 @@
 </div>
 
 <% if @campaign.has_comments? %>
-  <div class="count_hidden"><a href="<%= request.url %>#disqus_thread" id="parse"></a></div>   
+  <div class="count_hidden"><a href="<%= request.url %>#disqus_thread" id="pre"></a></div>   
   <script type="text/javascript">
     var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
     (function () {
@@ -231,10 +231,10 @@
   <script>
     window.onload = function(){
 
-      var parse = document.getElementById('parse');
+      var pre = document.getElementById('pre');
       var count = document.getElementById('count');
 
-      count.innerHTML=parseInt(parse.innerHTML,10);
+      count.innerHTML=parseInt(pre.innerHTML,10);
     };
   </script>
   <% end %>
