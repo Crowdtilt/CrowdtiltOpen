@@ -228,10 +228,8 @@
   <script type="text/javascript">
     var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
     (function () {
-    var s = document.createElement('script'); s.async = true;
-    s.type = 'text/javascript';
-    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+      $.getScript("https://disqus.com/forums/"+disqus_shortname+"/get_num_replies.js?url0="+encodeURIComponent("<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>")
+      );
     }());
   </script>
   <script>
@@ -243,4 +241,4 @@
       count.innerHTML=parseInt(parse.innerHTML,10);
     };
   </script>
-  <% end %>
+<% end %>
