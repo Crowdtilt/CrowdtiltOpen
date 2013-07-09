@@ -2,6 +2,7 @@
   /*************************************
   ********** FUNDING AREA **************
   **************************************/
+
   #funding_area {
     width: 100%;
     padding: 40px 0;
@@ -181,11 +182,16 @@
   /*************************************
   ********** CAMPAIGN BODY *************
   **************************************/
+
   #campaign_body {
     width: 100%;
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
     .main_content {
+      .tabbable {
+        width: 100%;
+        float: left;
+      }
     }
     .main_content.narrow {
     	width: 620px;
