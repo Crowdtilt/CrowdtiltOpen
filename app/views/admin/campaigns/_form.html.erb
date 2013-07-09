@@ -235,7 +235,19 @@
       </ul>
       <a id="faq-add" href="#">Add FAQ</a>
     </div>
-
+  </fieldset>
+  
+  <fieldset>
+  <legend>Comments (Optional)</legend>
+    <div class="field clearfix">
+      <label>Include a user comment section?</label>
+      <p class="explanation">Add a comment section where backers can discuss your campaign. You will need a free moderator account from <a href="https://disqus.com/admin/signup/">Disqus.</a></p>
+      <%= f.check_box :include_comments %>
+      <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
+        <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/">Need one?</a>)</label>
+        <%= f.text_field :comments_shortname %>
+      </div>
+    </div>
   </fieldset>
 
   <fieldset>

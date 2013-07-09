@@ -40,6 +40,9 @@ Selfstarter.admin =
 
     $('input#campaign_collect_additional_info').on "change", ->
       $('.additional_info_input').slideToggle()
+
+    $('input#campaign_include_comments').on "change", ->
+      $('.include_comments_input').slideToggle()
   
     $('input[name="campaign[media_type]"]').on "change", ->
       $('#video-options').slideToggle()
