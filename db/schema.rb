@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(:version => 20130703163000) do
     t.string   "reward_reference",                     :default => "reward",     :null => false
     t.boolean  "collect_additional_info",              :default => false,        :null => false
     t.string   "additional_info_label"
-    t.boolean  "has_comments",                         :default => false,        :null => false
-    t.string   "has_comments_shortname"
+    t.boolean  "include_comments",                     :default => false,        :null => false
+    t.string   "comments_shortname"
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true

@@ -51,10 +51,6 @@
         width: 360px;
       }
     }
-
-    .has_comments_input {
-      margin-top: 20px;
-    }
   
     #preset-amount, #min-amount {
       margin-left: 20px;
@@ -126,6 +122,10 @@
           }
         }
       }
+    }
+
+    .include_comments_input {
+      margin-top: 20px;
     }
 	}
 

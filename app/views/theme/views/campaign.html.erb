@@ -113,7 +113,7 @@
 	<div id="campaign_body">
 	  <div class="container clearfix">
       <div class="main_content <%= 'narrow' if @campaign.rewards? %>">
-    	  <% if @campaign.has_comments? %>
+    	  <% if @campaign.include_comments %>
     			<div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
     			    <ul class="nav nav-tabs">
     			      <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
@@ -121,19 +121,17 @@
     			    </ul>
     			    <div class="tab-content">
     					<div class="tab-pane fade active in" id="tab1">
-    					  
-    					   		<%= raw(@campaign.main_content) %>
-
+    					   	<%= raw(@campaign.main_content) %>
     			  		</div>
     			  		<div class="tab-pane fade in" id="tab2">
     				  		<div class="comment_content">
     						    <div id="disqus_thread"></div>
     						    <script type="text/javascript">
-    						        var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
+    						        var disqus_shortname = '<%= @campaign.comments_shortname.downcase %>';
                         var disqus_identifier = '<%= @campaign.slug %>';
                         var disqus_title = '<%= @campaign.name %>';
                         var disqus_URL = '<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>';
-                        var disqus_developer = 1;
+                        var disqus_developer = <%= Rails.env.production? ? 0 : 1 %>;
                         var disqus_loaded = false;
     						        var load_disqus = function() {
                           if (!disqus_loaded) { 
@@ -223,13 +221,12 @@
   <% end %>
 </div>
 
-<% if @campaign.has_comments? %>
-  <div class="count_hidden"><a href="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>#disqus_thread" data-disqus-identifier="<%= @campaign.slug %>" id="parse"></a></div>
+<% if @campaign.include_comments %>
+  <div class="hide"><a href="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>#disqus_thread" data-disqus-identifier="<%= @campaign.slug %>" id="parse"></a></div>
   <script type="text/javascript">
-    var disqus_shortname = '<%= raw(@campaign.has_comments_shortname).downcase %>';
+    var disqus_shortname = '<%= @campaign.comments_shortname.downcase %>';
     (function () {
-      $.getScript("https://disqus.com/forums/"+disqus_shortname+"/get_num_replies.js?url0="+encodeURIComponent("<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>")
-      );
+      $.getScript("//disqus.com/forums/"+disqus_shortname+"/get_num_replies.js?url0="+encodeURIComponent("<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"));
     }());
   </script>
   <script>
