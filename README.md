@@ -7,6 +7,15 @@
 Well, if you're here, maybe you want to touch *some* of the code.
 
 ---
+**Demo**
+
+You can play with a complete working demo at [demo.crowdhoster.com/admin](http://demo.crowdhoster.com/admin)    
+
+Use these credentials to log in:    
+
+email: demo@crowdhoster.com    
+password: crowdhoster
+
 **Quick Links:**
 
 "I want to launch my own campaign without touching any code." - [Head to the main Crowdhoster page](http://crowdhoster.com).      
