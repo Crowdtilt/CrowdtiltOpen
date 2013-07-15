@@ -13,4 +13,6 @@ $ ->
   Selfstarter.admin.init()
   Selfstarter.campaigns.init()
   Selfstarter.theme.init()
+  
+CKEDITOR.config.allowedContent = true
 
