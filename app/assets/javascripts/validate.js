@@ -78,6 +78,7 @@ $( document ).ready(function() {
       "campaign[video_embed_id]": { minlength: 11 , maxlength: 11},
       "campaign[primary_call_to_action_button]": { required: true },
       "campaign[secondary_call_to_action_button]": { required: true },
+      "campaign[comments_shortname]": { required: true },
       "campaign[tweet_text]": { maxlength: 120 }
     },
     // validation messages
@@ -105,7 +106,7 @@ $( document ).ready(function() {
         min: "Please enter a fixed payment amount higher than $1"
       },
       "campaign[additional_info_label]": {
-        required: "Please describe what additional info you need!"
+        required: "Please describe what additional info you need"
       },
       "campaign[reward_reference]": {
         required: "You must choose a word"
@@ -122,6 +123,9 @@ $( document ).ready(function() {
       },
       "campaign[secondary_call_to_action_button]": {
         required: "You need some text here -- can't raise funds without it!"
+      },
+      "campaign[comments_shortname]": {
+        required: "You must provide your Disqus shortname to enable comments"
       },
       "campaign[tweet_text]": {
         maxlength: "Oops! Must be under 120 characters so we have room to include the link to your campaign."
@@ -156,7 +160,7 @@ $( document ).ready(function() {
       full_legal_name: { required: true },
       phone: { required: true, phoneUS: true },
       street_address: { required: true },
-      zip: { required: true, number: true, minlength: 5 },
+      zip: { required: true },
       birth_year: { required: true, number: true, minlength: 4, maxlength: 4 },
       bank_routing_number: { required: true, number: true, minlength: 9, usRoutingNumber: true },
       account_number: { required: true }
@@ -174,9 +178,7 @@ $( document ).ready(function() {
         required: "We need your street address"
       },
       zip: {
-        required: "We need your zip code",
-        number: "No letters in zip codes!",
-        minlength: "hmm. That doesn't <br>look like a zip code"
+        required: "We need your zip code"
       },
       birth_year: {
         required: "We need to know when you were born.",
@@ -220,7 +222,7 @@ $( document ).ready(function() {
 
     // validation rules
     rules: {
-      fullname: { required: true }, //insert + strip before submission of form
+      fullname: { required: true },
       email: { required: true, email: true },
       additional_info: { required: true },
       address_one: { required: true },
