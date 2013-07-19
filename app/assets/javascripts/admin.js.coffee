@@ -141,6 +141,8 @@ Selfstarter.admin =
         else
           $('#errors').append('<p>An error occurred, please re-enter your account information</p>')
           $('.loader').hide()
+          $('#bank_routing_number').attr('name', 'bank_routing_number');
+          $('#account_number').attr('name', 'account_number');
 
   createBankAccount: ($form) ->
     bankData =
@@ -158,6 +160,8 @@ Selfstarter.admin =
       $.each errors, (index, value) ->
         $('#errors').append('<p>' + value + '</p>')
       $('.loader').hide()
+      $('#bank_routing_number').attr('name', 'bank_routing_number');
+      $('#account_number').attr('name', 'account_number');
     else
       user_id = $form.find('#ct_user_id').val()
       crowdtilt.bank.create(user_id, bankData, Selfstarter.admin.bankResponseHandler)

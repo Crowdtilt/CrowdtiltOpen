@@ -215,7 +215,7 @@ $( document ).ready(function() {
 		rules: {
 			fullname: { required: true }, //insert + strip before submission of form
 			email: { required: true, email: true },
-			card_number: { required: true, creditcard: true},
+			card_number: { required: true, minlength: 12, creditcard: true},
 			security_code: { required: true, number: true, minlength: 3, maxlength: 4 }
 		},
 		// validation messages
@@ -229,6 +229,7 @@ $( document ).ready(function() {
 			},
 			card_number: {
 				required: "We need your card number to charge it",
+				minlength: "hmm. That doesn't look valid just yet",
 				creditcard: "hmm. That doesn't look valid just yet"
 			},
 			security_code: {
