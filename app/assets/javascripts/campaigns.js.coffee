@@ -71,3 +71,5 @@ Selfstarter.campaigns =
         $('.loader').hide()
         $button = $('button[type="submit"]')
         $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total') )
+        $('#card_number').attr('name', 'card_number');
+        $('#security_code').attr('name', 'security_code');

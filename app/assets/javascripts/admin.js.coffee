@@ -176,5 +176,7 @@ Selfstarter.admin =
         form.appendChild(input[0])
         form.submit()
       else
-         $('#errors').append('<p>An error occurred. Please try again.</p>')
-         $('.loader').hide()
+        $('#errors').append('<p>An error occurred. Please try again.</p>')
+        $('.loader').hide()
+        $('#bank_routing_number').attr('name', 'bank_routing_number');
+        $('#account_number').attr('name', 'account_number');
