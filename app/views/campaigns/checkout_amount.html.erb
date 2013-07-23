@@ -2,17 +2,17 @@
   <div class="container content_box clearfix">
     <div class="main_content">
       <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
-      
+
       <div class="well checkout_block">
         <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
 
           <% if @campaign.payment_type == 'fixed' %>
-            
+
             <div class="quantity_input">
             <h4 class="amount_header">Please choose a quantity: </h4>
 	          <br/>
-            	
-            	<span>$<%= @campaign.fixed_payment_amount %>&nbsp; x &nbsp;</span>
+
+            	<span>$<%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %>&nbsp; x &nbsp;</span>
               <select id="quantity" name="quantity" style="width:65px">
                 <option value="01" selected>01</option>
                 <option value="02">02</option>
@@ -25,14 +25,14 @@
                 <option value="09">09</option>
                 <option value="10">10</option>
               </select>
-              <span>&nbsp; = &nbsp;$<span id="total"><%= @campaign.fixed_payment_amount %></span></span>
-                
+              <span>&nbsp; = &nbsp;$<span id="total"><%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %></span></span>
+
             </div>
-            
+
             <input id="amount" type="hidden" name="amount" value="<%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %>" data-original="<%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %>"/>
-            
+
           <% else %>
-          
+
 	          <div class="amount_section">
 	          <h4 class="amount_header">Please enter an amount: </h4>
 	          <br/>
@@ -42,11 +42,11 @@
 	          </div>
 	          <span class="minimum">Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
 	          </div>
-	          
+
 	          <input id="quantity" type="hidden" name="quantity" value="1"/>
-	          
+
 					<% end %>
-					
+
 					<% if @campaign.rewards? %>
 						<div id="reward_select">
 						<h4>Select your <%= @campaign.reward_reference %>: </h4>
@@ -70,27 +70,27 @@
 					  				</p>
 					  				<p class="description"><%= reward.description %></p>
 					  				<p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
-					  				
+
 				  				</div>
 								</li>
 			  			<% end %>
 		  			</ul>
 		  			</div>
 					<% end %>
-					
-					
+
+
           <button type="submit" class="btn btn-primary">Continue to checkout</button>
-        
+
         </form>
       </div>
-      
+
     </div>
-    
+
 		<div class="sidebar">
 			<div class="custom_content">
 				<%= raw(@campaign.checkout_sidebar_content) %>
 			</div>
 		</div>
-		
+
   </div>
 </div>

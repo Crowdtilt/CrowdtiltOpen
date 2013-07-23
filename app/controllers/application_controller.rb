@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   
   def load_settings
-    @settings = Settings.find_by_id(1)   
+    @settings = Settings.find_by_id(1)
     
     if !@settings
       @settings = Settings.create
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_default_mailer_host
-  	ActionMailer::Base.default_url_options = {:host => request.host_with_port}
+    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
   end
   
   def store_location
@@ -42,36 +42,36 @@ class ApplicationController < ActionController::Base
         
         # Create the Crowdtilt API Users
         begin
-         	Crowdtilt.sandbox
+          Crowdtilt.sandbox
           sandbox_guest = {
-          	firstname: 'Crowdhoster',
-          	lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
+            firstname: 'Crowdhoster',
+            lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
             email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
           }
           sandbox_guest = Crowdtilt.post('/users', {user: sandbox_guest})
           
           sandbox_admin = {
-          	firstname: 'Crowdhoster',
-          	lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
+            firstname: 'Crowdhoster',
+            lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
             email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
           }
           sandbox_admin = Crowdtilt.post('/users', {user: sandbox_admin})
           
           Crowdtilt.production
           production_guest = {
-          	firstname: 'Crowdhoster',
-          	lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
+            firstname: 'Crowdhoster',
+            lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
             email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
           }
           production_guest = Crowdtilt.post('/users', {user: production_guest})
           
           production_admin = {
-          	firstname: 'Crowdhoster',
-          	lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
+            firstname: 'Crowdhoster',
+            lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
             email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
           }
           production_admin = Crowdtilt.post('/users', {user: production_admin})
-        rescue => exception     
+        rescue => exception
           @settings.update_attribute :initialized_flag, false
           sign_out current_user
           redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
             
         
         # Put user back on admin area
-        redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }        
+        redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }
       else
         redirect_to new_user_registration_url, :flash => { :error => "App is not initialized" }
       end 
