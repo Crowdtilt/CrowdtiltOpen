@@ -56,7 +56,10 @@ $( document ).ready(function() {
 
     // validate the previously selected element when the user clicks out
     onfocusout: function(element) {
-      $(element).valid();
+      $element = $(element);
+      if($element.attr('id') != 'campaign_expiration_date' || $element.hasClass('error')) {
+        $element.valid();
+      }
     },
 
     // hide the loading spinner when form is invalid
@@ -68,7 +71,7 @@ $( document ).ready(function() {
     rules: {
       "campaign[name]": { required: true },
       "campaign[goal_dollars]": { required: true, number: true, min: 1 },
-      "campaign[goal_orders]": { required: true, digit: true, min: 1 },
+      "campaign[goal_orders]": { required: true, digits: true, min: 1 },
       "campaign[expiration_date]": { required: true, date: true },
       "campaign[min_payment_amount]": { required: true, number: true, min: 1 },
       "campaign[fixed_payment_amount]": { required: true, number: true, min: 1 },
@@ -89,7 +92,12 @@ $( document ).ready(function() {
       "campaign[goal_dollars]": {
         required: "You must specify a goal dollar amount",
         number: "Numbers only, please",
-        min: "Please enter a goal higher than $1"
+        min: "Please enter a goal of $1 or greater"
+      },
+      "campaign[goal_orders]": {
+        required: "You must specify a goal",
+        digits: "Numbers only, please, no decimals",
+        min: "Please enter a goal of 1 or greater"
       },
       "campaign[expiration_date]": {
         required: "You must select a date from the calendar",
