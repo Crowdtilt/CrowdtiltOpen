@@ -9,38 +9,38 @@
       
       <% if @bank['is_default'] %>
       
-      	<h4>Your bank is all set up!</h4>
-      	<p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
-      	<p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
+      <h4>Your bank is all set up!</h4>
+      <p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
+      <p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
 
       <% else %>
         
-      	<%= form_tag(admin_bank_setup_path, method: "post", id: "bank_form") %>
+      <%= form_tag(admin_bank_setup_path, method: "post", id: "admin_bank_form") %>
         
-        <h4>Account Owner Information</h4>
-        <fieldset>
+      <h4>Account Owner Information</h4>
+      <fieldset>
           
           <div class="form-row clearfix">
             <div class="field">
               <label for="full_legal_name">Full Legal Name</label>
-              <input id="full_legal_name" type="text">
+              <input name="full_legal_name" id="full_legal_name" type="text">
             </div>
             
             <div class="field">
               <label for="phone">Phone (XXX-XXX-XXXX)</label>
-              <input id="phone" type="text">
+              <input name="phone" id="phone" type="text">
             </div>
           </div>
           
           <div class="form-row clearfix">
             <div class="field">
               <label for="street_address">Street Address</label>
-              <input id="street_address" type="text" style="width: 320px">
+              <input name="street_address" id="street_address" type="text" style="width: 320px">
             </div>
             
             <div class="field">
               <label for="zip">Zip Code</label>
-              <input id="zip" type="text" style="width: 100px">
+              <input name="zip" id="zip" type="text" style="width: 100px">
             </div>
           </div>
           
@@ -65,7 +65,7 @@
             
             <div class="field">
               <label for="birth_year">Birth Year (YYYY)</label>
-              <input id="birth_year" type="text" style="width: 100px">
+              <input name="birth_year" id="birth_year" type="text" style="width: 100px">
             </div>
           </div>       
           
@@ -76,17 +76,17 @@
           <div class="form-row clearfix">
             <div class="field">
               <label for="routing_number">Bank Routing Number</label>
-              <input id="bank_routing_number" type="text">
+              <input name="bank_routing_number" id="bank_routing_number" type="text">
             </div>
             
             <div class="field">
               <label for="routing_number">Account Number</label>
-              <input id="account_number" type="text">
+              <input name="account_number" id="account_number" type="text">
             </div>
           </div>
         </fieldset>
         
-        <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @settings.ct_production_admin_id %>" >
+        <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @ct_admin_id %>" >
   
         <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
         <span class="loader" data-loader="bank_form" style="display:none"></span>    
@@ -107,5 +107,5 @@
 
 <%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>
 <%= javascript_tag do %>
-  crowdtilt.init('production')
+  crowdtilt.init('<%= Rails.env.production? ? 'production' : 'sandbox' %>')
 <% end %>

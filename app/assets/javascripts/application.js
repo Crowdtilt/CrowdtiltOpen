@@ -17,6 +17,8 @@
 //= require jquery.ui.all
 //= require jquery.textchange
 //= require jquery.timepicker
+//= require jquery.validate.min
+//= require additional-methods.min
 //= require ckeditorbase
 //= require ckeditor/init
 //= require bootstrap
@@ -24,3 +26,4 @@
 //= require admin
 //= require campaigns
 //= require theme
+//= require validate
