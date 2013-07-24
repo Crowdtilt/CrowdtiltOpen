@@ -1,5 +1,5 @@
 class AddQuantityToPayments < ActiveRecord::Migration
   def change
-  	add_column :payments, :quantity, :integer
+    add_column :payments, :quantity, :integer
   end
 end

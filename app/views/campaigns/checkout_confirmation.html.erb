@@ -6,32 +6,32 @@
         <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
       </div>
       <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>"><%= @campaign.name %> homepage</a></p>
-    </div>  
+    </div>
     <div class="well confirmation_sidebar">
       <h4>Payment Summary</h4>
       <p>
       <strong>Date:</strong><br/> <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/><br/>
       <strong>Amount:</strong><br/> $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/><br/>
-      <strong>Card:</strong><br/> <%= @payment.card_type %> ************<%= @payment.card_last_four %> 
+      <strong>Card:</strong><br/> <%= @payment.card_type %> ************<%= @payment.card_last_four %>
       (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/><br/>
       <% if @campaign.rewards? %>
-      	<strong>Reward Selected:</strong><br/> <%= @reward ? @reward.title : 'None' %> <br/><br/>
+        <strong>Reward Selected:</strong><br/> <%= @reward ? @reward.title : 'None' %> <br/><br/>
       <% end %>
       <% if @campaign.goal_type == 'orders' %>
-      	<strong>Quantity:</strong><br/> <%= @payment.quantity %> <br/><br/>
+        <strong>Quantity:</strong><br/> <%= @payment.quantity %> <br/><br/>
       <% end %>
       <% if @campaign.collect_shipping %>
-      	<strong>Shipping Address:</strong><br/> 
-      	<%= @payment.address_one %><br/>
-      	<% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>
-      	<%= @payment.city %>, <%= @payment.state %> <%= @payment.postal_code %><br/>
-      	<%= @payment.country %>
-      	<br/><br/>
+        <strong>Shipping Address:</strong><br/>
+        <%= @payment.address_one %><br/>
+        <% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>
+        <%= @payment.city %>, <%= @payment.state %> <%= @payment.postal_code %><br/>
+        <%= @payment.country %>
+        <br/><br/>
       <% end %>
       <% if @campaign.collect_additional_info %>
-      	<strong>Additional Information:</strong><br/> 
-      	<%= @payment.additional_info %>
-      	<br/><br/>
+        <strong>Additional Information:</strong><br/>
+        <%= @payment.additional_info %>
+        <br/><br/>
       <% end %>
       <strong>ID:</strong><br/> <%= @payment.ct_payment_id %><br/><br/>
       <p class="center">An email confirmation was sent to <%= @payment.email %></p>

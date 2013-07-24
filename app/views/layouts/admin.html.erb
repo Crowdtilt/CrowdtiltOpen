@@ -13,15 +13,15 @@
     <%= render 'layouts/navbar' %>
     <% flash.each do |key, value| %>
       <div class="admin-alert alert alert-<%= key %>"><%= value %></div>
-    <% end %>      
-    <div id="main">  
+    <% end %>
+    <div id="main">
       <%= yield %>
     </div>
     <%= render 'admin/footer' %>
-    
+
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
-  
+
   </body>
 </html>

@@ -1,10 +1,10 @@
 <div id="admin">
   <div class="container content_box clearfix">
-  
+
   <%= render 'admin/header', website: '', campaigns: 'active', bank: '' %>
 
     <div id="admin_campaigns">
-  
+
       <table class="table table-striped">
         <tr>
           <th>Name</th>
@@ -18,26 +18,26 @@
           <th></th>
           <th></th>
         </tr>
-      
+
       <% @campaigns.each do |campaign| %>
         <tr>
           <td><%= campaign.name %></td>
-          
+
           <td>
-          	<% if campaign.goal_type == "dollars" %>
-          		$<%= number_with_precision(campaign.goal_dollars.to_f, precision: 2) %>
-          	<% else %>
-          		<%= campaign.goal_orders %>
-          	<% end %>
+            <% if campaign.goal_type == "dollars" %>
+              $<%= number_with_precision(campaign.goal_dollars.to_f, precision: 2) %>
+            <% else %>
+              <%= campaign.goal_orders %>
+            <% end %>
           </td>
-          <td>      	
-          	<% if campaign.goal_type == "dollars" %>
-          		$<%= number_with_precision(campaign.stats_raised_amount.to_f, precision: 2) %>
-          	<% else %>
-          		<%= campaign.orders %>
-          	<% end %>
+          <td>
+            <% if campaign.goal_type == "dollars" %>
+              $<%= number_with_precision(campaign.stats_raised_amount.to_f, precision: 2) %>
+            <% else %>
+              <%= campaign.orders %>
+            <% end %>
           </td>
-          
+
           <td><%= Date.parse(campaign.expiration_date.to_s).strftime("%m/%d/%Y") %></td>
           <td><%= campaign.published_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
           <td><%= campaign.production_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
@@ -48,10 +48,10 @@
         </tr>
       <% end %>
       </table>
-      
+
       <br />
-    
-      <%= link_to 'New Campaign', new_admin_campaign_path %>  
-    </div>   
+
+      <%= link_to 'New Campaign', new_admin_campaign_path %>
+    </div>
   </div>
 </div>

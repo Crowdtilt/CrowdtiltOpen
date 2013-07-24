@@ -1,27 +1,27 @@
 <div id="admin">
   <div class="container content_box clearfix">
-  
+
   <%= render 'admin/header', website: 'active', campaigns: '', bank: '' %>
 
   <div id="admin_website">
 
     <%= form_for(@settings, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
-     
+
       <fieldset>
       <legend>Basic Information</legend>
-        
+
         <div class="field clearfix">
           <p class="explanation">This'll be both the page title (for SEO) and the name in the header</p>
           <label>Site Name</label>
             <%= f.text_field :site_name %>
-        </div>        
-        
+        </div>
+
         <div class="field clearfix">
           <p class="explanation">Emails sent from the site will appear to come from this address.</p>
           <label>Reply To Email</label>
-          <%= f.text_field :reply_to_email %> 
+          <%= f.text_field :reply_to_email %>
         </div>
-       
+
         <div class="field clearfix">
           <p class="explanation">If you would like to display a logo instead of your site name in the header, upload it here. Resize the image before uploading for best results in your template.</p>
           <label>Logo</label>
@@ -29,55 +29,55 @@
             <%= image_tag @settings.logo_image.url(:thumb) %><br/>
             <%= f.file_field :logo_image %><br/>
             <%= f.check_box :logo_image_delete %><span>Delete current image</span>
-          <% else %>           
+          <% else %>
             <%= f.file_field :logo_image %>
           <% end  %>
         </div>
-        
+
         <div class="field clearfix">
           <p class="explanation">This will place a link in the header to your blog or other such website where you can provide updates. For example, "Updates" could link to "http://myblog.com"</p>
           <label>Header Link</label>
           <label>Link Text</label>
           <%= f.text_field :header_link_text %>
           <label>URL</label>
-          <%= f.text_field :header_link_url %>  
-        </div> 
+          <%= f.text_field :header_link_url %>
+        </div>
 
-      <div class="field clearfix">       
+      <div class="field clearfix">
         <label>Homepage Content</label>
         <p class="explanation inline">This content is shown on the homepage in addition to the campaign tiles.</p>
-        <%= f.cktext_area :homepage_content %>        
-      </div>   
-      
+        <%= f.cktext_area :homepage_content %>
+      </div>
+
       </fieldset>
-  
+
       <fieldset>
       <legend>Sharing Details</legend>
-      
+
         <div class="field clearfix">
           <p class="explanation">This is the default text that will be used for the tweet button.</p>
           <label>Tweet Text</label>
           <%= f.text_area :tweet_text, rows: 2 %>
         </div>
-        
+
         <div class="field clearfix">
           <p class="explanation">Include your facebook app ID here to properly set up your social sharing buttons. Visit https://developers.facebook.com/apps to create an app for your site. The like button will NOT show up unless you provide this ID.</p>
           <label>Facebook App ID</label>
           <%= f.text_field :facebook_app_id %>
         </div>
-        
+
         <div class="field clearfix">
           <p class="explanation">The title shown when your site is shared via facebook. Leave blank if you just want this to use your project name.</p>
           <label>Facebook Title</label>
           <%= f.text_field :facebook_title %>
         </div>
-        
+
         <div class="field clearfix">
           <p class="explanation">The description shown when your site is shared via facebook.</p>
           <label>Facebook Description</label>
           <%= f.text_area :facebook_description, rows: 2 %>
         </div>
-        
+
         <div class="field clearfix">
           <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
           <label>Facebook Image</label>
@@ -85,51 +85,51 @@
             <%= image_tag @settings.facebook_image.url(:thumb) %><br/>
             <%= f.file_field :facebook_image %><br/>
             <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
-          <% else %>           
+          <% else %>
             <%= f.file_field :facebook_image %>
           <% end  %>
-        </div>              
-      
+        </div>
+
       </fieldset>
-      
+
       <fieldset>
       <legend>Google Analytics</legend>
-      
+
         <div class="field clearfix">
           <p class="explanation">If would like to add tracking to your site, sign up for an account at https://google.com/analytics, then paste your tracking ID here.</p>
           <label>Google Analytics ID</label>
           <%= f.text_field :google_id %>
         </div>
-      
+
       </fieldset>
-      
+
       <fieldset>
       <legend>Footer Content</legend>
-      
+
         <div class="field clearfix">
           <p class="explanation">The text shown in the footer beside the copyright symbol.</p>
           <label>Copyright Text</label>
           <%= f.text_field :copyright_text %>
         </div>
-      
+
       </fieldset>
-      
-      
+
+
       <fieldset>
       <legend><a class="advanced_toggle" href="#">Advanced Settings (click to expand)</a></legend>
         <div id="advanced" style="display:none">
-          
+
           <div class="field clearfix">
             <p class="explanation">Add your own CSS styles to fully customize the look and feel of the site.</p>
             <label>Custom CSS</label>
             <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>
           </div>
-        
+
 
        </div>
       </fieldset>
 
-      
+
       <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
       <span class="loader" data-loader="project_form" style="display:none"></span>
     <% end %>

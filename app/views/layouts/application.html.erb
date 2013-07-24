@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    "application" %>
     <style type="text/css"><%= raw(@settings.custom_css) %></style>
-    
+
     <%= javascript_include_tag "application" %>
     <%= render 'layouts/google_analytics' %>
   </head>
@@ -22,12 +22,12 @@
     <div id="main">
       <%= yield %>
     </div>
-    <%= render 'theme/views/footer' %>    
-    
+    <%= render 'theme/views/footer' %>
+
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
-    
-		<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
   </body>
 </html>

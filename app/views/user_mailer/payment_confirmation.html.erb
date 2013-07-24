@@ -13,29 +13,29 @@ Date: <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/>
 Amount: $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/>
 Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %><br/>
 <% if @campaign.rewards? %>
-	<%= @campaign.reward_reference.titleize %> Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
+  <%= @campaign.reward_reference.titleize %> Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
 <% end %>
 <% if @campaign.goal_type == 'orders' %>
-	Quantity: <%= @payment.quantity %> <br/>
+  Quantity: <%= @payment.quantity %> <br/>
 <% end %>
 <% if @campaign.collect_shipping %>
-	Shipping Address:<br/> 
-	<%= @payment.address_one %><br/>
-	<% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>
-	<%= @payment.city %>, <%= @payment.state %> <%= @payment.postal_code %><br/>
-	<%= @payment.country %>
-	<br/>
+  Shipping Address:<br/>
+  <%= @payment.address_one %><br/>
+  <% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>
+  <%= @payment.city %>, <%= @payment.state %> <%= @payment.postal_code %><br/>
+  <%= @payment.country %>
+  <br/>
 <% end %>
 <% if @campaign.collect_additional_info %>
-	Additional Information:<br/> 
-	<%= @payment.additional_info %>
-	<br/>
+  Additional Information:<br/>
+  <%= @payment.additional_info %>
+  <br/>
 <% end %>
 Payment ID: <%= @payment.ct_payment_id %>
 
 <br/><br/>
 
-Please keep this email as your receipt. 
+Please keep this email as your receipt.
 <% if !@campaign.is_tilted %>
 Your credit card will only be charged if this campaign reaches its goal. In the meantime, you might also see an authorization on your card to ensure sufficient funds are available.
 <% end %>
