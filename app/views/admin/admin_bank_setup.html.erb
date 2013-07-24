@@ -6,44 +6,44 @@
   <div id="admin_bank_setup">
 
     <div class="main_content">
-      
+
       <% if @bank['is_default'] %>
-      
+
       <h4>Your bank is all set up!</h4>
       <p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
       <p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
 
       <% else %>
-        
+
       <%= form_tag(admin_bank_setup_path, method: "post", id: "admin_bank_form") %>
-        
+
       <h4>Account Owner Information</h4>
       <fieldset>
-          
+
           <div class="form-row clearfix">
             <div class="field">
               <label for="full_legal_name">Full Legal Name</label>
               <input name="full_legal_name" id="full_legal_name" type="text">
             </div>
-            
+
             <div class="field">
               <label for="phone">Phone (XXX-XXX-XXXX)</label>
               <input name="phone" id="phone" type="text">
             </div>
           </div>
-          
+
           <div class="form-row clearfix">
             <div class="field">
               <label for="street_address">Street Address</label>
               <input name="street_address" id="street_address" type="text" style="width: 320px">
             </div>
-            
+
             <div class="field">
               <label for="zip">Zip Code</label>
               <input name="zip" id="zip" type="text" style="width: 100px">
             </div>
           </div>
-          
+
           <div class="form-row clearfix">
             <div class="field">
             <label>Birth Month</label>
@@ -62,15 +62,15 @@
                   <option value="12">December</option>
               </select>
             </div>
-            
+
             <div class="field">
               <label for="birth_year">Birth Year (YYYY)</label>
               <input name="birth_year" id="birth_year" type="text" style="width: 100px">
             </div>
-          </div>       
-          
+          </div>
+
         </fieldset>
-        
+
         <h4>Bank Information</h4>
         <fieldset>
           <div class="form-row clearfix">
@@ -78,29 +78,29 @@
               <label for="routing_number">Bank Routing Number</label>
               <input name="bank_routing_number" id="bank_routing_number" type="text">
             </div>
-            
+
             <div class="field">
               <label for="routing_number">Account Number</label>
               <input name="account_number" id="account_number" type="text">
             </div>
           </div>
         </fieldset>
-        
+
         <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @ct_admin_id %>" >
-  
+
         <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
-        <span class="loader" data-loader="bank_form" style="display:none"></span>    
+        <span class="loader" data-loader="bank_form" style="display:none"></span>
       </form>
       <div id="errors"></div>
-      
+
       <% end %>
-       
-    </div>  
-    
-    <div class="settlements">
-      
+
     </div>
-    
+
+    <div class="settlements">
+
+    </div>
+
   </div>
   </div>
 </div>

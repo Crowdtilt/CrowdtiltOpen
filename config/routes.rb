@@ -1,15 +1,15 @@
 Selfstarter::Application.routes.draw do
-  
+
   mount Ckeditor::Engine => '/ckeditor'
-  
+
   # PAGES
   root                                         to: 'pages#index'
-  
+
   # USERS
-  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }  do 
-    match '/user/settings',                    to: 'devise/registrations#edit',             as: :user_settings 
+  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }  do
+    match '/user/settings',                    to: 'devise/registrations#edit',             as: :user_settings
   end
-  
+
   # ADMIN
   match '/admin',                      to: 'admin#admin_website',                   as: :admin_website
   namespace :admin do
@@ -20,7 +20,7 @@ Selfstarter::Application.routes.draw do
   match '/admin/bank-setup',                   to: 'admin#admin_bank_setup',                as: :admin_bank_setup
   match '/ajax/verify',                        to: 'admin#ajax_verify',                     as: :ajax_verify
 
-  # CAMPAIGNS  
+  # CAMPAIGNS
   match '/:id/checkout/amount',                to: 'campaigns#checkout_amount',             as: :checkout_amount
   match '/:id/checkout/payment',               to: 'campaigns#checkout_payment',            as: :checkout_payment
   match '/:id/checkout/confirmation',          to: 'campaigns#checkout_confirmation',       as: :checkout_confirmation

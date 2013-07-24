@@ -1,6 +1,6 @@
 #admin {
   margin-top: 50px;
-  
+
   h3 {
     margin-top: 0px;
   }
@@ -14,7 +14,7 @@
     margin-bottom: 15px;
     font-size: 16px;
   }
-  
+
   input.error {
   border-color: #b94a48;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -22,9 +22,9 @@
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   }
 
-	#admin_website, #admin_campaigns {
+  #admin_website, #admin_campaigns {
 
-		fieldset {
+    fieldset {
       margin-bottom: 30px;
     }
 
@@ -52,7 +52,7 @@
         margin-bottom: 15px;
         font-size: 18px;
       }
-      
+
       label.inline {
         display: inline-block;
       }
@@ -64,11 +64,11 @@
         width: 360px;
       }
     }
-  
+
     #preset-amount, #min-amount {
       margin-left: 20px;
     }
-  
+
     .currency {
       position: relative;
 
@@ -108,7 +108,7 @@
         }
       }
     }
-  
+
     .faq.sortable {
       margin-left: 0px;
 
@@ -140,9 +140,9 @@
     .include_comments_input {
       margin-top: 20px;
     }
-	}
+  }
 
-	#admin_payments {
+  #admin_payments {
     .search {
       form {
         float: left;
@@ -153,9 +153,9 @@
         }
       }
     }
-	}
+  }
 
-	#admin_bank_setup {
+  #admin_bank_setup {
     .main_content {
       width: 560px;
       float: left;
@@ -169,16 +169,16 @@
       float: left;
       margin-right: 20px;
     }
-	}
+  }
 }
 
 #admin-footer {
   background: #e6e6e6;
-  
+
   -moz-box-shadow: inset 0px 1px 3px 0px #acacac;
   -webkit-box-shadow: inset 0px 1px 3px 0px #acacac;
   box-shadow: inset 0px 1px 3px 0px #acacac;
-  
+
   padding: 40px 0 30px;
   ul {
     float: left;
@@ -196,7 +196,7 @@
   }
   p {
     font-size: 14px;
-  }	
+  }
 }
 
 .admin-alert {

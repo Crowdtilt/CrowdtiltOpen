@@ -3,30 +3,30 @@
     <h3>
       Account: <%= current_user.fullname %>
       <span class="loader" data-loader="user_header" style="display:none"></span>
-    </h3>  
-    
+    </h3>
+
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>
-      
+
       <div><%= f.label :fullname, "Full Name" %>
       <%= f.text_field :fullname, :autofocus => true %></div>
-    
+
       <div><%= f.label :email %>
       <%= f.email_field :email, :autofocus => true %></div>
-    
+
       <div><p>Change your password:</p></div>
       <div><%= f.label :password, "Enter your new password" %>
       <%= f.password_field :password, :autocomplete => "off" %></div>
-    
+
       <div><%= f.label :password_confirmation, "Re-enter your new password" %>
       <%= f.password_field :password_confirmation %></div>
       <br/><br/>
       <div><%= f.label :current_password, "Current Password (we need this to confirm your changes)" %>
       <%= f.password_field :current_password %></div>
-    
+
       <button class="btn btn-primary" type="submit">Update</button>
-    <% end %>    
-    
+    <% end %>
+
   </div>
 </div>
 
