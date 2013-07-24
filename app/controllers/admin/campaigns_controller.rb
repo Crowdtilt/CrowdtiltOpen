@@ -24,8 +24,8 @@ class Admin::CampaignsController < ApplicationController
         expiration_date: @campaign.expiration_date,
         user_id: @settings.ct_sandbox_admin_id,
         metadata: {
-        	fullname: current_user.fullname,
-        	email: current_user.email
+          fullname: current_user.fullname,
+          email: current_user.email
         }
       }
       Crowdtilt.sandbox
@@ -45,10 +45,10 @@ class Admin::CampaignsController < ApplicationController
     # Completely refresh the rewards
     old_campaign.rewards.each do |reward|
       @campaign.rewards.create title: reward.title,
-      												 description: reward.description,
-      												 delivery_date: reward.delivery_date,
-      												 number: reward.number,
-      												 price: reward.price
+                               description: reward.description,
+                               delivery_date: reward.delivery_date,
+                               number: reward.number,
+                               price: reward.price
     end
 
     render action: "edit"
@@ -68,8 +68,8 @@ class Admin::CampaignsController < ApplicationController
       return
     end
 
-   	# Set the campaign user id
-   	ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
+     # Set the campaign user id
+     ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
 
     # calculate the goal amount (in case of a tilt by orders campaign)
     @campaign.set_goal
@@ -103,29 +103,29 @@ class Admin::CampaignsController < ApplicationController
         end
       end
 
-	    # Now that we've created the campaign, create new Reward Levels if any were provided
-			if params.has_key?(:reward)
-	      params[:reward].each do |reward|
-		    	unless reward['delete'] && reward['delete'] == 'delete'
-			        @campaign.rewards.create title: reward['title'],
-			        												 description: reward['description'],
-			        												 delivery_date: reward['delivery_date'],
-			        												 number: reward['number'].to_i,
-			        												 price: reward['price'].to_f
-					end
-	      end
-			end
+      # Now that we've created the campaign, create new Reward Levels if any were provided
+      if params.has_key?(:reward)
+        params[:reward].each do |reward|
+          unless reward['delete'] && reward['delete'] == 'delete'
+              @campaign.rewards.create title: reward['title'],
+                                       description: reward['description'],
+                                       delivery_date: reward['delivery_date'],
+                                       number: reward['number'].to_i,
+                                       price: reward['price'].to_f
+          end
+        end
+      end
 
-	    # Check again for campaign validity now that we've added faqs and rewards
-	    if !@campaign.valid?
-	      message = ''
-	      @campaign.errors.each do |key, error|
-	        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-	      end
-	      flash.now[:error] = message[0...-2]
-	      render action: "new"
-	      return
-	    end
+      # Check again for campaign validity now that we've added faqs and rewards
+      if !@campaign.valid?
+        message = ''
+        @campaign.errors.each do |key, error|
+          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+        end
+        flash.now[:error] = message[0...-2]
+        render action: "new"
+        return
+      end
 
       redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
       return
@@ -155,32 +155,32 @@ class Admin::CampaignsController < ApplicationController
     # Update the Reward Levels
     if params.has_key?(:reward)
       params[:reward].each do |reward|
-	    	if reward['delete'] && reward['delete'] == 'delete'
-	    		if reward['id']
-	    			r = Reward.find(reward['id'])
-	    			r.destroy if(r.payments.length == 0)
-	    		end
-	    	else
-	      	if reward['id']
-		      		r = Reward.find(reward['id'])
-		      		r.title = reward['title']
-		      		r.description = reward['description']
-		      		r.delivery_date = reward['delivery_date']
-		      		r.number = reward['number'].to_i
-		      		r.price = reward['price'].to_f
-		      		unless r.save
-					      flash.now[:error] = "Invalid rewards"
-					      render action: "edit"
-					      return
-				    	end
-	      	else
-						@campaign.rewards.create title: reward['title'],
-		        												 description: reward['description'],
-		        												 delivery_date: reward['delivery_date'],
-		        												 number: reward['number'].to_i,
-		        												 price: reward['price'].to_f
-	      	end
-				end
+        if reward['delete'] && reward['delete'] == 'delete'
+          if reward['id']
+            r = Reward.find(reward['id'])
+            r.destroy if(r.payments.length == 0)
+          end
+        else
+          if reward['id']
+              r = Reward.find(reward['id'])
+              r.title = reward['title']
+              r.description = reward['description']
+              r.delivery_date = reward['delivery_date']
+              r.number = reward['number'].to_i
+              r.price = reward['price'].to_f
+              unless r.save
+                flash.now[:error] = "Invalid rewards"
+                render action: "edit"
+                return
+              end
+          else
+            @campaign.rewards.create title: reward['title'],
+                                     description: reward['description'],
+                                     delivery_date: reward['delivery_date'],
+                                     number: reward['number'].to_i,
+                                     price: reward['price'].to_f
+          end
+        end
       end
     end
 
@@ -195,15 +195,15 @@ class Admin::CampaignsController < ApplicationController
       return
     end
 
-		# Set the campaign user id
-   	ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
+    # Set the campaign user id
+     ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
 
     #if campaign has been promoted to production, delete all sandbox payments
     if @campaign.production_flag && @campaign.production_flag_changed?
-    	@campaign.payments.destroy_all
+      @campaign.payments.destroy_all
     end
 
-		# calculate the goal amount (in case of a tilt by orders campaign)
+    # calculate the goal amount (in case of a tilt by orders campaign)
     @campaign.set_goal
 
     # Update the corresponding campaign on the Crowdtilt API
@@ -217,12 +217,12 @@ class Admin::CampaignsController < ApplicationController
       }
       # If the campaign has been promoted to production, create a new campaign on the Crowtilt API
       if @campaign.production_flag && @campaign.production_flag_changed?
-      	campaign[:user_id] = ct_user_id
-      	Crowdtilt.production
-      	response = Crowdtilt.post('/campaigns', {campaign: campaign})
+        campaign[:user_id] = ct_user_id
+        Crowdtilt.production
+        response = Crowdtilt.post('/campaigns', {campaign: campaign})
       else
-      	@campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
-      	response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
+        @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
+        response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
       end
     rescue => exception
       flash.now[:error] = exception.to_s
@@ -232,7 +232,7 @@ class Admin::CampaignsController < ApplicationController
       @campaign.update_api_data(response['campaign'])
       @campaign.save
 
-			redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
+      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
       return
     end
   end
@@ -274,7 +274,7 @@ class Admin::CampaignsController < ApplicationController
     else
       @payments = @campaign.payments.order("created_at ASC")
     end
-    
+
     respond_to do |format|
       format.html
       format.csv { send_data @payments.to_csv, filename: "#{@campaign.name}.csv" }

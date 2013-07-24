@@ -1,7 +1,7 @@
 #checkout {
   width: 100%;
   padding: 50px 0;
-  
+
   .main_content {
     width: 560px;
     float: left;
@@ -16,44 +16,44 @@
         }
       }
     }
-    
+
     .checkout_block {
       background-color: #ffffff;
       padding: 30px;
       margin-bottom: 0px;
     }
-    
+
     p {
       line-height: 1;
       margin-bottom: 0px;
     }
-    
-		h4.amount_header {
-			margin-top: 0px;
-		}
-    
+
+    h4.amount_header {
+      margin-top: 0px;
+    }
+
     .quantity_input {
       font-size: 20px;
       color: #6b6b6b;
       font-weight: 200;
     }
-    
-		.amount_input {
+
+    .amount_input {
       position: relative;
       display: inline-block;
-      
+
       input {
         padding-left: 24px;
         width: 200px;
       }
-      
+
       span {
         position: absolute;
         top: 5px;
         left: 10px;
       }
     }
-    
+
     #reward_select {
       ul {
         margin-left: 0px;
@@ -71,83 +71,83 @@
             margin-left: 120px;
             width: 360px;
             p {
-							font-size: 14px;
-							margin: 0px;
-							color: #4b4b4b;
-						}
-						p.price {
-							font-size: 24px;
-							font-weight: bold;
-						}
-						p.title {
-							font-size: 16px;
-							font-weight: bold;
-							margin-bottom: 12px;
-						}
-						p.claimed {
-							font-weight: bold;
-							margin-bottom: 12px;
-						}
-						p.description {
-							margin-bottom: 12px;
-							line-height: 16px;
-						}
-						p.delivery {
-							font-size: 12px;
-						}
+              font-size: 14px;
+              margin: 0px;
+              color: #4b4b4b;
+            }
+            p.price {
+              font-size: 24px;
+              font-weight: bold;
+            }
+            p.title {
+              font-size: 16px;
+              font-weight: bold;
+              margin-bottom: 12px;
+            }
+            p.claimed {
+              font-weight: bold;
+              margin-bottom: 12px;
+            }
+            p.description {
+              margin-bottom: 12px;
+              line-height: 16px;
+            }
+            p.delivery {
+              font-size: 12px;
+            }
           }
         }
         li.reward_option.active {
-					opacity: 1;
-					&:hover {
+          opacity: 1;
+          &:hover {
             background-color: #e6e6e6;
             cursor: pointer;
           }
         }
       }
     }
-    
+
     .btn {
       margin-top: 20px;
     }
-    
+
     h4 {
       margin-top: 20px;
       i {
         margin-top: 6px;
       }
     }
-    
-		h4.contact {
+
+    h4.contact {
       margin-top: 0px;
-		}
-    
+    }
+
     fieldset {
       display: inline-block;
       margin-right: 10px;
     }
-    
+
     #fullname, #email, #address_one, #address_two, #additional_info{
       width: 470px;
     }
-    
+
     .billing_address {
       margin-top: 7px;
       font-size: 14px;
       padding-bottom: 10px;
     }
-    
+
     .payment-submit {
       margin-top: 20px;
       .btn {
         margin-top: 0px;
       }
     }
-    
+
     form {
       margin-bottom: 0px;
     }
-    
+
     #errors {
       margin-top: 20px;
     }
@@ -157,7 +157,7 @@
       margin-bottom: 15px;
       font-size: 16px;
     }
-    
+
     input.error {
     border-color: #b94a48;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -165,18 +165,18 @@
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     }
   }
-   
+
   .sidebar {
     float: right;
     width: 345px;
-    
+
     .crowdtilt-powered {
       margin-bottom: 34px;
       img {
         float: right;
       }
     }
-    
+
     .well {
       background: white;
       h4 {
@@ -189,7 +189,7 @@
         p {
           margin-top: 15px;
           margin-bottom: 0px
-	    	}
+        }
       }
     }
     .well.rewards {
@@ -199,7 +199,7 @@
         }
       }
     }
-    
+
     .custom_content {
       padding: 7px;
       p {
@@ -209,11 +209,11 @@
       }
     }
   }
-  
+
   .share {
     margin-top: 30px;
   }
-  
+
   .confirmation_sidebar {
     float: left;
     background: white;

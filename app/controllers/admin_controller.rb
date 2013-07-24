@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   before_filter :authenticate_user!
   before_filter :verify_admin
   before_filter :set_ct_env, only: [:admin_bank_setup, :ajax_verify]
-  
+
   def admin_website
     #Handle the form submission if request is PUT
     if request.put?
@@ -15,17 +15,17 @@ class AdminController < ApplicationController
           message = message + key.to_s.humanize + ' ' + error.to_s + ', '
         end
         flash.now[:error] = message[0...-2]
-      end    
+      end
     end
-  end  
-  
+  end
+
   def admin_bank_setup
     @bank = {}
     begin
       response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
     rescue => exception # response threw an error, default bank may not be set up
-			if request.post?
-				if params[:ct_bank_id].blank?
+      if request.post?
+        if params[:ct_bank_id].blank?
           flash.now[:error] = "An error occurred, please try again" and return
         else
           begin
@@ -48,8 +48,8 @@ class AdminController < ApplicationController
       end
     end
   end
-  
-  def ajax_verify    
+
+  def ajax_verify
     if params[:name].blank? || params[:phone].blank? || params[:street_address].blank? || params[:postal_code].blank? || params[:dob].blank?
       render text: "error" #not all fields filled out
     else
@@ -57,7 +57,7 @@ class AdminController < ApplicationController
         response = Crowdtilt.get('/users/' + @ct_admin_id)
       rescue => exception
         render text: "error" and return #failed to verify through Crowdtilt API
-      end   
+      end
       if response['user']['is_verified'] != 1
         begin
           verification = {
@@ -75,10 +75,10 @@ class AdminController < ApplicationController
         end
       else
         render text: "success"  #already verified
-      end    
+      end
     end
   end
-  
+
   def set_ct_env
     if Rails.env.production?
       Crowdtilt.production
@@ -86,7 +86,7 @@ class AdminController < ApplicationController
     else
       Crowdtilt.sandbox
       @ct_admin_id = @settings.ct_sandbox_admin_id
-    end  
+    end
   end
 
 end

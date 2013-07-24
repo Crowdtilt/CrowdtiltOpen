@@ -304,9 +304,9 @@
           </fieldset>
 
           <p class="billing_address">*Billing address is not needed</p>
-					<% end %>
+          <% end %>
 
-					<h4>Credit/Debit Card <i class="icon icon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
+          <h4>Credit/Debit Card <i class="icon icon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
 
           <fieldset>
             <div class="card_number">
@@ -368,68 +368,68 @@
 
   </div>
 
-		<div class="sidebar">
-			<div class="crowdtilt-powered clearfix">
-				<%= image_tag 'crowdtilt_badge.png', width: "317px", height: "36px" %>
-			</div>
-			<div class="well">
-				<div class="clearfix">
-					<h4 class="pull-left">Payment Summary</h4>
-					<p class="pull-right"><%= link_to "edit", checkout_amount_path(@campaign) %></p>
-				</div>
+    <div class="sidebar">
+      <div class="crowdtilt-powered clearfix">
+        <%= image_tag 'crowdtilt_badge.png', width: "317px", height: "36px" %>
+      </div>
+      <div class="well">
+        <div class="clearfix">
+          <h4 class="pull-left">Payment Summary</h4>
+          <p class="pull-right"><%= link_to "edit", checkout_amount_path(@campaign) %></p>
+        </div>
 
-				<table style="width: 100%">
+        <table style="width: 100%">
 
-					<tr>
-					<td width="225">
-					<% if @campaign.payment_type == "fixed" %>
-						<p>Subtotal (<%= "#{@quantity} x $#{number_with_precision(@campaign.fixed_payment_amount, precision: 2)}" %>)</p>
-					<% else %>
-						<p>Subtotal</p>
-					<% end %>
-					</td>
-					<td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %> </p></td>
-					</tr>
+          <tr>
+          <td width="225">
+          <% if @campaign.payment_type == "fixed" %>
+            <p>Subtotal (<%= "#{@quantity} x $#{number_with_precision(@campaign.fixed_payment_amount, precision: 2)}" %>)</p>
+          <% else %>
+            <p>Subtotal</p>
+          <% end %>
+          </td>
+          <td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %> </p></td>
+          </tr>
 
-					<% if @fee > 0 %>
-					<tr>
-					<td width="225"><p>Processing Fee</p></td>
-					<td style="text-align: right"><p>$<%= number_with_precision(@fee, precision: 2) %></p></td>
-					</tr>
-					<% end %>
+          <% if @fee > 0 %>
+          <tr>
+          <td width="225"><p>Processing Fee</p></td>
+          <td style="text-align: right"><p>$<%= number_with_precision(@fee, precision: 2) %></p></td>
+          </tr>
+          <% end %>
 
-					<tr>
-					<td width="225"><p><strong>Total</strong></p></td>
-					<td style="text-align: right"><p><strong>$<%= number_with_precision(@total, precision: 2) %></strong></p></td>
-					</tr>
+          <tr>
+          <td width="225"><p><strong>Total</strong></p></td>
+          <td style="text-align: right"><p><strong>$<%= number_with_precision(@total, precision: 2) %></strong></p></td>
+          </tr>
 
-					<% if !@campaign.production_flag %>
-					<tr>
-					<td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
-					</tr>
-					<% end %>
+          <% if !@campaign.production_flag %>
+          <tr>
+          <td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
+          </tr>
+          <% end %>
 
-				</table>
+        </table>
 
-			</div>
+      </div>
 
-			<% if @campaign.rewards? %>
-			<div class="well rewards">
-				<h4><%= @campaign.reward_reference.titleize %> Selected</h4>
-				<% if @reward %>
-					<p><strong><%= "#{@reward.title} ($#{short_price(@reward.price)})" %></strong></p>
-					<p><%= @reward.description %></p>
-					<p>Estimated Delivery: <%= @reward.delivery_date %></p>
-				<% else %>
-					<p>None</p>
-				<% end %>
-			</div>
-			<% end %>
+      <% if @campaign.rewards? %>
+      <div class="well rewards">
+        <h4><%= @campaign.reward_reference.titleize %> Selected</h4>
+        <% if @reward %>
+          <p><strong><%= "#{@reward.title} ($#{short_price(@reward.price)})" %></strong></p>
+          <p><%= @reward.description %></p>
+          <p>Estimated Delivery: <%= @reward.delivery_date %></p>
+        <% else %>
+          <p>None</p>
+        <% end %>
+      </div>
+      <% end %>
 
-			<div class="custom_content">
-				<%= raw(@campaign.checkout_sidebar_content) %>
-			</div>
-		</div>
+      <div class="custom_content">
+        <%= raw(@campaign.checkout_sidebar_content) %>
+      </div>
+    </div>
 
   </div>
 </div>

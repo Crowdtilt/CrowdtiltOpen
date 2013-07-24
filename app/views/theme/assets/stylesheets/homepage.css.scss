@@ -1,13 +1,13 @@
 #homepage {
-  
+
   .homepage_content {
     margin-top: 40px;
   }
-  
+
   .campaigns {
     margin-top: 40px;
     padding-left: 20px;
-    
+
     a.campaign {
       display: block;
       padding: 8px;
@@ -22,12 +22,12 @@
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
       border-radius: 3px;
-      
+
       &:hover {
         text-decoration: none;
         border: 1px solid gray;
       }
-      
+
       img {
         margin-bottom: 5px;
         width: 190px;
@@ -35,14 +35,14 @@
         background-color: #cecece;
         display:block;
       }
-      
+
       .placeholder {
-        width: 190px; 
-        height: 143px; 
-        background: gray; 
+        width: 190px;
+        height: 143px;
+        background: gray;
         margin-bottom: 5px;
       }
-      
+
       .info {
         font-size: 14px;
         line-height: 16px;
@@ -51,7 +51,7 @@
         width: 190px;
         height: 28px;
       }
-      
+
       #progress_bg {
         height: 5px;
         -moz-box-shadow: 0 1px 1px rgba(0,0,0,.41); /* drop shadow */
@@ -62,7 +62,7 @@
         border-radius: 8px;
         width: 190px;
         background: #dbdbdb;
-        
+
         #progress {
           height: 5px;
           -moz-box-shadow: 0 1px 1px rgba(0,0,0,.59); /* drop shadow */
@@ -80,7 +80,7 @@
           width: 100%;
           max-width: 100%;
         }
-        
+
         #progress_text {
           margin: 0 auto;
           width: 100%;
@@ -94,7 +94,7 @@
           font-size: 16px;
         }
       }
-      
+
       .numbers {
         font-size: 14px;
         margin-top: 10px;

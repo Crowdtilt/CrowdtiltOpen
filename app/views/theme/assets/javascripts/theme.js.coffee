@@ -1,4 +1,4 @@
 Selfstarter.theme =
-  
+
   init: ->
     return

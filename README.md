@@ -9,17 +9,17 @@ Well, if you're here, maybe you want to touch *some* of the code.
 ---
 **Demo**
 
-You can play with a complete working demo at [demo.crowdhoster.com/admin](http://demo.crowdhoster.com/admin)    
+You can play with a complete working demo at [demo.crowdhoster.com/admin](http://demo.crowdhoster.com/admin)
 
-Use these credentials to log in:    
+Use these credentials to log in:
 
-email: demo@crowdhoster.com    
+email: demo@crowdhoster.com
 password: crowdhoster
 
 **Quick Links:**
 
-"I want to launch my own campaign without touching any code." - [Head to the main Crowdhoster page](http://crowdhoster.com).      
-"I want help customizing my Crowdhoster page." - [Check out this Crowdhoster setup guide](http:crowdhostersetup.herokuapp.com).    
+"I want to launch my own campaign without touching any code." - [Head to the main Crowdhoster page](http://crowdhoster.com).
+"I want help customizing my Crowdhoster page." - [Check out this Crowdhoster setup guide](http:crowdhostersetup.herokuapp.com).
 "I want to contact the Crowdhoster team." - Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
 
 ## Install
@@ -28,7 +28,7 @@ password: crowdhoster
 To run Crowdhoster you'll need the following prerequisites installed:
 
 * [Homebrew](http://mxcl.github.io/homebrew/) (for downloading software packages)
- 
+
 ```
 $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 ```
@@ -54,14 +54,14 @@ $ brew install imagemagick
 ### Service Providers
 To run Crowdhoster you'll also need to complete the following:
 
-* Sign up for a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)    
-* Sign up for the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys    
-* Sign up for [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets    
-* Sign up for [Mailgun](http://www.mailgun.com/) (free)    
+* Sign up for a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)
+* Sign up for the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys
+* Sign up for [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets
+* Sign up for [Mailgun](http://www.mailgun.com/) (free)
 
 ### Local Setup
 
-Clone the Crowdhoster repo into a new directory    
+Clone the Crowdhoster repo into a new directory
 
 ```
 $ git clone https://github.com/Crowdtilt/Crowdhoster {DIRECTORY}
@@ -99,13 +99,13 @@ MAILGUN_USERNAME=postmaster@myawesomeapp.mailgun.org
 ```
 
 Install the gems
- 
+
 ```
 $ bundle install
 ```
 
 Create and migrate the DB
- 
+
 ```
 $ foreman run rake db:create
 $ foreman run rake db:migrate
@@ -125,8 +125,8 @@ $ foreman run rails c
 
 ### Deploying to Heroku
 
-1. [Sign up for a Heroku Account](https://www.heroku.com/)    
-2. [Install the Heroku Toolbelt](https://toolbelt.heroku.com/)    
+1. [Sign up for a Heroku Account](https://www.heroku.com/)
+2. [Install the Heroku Toolbelt](https://toolbelt.heroku.com/)
 
 Create a new Heroku app
 
@@ -149,7 +149,7 @@ $ heroku plugins:install git://github.com/ddollar/heroku-config.git
 Push the configuration to Heroku
 
 ```
-$ heroku config:push 
+$ heroku config:push
 ```
 
 Deploy the code to Heroku
@@ -178,11 +178,11 @@ Our feature development roadmap and bugs are inputted as issues.
 
 See a complete list by [clicking here](https://github.com/Crowdtilt/Crowdhoster/issues).
 
-## Contact and License    
+## Contact and License
 
 Want to get in touch? Email [team@crowdhoster.com](mailto:team@crowdhoster.com).
 
-#### MIT License. Copyright 2013 Crowdtilt.    
+#### MIT License. Copyright 2013 Crowdtilt.
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including

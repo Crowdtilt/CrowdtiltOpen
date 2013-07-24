@@ -8,18 +8,18 @@
     padding: 40px 0;
     background: #f6f6f6;
     border-bottom: 1px solid #c4c4c4;
-    
+
     .campaign_title {
-    	a {
-    		text-decoration: none;
-    		color: #4b4b4b;
-    		&:hover {
-    			text-decoration: none;
-    			color: #4b4b4b;
-    		}
-    	}
+      a {
+        text-decoration: none;
+        color: #4b4b4b;
+        &:hover {
+          text-decoration: none;
+          color: #4b4b4b;
+        }
+      }
     }
-    
+
     #video {
       float: left;
       width: 512px;
@@ -30,20 +30,20 @@
       box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
       img:hover
       {
-    	 opacity: 0.5;
-    	 cursor: pointer;
+       opacity: 0.5;
+       cursor: pointer;
       }
     }
-    
+
     #image {
       float: left;
       width: 512px;
       height: 385px;
       -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
       -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
-      box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */    
+      box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
     }
-      
+
     #reserve_container {
       width: 100%;
       float: left;
@@ -53,27 +53,27 @@
       -webkit-box-shadow: 0 -1px 0 #cbcbcb; /* drop shadow */
       box-shadow:         0 -1px 0 #cbcbcb; /* drop shadow */
       margin-top: 30px;
-      
+
       .call_to_action_button {
         text-align: center;
       }
-  
-      .call_to_action_description {   
+
+      .call_to_action_description {
         p, span {
           line-height: 1;
         }
       }
     }
-    
+
     #backing {
       float: left;
       width: 392px;
       margin: 20px 0 0 34px;
-      
+
       ul {
         margin: 0;
       }
-      
+
       #backers {
         border-left: none;
         padding-left: 0;
@@ -81,16 +81,16 @@
           float: left;
         }
       }
-      
+
       #days {
         border-right: none;
         padding-right: 0;
       }
-      
+
       ul {
         text-align: center;
       }
-      
+
       .stats {
         margin: 0 auto;
         color: #3f3f3f;
@@ -111,7 +111,7 @@
         }
       }
     }
-    
+
     body.lt-ie9
     {
       #progress {
@@ -119,7 +119,7 @@
         background-color: #1392dc !important;
       }
     }
-    
+
     #progress_bg {
       margin-top: 20px;
       float: left;
@@ -132,7 +132,7 @@
       border-radius: 30px;
       width: 383px;
       background: #dbdbdb;
-      
+
       #progress {
         height: 40px;
         -moz-box-shadow: 0 1px 1px rgba(0,0,0,.59); /* drop shadow */
@@ -151,7 +151,7 @@
         max-width: 100%;
         display: inline-block;
       }
-      
+
       #progress_text {
         margin: 0 auto;
         width: 100%;
@@ -164,21 +164,21 @@
         top: -35px;
       }
     }
-    
+
     .small {
       height: 20px !important;
-      
+
       #progress {
         height: 20px !important;
       }
     }
-    
+
     .share {
       margin-left: 100px;
       margin-top: 24px;
     }
   }
-  
+
   /*************************************
   ********** CAMPAIGN BODY *************
   **************************************/
@@ -194,62 +194,62 @@
       }
     }
     .main_content.narrow {
-    	width: 620px;
-    	float: left;
+      width: 620px;
+      float: left;
     }
     .rewards_sidebar {
-    	float: right;
-    	width: 280px;
-    	background: #f6f6f6;
-    	-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			border-radius: 5px;
-			h3 {
-				margin: 20px 0px 0px 20px;
-			}
-			ul {
-				margin: 0px;
-				li {
-					padding: 20px 20px;
-					border-bottom: 1px solid gray;
-					p {
-						font-size: 14px;
-						margin: 0px;
-						color: #4b4b4b;
-					}
-				
-					p.price {
-						font-size: 24px;
-						font-weight: bold;
-					}
-					p.title {
-						font-size: 16px;
-						font-weight: bold;
-						margin-bottom: 12px;
-					}
-					p.description {
-						margin-bottom: 12px;
-					}
-					p.delivery {
-						font-size: 12px;
-						font-weight: bold;
-						font-style: italic;
-						margin-bottom: 12px;
-					}
-					p.claimed {
-						font-weight: bold;
-					}
-				
-					&:last-child {
-						border-bottom: none;
-					}
-					
-				}
-			}
-			
+      float: right;
+      width: 280px;
+      background: #f6f6f6;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      h3 {
+        margin: 20px 0px 0px 20px;
+      }
+      ul {
+        margin: 0px;
+        li {
+          padding: 20px 20px;
+          border-bottom: 1px solid gray;
+          p {
+            font-size: 14px;
+            margin: 0px;
+            color: #4b4b4b;
+          }
+
+          p.price {
+            font-size: 24px;
+            font-weight: bold;
+          }
+          p.title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+          }
+          p.description {
+            margin-bottom: 12px;
+          }
+          p.delivery {
+            font-size: 12px;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 12px;
+          }
+          p.claimed {
+            font-weight: bold;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+        }
+      }
+
     }
   }
-  
+
   /*************************************
   ******** SECOND CALL TO ACTION *******
   **************************************/
@@ -258,12 +258,12 @@
     padding: 50px 0 40px;
     background: #f6f6f6;
     border-bottom: 1px solid #c4c4c4;
-    
+
     h2 {
       margin-bottom: 26px;
     }
   }
-  
+
   /*************************************
   ************* FAQ ********************
   **************************************/
@@ -271,18 +271,18 @@
     width: 100%;
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
-    
+
     ul {
       margin-top: 30px;
       float: left;
       width: 45%;
-      
+
       li {
         width: 400px;
         margin: 0 49px 30px 0;
         padding-left: 18px;
         background: image-url('bullet.png') no-repeat left 8px;
-        
+
         p {
           margin-top: 10px;
           line-height: 1.4;

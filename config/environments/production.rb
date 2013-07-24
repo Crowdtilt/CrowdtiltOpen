@@ -64,11 +64,11 @@ Selfstarter::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-  
-	# Assets syncing to S3
-	if ENV['ENABLE_ASSET_SYNC'] == 'true'
-  	config.action_controller.asset_host = "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"
-  	config.assets.prefix = "/#{ENV['APP_NAME']}/assets"
+
+  # Assets syncing to S3
+  if ENV['ENABLE_ASSET_SYNC'] == 'true'
+    config.action_controller.asset_host = "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"
+    config.assets.prefix = "/#{ENV['APP_NAME']}/assets"
   end
-  
+
 end

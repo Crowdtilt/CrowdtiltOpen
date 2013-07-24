@@ -1,39 +1,39 @@
 <div id="homepage">
   <div class="container clearfix">
-    
-	    <div class="homepage_content clearfix">
-	      <%= raw(@settings.homepage_content) %>
-	    </div>
-    
+
+      <div class="homepage_content clearfix">
+        <%= raw(@settings.homepage_content) %>
+      </div>
+
     <div class="campaigns">
 
-      <% if @campaigns.count > 0 %>  
+      <% if @campaigns.count > 0 %>
         <% @campaigns.each do |campaign| %>
           <% if campaign.published_flag %>
           <a href="<%= url_for campaign_home_path(campaign) %>" class="campaign clearfix">
-          
+
             <% if campaign.media_type == 'video' && !campaign.video_embed_id.blank?%>
-          
+
               <% if campaign.video_placeholder.file? %>
                 <%= image_tag campaign.video_placeholder.url(:main), alt: "main_image" %>
               <% else %>
                 <%= image_tag "https://img.youtube.com/vi/#{campaign.video_embed_id}/hqdefault.jpg", alt: "main_image" %>
               <% end %>
-            
+
             <% else %>
-              
+
               <% if campaign.main_image.file? %>
                 <%= image_tag campaign.main_image.url(:small), alt: "main_image" %>
               <% else %>
                 <div class="placeholder"></div>
               <% end %>
-              
+
             <% end %>
-            
+
             <p class="info">
               <%= truncate(campaign.name, length: 50) %>
             </p>
-            
+
             <% if campaign.stats_raised_amount.to_f/100 < campaign.goal_dollars.to_f %>
               <div id='progress_bg'>
                 <div id='progress' class='' style='width: <%= campaign.stats_tilt_percent.nil? ? 0 : campaign.stats_tilt_percent.ceil %>%;'>
@@ -45,7 +45,7 @@
                 </div>
                 </div>
             <% end %>
-            
+
             <p class="numbers pull-left">
             <% if campaign.expired? %>
               <strong>No</strong><br/>days left!
@@ -56,7 +56,7 @@
               </span>
             <% end %>
             </p>
-                   
+
             <p class="numbers pull-right" style="text-align:right">
               <% if campaign.goal_type == 'dollars' %>
               <strong>$<%= campaign.stats_raised_amount.ceil %></strong><br/>
@@ -66,14 +66,14 @@
               <%= campaign.contributor_reference.pluralize(campaign.orders) %>
               <% end %>
             </p>
-    
+
           </a>
           <% end %>
         <% end %>
       <% else %>
-      
+
       <div class="center" style="padding-left:0px"><h4>No campaigns yet!</h4></div>
-      
+
       <% end %>
     </div>
   </div>

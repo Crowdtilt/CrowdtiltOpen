@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: 'team@crowdhoster.com'
-  
+
   def payment_confirmation(payment, campaign)
     @settings = Settings.find_by_id(1)
     @payment = payment
