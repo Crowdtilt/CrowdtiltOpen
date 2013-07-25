@@ -9,7 +9,7 @@
 
       <% if @bank['is_default'] %>
 
-      <h4>Your bank is all set up!</h4>
+      <h4>Your banking information's all set up!</h4>
       <p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
       <p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
 
@@ -22,7 +22,7 @@
 
           <div class="form-row clearfix">
             <div class="field">
-              <label for="full_legal_name">Full Legal Name</label>
+              <label for="full_legal_name">Legal Name (first and last)</label>
               <input name="full_legal_name" id="full_legal_name" type="text">
             </div>
 
@@ -71,11 +71,11 @@
 
         </fieldset>
 
-        <h4>Bank Information</h4>
+        <h4>Banking Information</h4>
         <fieldset>
           <div class="form-row clearfix">
             <div class="field">
-              <label for="routing_number">Bank Routing Number</label>
+              <label for="routing_number">Routing Number</label>
               <input name="bank_routing_number" id="bank_routing_number" type="text">
             </div>
 
