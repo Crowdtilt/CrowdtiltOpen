@@ -75,7 +75,7 @@
     </div>
 
     <div class="field clearfix">
-      <p class="explanation">This passes the <%= Rails.configuration.processing_fee %>% processing fee onto your contributors, adding the fee amount to their contribution amount when they checkout. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank.</p>
+      <p class="explanation">This passes the <%= Rails.configuration.processing_fee %>% processing fee onto your contributors, adding the fee amount to their contribution amount when they check out. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank account.</p>
       <label>Pass Credit Card Processing Fee to Contributors?</label>
       <%= f.check_box :apply_processing_fee %>
     </div>
@@ -83,15 +83,15 @@
   </fieldset>
 
   <fieldset>
-  <legend>Rewards (Optional)</legend>
+  <legend>Rewards (optional)</legend>
 
     <div class="field clearfix">
       <div id="no-rewards" style="<%= 'display:none' unless @campaign.payment_type == 'fixed' %>">
-        <p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors</p>
+        <p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors.</p>
       </div>
 
       <div id="rewards" style="<%= 'display:none' if @campaign.payment_type == 'fixed' %>">
-        <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution.  You can set a cap on how many of each reward are available, and what is the minimum contribution amount needed to claim the reward.</p>
+        <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution. You can set a cap on how many of each reward are available and the minimum contribution amount needed to claim one.</p>
         <div class="reference">
           <label>How To Reference a Reward (i.e. reward, perk, option)</label>
           <%= f.text_field :reward_reference %>
@@ -196,7 +196,7 @@
 
     <div class="field clearfix">
       <label>Main Content</label>
-      <p class="explanation inline">This is the meat and potatoes of your website - include rich text and images to get your contributors excited!</p>
+      <p class="explanation inline">This is the meat and potatoes of your website--include rich text and images to engage your contributors!</p>
       <%= f.cktext_area :main_content %>
     </div>
 
@@ -213,7 +213,7 @@
     </div>
 
     <div class="field clearfix">
-      <label>FAQ</label>
+      <label>FAQs</label>
       <p class="explanation inline">Add as many question/answer pairs as you'd like to display in the FAQ section of the homepage.</p>
       <ul class="faq sortable">
         <% iterator = 1 %>
@@ -238,7 +238,7 @@
   </fieldset>
 
   <fieldset>
-  <legend>Comments (Optional)</legend>
+  <legend>Comments (optional)</legend>
     <div class="field clearfix">
       <label>Include a user comment section?</label>
       <p class="explanation">Add a comment section where backers can discuss your campaign. You will need a free moderator account from <a href="https://disqus.com/admin/signup/">Disqus.</a></p>
@@ -261,7 +261,7 @@
 
     <div class="field clearfix">
       <label>Confirmation Page Content</label>
-      <p class="explanation inline">This content appears on the confirmation page when one of your contributors completes a successful transaction!</p>
+      <p class="explanation inline">This content appears on the confirmation page when a contributor completes a successful transaction.</p>
       <%= f.cktext_area :confirmation_page_content %>
     </div>
 
@@ -277,13 +277,13 @@
     </div>
 
     <div class="field clearfix">
-      <p class="explanation">The title shown when your site is shared via facebook. Leave blank if you just want this to use your project name.</p>
+      <p class="explanation">The title shown when your site is shared via Facebook. Leave this blank if you want to use your project name.</p>
       <label>Facebook Title</label>
       <%= f.text_field :facebook_title %>
     </div>
 
     <div class="field clearfix">
-      <p class="explanation">The description shown when your site is shared via facebook.</p>
+      <p class="explanation">The description shown when your site is shared via Facebook.</p>
       <label>Facebook Description</label>
       <%= f.text_area :facebook_description, rows: 2 %>
     </div>
@@ -319,7 +319,7 @@
 
     <div class="field clearfix">
       <% if !f.object.production_flag %>
-        <p class="explanation">Campaigns remain in a 'sandbox' mode until you choose to activate real payments. This lets you run test transactions on the campaign while you get it ready.  WARNING: once you activate payments, you cannot go back to sandbox mode.</p>
+        <p class="explanation">Campaigns remain in 'sandbox' mode until you choose to activate real payments. This lets you run test transactions on the campaign. WARNING: once you activate payments, you cannot go back to sandbox mode.</p>
         <label>Activate payments?</label>
         <%= f.check_box :production_flag %>
       <% else %>

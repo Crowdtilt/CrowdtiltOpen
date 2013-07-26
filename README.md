@@ -2,9 +2,9 @@
 
 ![Crowdhoster index](https://s3.amazonaws.com/crowdhoster/github_assets/readmeScreenshot.png)
 
-"Launch your own crowdfunding site...without touching a line of code"
+"Launch your own crowdfunding site... without touching a line of code"
 
-Well, if you're here, maybe you want to touch *some* of the code.
+But if you’re here—well, maybe you want to touch some code.
 
 ---
 **Demo**
@@ -13,14 +13,18 @@ You can play with a complete working demo at [demo.crowdhoster.com/admin](http:/
 
 Use these credentials to log in:
 
-email: demo@crowdhoster.com
-password: crowdhoster
+email: demo@crowdhoster.com | password: crowdhoster
 
 **Quick Links:**
 
-"I want to launch my own campaign without touching any code." - [Head to the main Crowdhoster page](http://crowdhoster.com).
-"I want help customizing my Crowdhoster page." - [Check out this Crowdhoster setup guide](http:crowdhostersetup.herokuapp.com).
-"I want to contact the Crowdhoster team." - Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
+"I want to launch my own campaign without touching any code."    
+[Head to the main Crowdhoster page](http://crowdhoster.com).
+
+"I want help customizing my Crowdhoster page."    
+[Check out this Crowdhoster setup guide](http://www.crowdhoster.com/setup).
+
+"I want to contact the Crowdhoster team."    
+Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
 
 ## Install
 
@@ -43,21 +47,21 @@ $ brew install git
 $ \curl -L https://get.rvm.io | bash -s stable --rails --ruby=1.9.3
 $ rvm use 1.9.3 --default
 ```
-* Install [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) (database)
+* [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) (database)
 
-* Install [ImageMagick](http://www.imagemagick.org/script/index.php) (image processing software)
+* [ImageMagick](http://www.imagemagick.org/script/index.php) (image processing software)
 
 ```
 $ brew install imagemagick
 ```
 
 ### Service Providers
-To run Crowdhoster you'll also need to complete the following:
+To run Crowdhoster you'll also need to sign up for the following:
 
-* Sign up for a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)
-* Sign up for the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys
-* Sign up for [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets
-* Sign up for [Mailgun](http://www.mailgun.com/) (free)
+* a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)
+* the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys
+* [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets
+* [Mailgun](http://www.mailgun.com/) (free)
 
 ### Local Setup
 
