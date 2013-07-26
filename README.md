@@ -4,7 +4,7 @@
 
 "Launch your own crowdfunding site... without touching a line of code"
 
-But if you’re here—well, maybe you want to touch some code.
+But if you're here—well, maybe you want to touch some code.
 
 ---
 **Demo**
