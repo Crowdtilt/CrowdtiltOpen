@@ -21,7 +21,7 @@ email: demo@crowdhoster.com | password: crowdhoster
 [Head to the main Crowdhoster page](http://crowdhoster.com).
 
 "I want help customizing my Crowdhoster page."    
-[Check out this Crowdhoster setup guide](http://www.crowdhoster.com/setup).
+[Check out this Crowdhoster setup guide](http:crowdhostersetup.herokuapp.com).
 
 "I want to contact the Crowdhoster team."    
 Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
