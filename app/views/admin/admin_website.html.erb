@@ -45,7 +45,7 @@
 
       <div class="field clearfix">
         <label>Homepage Content</label>
-        <p class="explanation inline">This content is shown on the homepage in addition to the campaign tiles.</p>
+        <p class="explanation inline">This content is shown on the homepage in addition to the campaign titles.</p>
         <%= f.cktext_area :homepage_content %>
       </div>
 
@@ -61,25 +61,25 @@
         </div>
 
         <div class="field clearfix">
-          <p class="explanation">Include your facebook app ID here to properly set up your social sharing buttons. Visit https://developers.facebook.com/apps to create an app for your site. The like button will NOT show up unless you provide this ID.</p>
+          <p class="explanation">Include your Facebook app ID here to set up your social sharing buttons. Visit https://developers.facebook.com/apps to create an app for your site. The like button will NOT show up unless you provide this ID.</p>
           <label>Facebook App ID</label>
           <%= f.text_field :facebook_app_id %>
         </div>
 
         <div class="field clearfix">
-          <p class="explanation">The title shown when your site is shared via facebook. Leave blank if you just want this to use your project name.</p>
+          <p class="explanation">The title shown when your site is shared via Facebook. Leave this blank if you want to use your project name.</p>
           <label>Facebook Title</label>
           <%= f.text_field :facebook_title %>
         </div>
 
         <div class="field clearfix">
-          <p class="explanation">The description shown when your site is shared via facebook.</p>
+          <p class="explanation">The description shown when your site is shared via Facebook.</p>
           <label>Facebook Description</label>
           <%= f.text_area :facebook_description, rows: 2 %>
         </div>
 
         <div class="field clearfix">
-          <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
+          <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px.</p>
           <label>Facebook Image</label>
           <% if @settings.facebook_image.file? %>
             <%= image_tag @settings.facebook_image.url(:thumb) %><br/>
@@ -120,7 +120,7 @@
         <div id="advanced" style="display:none">
 
           <div class="field clearfix">
-            <p class="explanation">Add your own CSS styles to fully customize the look and feel of the site.</p>
+            <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
             <label>Custom CSS</label>
             <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>
           </div>

@@ -31,10 +31,10 @@ $( document ).ready(function() {
       "settings[site_name]": "Please enter your site name",
       "settings[reply_to_email]": {
         required: "Please enter a reply to email address",
-        email: "hmm. That doesn't look like a valid email"
+        email: "Hmm. That doesn't look like a valid email"
       },
       "settings[header_link_url]": {
-        url: "hmm. That doesn't look like a valid URL. ex: http://crowdtilt.com"
+        url: "Hmm. That doesn't look like a valid URL. ex: http://crowdtilt.com"
       },
       "settings[tweet_text]": {
         maxlength: "Oops! Must be under 120 characters so we have room to include the link to your campaign"
@@ -198,7 +198,7 @@ $( document ).ready(function() {
         required: "We need this to deposit funds<br> in your account.",
         number: "No letters in the routing number!",
         minlength: "US routing numbers are 9 digits",
-        usRoutingNumber: "hmm. That routing number <br> doesn't look valid."
+        usRoutingNumber: "Hmm. That routing number <br> doesn't look valid."
       },
       account_number: {
         required: "We need this to deposit funds<br> in your account."
@@ -244,14 +244,14 @@ $( document ).ready(function() {
     // validation messages
     messages: {
       fullname: {
-        required: "We need your full name"
+        required: "We need your full name to process your payment."
       },
       email: {
-        required: "Please enter an email address",
-        email: "hmm. That doesn't look like a valid email"
+        required: "Please enter your email address.",
+        email: "Hmm. That doesn’t look like a valid email."
       },
       additional_info: {
-        required: "We need the requested additional info"
+        required: "We need this additional information to complete your contribution."
       },
       address_one: {
         required: "We need your street address"
@@ -270,11 +270,11 @@ $( document ).ready(function() {
       },
       card_number: {
         required: "We need your card number to charge it",
-        minlength: "hmm. That doesn't look valid just yet",
-        creditcard: "hmm. That doesn't look valid just yet"
+        minlength: "Hmm. That doesn’t look valid just yet.",
+        creditcard: "Hmm. That doesn’t look valid just yet."
       },
       security_code: {
-        required: "We need the security code from your card",
+        required: "Your security code is required. Fill 'er in!",
         number: "Numbers only for the security code!",
         minlength: "Security codes are at least 3 digits!",
         maxlength: "Security codes are 4 digits or less!"
