@@ -90,7 +90,7 @@ $ cp .env.example .env
 
 Then open up the .env file and fill in the variables with your app_name and credentials. Leave "ENABLE_ASSET_SYNC" set to 'true' if you plan to use AWS to host your assets (recommended).
 
-Important: Your APP_NAME must not have a space in it. Underscores and hypens are accepted.
+Important: Your ```APP_NAME``` must not have a space in it. Underscores and hypens are accepted.
 
 ```
 APP_NAME=myawesomeapp
