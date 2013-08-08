@@ -210,40 +210,57 @@
       ul {
         margin: 0px;
         li {
-          padding: 20px 20px;
           border-bottom: 1px solid gray;
-          p {
-            font-size: 14px;
-            margin: 0px;
-            color: #4b4b4b;
-          }
-
-          p.price {
-            font-size: 24px;
-            font-weight: bold;
-          }
-          p.title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 12px;
-          }
-          p.description {
-            margin-bottom: 12px;
-          }
-          p.delivery {
-            font-size: 12px;
-            font-weight: bold;
-            font-style: italic;
-            margin-bottom: 12px;
-          }
-          p.claimed {
-            font-weight: bold;
-          }
-
           &:last-child {
             border-bottom: none;
+            a {
+                -webkit-border-radius: 0px 0px 5px 5px;
+                 -moz-border-radius: 0px 0px 5px 5px;
+                border-radius: 0px 0px 5px 5px;
+            }
           }
-
+          a {
+            display: block;
+            padding: 20px 20px;
+            &:hover {
+              text-decoration: none;
+              background: #CFCDCD;
+            }
+            &.disabled {
+              opacity: 0.7;
+              cursor: default;
+              &:hover {
+                background: none;
+              }
+            }
+            p {
+              font-size: 14px;
+              margin: 0px;
+              color: #4b4b4b;
+              text-shadow: none;
+              &.price {
+                font-size: 24px;
+                font-weight: bold;
+              }
+              &.title {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 12px;
+              }
+              &.description {
+                margin-bottom: 12px;
+              }
+              &.delivery {
+                font-size: 12px;
+                font-weight: bold;
+                font-style: italic;
+                margin-bottom: 12px;
+              }
+              &.claimed {
+                font-weight: bold;
+              }
+            }
+          }
         }
       }
 
