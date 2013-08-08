@@ -17,15 +17,43 @@ Selfstarter.campaigns =
       $amount.val(new_amount)
       $('#total').html(new_amount.toFixed(2))
 
-    $('#amount').focus()
+    $('#amount').on "keyup", (e) ->
+      $(this).addClass('edited')
+      $('#amount').removeClass('error')
+      $('.error').hide()
 
     $('.reward_option.active').on "click", (e) ->
       $this = $(this)
+      if(!$(e.target).hasClass('reward_edit'))
+        $amount = $('#amount')
+        $this.find('input').prop('checked', true)
+        $('.reward_option').removeClass('selected').hide()
+        $this.addClass('selected').show()
+        $('.reward_edit').show()
+        $('html,body').animate({scrollTop: $('#checkout').offset().top});
+        if(!$amount.hasClass('edited'))
+          $amount.val($this.attr('data-price'))
+
+    $('.reward_edit').on "click", (e) ->
+      e.preventDefault()
+      $('.reward_edit').hide()
+      $('.reward_option').removeClass('selected').show()
+      $('input').prop('checked', false)
+      $('#amount').removeClass('error')
+      $('.error').hide()
+
+    $('#amount_form').on "submit", (e) ->
+      e.preventDefault()
+      $reward = $('.reward_option.selected')
       $amount = $('#amount')
-      $this.find('input').prop('checked', true)
-      $('.reward_option').css('background-color', '')
-      $this.css('background-color', '#e6e6e6')
-      $amount.val($this.attr('data-price'))
+      if($reward && $amount.val().length == 0)
+        $amount.val($reward.attr('data-price'))
+        this.submit()
+      else if($reward && (parseFloat($reward.attr('data-price')) > parseFloat($amount.val())))
+        $amount.addClass('error')
+        $('.error').html('Amount must be at least $' + $reward.attr('data-price') + ' to select that ' + $('#reward_select').attr('data-reference') + '.').show()
+      else
+        this.submit()
 
   submitPaymentForm: (form) ->
     $('#errors').hide()
