@@ -57,51 +57,64 @@
     #reward_select {
       ul {
         margin-left: 0px;
-        li.reward_option {
-          padding: 20px 0px;
-          border-bottom: 1px solid gray;
-          opacity: 0.7;
-          input, label {
-            display: inline;
-            float: left;
-            margin-left: 10px;
-            font-weight: bold;
+        li {
+          position: relative;
+          &.reward_option {
+            padding: 20px 0px;
+            border-bottom: 1px solid gray;
+            opacity: 0.7;
+            input, label {
+              display: inline;
+              float: left;
+              margin-left: 10px;
+              font-weight: bold;
+            }
+            .reward_description {
+              margin-left: 120px;
+              width: 320px;
+              p {
+                font-size: 14px;
+                margin: 0px;
+                color: #4b4b4b;
+              }
+              p.price {
+                font-size: 24px;
+                font-weight: bold;
+              }
+              p.title {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 12px;
+              }
+              p.claimed {
+                font-weight: bold;
+                margin-bottom: 12px;
+              }
+              p.description {
+                margin-bottom: 12px;
+                line-height: 16px;
+              }
+              p.delivery {
+                font-size: 12px;
+              }
+            }
+            .reward_edit {
+              display: block;
+              position: absolute;
+              top: 15px;
+              right: 25px;
+            }
           }
-          .reward_description {
-            margin-left: 120px;
-            width: 360px;
-            p {
-              font-size: 14px;
-              margin: 0px;
-              color: #4b4b4b;
-            }
-            p.price {
-              font-size: 24px;
-              font-weight: bold;
-            }
-            p.title {
-              font-size: 16px;
-              font-weight: bold;
-              margin-bottom: 12px;
-            }
-            p.claimed {
-              font-weight: bold;
-              margin-bottom: 12px;
-            }
-            p.description {
-              margin-bottom: 12px;
-              line-height: 16px;
-            }
-            p.delivery {
-              font-size: 12px;
+          &.active {
+            opacity: 1;
+            &:hover {
+              background-color: #e6e6e6;
+              cursor: pointer;
             }
           }
-        }
-        li.reward_option.active {
-          opacity: 1;
-          &:hover {
+          &.selected {
             background-color: #e6e6e6;
-            cursor: pointer;
+            border-bottom: none;
           }
         }
       }

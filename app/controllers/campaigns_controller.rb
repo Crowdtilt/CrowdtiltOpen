@@ -12,6 +12,14 @@ class CampaignsController < ApplicationController
   end
 
   def checkout_amount
+    @reward = false
+    if params.has_key?(:reward) && params[:reward].to_i != 0
+      @reward = Reward.find_by_id(params[:reward])
+      unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out?
+        @reward = false
+        flash.now[:notice] = "Please select a different reward"
+      end
+    end
   end
 
   def checkout_payment
