@@ -68,13 +68,17 @@ To run Crowdhoster you'll also need to sign up for the following:
 
 ### Local Setup
 
-Clone the Crowdhoster repo into a new directory
+Get  started by:
 
-```
-$ git clone https://github.com/Crowdtilt/Crowdhoster {DIRECTORY}
-```
+* Downloading a .zip of the [latest release](https://github.com/Crowdtilt/Crowdhoster/releases) to your local machine
 
-Switch to the newly created project directory
+  or
+ 
+* Creating a fork of Crowdhoster and cloning it to your local machine.
+
+
+
+After you've got the repo on your local machine, switch to the newly created project directory
 
 ```
 $ cd {DIRECTORY}
@@ -183,9 +187,11 @@ $ heroku open
 
 Looking to help make Crowdhoster better?
 
-Our feature development roadmap and bugs are inputted as issues.
+Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/Crowdhoster/issues).
 
-See a complete list by [clicking here](https://github.com/Crowdtilt/Crowdhoster/issues).
+Contribute by forking the repo and working on a branch. Submit your changes via pull request. 
+
+A more complete contribution and style guide is coming soon!
 
 ## Contact and License
 
