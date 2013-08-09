@@ -10,6 +10,9 @@ Selfstarter.campaigns =
       $(this).hide()
 
     # Checkout section functions:
+    if($('#checkout').length)
+      $('html,body').animate({scrollTop: $('#checkout').offset().top})
+
     $('#quantity').on "change", (e) ->
       quantity = $(this).val()
       $amount = $('#amount')
