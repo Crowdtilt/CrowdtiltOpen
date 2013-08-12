@@ -157,6 +157,7 @@
           <h3><%= @campaign.reward_reference.pluralize.titleize %></h3>
           <ul>
             <% @campaign.rewards.order("price ASC").each do |reward| %>
+            <% if reward.visible? %>
               <li>
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? %>" class="<%= 'disabled' if reward.sold_out? %>">
                   <p class="price">$<%= number_with_precision(reward.price, precision: (reward.price*100%100==0.0 ? 0 : 2)) %></p>
@@ -168,6 +169,7 @@
                   </p>
                 </a>
               </li>
+            <% end %>
             <% end %>
           </ul>
         </div>
