@@ -1,5 +1,5 @@
 class Reward < ActiveRecord::Base
-  attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id
+  attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id, :visible_flag
 
    validates :title, :description, :delivery_date, :price, presence: true
 
@@ -16,6 +16,10 @@ class Reward < ActiveRecord::Base
 
   def unlimited?
     self.number.nil? || self.number == 0
+  end
+
+  def visible?
+    self.visible_flag
   end
 
 end
