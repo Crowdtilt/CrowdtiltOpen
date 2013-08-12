@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703163000) do
+ActiveRecord::Schema.define(:version => 20130812230857) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -132,8 +132,9 @@ ActiveRecord::Schema.define(:version => 20130703163000) do
     t.integer  "number"
     t.float    "price"
     t.integer  "campaign_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "visible_flag",  :default => true, :null => false
   end
 
   create_table "settings", :force => true do |t|
