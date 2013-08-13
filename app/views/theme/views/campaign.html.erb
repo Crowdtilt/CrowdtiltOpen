@@ -44,11 +44,11 @@
 
           <% if @campaign.goal_type == 'dollars' %>
           <li class="stats" id="backers">
-            <%= number_with_delimiter @campaign.stats_number_of_contributions.to_i, :delimiter => "," %>
-            <span><%= @campaign.contributor_reference.pluralize(@campaign.stats_number_of_contributions.to_i) %></span>
+            <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
+            <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
           </li>
           <li class="stats">
-            <%= number_to_currency @campaign.stats_raised_amount.ceil, :precision => 0 %>
+            <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
             <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
           </li>
           <% else %>
@@ -71,16 +71,16 @@
           <% end %>
         </ul>
 
-        <% if @campaign.stats_raised_amount < @campaign.goal_dollars %>
+        <% if @campaign.raised_amount < @campaign.goal_dollars %>
           <div id='progress_bg' class='small'>
-            <div id='progress' class='' style='width: <%= @campaign.stats_tilt_percent.to_i %>%;'>
+            <div id='progress' class='' style='width: <%= @campaign.tilt_percent.to_i %>%;'>
             </div>
           </div>
         <% else %>
           <div id="progress_bg">
             <div id="progress">
             </div>
-            <div id='progress_text'><%= @campaign.stats_tilt_percent.ceil %>% <%= @campaign.progress_text %></div>
+            <div id='progress_text'><%= @campaign.tilt_percent.ceil %>% <%= @campaign.progress_text %></div>
           </div>
         <% end %>
 
