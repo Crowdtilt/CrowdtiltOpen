@@ -34,9 +34,9 @@
               <%= truncate(campaign.name, length: 50) %>
             </p>
 
-            <% if campaign.stats_raised_amount.to_f/100 < campaign.goal_dollars.to_f %>
+            <% if campaign.raised_amount.to_f/100 < campaign.goal_dollars.to_f %>
               <div id='progress_bg'>
-                <div id='progress' class='' style='width: <%= campaign.stats_tilt_percent.nil? ? 0 : campaign.stats_tilt_percent.ceil %>%;'>
+                <div id='progress' class='' style='width: <%= campaign.tilt_percent.nil? ? 0 : campaign.tilt_percent.ceil %>%;'>
                 </div>
               </div>
             <% else %>
@@ -59,7 +59,7 @@
 
             <p class="numbers pull-right" style="text-align:right">
               <% if campaign.goal_type == 'dollars' %>
-              <strong>$<%= campaign.stats_raised_amount.ceil %></strong><br/>
+              <strong>$<%= campaign.raised_amount.ceil %></strong><br/>
               <%= campaign.progress_text %>
               <% else %>
                <strong><%= campaign.orders %></strong><br/>

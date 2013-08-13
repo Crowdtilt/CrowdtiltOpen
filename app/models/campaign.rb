@@ -68,6 +68,18 @@ class Campaign < ActiveRecord::Base
     (self.payment_type != 'fixed' && self.rewards.length > 0)
   end
 
+  def raised_amount
+    payments.where("payments.status!='refunded'").sum(:amount)/100.0
+  end
+
+  def number_of_contributions
+    payments.where("payments.status!='refunded'").count
+  end
+
+  def tilt_percent
+    (raised_amount / goal_dollars) * 100.0
+  end
+
   private
 
   def set_min_amount
