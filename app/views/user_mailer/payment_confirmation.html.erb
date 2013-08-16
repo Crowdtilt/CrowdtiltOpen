@@ -1,11 +1,11 @@
 <br/>
 Hi <%= @payment.fullname.split(' ')[0] %>,
 
-</br></br>
+<br/><br/>
 
 This email is a confirmation of your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> payment to <%= @campaign.name %>. If you have any questions about this campaign, please contact <%= @settings.reply_to_email %>.
 
-<br/></br>
+<br/><br/>
 
 <strong>Payment Details:</strong><br/>
 Name: <%= @payment.fullname %> <br/>
@@ -44,6 +44,9 @@ Your credit card will only be charged if this campaign reaches its goal. In the 
 
 Thanks for your support!
 
-<br/></br>
+<br/><br/>
 
-<a href="http://www.crowdhoster.com">Powered by Crowdhoster</a> // <a href="http://www.crowdtilt.com">A Crowdtilt joint</a>
+
+<p style="color: black; text-align: center; text-decoration:none;">&nbsp;&nbsp;<a style="text-decoration:none;" href="http://www.crowdhoster.com" target="_blank">A Crowdhoster Site</a> &nbsp;<img height="15px;" src="https://crowdhoster-emails.s3.amazonaws.com/crowdtiltcircle.png">&nbsp; <a style="text-decoration:none;" href="http://www.crowdtilt.com" target="_blank">Powered by Crowdtilt</a></p>
+
+<p style="color: black; text-align: center; text-decoration:none;"><a style="text-decoration:none;" href="http://www.crowdhoster.com">[Start your own campaign]</a></p>
