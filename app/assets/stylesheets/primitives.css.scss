@@ -145,3 +145,17 @@ p {
 .ui-timepicker-rtl dl { text-align: right; }
 .ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
 .ui-datepicker-current { display:none!important;}
+
+/* Powered by callout below the footer */
+#powered {
+  padding: 20px;
+  background: white;
+  text-align: center;
+  a {
+    color: black;
+    text-decoration: none;
+    &:hover {
+      color: gray;
+    }
+  }
+}
