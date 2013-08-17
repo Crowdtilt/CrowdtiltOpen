@@ -25,12 +25,12 @@
     <%= render 'theme/views/footer' %>
 
     <div id="powered">
-      &nbsp;&nbsp;<%= link_to "A Crowhoster Site", 'http://www.crowdhoster.com' %>
+      &nbsp;&nbsp;<%= link_to "A Crowdhoster Site", 'http://www.crowdhoster.com' %>
       &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
       <%= link_to "Powered by Crowdtilt", 'http://www.crowdtilt.com' %>
     </div>
 
-    <% if false #Rails.env.development? %>
+    <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
 
