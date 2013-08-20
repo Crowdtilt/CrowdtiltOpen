@@ -136,6 +136,7 @@ class CampaignsController < ApplicationController
         admin_fee_amount: admin_fee_amount,
         user_id: ct_user_id,
         card_id: ct_card_id,
+        billing_statement_text: @settings.billing_statement_text,
         metadata: {
           fullname: fullname,
           email: email,
@@ -147,6 +148,7 @@ class CampaignsController < ApplicationController
       @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
     rescue => exception
+      logger.debug "Error with post to /payments: #{exception.message}"
       redirect_to checkout_amount_url(@campaign), flash: { error: exception.to_s }
       return
     end
