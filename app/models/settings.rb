@@ -20,6 +20,10 @@ class Settings < ActiveRecord::Base
   has_attached_file :facebook_image,
                     styles: { thumb: "100x100#" }
 
+  def billing_statement_text
+    ('CH*' + site_name.upcase)[0, 22]
+  end
+
   private
 
   def set_api_key

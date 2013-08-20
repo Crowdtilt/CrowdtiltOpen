@@ -1,4 +1,4 @@
-<br/>
+<p style="font-size: 14px; line-height: 18px; color: #6b6b6b">
 Hi <%= @payment.fullname.split(' ')[0] %>,
 
 <br/><br/>
@@ -31,7 +31,9 @@ Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %><br/>
   <%= @payment.additional_info %>
   <br/>
 <% end %>
-Payment ID: <%= @payment.ct_payment_id %>
+<br/>
+Payment ID: <%= @payment.ct_payment_id %><br/>
+Charge will appear as: <%= 'BAL*' + @settings.billing_statement_text %>
 
 <br/><br/>
 
@@ -43,3 +45,4 @@ Your credit card will only be charged if this campaign reaches its goal. In the 
 <br/></br>
 
 Thanks for your support!
+</p>
