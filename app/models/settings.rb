@@ -21,7 +21,7 @@ class Settings < ActiveRecord::Base
                     styles: { thumb: "100x100#" }
 
   def billing_statement_text
-    ('CH*' + site_name.upcase)[0, 22]
+    ('CH ' + site_name.upcase)[0, 18]
   end
 
   private
