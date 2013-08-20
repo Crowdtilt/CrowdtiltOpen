@@ -33,7 +33,8 @@
         <%= @payment.additional_info %>
         <br/><br/>
       <% end %>
-      <strong>ID:</strong><br/> <%= @payment.ct_payment_id %><br/><br/>
+      <strong>Payment ID:</strong><br/> <%= @payment.ct_payment_id %><br/><br/>
+      <strong>Charge will appear on your statement as:</strong><br/> <%= 'BAL*' + @settings.billing_statement_text %><br/><br/>
       <p class="center">An email confirmation was sent to <%= @payment.email %></p>
       </p>
     </div>
