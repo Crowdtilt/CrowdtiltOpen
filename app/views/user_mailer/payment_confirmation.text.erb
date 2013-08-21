@@ -1,3 +1,5 @@
+<%= @settings.site_name %>
+
 Hi <%= @payment.fullname.split(' ')[0] %>,
 
 This email is a confirmation of your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> payment to <%= @campaign.name %>. If you have any questions about this campaign, please contact <%= @settings.reply_to_email %>.

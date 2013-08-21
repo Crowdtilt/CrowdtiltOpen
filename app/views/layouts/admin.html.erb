@@ -19,6 +19,14 @@
     </div>
     <%= render 'admin/footer' %>
 
+    <div id="powered">
+      <a href="http://www.crowdhoster.com">
+      &nbsp;&nbsp;A Crowdhoster Site
+      &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
+      Powered by Crowdtilt
+      </a>
+    </div>
+
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
