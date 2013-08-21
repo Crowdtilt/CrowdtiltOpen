@@ -25,9 +25,11 @@
     <%= render 'theme/views/footer' %>
 
     <div id="powered">
-      &nbsp;&nbsp;<%= link_to "A Crowdhoster Site", 'http://www.crowdhoster.com' %>
+      <a href="http://www.crowdhoster.com">
+      &nbsp;&nbsp;A Crowdhoster Site
       &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
-      <%= link_to "Powered by Crowdtilt", 'http://www.crowdtilt.com' %>
+      Powered by Crowdtilt
+      </a>
     </div>
 
     <% if Rails.env.development? %>
