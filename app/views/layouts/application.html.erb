@@ -36,6 +36,7 @@
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
 
+    <%= raw(@settings.custom_js) %>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
   </body>
 </html>
