@@ -40,6 +40,9 @@ class ApplicationController < ActionController::Base
         # Set intiatilized flag to true
         @settings.update_attribute :initialized_flag, true
 
+        # Set default reply_to_email to Admin User email
+        @settings.update_attribute :reply_to_email, current_user.email
+
         # Create the Crowdtilt API Users
         begin
           Crowdtilt.sandbox
