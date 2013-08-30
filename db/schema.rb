@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812230857) do
+ActiveRecord::Schema.define(:version => 20130830004146) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130812230857) do
     t.integer  "quantity"
     t.integer  "reward_id"
     t.text     "additional_info"
+    t.string   "billing_postal_code"
   end
 
   create_table "rewards", :force => true do |t|

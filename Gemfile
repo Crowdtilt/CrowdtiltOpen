@@ -9,6 +9,7 @@ gem 'devise'
 gem 'nokogiri'
 gem 'pg'
 gem "friendly_id", "~> 4.0.9"
+gem "iso_country_codes"
 
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
