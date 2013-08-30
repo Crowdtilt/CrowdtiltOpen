@@ -62,8 +62,8 @@ Selfstarter.campaigns =
     $('#errors').hide()
     $('#errors').html('')
     $('button[type="submit"]').attr('disabled', true).html('Processing, please wait...')
-    $('#card_number').removeAttr('name');
-    $('#security_code').removeAttr('name');
+    $('#card_number').removeAttr('name')
+    $('#security_code').removeAttr('name')
 
     $form = $(form)
 
@@ -72,6 +72,7 @@ Selfstarter.campaigns =
       expiration_month: $form.find('#expiration_month').val()
       expiration_year: $form.find('#expiration_year').val()
       security_code: $form.find('#security_code').val()
+      postal_code: $form.find('#billing_postal_code').val()
 
     errors = crowdtilt.card.validate(cardData)
     if !$.isEmptyObject(errors)
@@ -81,8 +82,8 @@ Selfstarter.campaigns =
       $('.loader').hide()
       $button = $('button[type="submit"]')
       $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
-      $('#card_number').attr('name', 'card_number');
-      $('#security_code').attr('name', 'security_code');
+      $('#card_number').attr('name', 'card_number')
+      $('#security_code').attr('name', 'security_code')
     else
       user_id = $form.find('#ct_user_id').val()
       crowdtilt.card.create(user_id, cardData, this.cardResponseHandler)

@@ -1,6 +1,6 @@
 class Payment < ActiveRecord::Base
   attr_accessible :ct_payment_id, :status, :amount, :user_fee_amount, :admin_fee_amount, :fullname, :email,
-                  :card_type, :card_last_four, :card_expiration_month, :card_expiration_year,
+                  :card_type, :card_last_four, :card_expiration_month, :card_expiration_year, :billing_postal_code,
                   :address_one, :address_two, :city, :state, :postal_code, :country, :quantity,
                   :additional_info
 
@@ -13,7 +13,7 @@ class Payment < ActiveRecord::Base
   def self.to_csv(options={})
     #db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
     csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date',
-                   'Card Type', 'Card Last Four', 'Card Expiration Month', 'Card Expiration Year',
+                   'Card Type', 'Card Last Four', 'Card Expiration Month', 'Card Expiration Year', 'Billing Postal Code',
                    'Address One', 'Address Two', 'City', 'State', 'Postal Code', 'Country',
                    'Additional Info','Status', 'ID']
 
@@ -30,6 +30,7 @@ class Payment < ActiveRecord::Base
                 payment.card_last_four,
                 payment.card_expiration_month,
                 payment.card_expiration_year,
+                payment.billing_postal_code,
                 payment.address_one,
                 payment.address_two,
                 payment.city,

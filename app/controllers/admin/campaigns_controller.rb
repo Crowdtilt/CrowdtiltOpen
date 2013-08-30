@@ -23,10 +23,7 @@ class Admin::CampaignsController < ApplicationController
         tilt_amount: @campaign.goal_dollars*100,
         expiration_date: @campaign.expiration_date,
         user_id: @settings.ct_sandbox_admin_id,
-        metadata: {
-          fullname: current_user.fullname,
-          email: current_user.email
-        }
+        billing_statement_text: @settings.billing_statement_text
       }
       Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
@@ -82,7 +79,8 @@ class Admin::CampaignsController < ApplicationController
         title: @campaign.name,
         tilt_amount: (@campaign.goal_dollars*100).to_i,
         expiration_date: @campaign.expiration_date,
-        user_id: ct_user_id
+        user_id: ct_user_id,
+        billing_statement_text: @settings.billing_statement_text
       }
       @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
@@ -213,7 +211,8 @@ class Admin::CampaignsController < ApplicationController
       campaign = {
         title: @campaign.name,
         tilt_amount: (@campaign.goal_dollars*100).to_i,
-        expiration_date: @campaign.expiration_date
+        expiration_date: @campaign.expiration_date,
+        billing_statement_text: @settings.billing_statement_text
       }
       # If the campaign has been promoted to production, create a new campaign on the Crowtilt API
       if @campaign.production_flag && @campaign.production_flag_changed?
