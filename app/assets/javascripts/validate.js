@@ -239,7 +239,8 @@ $( document ).ready(function() {
       postal_code: { required: true },
       country: { required: true },
       card_number: { required: true, minlength: 12, creditcard: true},
-      security_code: { required: true, number: true, minlength: 3, maxlength: 4 }
+      security_code: { required: true, number: true, minlength: 3, maxlength: 4 },
+      billing_postal_code: {required: true, minlength: 3, maxlength: 10}
     },
     // validation messages
     messages: {
@@ -278,6 +279,11 @@ $( document ).ready(function() {
         number: "Numbers only for the security code!",
         minlength: "Security codes are at least 3 digits!",
         maxlength: "Security codes are 4 digits or less!"
+      },
+      billing_postal_code: {
+        required: "We need your billing postal code",
+        minlength: "That doesn't look like a valid postal code",
+        maxlength: "That doesn't look like a valid postal code",
       }
     }
 

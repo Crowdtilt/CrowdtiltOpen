@@ -65,6 +65,7 @@ class CampaignsController < ApplicationController
     ct_card_id = params[:ct_card_id]
     fullname = params[:fullname]
     email = params[:email]
+    billing_postal_code = params[:billing_postal_code]
 
     #calculate amount and fee in cents
     amount = (params[:amount].to_f*100).ceil
@@ -84,15 +85,9 @@ class CampaignsController < ApplicationController
 
     @reward = false
     if params[:reward].to_i != 0
-      begin
-        @reward = Reward.find(params[:reward])
-      rescue => exception
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" }
-        return
-      end
+      @reward = Reward.find_by_id(params[:reward])
       unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= amount
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" }
-        return
+        redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" } and return
       end
     end
 
@@ -110,6 +105,7 @@ class CampaignsController < ApplicationController
     # Create the payment record in our db, if there are errors, redirect the user
     @payment = @campaign.payments.new fullname: fullname,
                                       email: email,
+                                      billing_postal_code: billing_postal_code,
                                       quantity: quantity,
                                       address_one: address_one,
                                       address_two: address_two,
@@ -124,8 +120,7 @@ class CampaignsController < ApplicationController
       @payment.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
-      redirect_to checkout_amount_url(@campaign), flash: { error: message[0...-2] }
-      return
+      redirect_to checkout_amount_url(@campaign), flash: { error: message[0...-2] } and return
     end
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
@@ -136,21 +131,27 @@ class CampaignsController < ApplicationController
         admin_fee_amount: admin_fee_amount,
         user_id: ct_user_id,
         card_id: ct_card_id,
-        billing_statement_text: @settings.billing_statement_text,
         metadata: {
           fullname: fullname,
           email: email,
+          billing_postal_code: billing_postal_code,
           quantity: quantity,
           reward: @reward ? @reward.id : 0,
           additional_info: additional_info
         }
       }
       @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
+
+      logger.info "CROWDTILT API REQUEST: /campaigns/#{@campaign.ct_campaign_id}/payments"
+      logger.info payment
+
       response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
+
+      logger.info "CROWDTILT API RESPONSE:"
+      logger.info response
     rescue => exception
-      logger.debug "Error with post to /payments: #{exception.message}"
-      redirect_to checkout_amount_url(@campaign), flash: { error: exception.to_s }
-      return
+      logger.info "ERROR WITH POST TO /payments: #{exception.message}"
+      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment, please try again" } and return
     end
 
     # Associate payment with reward
@@ -168,7 +169,7 @@ class CampaignsController < ApplicationController
     begin
       UserMailer.payment_confirmation(@payment, @campaign).deliver
     rescue => exception
-      logger.debug "Error with email receipt: #{exception.message}"
+      logger.info "ERROR WITH EMAIL RECEIPT: #{exception.message}"
     end
 
   end
