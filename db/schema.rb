@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(:version => 20130830004146) do
     t.string   "ct_production_guest_id"
     t.string   "api_key"
     t.string   "reply_to_email",              :default => "team@crowdhoster.com", :null => false
+    t.text     "custom_js"
   end
 
   create_table "users", :force => true do |t|
