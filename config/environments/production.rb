@@ -71,4 +71,8 @@ Selfstarter::Application.configure do
     config.assets.prefix = "/#{ENV['APP_NAME']}/assets"
   end
 
+  # Logging settings for heroku
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
+
 end
