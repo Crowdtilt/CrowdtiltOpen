@@ -14,14 +14,18 @@
 /log/*.log
 /tmp
 
+# RVM Settings
+.rvmrc
+.ruby-gemset
+.ruby-version
+
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
 
+# Editor Files
 *.sublime-workspace
-.rvmrc
-
-# yes, I use an ide
+.*.sw?
 .idea/*
 
 # yes, we use macs
