@@ -1,4 +1,4 @@
-Selfstarter.admin =
+Crowdhoster.admin =
 
   init: ->
 
@@ -137,7 +137,7 @@ Selfstarter.admin =
         jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
       success: (data) ->
         if(data == "success")
-          Selfstarter.admin.createBankAccount($form)
+          Crowdhoster.admin.createBankAccount($form)
         else
           $('#errors').append('<p>An error occurred, please re-enter your account information</p>')
           $('.loader').hide()
@@ -164,7 +164,7 @@ Selfstarter.admin =
       $('#account_number').attr('name', 'account_number');
     else
       user_id = $form.find('#ct_user_id').val()
-      crowdtilt.bank.create(user_id, bankData, Selfstarter.admin.bankResponseHandler)
+      crowdtilt.bank.create(user_id, bankData, Crowdhoster.admin.bankResponseHandler)
 
 
   bankResponseHandler: (response) ->

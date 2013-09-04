@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Selfstarter::Application.load_tasks
+Crowdhoster::Application.load_tasks

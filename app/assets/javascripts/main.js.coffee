@@ -1,4 +1,4 @@
-window.Selfstarter =
+window.Crowdhoster =
 
   init: ->
     $('.show_loader').on "click", ->
@@ -9,9 +9,9 @@ window.Selfstarter =
     $('.show_tooltip').tooltip()
 
 $ ->
-  Selfstarter.init()
-  Selfstarter.admin.init()
-  Selfstarter.campaigns.init()
-  Selfstarter.theme.init()
+  Crowdhoster.init()
+  Crowdhoster.admin.init()
+  Crowdhoster.campaigns.init()
+  Crowdhoster.theme.init()
 
 CKEDITOR.config.allowedContent = true

@@ -1,4 +1,4 @@
-Selfstarter::Application.routes.draw do
+Crowdhoster::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
