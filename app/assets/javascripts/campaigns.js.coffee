@@ -1,4 +1,4 @@
-Selfstarter.campaigns =
+Crowdhoster.campaigns =
 
   init: ->
 
