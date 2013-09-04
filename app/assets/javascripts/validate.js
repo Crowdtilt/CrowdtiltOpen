@@ -5,7 +5,7 @@ $( document ).ready(function() {
 
     // custom handler to call named function ""
     submitHandler: function (form) {
-      Selfstarter.admin.submitWebsiteForm(form);
+      Crowdhoster.admin.submitWebsiteForm(form);
     },
 
     // validate the previously selected element when the user clicks out
@@ -51,7 +51,7 @@ $( document ).ready(function() {
 
     // custom handler to call named function ""
     submitHandler: function (form) {
-      Selfstarter.admin.submitCampaignForm(form);
+      Crowdhoster.admin.submitCampaignForm(form);
     },
 
     // validate the previously selected element when the user clicks out
@@ -147,7 +147,7 @@ $( document ).ready(function() {
 
     // custom handler to call named function ""
     submitHandler: function (form) {
-      Selfstarter.admin.submitBankForm(form);
+      Crowdhoster.admin.submitBankForm(form);
     },
 
     // validate the previously selected element when the user clicks out
@@ -212,7 +212,7 @@ $( document ).ready(function() {
 
     // custom handler to call named function "do_payment"
     submitHandler: function(form) {
-      Selfstarter.campaigns.submitPaymentForm(form);
+      Crowdhoster.campaigns.submitPaymentForm(form);
     },
 
     // validate the previously selected element when the user clicks out

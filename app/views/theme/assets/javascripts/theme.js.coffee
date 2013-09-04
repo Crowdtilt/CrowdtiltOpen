@@ -1,4 +1,4 @@
-Selfstarter.theme =
+Crowdhoster.theme =
 
   init: ->
     return

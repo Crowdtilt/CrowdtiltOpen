@@ -7,7 +7,7 @@ if defined?(Bundler)
   Bundler.require(*Rails.groups(:assets => %w(development test)))
 end
 
-module Selfstarter
+module Crowdhoster
 
   class Application < Rails::Application
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "images")
