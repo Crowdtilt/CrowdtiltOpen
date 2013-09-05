@@ -40,6 +40,8 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    annotate (2.5.0)
+      rake
     arel (3.0.2)
     asset_sync (0.5.4)
       activemodel
@@ -227,6 +229,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  annotate
   asset_sync
   aws-sdk
   bootstrap-sass (= 2.1)

@@ -1,3 +1,34 @@
+# == Schema Information
+#
+# Table name: payments
+#
+#  id                    :integer          not null, primary key
+#  ct_payment_id         :string(255)
+#  status                :string(255)
+#  amount                :integer
+#  user_fee_amount       :integer
+#  admin_fee_amount      :integer
+#  fullname              :string(255)
+#  email                 :string(255)
+#  card_type             :string(255)
+#  card_last_four        :string(255)
+#  card_expiration_month :string(255)
+#  card_expiration_year  :string(255)
+#  campaign_id           :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  address_one           :string(255)
+#  address_two           :string(255)
+#  city                  :string(255)
+#  state                 :string(255)
+#  postal_code           :string(255)
+#  country               :string(255)
+#  quantity              :integer
+#  reward_id             :integer
+#  additional_info       :text
+#  billing_postal_code   :string(255)
+#
+
 class Payment < ActiveRecord::Base
   attr_accessible :ct_payment_id, :status, :amount, :user_fee_amount, :admin_fee_amount, :fullname, :email,
                   :card_type, :card_last_four, :card_expiration_month, :card_expiration_year, :billing_postal_code,

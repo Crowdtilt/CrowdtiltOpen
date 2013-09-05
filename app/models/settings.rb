@@ -1,3 +1,39 @@
+# == Schema Information
+#
+# Table name: settings
+#
+#  id                          :integer          not null, primary key
+#  site_name                   :string(255)      default("Crowdhoster"), not null
+#  facebook_app_id             :string(255)
+#  tweet_text                  :string(255)
+#  google_id                   :string(255)
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  initialized_flag            :boolean          default(FALSE), not null
+#  logo_image_file_name        :string(255)
+#  logo_image_content_type     :string(255)
+#  logo_image_file_size        :integer
+#  logo_image_updated_at       :datetime
+#  copyright_text              :string(255)
+#  facebook_title              :string(255)
+#  facebook_description        :text
+#  facebook_image_file_name    :string(255)
+#  facebook_image_content_type :string(255)
+#  facebook_image_file_size    :integer
+#  facebook_image_updated_at   :datetime
+#  homepage_content            :text
+#  custom_css                  :text
+#  ct_sandbox_guest_id         :string(255)
+#  header_link_text            :string(255)
+#  header_link_url             :string(255)
+#  ct_sandbox_admin_id         :string(255)
+#  ct_production_admin_id      :string(255)
+#  ct_production_guest_id      :string(255)
+#  api_key                     :string(255)
+#  reply_to_email              :string(255)      default("team@crowdhoster.com"), not null
+#  custom_js                   :text
+#
+
 class Settings < ActiveRecord::Base
   attr_accessible :site_name, :facebook_app_id, :google_id, :tweet_text, :initialized_flag,
                   :logo_image, :logo_image_delete, :copyright_text, :facebook_title,

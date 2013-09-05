@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: rewards
+#
+#  id            :integer          not null, primary key
+#  title         :string(255)
+#  description   :text
+#  delivery_date :string(255)
+#  number        :integer
+#  price         :float
+#  campaign_id   :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  visible_flag  :boolean          default(TRUE), not null
+#
+
 class Reward < ActiveRecord::Base
   attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id, :visible_flag
 

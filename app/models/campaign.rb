@@ -1,3 +1,66 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id                                   :integer          not null, primary key
+#  name                                 :string(255)
+#  expiration_date                      :datetime
+#  ct_campaign_id                       :string(255)
+#  media_type                           :string(255)      default("video"), not null
+#  main_image_file_name                 :string(255)
+#  main_image_content_type              :string(255)
+#  main_image_file_size                 :integer
+#  main_image_updated_at                :datetime
+#  video_embed_id                       :string(255)
+#  video_placeholder_file_name          :string(255)
+#  video_placeholder_content_type       :string(255)
+#  video_placeholder_file_size          :integer
+#  video_placeholder_updated_at         :datetime
+#  contributor_reference                :string(255)      default("backer")
+#  progress_text                        :string(255)      default("funded")
+#  primary_call_to_action_button        :string(255)      default("Contribute")
+#  primary_call_to_action_description   :text
+#  secondary_call_to_action_button      :string(255)      default("Contribute")
+#  secondary_call_to_action_description :text
+#  main_content                         :text
+#  checkout_sidebar_content             :text
+#  confirmation_page_content            :text
+#  confirmation_email_content           :text
+#  payment_type                         :string(255)      default("any"), not null
+#  min_payment_amount                   :float            default(1.0), not null
+#  fixed_payment_amount                 :float            default(1.0), not null
+#  apply_processing_fee                 :boolean          default(FALSE), not null
+#  tweet_text                           :string(255)
+#  facebook_title                       :string(255)
+#  facebook_description                 :text
+#  facebook_image_file_name             :string(255)
+#  facebook_image_content_type          :string(255)
+#  facebook_image_file_size             :integer
+#  facebook_image_updated_at            :datetime
+#  slug                                 :string(255)
+#  created_at                           :datetime         not null
+#  updated_at                           :datetime         not null
+#  stats_number_of_contributions        :integer
+#  stats_raised_amount                  :float
+#  stats_tilt_percent                   :float
+#  stats_unique_contributors            :integer
+#  is_expired                           :boolean
+#  is_tilted                            :boolean
+#  is_paid                              :boolean
+#  published_flag                       :boolean          default(FALSE), not null
+#  collect_shipping                     :boolean          default(FALSE), not null
+#  goal_type                            :string(255)      default("dollars"), not null
+#  goal_dollars                         :float            default(1.0), not null
+#  goal_orders                          :integer          default(1), not null
+#  production_flag                      :boolean          default(FALSE), not null
+#  include_rewards                      :boolean          default(FALSE), not null
+#  reward_reference                     :string(255)      default("reward"), not null
+#  collect_additional_info              :boolean          default(FALSE), not null
+#  additional_info_label                :string(255)
+#  include_comments                     :boolean          default(FALSE), not null
+#  comments_shortname                   :string(255)
+#
+
 class Campaign < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
