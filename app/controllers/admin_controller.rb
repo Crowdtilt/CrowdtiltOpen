@@ -5,10 +5,18 @@ class AdminController < ApplicationController
   before_filter :set_ct_env, only: [:admin_bank_setup, :ajax_verify]
 
   def admin_website
+    # Cache the original object in case of validation error, so we
+    # can display the original attributes. 
+    # TODO: restrict to only certain attributes
+    @site_cache = Marshal.load(Marshal.dump(@site))
+
     #Handle the form submission if request is PUT
     if request.put?
       if @site.update_attributes(params[:site])
         flash.now[:success] = "Website settings successfully updated!"
+
+        # Object is successfully updated, so bust cache
+        @site_cache = Marshal.load(Marshal.dump(@site))
       else
         message = ''
         @site.errors.each do |key, error|

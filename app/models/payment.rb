@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130830004146
+# Schema version: 20130906202515
 #
 # Table name: payments
 #

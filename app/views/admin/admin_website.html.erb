@@ -13,7 +13,13 @@
         <div class="field clearfix">
           <p class="explanation">This will be used as the page title (for SEO) and the name in the header. Your site name is also what contributors will see on their credit card statements.</p>
           <label>Site Name</label>
-            <%= f.text_field :site_name %>
+          <%= f.text_field :site_name %>
+        </div>
+
+        <div class="field clearfix">
+          <p class="explanation">Subdomains must be at least 3 characters long and can include letters, numbers, and hyphens. Your site is currently accessible from <%= @site_cache.subdomain %>.crowdhoster.com</p>
+          <label>Subdomain</label>
+          <%= f.text_field :subdomain %>.crowdhoster.com
         </div>
 
         <div class="field clearfix">
