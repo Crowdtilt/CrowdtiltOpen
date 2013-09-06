@@ -3,7 +3,12 @@ Crowdhoster::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   # PAGES
+  root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^$|^www$)/}
   root                                         to: 'pages#index'
+
+  scope module: :multisite do
+    resources :sites, only: [:new, :create], as: 'multisite_sites'
+  end
 
   # USERS
   devise_for :users, { path: 'account', controllers: { registrations: :registrations } }  do

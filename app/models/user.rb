@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20130830004146
 #
 # Table name: users
 #
@@ -17,6 +18,11 @@
 #  updated_at             :datetime         not null
 #  fullname               :string(255)
 #  admin                  :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
 class User < ActiveRecord::Base

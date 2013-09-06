@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20130830004146
 #
 # Table name: settings
 #

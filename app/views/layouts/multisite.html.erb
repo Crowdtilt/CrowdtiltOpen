@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Crowdhoster</title>
+    <%= csrf_meta_tags %>
+  </head>
+  <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
+    <div id="main">
+      <%= yield %>
+    </div>
+
+
+    <% if Rails.env.development? %>
+      <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
+    <% end %>
+
+  </body>
+</html>
