@@ -3,7 +3,7 @@ Crowdhoster::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   # PAGES
-  root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^$|^www$)/}
+  #root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^$|^www$)/}
   root                                         to: 'pages#index'
 
   scope module: :multisite do

@@ -7,11 +7,11 @@ class AdminController < ApplicationController
   def admin_website
     #Handle the form submission if request is PUT
     if request.put?
-      if @settings.update_attributes(params[:settings])
+      if @site.update_attributes(params[:site])
         flash.now[:success] = "Website settings successfully updated!"
       else
         message = ''
-        @settings.errors.each do |key, error|
+        @site.errors.each do |key, error|
           message = message + key.to_s.humanize + ' ' + error.to_s + ', '
         end
         flash.now[:error] = message[0...-2]
@@ -82,10 +82,10 @@ class AdminController < ApplicationController
   def set_ct_env
     if Rails.env.production?
       Crowdtilt.production
-      @ct_admin_id = @settings.ct_production_admin_id
+      @ct_admin_id = @site.ct_production_admin_id
     else
       Crowdtilt.sandbox
-      @ct_admin_id = @settings.ct_sandbox_admin_id
+      @ct_admin_id = @site.ct_sandbox_admin_id
     end
   end
 

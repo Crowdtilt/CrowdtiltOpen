@@ -3,7 +3,7 @@ Hi <%= @payment.fullname.split(' ')[0] %>,
 
 <br/><br/>
 
-This email is a confirmation of your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> payment to <%= @campaign.name %>. If you have any questions about this campaign, please contact <%= @settings.reply_to_email %>.
+This email is a confirmation of your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> payment to <%= @campaign.name %>. If you have any questions about this campaign, please contact <%= @site.reply_to_email %>.
 
 <br/><br/>
 
@@ -33,7 +33,7 @@ Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %><br/>
 <% end %>
 <br/>
 Payment ID: <%= @payment.ct_payment_id %><br/>
-Charge will appear as: <%= 'BAL*' + @settings.billing_statement_text %>
+Charge will appear as: <%= 'BAL*' + @site.billing_statement_text %>
 
 <br/><br/>
 

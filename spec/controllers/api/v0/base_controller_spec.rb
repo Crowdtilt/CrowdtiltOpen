@@ -11,8 +11,8 @@ describe Api::V0::BaseController do
     end
   end
 
-  let(:settings) { create(:settings) }
-  let(:api_key) { settings.api_key }
+  let(:site) { create(:site) }
+  let(:api_key) { site.api_key }
 
   describe '#authenticate_api!' do
     subject { get :index, api_key: api_key }

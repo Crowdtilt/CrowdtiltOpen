@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Api::V0::CampaignsController do
-  let(:settings) { create(:settings) }
-  let!(:api_key) { settings.api_key }
+  let(:site) { create(:site) }
+  let!(:api_key) { site.api_key }
 
   let(:campaign) { create(:campaign) }
   let!(:reward) { create(:reward, campaign: campaign) }

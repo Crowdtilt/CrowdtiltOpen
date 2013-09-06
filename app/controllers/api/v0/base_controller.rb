@@ -7,7 +7,7 @@ class Api::V0::BaseController < ActionController::Base
   end
 
   def authenticate_api!
-    unless @settings = Settings.find_by_api_key(params[:api_key])
+    unless @site = Site.find_by_api_key(params[:api_key])
       head :unauthorized
     end
   end

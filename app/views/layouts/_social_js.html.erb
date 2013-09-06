@@ -1,9 +1,9 @@
-<% if !@settings.facebook_app_id.blank? %>
+<% if !@site.facebook_app_id.blank? %>
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '<%= @settings.facebook_app_id %>',
+      appId      : '<%= @site.facebook_app_id %>',
       status     : true,
       xfbml      : true
     });

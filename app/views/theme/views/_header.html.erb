@@ -1,18 +1,18 @@
 <div id="header">
   <div class="container center">
-    <% if @settings.logo_image.file? %>
+    <% if @site.logo_image.file? %>
 
-      <a href="/"><%= image_tag @settings.logo_image.url, alt: "logo" %></a>
+      <a href="/"><%= image_tag @site.logo_image.url, alt: "logo" %></a>
 
     <% else %>
 
-      <h1><a href="/"><%= @settings.site_name %></a></h1>
+      <h1><a href="/"><%= @site.site_name %></a></h1>
 
     <% end %>
 
-    <% if !@settings.header_link_text.blank? && !@settings.header_link_url.blank? %>
+    <% if !@site.header_link_text.blank? && !@site.header_link_url.blank? %>
     <div class="header_link">
-      <a href="<%= @settings.header_link_url %>" target="_blank" class="btn"><%= @settings.header_link_text %></a>
+      <a href="<%= @site.header_link_url %>" target="_blank" class="btn"><%= @site.header_link_text %></a>
     </div>
     <% end %>
 

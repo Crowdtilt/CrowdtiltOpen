@@ -3,7 +3,7 @@
     <div class="main_content">
       <%= raw(@campaign.confirmation_page_content) %>
       <div class="share clearfix">
-        <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
+        <%= render 'shared/share_buttons', campaign: @campaign, settings: @site %>
       </div>
       <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>"><%= @campaign.name %> homepage</a></p>
     </div>
@@ -34,7 +34,7 @@
         <br/><br/>
       <% end %>
       <strong>Payment ID:</strong><br/> <%= @payment.ct_payment_id %><br/><br/>
-      <strong>Charge will appear on your statement as:</strong><br/> <%= 'BAL*' + @settings.billing_statement_text %><br/><br/>
+      <strong>Charge will appear on your statement as:</strong><br/> <%= 'BAL*' + @site.billing_statement_text %><br/><br/>
       <p class="center">An email confirmation was sent to <%= @payment.email %></p>
       </p>
     </div>

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :settings do
+  factory :sites do
     api_key "ApiKey"
   end
 end

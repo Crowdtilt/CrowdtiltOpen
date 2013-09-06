@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20130830004146
 #
 # Table name: ckeditor_assets
 #
@@ -14,11 +13,6 @@
 #  height            :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#
-# Indexes
-#
-#  idx_ckeditor_assetable       (assetable_type,assetable_id)
-#  idx_ckeditor_assetable_type  (assetable_type,type,assetable_id)
 #
 
 class Ckeditor::Picture < Ckeditor::Asset

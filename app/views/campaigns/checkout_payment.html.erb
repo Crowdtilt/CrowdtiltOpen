@@ -121,7 +121,7 @@
           <label for="security_code" class="error" style="display: none"></label>
           <label for="billing_postal_code" class="error" style="display: none"></label>
 
-          <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
+          <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @site.ct_production_guest_id : @site.ct_sandbox_guest_id %>" >
 
           <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
           <input id="amount" type="hidden" name="amount" value="<%= @amount %>">

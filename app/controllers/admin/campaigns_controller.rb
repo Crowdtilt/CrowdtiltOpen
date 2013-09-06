@@ -22,8 +22,8 @@ class Admin::CampaignsController < ApplicationController
         title: @campaign.name,
         tilt_amount: @campaign.goal_dollars*100,
         expiration_date: @campaign.expiration_date,
-        user_id: @settings.ct_sandbox_admin_id,
-        billing_statement_text: @settings.billing_statement_text
+        user_id: @site.ct_sandbox_admin_id,
+        billing_statement_text: @site.billing_statement_text
       }
       Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
@@ -66,7 +66,7 @@ class Admin::CampaignsController < ApplicationController
     end
 
      # Set the campaign user id
-     ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
+     ct_user_id = @campaign.production_flag ? @site.ct_production_admin_id : @site.ct_sandbox_admin_id
 
     # calculate the goal amount (in case of a tilt by orders campaign)
     @campaign.set_goal
@@ -80,7 +80,7 @@ class Admin::CampaignsController < ApplicationController
         tilt_amount: (@campaign.goal_dollars*100).to_i,
         expiration_date: @campaign.expiration_date,
         user_id: ct_user_id,
-        billing_statement_text: @settings.billing_statement_text
+        billing_statement_text: @site.billing_statement_text
       }
       @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
@@ -194,7 +194,7 @@ class Admin::CampaignsController < ApplicationController
     end
 
     # Set the campaign user id
-     ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
+     ct_user_id = @campaign.production_flag ? @site.ct_production_admin_id : @site.ct_sandbox_admin_id
 
     #if campaign has been promoted to production, delete all sandbox payments
     if @campaign.production_flag && @campaign.production_flag_changed?
@@ -212,7 +212,7 @@ class Admin::CampaignsController < ApplicationController
         title: @campaign.name,
         tilt_amount: (@campaign.goal_dollars*100).to_i,
         expiration_date: @campaign.expiration_date,
-        billing_statement_text: @settings.billing_statement_text
+        billing_statement_text: @site.billing_statement_text
       }
       # If the campaign has been promoted to production, create a new campaign on the Crowtilt API
       if @campaign.production_flag && @campaign.production_flag_changed?

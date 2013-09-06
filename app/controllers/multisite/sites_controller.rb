@@ -1,7 +1,7 @@
 class Multisite::SitesController < Multisite::BaseController
 
   def new
-    @settings = Settings.new
+    @site = Site.new
   end
 
   def create

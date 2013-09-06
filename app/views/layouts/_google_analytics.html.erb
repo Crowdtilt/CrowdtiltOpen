@@ -1,7 +1,7 @@
-<% if !@settings.google_id.blank? %>
+<% if !@site.google_id.blank? %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<%= @settings.google_id %>']);
+  _gaq.push(['_setAccount', '<%= @site.google_id %>']);
   _gaq.push(['_trackPageview']);
 
   (function() {

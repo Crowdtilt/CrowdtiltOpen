@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :load_settings, :set_default_mailer_host
+  before_filter :load_site, :set_default_mailer_host
   after_filter :store_location
 
-  def load_settings
-    @settings = Settings.find_by_id(1)
+  def load_site
+    @site = Site.find_by_id(1)
 
-    if !@settings
-      @settings = Settings.create
+    if !@site
+      @site = Site.create
     end
   end
 
@@ -32,16 +32,16 @@ class ApplicationController < ActionController::Base
   end
 
   def check_init
-    if !@settings.initialized_flag
+    if !@site.initialized_flag
       if current_user
         # Create the Admin User
         current_user.update_attribute :admin, true
 
         # Set intiatilized flag to true
-        @settings.update_attribute :initialized_flag, true
+        @site.update_attribute :initialized_flag, true
 
         # Set default reply_to_email to Admin User email
-        @settings.update_attribute :reply_to_email, current_user.email
+        @site.update_attribute :reply_to_email, current_user.email
 
         # Create the Crowdtilt API Users
         begin
@@ -75,15 +75,15 @@ class ApplicationController < ActionController::Base
           }
           production_admin = Crowdtilt.post('/users', {user: production_admin})
         rescue => exception
-          @settings.update_attribute :initialized_flag, false
+          @site.update_attribute :initialized_flag, false
           sign_out current_user
           redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
           return
         else
-          @settings.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']
-          @settings.update_attribute :ct_sandbox_admin_id, sandbox_admin['user']['id']
-          @settings.update_attribute :ct_production_guest_id, production_guest['user']['id']
-          @settings.update_attribute :ct_production_admin_id, production_admin['user']['id']
+          @site.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']
+          @site.update_attribute :ct_sandbox_admin_id, sandbox_admin['user']['id']
+          @site.update_attribute :ct_production_guest_id, production_guest['user']['id']
+          @site.update_attribute :ct_production_admin_id, production_admin['user']['id']
         end
 
 

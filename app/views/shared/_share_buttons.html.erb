@@ -1,5 +1,5 @@
 <div id="share_buttons">
   <div class="like"><div class="fb-like" data-href="<%= url_for campaign_home_url(@campaign) %>" data-send="false" data-layout="button_count" data-width="70" data-show-faces="false"></div></div>
-  <div class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= url_for campaign_home_url(@campaign) %>" data-text="<%= @campaign.tweet_text.blank? ? @settings.site_name : @campaign.tweet_text %>">Tweet</a></div>
+  <div class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= url_for campaign_home_url(@campaign) %>" data-text="<%= @campaign.tweet_text.blank? ? @site.site_name : @campaign.tweet_text %>">Tweet</a></div>
   <div class="pin"><a href="//pinterest.com/pin/create/button/" target="_blank" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></div>
 </div>

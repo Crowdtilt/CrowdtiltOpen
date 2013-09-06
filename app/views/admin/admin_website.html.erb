@@ -5,7 +5,7 @@
 
   <div id="admin_website">
 
-    <%= form_for(@settings, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
+    <%= form_for(@site, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
 
       <fieldset>
       <legend>Basic Information</legend>
@@ -25,8 +25,8 @@
         <div class="field clearfix">
           <p class="explanation">If you would like to display a logo instead of your site name in the header, upload it here. Resize the image before uploading for best results in your template.</p>
           <label>Logo</label>
-          <% if @settings.logo_image.file? %>
-            <%= image_tag @settings.logo_image.url(:thumb) %><br/>
+          <% if @site.logo_image.file? %>
+            <%= image_tag @site.logo_image.url(:thumb) %><br/>
             <%= f.file_field :logo_image %><br/>
             <%= f.check_box :logo_image_delete %><span>Delete current image</span>
           <% else %>
@@ -81,8 +81,8 @@
         <div class="field clearfix">
           <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px.</p>
           <label>Facebook Image</label>
-          <% if @settings.facebook_image.file? %>
-            <%= image_tag @settings.facebook_image.url(:thumb) %><br/>
+          <% if @site.facebook_image.file? %>
+            <%= image_tag @site.facebook_image.url(:thumb) %><br/>
             <%= f.file_field :facebook_image %><br/>
             <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
           <% else %>

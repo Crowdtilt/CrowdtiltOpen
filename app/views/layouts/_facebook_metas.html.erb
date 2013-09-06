@@ -1,7 +1,7 @@
 <meta property='og:type' content="website" />
-<meta property='og:site_name' content="<%= @settings.facebook_title.blank? ? @settings.site_name : @settings.facebook_title %>" />
-<% if !@settings.facebook_app_id.blank? %>
-  <meta property='fb:app_id' content="<%= @settings.facebook_app_id %>" />
+<meta property='og:site_name' content="<%= @site.facebook_title.blank? ? @site.site_name : @site.facebook_title %>" />
+<% if !@site.facebook_app_id.blank? %>
+  <meta property='fb:app_id' content="<%= @site.facebook_app_id %>" />
 <% end %>
 
 <% params[:controller] == 'campaigns' ? c = @campaign : c = false %>
@@ -11,21 +11,21 @@
   <meta property='og:url' content="<%= url_for campaign_home_url(c) %>" />
   <% if !c.facebook_description.blank? %>
     <meta property='og:description' content="<%= c.facebook_description %>" />
-  <% elsif !@settings.facebook_description.blank? %>
-    <meta property='og:description' content="<%= @settings.facebook_description %>" />
+  <% elsif !@site.facebook_description.blank? %>
+    <meta property='og:description' content="<%= @site.facebook_description %>" />
   <% end %>
   <% if c.facebook_image.file? %>
     <meta property='og:image' content='<%= c.facebook_image.url %>' />
-  <% elsif @settings.facebook_image.file? %>
-    <meta property='og:image' content='<%= @settings.facebook_image.url %>' />
+  <% elsif @site.facebook_image.file? %>
+    <meta property='og:image' content='<%= @site.facebook_image.url %>' />
   <% end %>
 <% else %>
-  <meta property='og:title' content="<%= @settings.facebook_title.blank? ? @settings.site_name : @settings.facebook_title %>" />
+  <meta property='og:title' content="<%= @site.facebook_title.blank? ? @site.site_name : @site.facebook_title %>" />
   <meta property='og:url' content="<%= root_url %>" />
-  <% if !@settings.facebook_description.blank? %>
-    <meta property='og:description' content="<%= @settings.facebook_description %>" />
+  <% if !@site.facebook_description.blank? %>
+    <meta property='og:description' content="<%= @site.facebook_description %>" />
   <% end %>
-  <% if @settings.facebook_image.file? %>
-    <meta property='og:image' content='<%= @settings.facebook_image.url %>' />
+  <% if @site.facebook_image.file? %>
+    <meta property='og:image' content='<%= @site.facebook_image.url %>' />
   <% end %>
 <% end %>

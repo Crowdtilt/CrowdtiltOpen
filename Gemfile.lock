@@ -144,6 +144,8 @@ GEM
       mime-types
     pg (0.15.1)
     polyglot (0.3.3)
+    powify (0.8.5)
+      json
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -249,6 +251,7 @@ DEPENDENCIES
   nokogiri
   paperclip (~> 3.0)
   pg
+  powify
   pry-rails
   rails (= 3.2.13)
   rspec-rails

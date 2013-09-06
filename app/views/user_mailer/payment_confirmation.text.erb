@@ -1,8 +1,8 @@
-<%= @settings.site_name %>
+<%= @site.site_name %>
 
 Hi <%= @payment.fullname.split(' ')[0] %>,
 
-This email is a confirmation of your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> payment to <%= @campaign.name %>. If you have any questions about this campaign, please contact <%= @settings.reply_to_email %>.
+This email is a confirmation of your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> payment to <%= @campaign.name %>. If you have any questions about this campaign, please contact <%= @site.reply_to_email %>.
 
 Payment Details:
 
@@ -33,7 +33,7 @@ Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %>
 <% end %>
 
 Payment ID: <%= @payment.ct_payment_id %>
-Charge will appear as: <%= 'BAL*' + @settings.billing_statement_text %>
+Charge will appear as: <%= 'BAL*' + @site.billing_statement_text %>
 
 Please keep this email as your receipt.
 <% if !@campaign.is_tilted %>

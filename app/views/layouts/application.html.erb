@@ -2,12 +2,12 @@
 <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <title><%= @settings.site_name %></title>
+    <title><%= @site.site_name %></title>
     <%= render 'layouts/facebook_metas' %>
     <%= render 'layouts/mobile_bookmark_metas' %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    "application" %>
-    <style type="text/css"><%= raw(@settings.custom_css) %></style>
+    <style type="text/css"><%= raw(@site.custom_css) %></style>
 
     <%= javascript_include_tag "application" %>
     <%= render 'layouts/google_analytics' %>
@@ -37,7 +37,7 @@
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
 
-    <%= raw(@settings.custom_js) %>
+    <%= raw(@site.custom_js) %>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
   </body>
 </html>
