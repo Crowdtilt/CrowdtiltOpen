@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130906202515
+# Schema version: 20130909221117
 #
 # Table name: campaigns
 #
@@ -60,10 +60,12 @@
 #  additional_info_label                :string(255)
 #  include_comments                     :boolean          default(FALSE), not null
 #  comments_shortname                   :string(255)
+#  site_id                              :integer          not null
 #
 # Indexes
 #
-#  index_campaigns_on_slug  (slug) UNIQUE
+#  index_campaigns_on_site_id  (site_id)
+#  index_campaigns_on_slug     (slug) UNIQUE
 #
 
 class Campaign < ActiveRecord::Base

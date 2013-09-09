@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130906202515
+# Schema version: 20130909221117
 #
 # Table name: rewards
 #
@@ -13,6 +13,11 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  visible_flag  :boolean          default(TRUE), not null
+#  site_id       :integer          not null
+#
+# Indexes
+#
+#  index_rewards_on_site_id  (site_id)
 #
 
 class Reward < ActiveRecord::Base
