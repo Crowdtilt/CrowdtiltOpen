@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   def load_site
-    @site = Site.find_by_id(1)
+    @site = Site.find_by_subdomain(request.subdomain)
 
     if !@site
-      @site = Site.create
+      redirect_to root_url(:subdomain => false)
     end
   end
 

@@ -78,7 +78,7 @@ class Site < ActiveRecord::Base
   end
 
   def set_subdomain
-    self.subdomain ||= self.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(6)}"
+    self.subdomain[0] ||= self.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(6)}"
   end
 
 end

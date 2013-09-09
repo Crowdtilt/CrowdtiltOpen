@@ -1,0 +1,3 @@
+<% @sites.each do |site| %>
+  <p><%= link_to site.site_name, root_url(:subdomain => site.subdomain) %></p>
+<% end %>

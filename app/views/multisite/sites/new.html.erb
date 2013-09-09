@@ -1,15 +1,1 @@
-<%= form_for(@site, url: multisite_sites_path) do |f| %>
-
-  <div>
-    <label>Site Name</label>
-    <%= f.text_field :site_name %>
-  </div>
-
-  <div>
-    <label>Subdomain</label>
-    <%= f.text_field :subdomain %>
-  </div>
-
-  <%= f.submit "Save" %>
-
-<% end %>
+<%= render partial: 'form' %>

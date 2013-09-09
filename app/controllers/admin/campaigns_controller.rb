@@ -57,9 +57,7 @@ class Admin::CampaignsController < ApplicationController
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
       message = ''
-      @campaign.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
+      @campaign.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
       flash.now[:error] = message[0...-2]
       render action: "new"
       return
@@ -117,9 +115,7 @@ class Admin::CampaignsController < ApplicationController
       # Check again for campaign validity now that we've added faqs and rewards
       if !@campaign.valid?
         message = ''
-        @campaign.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
+        @campaign.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
         flash.now[:error] = message[0...-2]
         render action: "new"
         return
@@ -185,9 +181,7 @@ class Admin::CampaignsController < ApplicationController
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
       message = ''
-      @campaign.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
+      @campaign.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
       flash.now[:error] = message[0...-2]
       render action: "edit"
       return

@@ -117,9 +117,7 @@ class CampaignsController < ApplicationController
 
     if !@payment.valid?
       message = ''
-      @payment.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
+      @payment.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
       redirect_to checkout_amount_url(@campaign), flash: { error: message[0...-2] } and return
     end
 

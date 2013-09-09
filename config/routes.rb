@@ -2,12 +2,18 @@ Crowdhoster::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  # PAGES
-  #root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^$|^www$)/}
+  # ROOT
+  #
+  # The three routes below are:
+  # 1. If no subdomain, go to multisite index
+  # 2. Rewrite www to non-www with a 301 Moved Permanently
+  # 3. If there is a subdomain, try and find that project
+  root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^$)/}
+  match '(*any)',                              to: redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
   root                                         to: 'pages#index'
 
   scope module: :multisite do
-    resources :sites, only: [:new, :create], as: 'multisite_sites'
+    resources :sites, only: [:new, :create, :index], as: 'multisite_sites'
   end
 
   # USERS

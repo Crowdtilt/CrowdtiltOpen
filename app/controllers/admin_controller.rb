@@ -19,9 +19,7 @@ class AdminController < ApplicationController
         @site_cache = Marshal.load(Marshal.dump(@site))
       else
         message = ''
-        @site.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
+        @site.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
         flash.now[:error] = message[0...-2]
       end
     end
