@@ -5,6 +5,6 @@ class UserMailer < ActionMailer::Base
     @settings = Settings.find_by_id(1)
     @payment = payment
     @campaign = campaign
-    mail from: @settings.reply_to_email, to: @payment.email, subject: "Your confirmation for #{@campaign.name}"
+    mail from: "#{@settings.site_name} <#{@settings.reply_to_email}>", reply_to: @settings.reply_to_email, to: @payment.email, subject: "Your confirmation for #{@campaign.name}"
   end
 end
