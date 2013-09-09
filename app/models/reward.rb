@@ -28,6 +28,8 @@ class Reward < ActiveRecord::Base
   belongs_to :campaign
   has_many :payments
 
+  default_scope { where(site_id: Site.current_id) }
+
   def sold_out?
     !self.unlimited? && number_of_payments >= self.number
   end

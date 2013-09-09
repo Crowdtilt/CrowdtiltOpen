@@ -47,6 +47,8 @@ class Payment < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :reward
 
+  default_scope { where(site_id: Site.current_id) }
+
   def self.to_csv(options={})
     #db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
     csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Reward',

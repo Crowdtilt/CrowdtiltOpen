@@ -75,6 +75,8 @@ class Campaign < ActiveRecord::Base
   has_many :payments
   has_many :rewards
 
+  default_scope { where(site_id: Site.current_id) }
+
   attr_accessible :name, :goal_type, :goal_dollars, :goal_orders,  :expiration_date, :ct_campaign_id, :media_type,
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
                   :contributor_reference, :progress_text, :primary_call_to_action_button, :primary_call_to_action_description,

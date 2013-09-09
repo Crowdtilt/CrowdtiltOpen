@@ -20,4 +20,6 @@
 class Faq < ActiveRecord::Base
   belongs_to :campaign
   attr_accessible :question, :answer, :sort_order, :campaign_id
+
+  default_scope { where(site_id: Site.current_id) }
 end

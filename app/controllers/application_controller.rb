@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :load_site, :set_default_mailer_host
   after_filter :store_location
+  around_filter :scope_current_site # This depends on load_site and needs to run after
 
   def load_site
     @site = Site.find_by_subdomain(request.subdomain)
@@ -10,15 +11,6 @@ class ApplicationController < ActionController::Base
     if !@site
       redirect_to root_url(:subdomain => false)
     end
-  end
-
-  def set_default_mailer_host
-    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
-  end
-
-  def store_location
-    # store last url as long as it isn't an /account path
-    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/account/
   end
 
   def after_sign_in_path_for(resource)
@@ -94,4 +86,23 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+private
+
+  def scope_current_site
+    Site.current_id = @site.id
+    yield
+  ensure
+    Site.current_id = nil
+  end
+
+  def set_default_mailer_host
+    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
+  end
+
+  def store_location
+    # store last url as long as it isn't an /account path
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/account/
+  end
+
 end

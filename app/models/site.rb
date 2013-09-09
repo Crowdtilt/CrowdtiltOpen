@@ -67,6 +67,15 @@ class Site < ActiveRecord::Base
   has_attached_file :facebook_image,
                     styles: { thumb: "100x100#" }
 
+  # Thread-safe setter/getter for subdomain scoping
+  def self.current_id=(id)
+    Thread.current[:site_id] = id
+  end
+
+  def self.current_id
+    Thread.current[:site_id]
+  end
+
   def billing_statement_text
     ('CH ' + site_name.upcase)[0, 18]
   end
