@@ -1,15 +1,23 @@
-<%= form_for(@site, url: multisite_sites_path) do |f| %>
+<%= form_for(@site, url: multisite_sites_path, :html => {:class => 'setup-form'}) do |f| %>
 
-  <div>
-    <label>Site Name</label>
-    <%= f.text_field :site_name %>
+  <legend>Create a new Crowdhoster site:</legend>
+
+  <div class="field-row">
+    <fieldset>
+      <label>Site Name</label> 
+      <div class="input-field"><%= f.text_field :site_name %></div>
+    </fieldset>
   </div>
 
-  <div>
-    <label>Subdomain</label>
-    <%= f.text_field :subdomain %>
+  <div class="field-row">
+    <fieldset>
+      <label>Subdomain</label>
+      <div class="input-field"><%= f.text_field :subdomain %></div>
+    </fieldset>
   </div>
 
-  <%= f.submit "Save" %>
+  <div class="field-row">
+    <div class="submit-field"><%= f.submit "Save" %></div>
+  </div>
 
 <% end %>

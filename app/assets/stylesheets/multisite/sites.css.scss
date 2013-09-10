@@ -1,0 +1,15 @@
+.setup-form {
+  @extend .form-horizontal;
+
+  .field-row {
+    @extend .control-group;
+  }
+
+  label {
+    @extend .control-label;
+  }
+
+  .input-field, .submit-field {
+    @extend .controls;
+  }
+}

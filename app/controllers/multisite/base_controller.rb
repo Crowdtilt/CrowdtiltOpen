@@ -1,3 +1,3 @@
 class Multisite::BaseController < ActionController::Base
-  layout "multisite"
+  layout "multisite/multisite"
 end
