@@ -1,23 +1,34 @@
 source 'https://rubygems.org'
 ruby "1.9.3"
 
+# Core
+gem 'rails', '3.2.13'
+gem 'pg'
+gem 'nokogiri'
+gem "friendly_id", "~> 4.0.9"
+gem 'crowdtilt', github: 'msaint/crowdtilt'
+
+# Server
+gem 'foreman'
 gem 'unicorn'
 
-gem 'rails', '3.2.13'
-gem 'bootstrap-sass', '2.1'
+# Auth
 gem 'devise'
-gem 'nokogiri'
-gem 'pg'
-gem "friendly_id", "~> 4.0.9"
-gem "iso_country_codes"
+gem 'rolify'
 
+# User assets
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
 gem 'aws-sdk'
 
-gem 'foreman'
+# Site assets
+gem 'bootstrap-sass', '2.1'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
+# Other
 gem 'active_model_serializers'
+gem "iso_country_codes"
 
 group :production do
   gem 'newrelic_rpm'
@@ -44,12 +55,6 @@ group :development, :test do
 end
 
 group :test do
-  gem "faker"
-  gem "capybara"
+  gem 'faker'
+  gem 'capybara'
 end
-
-# jQuery & jQuery UI
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-
-gem 'crowdtilt', github: 'msaint/crowdtilt'

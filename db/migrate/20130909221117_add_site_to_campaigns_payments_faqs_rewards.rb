@@ -8,10 +8,12 @@ class AddSiteToCampaignsPaymentsFaqsRewards < ActiveRecord::Migration
     add_column :rewards, :site_id, :integer
 
     # Populate existing rows
-    [Campaign, Payment, Faq, Reward].each do |model|
-      model.reset_column_information
+    say_with_time "Scoping campaigns, payments, faqs, and rewards to sites..." do 
+      [Campaign, Payment, Faq, Reward].each do |model|
+        model.reset_column_information
 
-      model.update_all(:site_id => 1)
+        model.update_all(:site_id => 1)
+      end
     end
 
     # Add non null constraint to site_id column

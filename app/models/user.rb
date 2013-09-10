@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130909221117
+# Schema version: 20130910184139
 #
 # Table name: users
 #
@@ -26,6 +26,7 @@
 #
 
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

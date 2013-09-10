@@ -5,11 +5,13 @@ class AddSubdomainToSites < ActiveRecord::Migration
     add_column :sites, :subdomain, :string
 
     # Populate existing rows
-    Site.reset_column_information
+    say_with_time "Generating subdomains for existing sites..." do
+      Site.reset_column_information
 
-    Site.all.find_each do |site|
-      subdomain = site.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(3)}"
-      site.update_attribute(:subdomain, subdomain)
+      Site.all.find_each do |site|
+        subdomain = site.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(3)}"
+        site.update_attribute(:subdomain, subdomain)
+      end
     end
 
     # Add non null constraint to subdomain column

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130909221117
+# Schema version: 20130910184139
 #
 # Table name: sites
 #
@@ -41,6 +41,8 @@
 #
 
 class Site < ActiveRecord::Base
+  resourcify # Apply roles to this model
+
   attr_accessible :site_name, :facebook_app_id, :google_id, :tweet_text, :initialized_flag,
                   :logo_image, :logo_image_delete, :copyright_text, :facebook_title,
                   :facebook_description, :facebook_image, :facebook_image_delete, :homepage_content,

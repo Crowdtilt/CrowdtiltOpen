@@ -5,14 +5,6 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   around_filter :scope_current_site # This depends on load_site and needs to run after
 
-  def load_site
-    @site = Site.find_by_subdomain(request.subdomain)
-
-    if !@site
-      redirect_to root_url(:subdomain => false)
-    end
-  end
-
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end
@@ -88,6 +80,14 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def load_site
+    @site = Site.find_by_subdomain(request.subdomain)
+
+    if !@site
+      redirect_to root_url(:subdomain => false)
+    end
+  end
 
   def scope_current_site
     Site.current_id = @site.id
