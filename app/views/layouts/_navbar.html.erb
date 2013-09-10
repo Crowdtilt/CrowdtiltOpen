@@ -1,4 +1,4 @@
-<% if user_signed_in? && current_user.admin? %>
+<% if user_signed_in? && current_user.has_role?(:admin, @site) %>
 <div id="navbar">
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">

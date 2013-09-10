@@ -49,11 +49,12 @@ class Site < ActiveRecord::Base
                   :custom_css, :header_link_text, :header_link_url, :ct_sandbox_guest_id, :ct_production_guest_id,
                   :ct_sandbox_admin_id, :ct_production_admin_id, :reply_to_email, :custom_js, :subdomain
 
-  attr_accessor :logo_image_delete, :facebook_image_delete
+  attr_accessor :logo_image_delete, :facebook_image_delete, :admin_user
 
   validates :site_name, presence: true
   validates :reply_to_email, presence: true, email: true
   validates :subdomain, presence: true, uniqueness: true, subdomain: true
+  validates :admin_user, presence: {on: :create}
 
   before_validation { logo_image.clear if logo_image_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
@@ -62,6 +63,8 @@ class Site < ActiveRecord::Base
   before_save { subdomain.downcase! }
 
   before_create :set_api_key
+
+  after_create :initialize_site
 
   has_attached_file :logo_image,
                     styles: { thumb: "100x100#" }
@@ -80,6 +83,68 @@ class Site < ActiveRecord::Base
 
   def billing_statement_text
     ('CH ' + site_name.upcase)[0, 18]
+  end
+
+  def initialize_site(admin_user=nil)
+    # Return true if already initialized
+    if self.initialized_flag
+      return true
+    end
+
+    # Set admin_user_id for init. Return false if nil
+    if admin_user.nil?
+      if self.admin_user.nil? 
+        return false
+      end
+      admin_user = self.admin_user
+    end
+
+    # Add current user as admin on this site
+    admin_user.add_role :admin, self
+
+    # Set default reply_to_email to admin user email
+    self.update_attribute :reply_to_email, admin_user.email
+
+    Crowdtilt.sandbox
+    sandbox_guest = {
+      firstname: 'Crowdhoster',
+      lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
+      email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
+    }
+    sandbox_guest = Crowdtilt.post('/users', {user: sandbox_guest})
+
+    sandbox_admin = {
+      firstname: 'Crowdhoster',
+      lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
+      email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
+    }
+    sandbox_admin = Crowdtilt.post('/users', {user: sandbox_admin})
+
+    Crowdtilt.production
+    production_guest = {
+      firstname: 'Crowdhoster',
+      lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
+      email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
+    }
+    production_guest = Crowdtilt.post('/users', {user: production_guest})
+
+    production_admin = {
+      firstname: 'Crowdhoster',
+      lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
+      email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
+    }
+    production_admin = Crowdtilt.post('/users', {user: production_admin})
+
+    updates_hash = {
+      initialized_flag: true,
+      ct_sandbox_guest_id: sandbox_guest['user']['id'],
+      ct_sandbox_admin_id: sandbox_admin['user']['id'],
+      ct_production_guest_id: production_guest['user']['id'],
+      ct_production_admin_id: production_admin['user']['id']
+    }
+
+    self.update_attributes!(updates_hash)
+
   end
 
   private
