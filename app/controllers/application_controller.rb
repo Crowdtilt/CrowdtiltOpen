@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def verify_admin
     if !current_user.has_role? :admin, @site
-      redirect_to root_url, :flash => { :notice => "You must be an admin to access that page" }
+      redirect_to root_path, :flash => { :notice => "You must be an admin to access that page" }
    end
   end
 
@@ -21,7 +21,7 @@ private
     @site = Site.find_by_subdomain(request.subdomain)
 
     if !@site
-      redirect_to root_url(:subdomain => false)
+      redirect_to root_url(:subdomain => 'admin')
     end
   end
 
