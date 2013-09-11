@@ -14,6 +14,8 @@ module Crowdhoster
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "javascripts")
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "stylesheets")
 
+    config.multisite_enabled = ENV['MULTISITE_ENABLED'].nil? ? false : ENV['MULTISITE_ENABLED'].downcase == 'true'
+
     config.crowdhoster_app_name = ENV['APP_NAME'] || 'crowdhoster_anonymous'
 
     #Crowdtilt API key/secret
@@ -35,6 +37,7 @@ module Crowdhoster
 
     #loading for ckeditor
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
+    config.autoload_paths += %W(#{config.root}/lib/constraints)
 
     #Fix for getting Devise to work on Heroku deploy
     #Forcing app to not access the DB or models when precompiling

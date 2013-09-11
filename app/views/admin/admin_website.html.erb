@@ -16,11 +16,13 @@
           <%= f.text_field :site_name %>
         </div>
 
+        <% if @multisite_enabled %>
         <div class="field clearfix">
           <p class="explanation">Subdomains must be at least 3 characters long and can include letters, numbers, and hyphens. Your site is currently accessible from <strong><%= @site_cache.subdomain %>.crowdhoster.com</strong></p>
           <label>Subdomain</label>
           <%= f.text_field :subdomain %>.crowdhoster.com
         </div>
+        <% end %>
 
         <div class="field clearfix">
           <p class="explanation">Emails sent from the site will appear to come from this address.</p>

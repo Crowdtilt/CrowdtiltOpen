@@ -54,7 +54,7 @@ class Site < ActiveRecord::Base
   validates :site_name, presence: true
   validates :reply_to_email, presence: true, email: true
   validates :subdomain, presence: true, uniqueness: true, subdomain: true
-  validates :admin_user, presence: {on: :create}
+  validates :admin_user, presence: {on: :create} if Rails.configuration.multisite_enabled
 
   before_validation { logo_image.clear if logo_image_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
