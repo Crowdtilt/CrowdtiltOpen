@@ -8,7 +8,7 @@ class AddSubdomainToSites < ActiveRecord::Migration
     say_with_time "Generating subdomains for existing sites..." do
       Site.reset_column_information
 
-      Site.all.find_each do |site|
+      Site.all.each do |site|
         subdomain = site.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(3)}"
         site.update_attribute(:subdomain, subdomain)
       end
