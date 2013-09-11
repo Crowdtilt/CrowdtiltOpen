@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830004146) do
+ActiveRecord::Schema.define(:version => 20130910234120) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20130830004146) do
     t.string   "api_key"
     t.string   "reply_to_email",              :default => "team@crowdhoster.com", :null => false
     t.text     "custom_js"
+    t.string   "mailgun_route_id"
   end
 
   create_table "users", :force => true do |t|
