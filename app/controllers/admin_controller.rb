@@ -13,10 +13,10 @@ class AdminController < ApplicationController
     #Handle the form submission if request is PUT
     if request.put?
       if @site.update_attributes(params[:site])
-        flash.now[:success] = "Website settings successfully updated!"
-
         # Object is successfully updated, so bust cache
         @site_cache = Marshal.load(Marshal.dump(@site))
+
+        redirect_to admin_website_url(:subdomain => @multisite_enabled ? @site.subdomain : nil), :flash => { :success => "Website settings successfully updated!" }
       else
         message = ''
         @site.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
