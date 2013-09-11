@@ -2,13 +2,11 @@
   <div class="navbar-inner">
     <div class="container">
       <a class="brand" href="<%= root_path %>">Crowdhoster</a>
-      <ul class="nav">
-        <% if current_user %>
-          <%= render partial: 'layouts/multisite/navbar_links_authed' %>
-        <% else %>
-          <%= render partial: 'layouts/multisite/navbar_links_anon' %>
-        <% end %>
-      </ul>
+      <% if current_user %>
+        <%= render partial: 'layouts/multisite/navbar_links_authed' %>
+      <% else %>
+        <%= render partial: 'layouts/multisite/navbar_links_anon' %>
+      <% end %>
     </div>
   </div>
 </nav>

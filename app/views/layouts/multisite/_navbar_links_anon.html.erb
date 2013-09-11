@@ -1,1 +1,6 @@
-<li class="<%= 'active' if current_page?(new_multisite_site_path) %>"><%= link_to "Create site", new_multisite_site_path %></li>
+<ul class="nav">
+  <li class="<%= 'active' if current_page?(new_multisite_site_path) %>"><%= link_to "Create site", new_multisite_site_path %></li>
+</ul>
+<ul class="nav pull-right">
+  <li><%= link_to 'Sign In', new_user_session_path %></li>
+</ul>
