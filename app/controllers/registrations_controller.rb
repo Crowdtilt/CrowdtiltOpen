@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_filter :check_initialized
 
 protected
 
