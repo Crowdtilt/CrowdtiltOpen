@@ -1,11 +1,11 @@
 module Constraint
 
-  class MultisiteNonAdmin < Multisite
+  class MultisiteRouteAdmin < MultisiteRoute
     def matches?(request)
       if @multisite_enabled
-        return request.subdomain != 'admin'
+        return request.subdomain == 'admin'
       else
-        return true
+        return false
       end
     end
   end

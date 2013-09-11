@@ -1,11 +1,12 @@
+require 'constraint'
+
 Crowdhoster::Application.routes.draw do
-  require 'constraint'
 
   mount Ckeditor::Engine => '/ckeditor'
 
   # These routes are only used for the 'admin' subdomain when MULTISITE_ENABLED=true. 
   # They only specify routing for the multisite splash and management admin pages. 
-  constraints Constraint::MultisiteAdmin.new do
+  constraints Constraint::MultisiteRouteAdmin.new do
     root                                       to: 'multisite/pages#index'
 
     scope module: :multisite do
@@ -17,7 +18,7 @@ Crowdhoster::Application.routes.draw do
     
   # These routes are used for MULTISITE_ENABLED=false deployments or if the subdomain != 'admin'.
   # They specify the routing for all Site specific pages, including the API.
-  constraints Constraint::MultisiteNonAdmin.new do
+  constraints Constraint::MultisiteRouteNonAdmin.new do
     # Rewrite www to non-www with a 301 Moved Permanently
     match '(*any)',                              to: redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
     root                                         to: 'pages#index'

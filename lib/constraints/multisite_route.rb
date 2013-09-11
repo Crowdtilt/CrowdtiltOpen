@@ -1,6 +1,6 @@
 module Constraint
 
-  class Multisite
+  class MultisiteRoute
     def initialize
       @multisite_enabled = Rails.configuration.multisite_enabled
     end
