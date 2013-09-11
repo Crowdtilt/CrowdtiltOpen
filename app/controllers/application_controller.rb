@@ -25,16 +25,14 @@ private
   end
 
   def load_site
-    @site = Site.find_by_subdomain(request.subdomain)
-
-    if !@site && request.subdomain != 'admin'
-      if @multisite_enabled
+    if @multisite_enabled
+      @site = Site.find_by_subdomain(request.subdomain)
+      if !@site && request.subdomain != 'admin'
         return redirect_to root_url(:subdomain => 'admin')
-      else
-        @site = Site.first_or_create!(:subdomain => '')
       end
+    else
+      @site = Site.first_or_create!(:subdomain => '')
     end
-
   end
 
   def check_initialized
