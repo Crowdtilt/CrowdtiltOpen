@@ -11,6 +11,9 @@
 
     <%= render partial: "layouts/multisite/navbar" %>
     <div id="main" class="container">
+      <% flash.each do |key, value| %>
+        <% if !value.blank? %><div class="alert alert-<%= key %>"><%= value %></div><% end %>
+      <% end %>
       <%= yield %>
     </div>
 

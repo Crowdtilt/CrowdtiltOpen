@@ -8,8 +8,8 @@ Crowdhoster::Application.routes.draw do
   # 1. If no subdomain, go to multisite index
   # 2. Rewrite www to non-www with a 301 Moved Permanently
   # 3. If there is a subdomain, try and find that project
-  root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^$)/}
-  match '(*any)',                              to: redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
+  root                                         to: 'multisite/pages#index', constraints: {subdomain: /(^admin$)/}
+  #match '(*any)',                              to: redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
   root                                         to: 'pages#index'
 
   scope module: :multisite do
@@ -17,7 +17,7 @@ Crowdhoster::Application.routes.draw do
   end
 
   # USERS
-  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }
+  devise_for :users, { path: 'account', controllers: { registrations: :registrations, sessions: :sessions } }
   devise_scope :user do
     match '/user/settings',                    to: 'devise/registrations#edit',             as: :user_settings
   end

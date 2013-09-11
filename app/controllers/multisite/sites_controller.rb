@@ -1,7 +1,11 @@
 class Multisite::SitesController < Multisite::BaseController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:new]
 
   def new
+    if !user_signed_in?
+      return redirect_to new_user_registration_path
+    end
+
     @site = Site.new
   end
 

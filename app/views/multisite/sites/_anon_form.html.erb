@@ -1,0 +1,39 @@
+<div id="signup">
+  <div class="container">
+
+    <div class="well">
+
+    <h4>New Crowdhoster App</h4>
+    <p>Looks like this is a new Crowdhoster App! Go ahead and create a user that will serve as your site admin:</p>
+
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <div><%= f.label :fullname, "Full Name" %>
+      <%= f.text_field :fullname, :autofocus => true %></div>
+
+      <div><%= f.label :email %>
+      <%= f.email_field :email %></div>
+
+      <div><%= f.label :password %>
+      <%= f.password_field :password %></div>
+      
+    <%= fields_for(@site) do |s| %>
+      <div><%= s.label :site_name %>
+      <%= s.text_field :site_name %></div>
+
+      <div><%= s.label :subdomain %>
+      <%= s.text_field :subdomain %></div>
+
+    <% end %>
+
+      <button class="btn btn-primary show_loader" data-loader="user_form" type="submit" >Create my account</button>
+      <span class="loader" data-loader="user_form" style="display:none"></span>
+    <% end %>
+
+    <p style="font-size: 12px">By creating this account, you agree to our <a href="http://www.crowdhoster.com/terms" target="_blank">Terms of Use</a> and <a href="http://www.crowdhoster.com/privacy" target="_blank">Privacy Policy</a></p>
+
+     <br/><%= link_to "Already have an account?", new_session_path(resource_name) %><br />
+
+    </div>
+
+  </div>
+</div>

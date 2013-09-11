@@ -20,13 +20,13 @@ private
   def load_site
     @site = Site.find_by_subdomain(request.subdomain)
 
-    if !@site
+    if !@site && request.subdomain != 'admin'
       redirect_to root_url(:subdomain => 'admin')
     end
   end
 
   def scope_current_site
-    Site.current_id = @site.id
+    Site.current_id = @site? @site.id : nil
     yield
   ensure
     Site.current_id = nil

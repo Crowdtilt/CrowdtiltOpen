@@ -1,3 +1,7 @@
 <div class="setup">
-  <%= render partial: 'form' %>
+  <% if user_signed_in? %>
+    <%= render partial: 'multisite/sites/form' %>
+  <% else %>
+    <%= render partial: 'multisite/sites/anon_form' %>
+  <% end %>
 </div>
