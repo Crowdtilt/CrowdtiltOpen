@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < BaseController
 
   def index
     @campaigns = Campaign.order("created_at ASC")

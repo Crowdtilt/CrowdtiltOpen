@@ -41,4 +41,7 @@ Crowdhoster::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
+  # Domain of the main installation for multisite deployments
+  config.central_domain = 'crowdhoster.dev'
+
 end

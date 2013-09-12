@@ -16,6 +16,13 @@ module Crowdhoster
 
     config.multisite_enabled = ENV['MULTISITE_ENABLED'].nil? ? false : ENV['MULTISITE_ENABLED'].downcase == 'true'
 
+    # This is the main domain of the app, and is how the app determines 
+    # custom domains vs subdomains in a multisite deployment.
+    #
+    # It should be overwritten in the environment-specific config files 
+    # but a default is set here to prevent errors. Don't change this value here!
+    config.central_domain = 'crowdhoster.dev'
+
     config.crowdhoster_app_name = ENV['APP_NAME'] || 'crowdhoster_anonymous'
 
     #Crowdtilt API key/secret

@@ -1,62 +1,65 @@
+require 'domainatrix'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :check_multisite_enabled
   before_filter :load_site
-  before_filter :check_initialized
   before_filter :set_default_mailer_host
   after_filter :store_location
-  around_filter :scope_current_site # This depends on load_site and needs to run after
 
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
-  end
-
-  def verify_admin
-    if !current_user.has_role? :admin, @site
-      redirect_to root_path, :flash => { :notice => "You must be an admin to access that page" }
-   end
   end
 
 private
 
   def check_multisite_enabled
     @multisite_enabled = Rails.configuration.multisite_enabled
+    @central_domain = Rails.configuration.central_domain
+
+    parsed_request_url = Domainatrix.parse(request.url)
+    @request_domain = "#{parsed_request_url.domain}.#{parsed_request_url.public_suffix}"
+
+    @is_custom_domain = @request_domain != @central_domain
+    @rewrite_domain = (Rails.env != 'development') && @is_custom_domain
+
+    logger.info "Domain: #{@request_domain}"
   end
 
   def load_site
     if @multisite_enabled
-      @site = Site.find_by_subdomain(request.subdomain)
-      if !@site && request.subdomain != 'admin'
-        return redirect_to root_url(:subdomain => 'admin')
-      end
+      load_site_multisite
     else
-      @site = Site.first_or_create!(:subdomain => '')
+      load_site_non_multisite
     end
   end
 
-  def check_initialized
-    if !@site.initialized_flag
-      if !user_signed_in?
-        return redirect_to new_user_registration_path, :flash => { :error => "App is not initialized" }
-      else
-        begin
-          @site.initialize_site(current_user)
-        rescue => exception
-          return redirect_to root_path, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}"}
-
-        else
-          return redirect_to admin_website_path, :flash => { :success => "Nice! Your app is now initialized."}
-        end
-      end
+  def load_site_multisite
+    is_subdomain_of_custom = false
+    if @is_custom_domain
+      @site = Site.find_by_custom_domain(@request_domain)
+    else
+      @site = Site.find_by_subdomain(request.subdomain)
+      is_subdomain_of_custom = true if @site && @site.custom_domain
     end
+
+    if !@site && (@is_custom_domain || request.subdomain != 'admin')
+      logger.error "No site found! #{request.url}"
+      return redirect_to root_url(:subdomain => 'admin', :host => @central_domain)
+    end
+
+    logger.info "Loading site #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
+
+    if is_subdomain_of_custom
+      return redirect_to root_url(:host => @site.custom_domain) + request.fullpath.sub('/', ''), :status => 301 unless request.fullpath =~ /\/admin/
+    end
+
   end
 
-  def scope_current_site
-    Site.current_id = @site? @site.id : nil
-    yield
-  ensure
-    Site.current_id = nil
+  def load_site_non_multisite
+    @site = Site.first_or_create!(:subdomain => '')
+    logger.info "Loading site #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
   end
 
   def set_default_mailer_host

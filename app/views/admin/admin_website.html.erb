@@ -18,9 +18,15 @@
 
         <% if @multisite_enabled %>
         <div class="field clearfix">
-          <p class="explanation">Subdomains must be at least 3 characters long and can include letters, numbers, and hyphens. Your site is currently accessible from <strong><%= @site_cache.subdomain %>.crowdhoster.com</strong></p>
+          <p class="explanation">Subdomains must be at least 3 characters long and can include letters, numbers, and hyphens. Your site is located at <strong><%= @site_cache.subdomain %>.crowdhoster.com</strong></p>
           <label>Subdomain</label>
           <%= f.text_field :subdomain %>.crowdhoster.com
+        </div>
+
+        <div class="field clearfix">
+          <p class="explanation">Your site is currently accessible from <strong><%= @site_cache.custom_domain %></strong></p>
+          <label>Custom Domain</label>
+          <%= f.text_field :custom_domain %>
         </div>
         <% end %>
 

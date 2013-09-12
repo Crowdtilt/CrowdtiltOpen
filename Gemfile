@@ -29,6 +29,8 @@ gem 'jquery-ui-rails'
 # Other
 gem 'active_model_serializers'
 gem "iso_country_codes"
+gem "public_suffix"
+gem "domainatrix"
 
 group :production do
   gem 'newrelic_rpm'

@@ -1,4 +1,4 @@
-class CampaignsController < ApplicationController
+class CampaignsController < BaseController
   before_filter :load_campaign
   before_filter :check_published
   before_filter :check_exp, :except => [:home, :checkout_confirmation]

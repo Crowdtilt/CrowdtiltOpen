@@ -46,19 +46,22 @@ class Site < ActiveRecord::Base
   attr_accessible :site_name, :facebook_app_id, :google_id, :tweet_text, :initialized_flag,
                   :logo_image, :logo_image_delete, :copyright_text, :facebook_title,
                   :facebook_description, :facebook_image, :facebook_image_delete, :homepage_content,
-                  :custom_css, :header_link_text, :header_link_url, :ct_sandbox_guest_id, :ct_production_guest_id,
-                  :ct_sandbox_admin_id, :ct_production_admin_id, :reply_to_email, :custom_js, :subdomain
+                  :custom_css, :header_link_text, :header_link_url, :ct_sandbox_guest_id, 
+                  :ct_production_guest_id, :ct_sandbox_admin_id, :ct_production_admin_id, 
+                  :reply_to_email, :custom_js, :subdomain, :custom_domain
 
   attr_accessor :logo_image_delete, :facebook_image_delete, :admin_user
 
   validates :site_name, presence: true
   validates :reply_to_email, presence: true, email: true
   validates :subdomain, presence: true, uniqueness: true, subdomain: true
+  validates :custom_domain, domain: true if Rails.env != 'development'
   validates :admin_user, presence: {on: :create} if Rails.configuration.multisite_enabled
 
   before_validation { logo_image.clear if logo_image_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
   before_validation :set_subdomain, on: :create
+  before_validation :sanitize_custom_domain
 
   before_save { subdomain.downcase! }
 
@@ -155,6 +158,15 @@ class Site < ActiveRecord::Base
 
   def set_subdomain
     self.subdomain[0] ||= self.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(6)}"
+  end
+
+  def sanitize_custom_domain
+    if self.custom_domain[0]
+      # Remove protocol from URL (http://, https://, etc...) and anything after the first slash
+      self.custom_domain = self.custom_domain.sub(/^.*?\/\//, '').reverse.sub(/^.*\//, '').reverse
+    else
+      self.custom_domain = nil
+    end
   end
 
 end
