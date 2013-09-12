@@ -53,9 +53,14 @@ private
 
     logger.info "Loading site... #{@site.to_log_info}" if @site
 
+    if @site && @is_custom_domain && request.fullpath =~ /\/checkout\//
+      logger.info "Redirecting to secure payment page..."
+      return redirect_to root_url(:subdomain => @site.subdomain, :host => @central_domain) + request.fullpath.sub('/', '')
+    end
+
     if is_subdomain_of_custom
       logger.info "Redirecting to custom domain..."
-      return redirect_to root_url(:host => @site.custom_domain) + request.fullpath.sub('/', ''), :status => 301 unless request.fullpath =~ /\/admin/
+      return redirect_to root_url(:host => @site.custom_domain) + request.fullpath.sub('/', ''), :status => 301 unless (request.fullpath =~ /\/admin/ || request.fullpath =~ /\/checkout\//)
     end
 
   end
