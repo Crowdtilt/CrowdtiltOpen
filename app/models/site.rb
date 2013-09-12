@@ -161,7 +161,7 @@ class Site < ActiveRecord::Base
   end
 
   def sanitize_custom_domain
-    if self.custom_domain[0]
+    if self.custom_domain && self.custom_domain[0]
       # Remove protocol from URL (http://, https://, etc...) and anything after the first slash
       self.custom_domain = self.custom_domain.sub(/^.*?\/\//, '').reverse.sub(/^.*\//, '').reverse
     else
