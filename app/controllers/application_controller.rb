@@ -25,6 +25,7 @@ private
     @rewrite_domain = (Rails.env != 'development') && @is_custom_domain
 
     logger.info "Domain: #{@request_domain}"
+    logger.info "Custom: #{@is_custom_domain}"
   end
 
   def load_site
@@ -49,9 +50,10 @@ private
       return redirect_to root_url(:subdomain => 'admin', :host => @central_domain)
     end
 
-    logger.info "Loading site #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
+    logger.info "Loading site... #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
 
     if is_subdomain_of_custom
+      logger.info "Redirecting to custom domain..."
       return redirect_to root_url(:host => @site.custom_domain) + request.fullpath.sub('/', ''), :status => 301 unless request.fullpath =~ /\/admin/
     end
 
@@ -59,7 +61,7 @@ private
 
   def load_site_non_multisite
     @site = Site.first_or_create!(:subdomain => '')
-    logger.info "Loading site #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
+    logger.info "Loading site... #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
   end
 
   def set_default_mailer_host

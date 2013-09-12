@@ -14,6 +14,9 @@ Crowdhoster::Application.routes.draw do
     end
 
     devise_for :users, { path: 'account', controllers: { registrations: 'multisite/registrations', sessions: 'multisite/sessions' } }
+    devise_scope :user do
+      get '/user/settings',                    to: 'multisite/registrations#edit',            as: :user_settings
+    end
   end
     
   # These routes are used for MULTISITE_ENABLED=false deployments or if the subdomain != 'admin'.
@@ -26,11 +29,11 @@ Crowdhoster::Application.routes.draw do
     # USERS
     devise_for :users, { path: 'account', controllers: { registrations: :registrations, sessions: :sessions } }
     devise_scope :user do
-      match '/user/settings',                    to: 'devise/registrations#edit',             as: :user_settings
+      get '/user/settings',                      to: 'registrations#edit',                    as: :user_settings
     end
 
     # ADMIN
-    match '/admin',                      to: 'admin#admin_website',                   as: :admin_website
+    match '/admin',                              to: 'admin#admin_website',                   as: :admin_website
     namespace :admin do
       resources :campaigns
     end
