@@ -19,7 +19,7 @@ Crowdhoster::Application.routes.draw do
     end
   end
     
-  # These routes are used for MULTISITE_ENABLED=false deployments or if the subdomain != 'admin'.
+  # These routes are used for MULTISITE_ENABLED=false deployments or non-admin subdomains in multisite mode.
   # They specify the routing for all Site specific pages, including the API.
   constraints Constraint::MultisiteRouteNonAdmin.new do
     # Rewrite www to non-www with a 301 Moved Permanently

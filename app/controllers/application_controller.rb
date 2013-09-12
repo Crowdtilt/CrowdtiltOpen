@@ -18,8 +18,9 @@ private
     @multisite_enabled = Rails.configuration.multisite_enabled
     @central_domain = Rails.configuration.central_domain
 
-    parsed_request_url = Domainatrix.parse(request.url)
-    @request_domain = "#{parsed_request_url.domain}.#{parsed_request_url.public_suffix}"
+    @request_domain, @request_host = lambda do |p|
+      return p.domain + '.' + p.public_suffix, p.host
+    end.call(Domainatrix.parse(request.url))
 
     @is_custom_domain = @request_domain != @central_domain
     @rewrite_domain = (Rails.env != 'development') && @is_custom_domain
@@ -39,7 +40,7 @@ private
   def load_site_multisite
     is_subdomain_of_custom = false
     if @is_custom_domain
-      @site = Site.find_by_custom_domain(@request_domain)
+      @site = Site.find_by_custom_domain(@request_host)
     else
       @site = Site.find_by_subdomain(request.subdomain)
       is_subdomain_of_custom = true if @site && @site.custom_domain
@@ -50,7 +51,7 @@ private
       return redirect_to root_url(:subdomain => 'admin', :host => @central_domain)
     end
 
-    logger.info "Loading site... #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
+    logger.info "Loading site... #{@site.to_log_info}" if @site
 
     if is_subdomain_of_custom
       logger.info "Redirecting to custom domain..."
@@ -61,7 +62,7 @@ private
 
   def load_site_non_multisite
     @site = Site.first_or_create!(:subdomain => '')
-    logger.info "Loading site... #{@site.id} - #{@site.site_name} (#{@site.subdomain}/#{@site.custom_domain})" if @site
+    logger.info "Loading site... #{@site.to_log_info}" if @site
   end
 
   def set_default_mailer_host

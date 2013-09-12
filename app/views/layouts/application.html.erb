@@ -36,6 +36,9 @@
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
+    
+    <% if @multisite_enabled && @is_custom_domain %>
+    <% end %>
 
     <%= raw(@site.custom_js) %>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>

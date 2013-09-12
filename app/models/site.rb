@@ -84,6 +84,10 @@ class Site < ActiveRecord::Base
     Thread.current[:site_id]
   end
 
+  def to_log_info
+    return "#{self.id} - #{self.site_name} (#{self.subdomain}/#{self.custom_domain})"
+  end
+
   def billing_statement_text
     ('CH ' + site_name.upcase)[0, 18]
   end
@@ -94,10 +98,10 @@ class Site < ActiveRecord::Base
       return true
     end
 
-    # Set admin_user_id for init. Return false if nil
+    # Set admin_user_id for init.
     if admin_user.nil?
       if self.admin_user.nil? 
-        return false
+        raise ArgumentError, 'No admin user provided!'
       end
       admin_user = self.admin_user
     end
