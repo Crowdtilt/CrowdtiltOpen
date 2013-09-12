@@ -92,7 +92,13 @@ $ cp .env.example .env
 ```
 
 
-Then open up the .env file and fill in the variables with your app_name and credentials. Leave "ENABLE_ASSET_SYNC" set to 'true' if you plan to use AWS to host your assets (recommended).
+Then open up the .env file and fill in the variables with your app_name and credentials. Leave ```ENABLE_ASSET_SYNC``` set to 'true' if you plan to use AWS to host your assets (recommended).
+
+The ```SECRET_TOKEN``` variable should be at least 30 characters and all random, no regular words or you'll be exposed to dictionary attacks.  You can generate a new one by running this command from the root of your project directory:
+
+```
+$ rake secret
+```
 
 Important: Your ```APP_NAME``` must not have a space in it. Underscores and hypens are accepted.
 
@@ -109,6 +115,7 @@ AWS_SECRET_ACCESS_KEY=awssecretaccesskey
 MAILGUN_DOMAIN=myawesomeapp.mailgun.org
 MAILGUN_PASSWORD=mailgunpassword
 MAILGUN_USERNAME=postmaster@myawesomeapp.mailgun.org
+SECRET_TOKEN=secrettoken
 ```
 
 Install the gems
