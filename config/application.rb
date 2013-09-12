@@ -38,6 +38,7 @@ module Crowdhoster
     #loading for ckeditor
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
     config.autoload_paths += %W(#{config.root}/lib/constraints)
+    config.autoload_paths += %W(#{config.root}/lib/extensions)
 
     #Fix for getting Devise to work on Heroku deploy
     #Forcing app to not access the DB or models when precompiling
