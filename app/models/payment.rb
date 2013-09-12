@@ -12,7 +12,7 @@ class Payment < ActiveRecord::Base
 
   def self.to_csv(options={})
     #db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
-    csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date',
+    csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Reward',
                    'Card Type', 'Card Last Four', 'Card Expiration Month', 'Card Expiration Year', 'Billing Postal Code',
                    'Address One', 'Address Two', 'City', 'State', 'Postal Code', 'Country',
                    'Additional Info','Status', 'ID']
@@ -20,12 +20,14 @@ class Payment < ActiveRecord::Base
     CSV.generate(options) do |csv|
       csv << csv_columns
       all.each do |payment|
+        reward = payment.reward ? payment.reward.title : ''
         csv << [payment.fullname,
                 payment.email,
                 payment.quantity,
                 display_dollars(payment.amount),
                 display_dollars(payment.user_fee_amount),
                 display_date(payment.created_at),
+                reward,
                 payment.card_type,
                 payment.card_last_four,
                 payment.card_expiration_month,
