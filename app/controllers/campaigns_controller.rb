@@ -28,7 +28,7 @@ class CampaignsController < BaseController
         @quantity = params[:quantity].to_i
         @amount = ((@quantity * @campaign.fixed_payment_amount.to_f)*100).ceil/100.0
       else
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid quantity!" }
+        redirect_to checkout_amount_path(@campaign), flash: { error: "Invalid quantity!" }
         return
       end
     elsif params.has_key?(:amount) && params[:amount].to_f >= @campaign.min_payment_amount
@@ -39,17 +39,17 @@ class CampaignsController < BaseController
         begin
           @reward = Reward.find(params[:reward])
         rescue => exception
-          redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" }
+          redirect_to checkout_amount_path(@campaign), flash: { error: "Please select a different reward" }
           return
         end
         unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= @amount
-          redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid reward!" }
+          redirect_to checkout_amount_path(@campaign), flash: { error: "Invalid reward!" }
           return
         end
       end
 
     else
-      redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid amount!" }
+      redirect_to checkout_amount_path(@campaign), flash: { error: "Invalid amount!" }
       return
     end
 
@@ -86,7 +86,7 @@ class CampaignsController < BaseController
     if params[:reward].to_i != 0
       @reward = Reward.find_by_id(params[:reward])
       unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= amount
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" } and return
+        redirect_to checkout_amount_path(@campaign), flash: { error: "Please select a different reward" } and return
       end
     end
 
@@ -117,7 +117,7 @@ class CampaignsController < BaseController
     if !@payment.valid?
       message = ''
       @payment.errors.each {|key, error| message += key.to_s.humanize + " " + error.to_s + ", "}
-      redirect_to checkout_amount_url(@campaign), flash: { error: message[0...-2] } and return
+      redirect_to checkout_amount_path(@campaign), flash: { error: message[0...-2] } and return
     end
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
@@ -148,7 +148,7 @@ class CampaignsController < BaseController
       logger.info response
     rescue => exception
       logger.info "ERROR WITH POST TO /payments: #{exception.message}"
-      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment, please try again" } and return
+      redirect_to checkout_amount_path(@campaign), flash: { error: "There was an error processing your payment, please try again" } and return
     end
 
     # Associate payment with reward
@@ -180,14 +180,14 @@ class CampaignsController < BaseController
   def check_published
     if !@campaign.published_flag
       unless user_signed_in? && (current_user.has_role? :admin, @site)
-        redirect_to root_url, :flash => { :error => "Campaign is no longer available" }
+        redirect_to root_path, :flash => { :error => "Campaign is no longer available" }
       end
     end
   end
 
   def check_exp
     if @campaign.expired?
-      redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
+      redirect_to campaign_home_path(@campaign), :flash => { :error => "Campaign is expired!" }
     end
   end
 

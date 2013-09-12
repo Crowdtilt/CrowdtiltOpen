@@ -46,6 +46,7 @@ private
       is_subdomain_of_custom = true if @site && @site.custom_domain
     end
 
+    # Can't find the site, redirect to the admin panel
     if !@site && (@is_custom_domain || request.subdomain != 'admin')
       logger.error "No site found! #{request.url}"
       return redirect_to root_url(:subdomain => 'admin', :host => @central_domain)
@@ -53,11 +54,13 @@ private
 
     logger.info "Loading site... #{@site.to_log_info}" if @site
 
+    # Trying to view the checkout page on a custom domain
     if @site && @is_custom_domain && request.fullpath =~ /\/checkout\//
       logger.info "Redirecting to secure payment page..."
       return redirect_to root_url(:subdomain => @site.subdomain, :host => @central_domain) + request.fullpath.sub('/', '')
     end
 
+    # Accessed the site through a subdomain but a custom domain exists
     if is_subdomain_of_custom
       logger.info "Redirecting to custom domain..."
       return redirect_to root_url(:host => @site.custom_domain) + request.fullpath.sub('/', ''), :status => 301 unless (request.fullpath =~ /\/admin/ || request.fullpath =~ /\/checkout\//)

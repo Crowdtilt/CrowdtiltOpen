@@ -121,7 +121,7 @@ class Admin::CampaignsController < BaseController
         return
       end
 
-      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
+      redirect_to campaign_home_path(@campaign), :flash => { :notice => "Campaign updated!" }
       return
     end
   end
@@ -225,7 +225,7 @@ class Admin::CampaignsController < BaseController
       @campaign.update_api_data(response['campaign'])
       @campaign.save
 
-      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
+      redirect_to campaign_home_path(@campaign), :flash => { :notice => "Campaign updated!" }
       return
     end
   end
