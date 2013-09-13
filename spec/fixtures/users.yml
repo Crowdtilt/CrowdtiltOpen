@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130910184139
+# Schema version: 20130911220755
 #
 # Table name: users
 #
@@ -17,7 +17,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  fullname               :string(255)
-#  admin                  :boolean          default(FALSE)
 #
 # Indexes
 #

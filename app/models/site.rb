@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130910184139
+# Schema version: 20130911220755
 #
 # Table name: sites
 #
@@ -34,10 +34,12 @@
 #  reply_to_email              :string(255)      default("team@crowdhoster.com"), not null
 #  custom_js                   :text
 #  subdomain                   :string(255)      not null
+#  custom_domain               :string(255)
 #
 # Indexes
 #
-#  index_sites_on_subdomain  (subdomain) UNIQUE
+#  index_sites_on_custom_domain  (custom_domain) UNIQUE
+#  index_sites_on_subdomain      (subdomain) UNIQUE
 #
 
 class Site < ActiveRecord::Base

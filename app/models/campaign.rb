@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20130910184139
+# Schema version: 20130911220755
 #
 # Table name: campaigns
 #
