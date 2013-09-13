@@ -75,4 +75,7 @@ Crowdhoster::Application.configure do
   config.logger = Logger.new(STDOUT)
   config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 
+  # Domain of the main installation for multisite deployments
+  config.central_domain = ENV['CENTRAL_DOMAIN'] || 'crowdhoster.com'
+
 end
