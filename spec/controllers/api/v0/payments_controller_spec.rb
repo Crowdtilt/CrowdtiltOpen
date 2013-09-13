@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe Api::V0::PaymentsController do
   describe '#index' do
+    FactoryGirl.create(:user, :admin)
     let(:settings) { create(:settings) }
     let!(:api_key) { settings.api_key }
 
