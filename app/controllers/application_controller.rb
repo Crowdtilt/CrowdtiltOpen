@@ -69,7 +69,7 @@ private
   end
 
   def load_site_non_multisite
-    @site = Site.first_or_create!(:subdomain => '')
+    @site = Site.order(:id).first_or_create!(:subdomain => '')
     logger.info "Loading site... #{@site.to_log_info}" if @site
   end
 
