@@ -20,7 +20,7 @@ private
 
     @request_domain, @request_host = lambda do |p|
       return p.domain + '.' + p.public_suffix, p.host
-    end.call(Domainatrix.parse(request.url))
+    end.call(Domainatrix.parse(request.url.downcase))
 
     @is_custom_domain = @request_domain != @central_domain
     @rewrite_domain = (Rails.env != 'development') && @is_custom_domain

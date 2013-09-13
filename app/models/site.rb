@@ -77,6 +77,8 @@ class Site < ActiveRecord::Base
   has_attached_file :facebook_image,
                     styles: { thumb: "100x100#" }
 
+
+  # Class methods
   # Thread-safe setter/getter for subdomain scoping
   def self.current_id=(id)
     Thread.current[:site_id] = id
@@ -86,6 +88,8 @@ class Site < ActiveRecord::Base
     Thread.current[:site_id]
   end
 
+
+  # Instance methods
   def to_log_info
     return "#{self.id} - #{self.site_name} (#{self.subdomain}/#{self.custom_domain})"
   end
@@ -162,6 +166,7 @@ class Site < ActiveRecord::Base
     self.api_key = SecureRandom.hex(10)
   end
 
+  # Generate a subdomain from the site name if the subdomain is an empty string
   def set_subdomain
     self.subdomain[0] ||= self.site_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '') + "-#{SecureRandom.hex(6)}"
   end
@@ -169,8 +174,9 @@ class Site < ActiveRecord::Base
   def sanitize_custom_domain
     if self.custom_domain && self.custom_domain[0]
       # Remove protocol from URL (http://, https://, etc...) and anything after the first slash
-      self.custom_domain = self.custom_domain.sub(/^.*?\/\//, '').reverse.sub(/^.*\//, '').reverse
+      self.custom_domain = self.custom_domain.sub(/^.*?\/\//, '').reverse.sub(/^.*\//, '').reverse.downcase
     else
+      # Set to nil if empty string
       self.custom_domain = nil
     end
   end
