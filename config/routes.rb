@@ -10,7 +10,7 @@ Crowdhoster::Application.routes.draw do
     root                                       to: 'multisite/pages#index'
 
     scope module: :multisite do
-      resources :sites, only: [:new, :create, :index], as: 'multisite_sites'
+      resources :sites, only: [:new, :create, :index, :update], as: 'multisite_sites'
     end
 
     devise_for :users, { path: 'account', controllers: { registrations: 'multisite/registrations', sessions: 'multisite/sessions' } }
