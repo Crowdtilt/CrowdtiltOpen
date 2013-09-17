@@ -4,24 +4,10 @@ Crowdhoster::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  # These routes are only used for the 'admin' subdomain when MULTISITE_ENABLED=true. 
-  # They only specify routing for the multisite splash and management admin pages. 
-  constraints Constraint::MultisiteRouteAdmin.new do
-    root                                       to: 'multisite/pages#index'
-
-    scope module: :multisite do
-      resources :sites, only: [:new, :create, :index, :update], as: 'multisite_sites'
-    end
-
-    devise_for :users, { path: 'account', controllers: { registrations: 'multisite/registrations', sessions: 'multisite/sessions' } }
-    devise_scope :user do
-      get '/user/settings',                    to: 'multisite/registrations#edit',            as: :user_settings
-    end
-  end
     
   # These routes are used for MULTISITE_ENABLED=false deployments or non-admin subdomains in multisite mode.
   # They specify the routing for all Site specific pages, including the API.
-  constraints Constraint::MultisiteRouteNonAdmin.new do
+  constraints Constraint::AdminRoute.new(false) do
     # Rewrite www to non-www with a 301 Moved Permanently
     match '(*any)',                              to: redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
     root                                         to: 'pages#index'
@@ -57,4 +43,20 @@ Crowdhoster::Application.routes.draw do
       end
     end
   end
+
+  # These routes are only used for the 'admin' subdomain when MULTISITE_ENABLED=true. 
+  # They only specify routing for the multisite splash and management admin pages. 
+  constraints Constraint::AdminRoute.new(true) do
+    root                                       to: 'multisite/pages#index'
+
+    scope module: :multisite do
+      resources :sites, only: [:new, :create, :index, :update], as: 'multisite_sites'
+    end
+
+    devise_for :users, { path: 'account', controllers: { registrations: 'multisite/registrations', sessions: 'multisite/sessions' } }
+    devise_scope :user do
+      get '/user/settings',                    to: 'multisite/registrations#edit',            as: :user_settings
+    end
+  end
+
 end
