@@ -1,7 +1,7 @@
-if  defined?(AssetSync)
+if defined?(AssetSync)
   AssetSync.configure do |config|
 
-    config.enabled = ENV['ENABLE_ASSET_SYNC'] == 'true' ? true:false
+    config.enabled = ENV['ENABLE_ASSET_SYNC'] == 'true' ? true : false
 
     config.fog_provider = 'AWS'
     config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
