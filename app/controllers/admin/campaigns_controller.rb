@@ -82,7 +82,7 @@ class Admin::CampaignsController < ApplicationController
         user_id: ct_user_id,
         billing_statement_text: @settings.billing_statement_text
       }
-      @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
+      @campaign.production_flag ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
     rescue => exception
       flash.now[:error] = exception.to_s
@@ -217,22 +217,19 @@ class Admin::CampaignsController < ApplicationController
       # If the campaign has been promoted to production, create a new campaign on the Crowtilt API
       if @campaign.production_flag && @campaign.production_flag_changed?
         campaign[:user_id] = ct_user_id
-        Crowdtilt.production
+        Crowdtilt.production(@settings)
         response = Crowdtilt.post('/campaigns', {campaign: campaign})
       else
-        @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
+        @campaign.production_flag ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
         response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
       end
     rescue => exception
       flash.now[:error] = exception.to_s
-      render action: "edit"
-      return
+      render action: "edit" and return
     else
       @campaign.update_api_data(response['campaign'])
       @campaign.save
-
-      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
-      return
+      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" } and return
     end
   end
 

@@ -22,7 +22,7 @@ class Campaign < ActiveRecord::Base
   validates :name, :expiration_date, presence: true
   validates :min_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validates :fixed_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
-  validate :expiration_date_cannot_be_in_the_past
+  validate :expiration_date_cannot_be_in_the_past, :payments_can_be_activated
 
   before_validation { main_image.clear if main_image_delete == '1' }
   before_validation { video_placeholder.clear if video_placeholder_delete == '1' }
@@ -92,6 +92,12 @@ class Campaign < ActiveRecord::Base
     if self.expiration_date_changed? && !self.expiration_date.blank? && self.expiration_date < Time.current
       errors.add(:expiration_date, "can't be in the past")
     end
+  end
+
+  def payments_can_be_activated
+      if self.production_flag && !Settings.find_by_id(1).payments_activated?
+        errors.add(:base, "cannot activate payments")
+      end
   end
 
 end

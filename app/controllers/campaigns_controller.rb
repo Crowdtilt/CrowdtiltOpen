@@ -140,7 +140,7 @@ class CampaignsController < ApplicationController
           additional_info: additional_info
         }
       }
-      @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
+      @campaign.production_flag ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
 
       logger.info "CROWDTILT API REQUEST: /campaigns/#{@campaign.ct_campaign_id}/payments"
       logger.info payment

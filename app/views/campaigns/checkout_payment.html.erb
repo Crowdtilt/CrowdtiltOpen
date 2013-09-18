@@ -136,6 +136,9 @@
         </form>
         <div id="errors" style="display: none"></div>
 
+        <% if !@campaign.production_flag %>
+          <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
+        <% end%>
     </div>
 
   </div>
