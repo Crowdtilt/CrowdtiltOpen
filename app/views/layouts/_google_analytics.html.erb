@@ -1,8 +1,13 @@
 <% if !@site.google_id.blank? %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<%= @site.google_id %>']);
-  _gaq.push(['_trackPageview']);
+  _gaq.push(
+    ['_setAccount', 'UA-38090057-1'],
+    ['_setDomainName', 'crowdhoster.com'],
+    ['_trackPageview'],
+    ['b._setAccount', '<%= @site.google_id %>'],
+    ['b._trackPageview']
+  );
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
