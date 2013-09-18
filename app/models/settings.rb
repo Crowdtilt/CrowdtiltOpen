@@ -24,9 +24,50 @@ class Settings < ActiveRecord::Base
     ('CH ' + site_name.upcase)[0, 18]
   end
 
+  def activate_payments(key, secret)
+      Crowdtilt.configure api_key: key,
+                                  api_secret: secret,
+                                  mode: 'production'
+      begin
+        Crowdtilt.get('users')
+      rescue => exception
+        return false
+      else
+        self.ct_prod_api_key = key
+        self.ct_prod_api_secret = secret
+        begin
+          Crowdtilt.production(self)
+          production_guest = {
+            firstname: 'Crowdhoster',
+            lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
+            email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
+          }
+          production_guest = Crowdtilt.post('/users', {user: production_guest})
+
+          production_admin = {
+            firstname: 'Crowdhoster',
+            lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
+            email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
+          }
+          production_admin = Crowdtilt.post('/users', {user: production_admin})
+        rescue => exception
+          return false
+        else
+          self.ct_production_guest_id = production_guest['user']['id']
+          self.ct_production_admin_id = production_admin['user']['id']
+          self.save
+        end
+      end
+  end
+
+  def payments_activated?
+    !self.ct_prod_api_key.blank? && !self.ct_prod_api_secret.blank? && !self.ct_production_guest_id.blank? && !self.ct_production_admin_id.blank?
+  end
+
   private
 
   def set_api_key
     self[:api_key] = SecureRandom.hex(10)
   end
+
 end

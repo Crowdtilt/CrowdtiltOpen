@@ -9,6 +9,9 @@
     </div>
     <div class="well confirmation_sidebar">
       <h4>Payment Summary</h4>
+      <% if !@campaign.production_flag %>
+        <div style="color: red; margin-bottom: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
+      <% end%>
       <p>
       <strong>Date:</strong><br/> <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/><br/>
       <strong>Amount:</strong><br/> $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/><br/>

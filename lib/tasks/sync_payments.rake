@@ -9,7 +9,7 @@ namespace :ch do
     campaign = Campaign.find_by_ct_campaign_id(ENV['CAMPAIGN_ID'])
     if campaign
       puts "Synching payments for #{campaign.name} (#{ENV['CAMPAIGN_ID']})"
-      Rails.env.production? ? Crowdtilt.production : Crowdtilt.sandbox
+      campaign.production_flag ? Crowdtilt.production(Settings.find_by_id(1)) : Crowdtilt.sandbox
       begin
         response = Crowdtilt.get("campaigns/#{campaign.ct_campaign_id}/payments?page=1&per_page=100")
       rescue => exception

@@ -7,6 +7,10 @@ This email is a confirmation of your $<%= number_with_precision(@payment.amount.
 
 <br/><br/>
 
+<% if !@campaign.production_flag %>
+  <div style="color: red">This campaign is in sandbox mode, your card will not actually be charged.</div><br/><br/>
+<% end%>
+
 <strong>Payment Details:</strong><br/>
 Name: <%= @payment.fullname %> <br/>
 Date: <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/>

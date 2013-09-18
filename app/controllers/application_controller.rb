@@ -59,21 +59,6 @@ class ApplicationController < ActionController::Base
             email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
           }
           sandbox_admin = Crowdtilt.post('/users', {user: sandbox_admin})
-
-          Crowdtilt.production
-          production_guest = {
-            firstname: 'Crowdhoster',
-            lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
-            email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
-          }
-          production_guest = Crowdtilt.post('/users', {user: production_guest})
-
-          production_admin = {
-            firstname: 'Crowdhoster',
-            lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
-            email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
-          }
-          production_admin = Crowdtilt.post('/users', {user: production_admin})
         rescue => exception
           @settings.update_attribute :initialized_flag, false
           sign_out current_user
@@ -82,8 +67,6 @@ class ApplicationController < ActionController::Base
         else
           @settings.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']
           @settings.update_attribute :ct_sandbox_admin_id, sandbox_admin['user']['id']
-          @settings.update_attribute :ct_production_guest_id, production_guest['user']['id']
-          @settings.update_attribute :ct_production_admin_id, production_admin['user']['id']
         end
 
 
