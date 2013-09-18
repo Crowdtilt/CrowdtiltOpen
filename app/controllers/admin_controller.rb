@@ -5,15 +5,9 @@ class AdminController < BaseController
   before_filter :set_ct_env, only: [:admin_bank_setup, :ajax_verify]
 
   def admin_website
-    # Cache the original object in case of validation error, so we
-    # can display the original attributes. 
-    @site_cache = @site.to_object(:subdomain, :custom_domain)
-
     #Handle the form submission if request is PUT
     if request.put?
       if @site.update_attributes(params[:site])
-        # Object is successfully updated, so bust cache
-        @site_cache = @site.to_object(:subdomain, :custom_domain)
 
         redirect_to admin_website_url(:subdomain => @multisite_enabled ? @site.subdomain : nil), :flash => { :success => "Website settings successfully updated!" }
       else

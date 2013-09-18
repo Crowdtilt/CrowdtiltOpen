@@ -1,1 +1,1 @@
-require 'active_record_extension'
+# Add modules in "lib/extensions" here.
