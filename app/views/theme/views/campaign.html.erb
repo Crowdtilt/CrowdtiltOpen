@@ -91,7 +91,7 @@
                 <%= @campaign.primary_call_to_action_button %>
               </span>
             <% else %>
-              <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button">
+              <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
                 <%= @campaign.primary_call_to_action_button %>
               </a>
             <% end %>
@@ -158,7 +158,7 @@
           <ul>
             <% @campaign.rewards.order("price ASC").each do |reward| %>
             <% if reward.visible? %>
-              <li>
+              <li id="rewards_click">
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? %>" class="<%= 'disabled' if reward.sold_out? %>">
                   <p class="price">$<%= number_with_precision(reward.price, precision: (reward.price*100%100==0.0 ? 0 : 2)) %></p>
                   <p class="title"><%= reward.title %></p>
@@ -186,7 +186,7 @@
             <%= @campaign.secondary_call_to_action_button %>
           </span>
         <% else %>
-          <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button">
+          <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
             <%= @campaign.secondary_call_to_action_button %>
           </a>
         <% end %>
