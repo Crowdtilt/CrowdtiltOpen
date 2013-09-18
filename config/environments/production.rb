@@ -28,7 +28,8 @@ Crowdhoster::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # Only force globally if multisite is disabled
+  config.force_ssl = true if !Rails.configuration.multisite_enabled
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
