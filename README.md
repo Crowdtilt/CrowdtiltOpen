@@ -106,8 +106,6 @@ Important: Your ```APP_NAME``` must not have a space in it. Underscores and hype
 APP_NAME=myawesomeapp
 CROWDTILT_SANDBOX_KEY=crowdtiltsandboxkey
 CROWDTILT_SANDBOX_SECRET=crowdtiltsandboxsecret
-CROWDTILT_PRODUCTION_KEY=crowdtiltproductionkey
-CROWDTILT_PRODUCTION_SECRET=crowdtiltproductionsecret
 ENABLE_ASSET_SYNC=true
 AWS_BUCKET=awsbucket
 AWS_ACCESS_KEY_ID=awsaccesskey

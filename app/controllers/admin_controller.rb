@@ -19,7 +19,19 @@ class AdminController < ApplicationController
     end
   end
 
+  def admin_processor_setup
+    if request.post?
+      flash.now[:error] = "Invalid credentials" and return if params[:ct_prod_api_key].blank? || params[:ct_prod_api_secret].blank?
+      if @settings.activate_payments(params[:ct_prod_api_key], params[:ct_prod_api_secret])
+        flash.now[:success] = "Your payment processor is all set up!"
+      else
+        flash.now[:error] = "Invalid credentials"
+      end
+    end
+  end
+
   def admin_bank_setup
+    redirect_to admin_processor_setup_url, flash: { error: "Please set up your payment processor before providing your bank details" } and return unless @settings.payments_activated?
     @bank = {}
     begin
       response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
@@ -51,7 +63,7 @@ class AdminController < ApplicationController
 
   def ajax_verify
     if params[:name].blank? || params[:phone].blank? || params[:street_address].blank? || params[:postal_code].blank? || params[:dob].blank?
-      render text: "error" #not all fields filled out
+      render text: "error" and return #not all fields filled out
     else
       begin
         response = Crowdtilt.get('/users/' + @ct_admin_id)
@@ -81,7 +93,7 @@ class AdminController < ApplicationController
 
   def set_ct_env
     if Rails.env.production?
-      Crowdtilt.production
+      Crowdtilt.production(@settings)
       @ct_admin_id = @settings.ct_production_admin_id
     else
       Crowdtilt.sandbox

@@ -6,9 +6,9 @@ module Crowdtilt
                    mode: 'sandbox'
   end
 
-  def self.production
-    self.configure api_key: Rails.configuration.crowdtilt_production_key,
-                      api_secret: Rails.configuration.crowdtilt_production_secret,
+  def self.production(settings)
+    self.configure api_key: settings.ct_prod_api_key,
+                      api_secret: settings.ct_prod_api_secret,
                       mode: 'production'
   end
 

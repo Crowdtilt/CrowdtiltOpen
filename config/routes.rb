@@ -17,6 +17,7 @@ Crowdhoster::Application.routes.draw do
   end
   match '/admin/campaigns/:id/copy',           to: 'admin/campaigns#copy',                  as: :admin_campaigns_copy
   match '/admin/campaigns/:id/payments',       to: 'admin/campaigns#payments',              as: :admin_campaigns_payments
+  match '/admin/processor-setup',                   to: 'admin#admin_processor_setup',                as: :admin_processor_setup
   match '/admin/bank-setup',                   to: 'admin#admin_bank_setup',                as: :admin_bank_setup
   match '/ajax/verify',                        to: 'admin#ajax_verify',                     as: :ajax_verify
 

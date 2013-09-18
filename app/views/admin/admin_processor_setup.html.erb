@@ -1,0 +1,53 @@
+<div id="admin">
+  <div class="container content_box clearfix">
+
+  <%= render 'admin/header', website: '', campaigns: '', payments: 'active' %>
+
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="<%= admin_processor_setup_path %>">Payment Processor</a></li>
+      <li><a href="<%= admin_bank_setup_path %>">Bank Setup</a></li>
+    </ul>
+
+  <div id="admin_processor_setup">
+
+    <div class="main_content">
+
+      <% if @settings.payments_activated? %>
+
+      <h4>Your payment processor is all set up!</h4>
+      <p>Payments can now be activated for your campaigns.  Please make sure to set up your bank account information by clicking the tab above so that you may receive payouts!</p>
+
+      <% else %>
+
+      <%= form_tag(admin_processor_setup_path, method: "post", id: "admin_crowdtilt_form") %>
+
+      <fieldset>
+        <p>Crowdhoster is set up to use the Crowdtilt API for credit card transactions and bank payouts.  Please contact support.api@crowdtilt.com to request production Crowdtilt API credentials.</p>
+
+          <div class="form-row clearfix">
+            <div class="field">
+              <label for="ct_prod_api_key">Crowdtilt Production API Key</label>
+              <input name="ct_prod_api_key" id="ct_prod_api_key" type="text" style="width: 320px">
+            </div>
+          </div>
+          <div class="form-row clearfix">
+            <div class="field">
+              <label for="ct_prod_api_secret">Crowdtilt Production API Secret</label>
+              <input name="ct_prod_api_secret" id="ct_prod_api_secret" type="text" style="width: 320px">
+            </div>
+          </div>
+
+        </fieldset>
+
+        <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
+        <span class="loader" data-loader="bank_form" style="display:none"></span>
+      </form>
+      <div id="errors"></div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+  </div>
+</div>
