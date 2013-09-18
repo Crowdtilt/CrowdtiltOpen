@@ -31,6 +31,10 @@ Crowdhoster::Application.configure do
   # Only force globally if multisite is disabled
   config.force_ssl = true if !Rails.configuration.multisite_enabled
 
+  # Force Devise to use SSL always
+  config.to_prepare { Devise::SessionsController.force_ssl }
+  config.to_prepare { Devise::RegistrationsController.force_ssl }
+
   # See everything in the log (default is :info)
   # config.log_level = :debug
 
