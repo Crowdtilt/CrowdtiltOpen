@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20130911220755) do
     t.string   "reply_to_email",              :default => "team@crowdhoster.com", :null => false
     t.text     "custom_js"
     t.string   "subdomain",                                                       :null => false
+    t.string   "mailgun_route_id"
     t.string   "custom_domain"
   end
 
