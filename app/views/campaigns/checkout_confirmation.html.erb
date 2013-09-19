@@ -7,7 +7,7 @@
       </div>
       <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>"><%= @campaign.name %> homepage</a></p>
     </div>
-    <div class="well confirmation_sidebar">
+    <div class="well confirmation_sidebar" id="completed_purchase">
       <h4>Payment Summary</h4>
       <p>
       <strong>Date:</strong><br/> <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/><br/>

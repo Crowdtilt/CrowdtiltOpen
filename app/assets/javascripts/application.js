@@ -27,3 +27,4 @@
 //= require campaigns
 //= require theme
 //= require validate
+//= require event_tracking
