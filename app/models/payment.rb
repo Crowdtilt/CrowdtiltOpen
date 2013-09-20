@@ -10,7 +10,7 @@ class Payment < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :reward
 
-  after_create :send_payment_mailer
+  after_create :send_admin_notification
 
   def self.to_csv(options={})
     #db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
@@ -66,7 +66,7 @@ class Payment < ActiveRecord::Base
     date.strftime("%m/%d/%Y")
   end
 
-  def send_payment_mailer
-    PaymentMailer.send_mailer(self).deliver
+  def send_admin_notification
+    PaymentMailer.admin_notification(self).deliver
   end
 end
