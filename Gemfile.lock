@@ -40,6 +40,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.3.5)
     arel (3.0.2)
     asset_sync (0.5.4)
       activemodel
@@ -79,6 +80,9 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
     dotenv (0.7.0)
+    email_spec (1.4.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     excon (0.22.1)
     execjs (1.4.0)
@@ -121,6 +125,8 @@ GEM
       railties (>= 3.1.0)
     json (1.8.0)
     kgio (2.8.0)
+    launchy (2.3.0)
+      addressable (~> 2.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -235,6 +241,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   crowdtilt!
   devise
+  email_spec
   factory_girl_rails
   faker
   foreman

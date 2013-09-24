@@ -6,6 +6,7 @@ gem 'unicorn'
 gem 'rails', '3.2.13'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
+gem 'email_spec'
 gem 'nokogiri'
 gem 'pg'
 gem "friendly_id", "~> 4.0.9"
