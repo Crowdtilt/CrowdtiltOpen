@@ -178,6 +178,8 @@ class CampaignsController < ApplicationController
 
   def load_campaign
     @campaign = Campaign.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_url
   end
 
   def check_published
