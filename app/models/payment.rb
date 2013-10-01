@@ -69,6 +69,6 @@ class Payment < ActiveRecord::Base
   end
 
   def send_admin_notification
-    PaymentMailer.admin_notification(self).deliver
+    AdminMailer.payment_notification(self.id).deliver
   end
 end

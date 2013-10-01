@@ -155,11 +155,9 @@ class CampaignsController < ApplicationController
     end
 
     # Sync payment data
+    @payment.reward = @reward if @reward
     @payment.update_api_data(response['payment'])
     @payment.save
-
-    # Associate payment with reward
-    @reward.payments << @payment if @reward
 
     # Sync campaign data
     @campaign.update_api_data(response['payment']['campaign'])

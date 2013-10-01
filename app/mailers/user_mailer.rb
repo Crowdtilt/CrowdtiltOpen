@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+  layout 'default_mailer'
 
   def payment_confirmation(payment, campaign)
     @settings = Settings.find_by_id(1)

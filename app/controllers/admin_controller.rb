@@ -91,6 +91,18 @@ class AdminController < ApplicationController
     end
   end
 
+  def admin_notification_setup
+    if request.put?
+      if current_user.update_attributes(params[:user])
+        flash.now[:success] = "Notification settings saved!"
+      else
+        flash.now[:error] = "There was an error saving your notification settings. Please try again!"
+      end
+    end
+  end
+
+private
+
   def set_ct_env
     if Rails.env.production?
       Crowdtilt.production(@settings)

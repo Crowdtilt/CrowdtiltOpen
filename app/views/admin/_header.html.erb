@@ -4,13 +4,16 @@
 </h3>
 
 <ul class="nav nav-pills">
-  <li class="<%= website %>">
+  <li class="<%= 'active' if active == 'website' %>">
     <%= link_to "Website", admin_website_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
-  <li class="<%= campaigns %>">
+  <li class="<%= 'active' if active == 'campaigns' %>">
     <%= link_to "Campaigns", admin_campaigns_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
-  <li class="<%= payments %>">
+  <li class="<%= 'active' if active == 'payments' %>">
     <%= link_to "Payment Settings", admin_processor_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  </li>
+  <li class="<%= 'active' if active == 'notifications' %>">
+    <%= link_to "Notification Settings", admin_notification_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
 </ul>
