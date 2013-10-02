@@ -1,0 +1,3 @@
+<p><%= @payment.fullname %> just backed "<%= @payment.campaign.name %>".</p>
+<p>They contributed $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %><% if @reward %> and selected the "<%= @reward.title %>" <%= @campaign.reward_reference %><% end %>!</p>
+<p>Reach out and thank them by email: <%= @payment.email %>.</p>

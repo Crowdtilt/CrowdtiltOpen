@@ -1,0 +1,37 @@
+<div id="admin">
+  <div class="container content_box clearfix">
+
+  <%= render 'admin/header', active: 'notifications' %>
+
+  <div id="admin_processor_setup">
+
+    <div class="main_content">
+
+      <%= form_for(current_user, url: admin_notification_setup_path, html: {method: "put", id: "admin_notification_form"}) do |f| %>
+
+        <fieldset>
+          <legend>Admin notifications</legend>
+
+            <div class="form-row clearfix">
+              <div class="field">
+                <label for="user_wants_admin_payment_notification" class="checkbox">
+                  <%= f.check_box 'wants_admin_payment_notification' %>
+                  Notify me via email when someone makes a contribution to my campaign
+                </label>
+              </div>
+            </div>
+
+        </fieldset>
+
+        <br />
+
+        <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
+        <span class="loader" data-loader="bank_form" style="display:none"></span>
+
+      <% end %>
+
+    </div>
+
+  </div>
+  </div>
+</div>

@@ -19,6 +19,7 @@ Crowdhoster::Application.routes.draw do
   match '/admin/campaigns/:id/payments',       to: 'admin/campaigns#payments',              as: :admin_campaigns_payments
   match '/admin/processor-setup',                   to: 'admin#admin_processor_setup',                as: :admin_processor_setup
   match '/admin/bank-setup',                   to: 'admin#admin_bank_setup',                as: :admin_bank_setup
+  match '/admin/notification-setup',           to: 'admin#admin_notification_setup',                as: :admin_notification_setup
   match '/ajax/verify',                        to: 'admin#ajax_verify',                     as: :ajax_verify
 
   # CAMPAIGNS

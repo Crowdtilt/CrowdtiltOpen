@@ -2,11 +2,11 @@ require "spec_helper"
 include EmailSpec::Helpers
 include EmailSpec::Matchers
 
-describe PaymentMailer, '#admin_notification' do
+describe AdminMailer, '#payment_notification' do
   before(:all) do
     campaign = FactoryGirl.create(:campaign)
     @payment = FactoryGirl.create(:payment, campaign: campaign)
-    @email = PaymentMailer.admin_notification(@payment)
+    @email = AdminMailer.payment_notification(@payment)
   end
 
   it 'delivers the snippet to the proper address' do
