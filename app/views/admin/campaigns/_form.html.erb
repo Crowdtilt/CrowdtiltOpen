@@ -220,6 +220,7 @@
         <% @campaign.faqs.each do |faq| %>
         <li>
           <span><%= iterator %></span>
+          <input type="hidden" name="faq[][sort_order]" value="<%= iterator %>" />
           <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
           <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
           <a href="#" class="faq-delete icon-trash"></a>
@@ -228,6 +229,7 @@
         <% end %>
         <li>
           <span><%= @campaign.faqs.count + 1 %></span>
+          <input type="hidden" name="faq[][sort_order]" value="<%= @campaign.faqs.count + 1 %>" />
           <textarea name="faq[][question]" placeholder="Question"></textarea>
           <textarea name="faq[][answer]" placeholder="Answer"></textarea>
           <a href="#" class="faq-delete icon-trash"></a>
