@@ -83,6 +83,7 @@ Crowdhoster.admin =
         iterator = 1
         $.each $('.faq.sortable li'), ->
           $this = $(this)
+          $this.find('input[name="faq[][sort_order]"]').val(iterator)
           $this.find('span').html(iterator)
           iterator++
 
@@ -91,6 +92,7 @@ Crowdhoster.admin =
       $element = $('.faq.sortable li:last-child').clone()
       position = parseInt($element.find('span').html(), 10) + 1
       $element.find('span').html(position)
+      $element.find('input[name="faq[][sort_order]"]').val(position)
       $element.find('textarea[name="faq[][question]"]').html('')
       $element.find('textarea[name="faq[][answer]"]').html('')
       $element.appendTo('.faq.sortable')
@@ -104,6 +106,7 @@ Crowdhoster.admin =
           $.each $('.faq.sortable li'), ->
             $this = $(this)
             $this.find('span').html(iterator)
+            $this.find('input[name="faq[][sort_order]"]').val(iterator)
             iterator++
 
   # Custom Named Functions
