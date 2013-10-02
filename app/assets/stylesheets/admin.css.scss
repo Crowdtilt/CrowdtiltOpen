@@ -155,6 +155,12 @@
     }
   }
 
+  .nav-processor-setup, .nav-bank-setup {
+    .active > a {
+      background-color: whitesmoke;
+    }
+  }
+
   #admin_bank_setup {
     .main_content {
       width: 560px;
