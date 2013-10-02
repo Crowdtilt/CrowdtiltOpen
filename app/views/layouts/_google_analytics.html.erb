@@ -1,18 +1,27 @@
-<% if !@settings.google_id.blank? %>
 <script type="text/javascript">
+  <% if Rails.env.development? %>
+  window['ga-disable-UA-38090057-1'] = true;
+  <% if !@settings.google_id.blank? %>
+  window['ga-disable-<%= @settings.google_id %>'] = true;
+  <% end %>
+  <% end %>
+
   var _gaq = _gaq || [];
   _gaq.push(
     ['_setAccount', 'UA-38090057-1'],
     ['_setDomainName', 'crowdhoster.com'],
-    ['_trackPageview'],
-    ['b._setAccount', '<%= @site.google_id %>'],
-    ['b._trackPageview']
+    ['_trackPageview']<% if !@settings.google_id.blank? %>,
+    ['b._setAccount', '<%= @settings.google_id %>'],
+    ['b._trackPageview']<% end %>
   );
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    <% if Rails.env.development? %>
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/u/ga_debug.js';
+    <% else %>
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    <% end %>
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<% end %>
