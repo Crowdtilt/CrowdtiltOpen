@@ -1,7 +1,7 @@
 class Campaign < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
-  has_many :faqs, dependent: :destroy
+  has_many :faqs, dependent: :destroy, :order => 'sort_order'
   has_many :payments
   has_many :rewards
 
