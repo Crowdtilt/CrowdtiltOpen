@@ -3,7 +3,7 @@
     <div class="main_content">
       <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
 
-    <div class="well checkout_block">
+    <div class="well checkout_block" style="padding-bottom: 16px">
 
         <form accept-charset="UTF-8" action="<%= checkout_confirmation_path(@campaign) %>" method="post" id="payment_form">
 
@@ -128,6 +128,10 @@
           <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
           <input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
 
+          <% if !@campaign.production_flag %>
+            <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
+          <% end%>
+
           <div class="payment-submit">
             <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">Confirm payment of $<%= number_with_precision(@total, precision: 2) %></button>
             <span class="loader" data-loader="payment_form" style="display:none"></span>
@@ -136,9 +140,7 @@
         </form>
         <div id="errors" style="display: none"></div>
 
-        <% if !@campaign.production_flag %>
-          <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
-        <% end%>
+        <div style="text-align: right; margin-right: -16px"><%= image_tag 'crowdtilt_badge_no_card_logos.png', width: "120px", height: "36px" %></div>
     </div>
 
   </div>
