@@ -10,7 +10,7 @@
  *
  * Core files
  *= require_self
- *= require reset
+ *= require layout/reset
  *= require jquery.ui.all
  *= require main
  *= require theme

@@ -2,14 +2,14 @@
 @import "bootstrap";
 
 /* Core styles */
-@import "primitives";
+@import "layout/primitives";
 
 /* Top level layout sections */
-@import "navbar";
-@import "flash";
+@import "layout/navbar";
+@import "layout/flash";
 
 /* Non-customizable section styles */
 @import "devise";
-@import "admin";
+@import "admin/admin_main";
 @import "campaigns";
 @import "users";
