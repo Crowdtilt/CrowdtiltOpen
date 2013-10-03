@@ -1,0 +1,18 @@
+<%= form_for(@settings, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'footer-form' %>
+
+  <fieldset>
+    <legend>Footer Content</legend>
+
+    <div class="field clearfix">
+      <p class="explanation">The text shown in the footer beside the copyright symbol.</p>
+      <label>Copyright Text</label>
+      <%= f.text_field :copyright_text %>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
+  <span class="loader" data-loader="project_form" style="display:none"></span>
+
+<% end %>

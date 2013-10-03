@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+  <% tabs.each_with_index do |tab, index| %>
+    <li<% if current_tab == tab[1] || (current_tab.nil? && index == 0) %> class="active"<% end %>>
+      <a data-target="#<%= tab[1] %>" data-toggle="tab"><%= tab[0] %></a>
+    </li>
+  <% end %>
+</ul> 
+
+<div class="tab-content">
+  <% tabs.each_with_index do |tab, index| %>
+    <div class="tab-pane<% if current_tab == tab[1] || (current_tab.nil? && index == 0) %> active<% end %>" id="<%= tab[1] %>">
+      <%= render tab[2] %>
+    </div>
+  <% end %>
+</div>

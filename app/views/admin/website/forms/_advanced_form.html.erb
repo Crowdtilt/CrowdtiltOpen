@@ -1,0 +1,25 @@
+<%= form_for(@settings, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'custom-form' %>
+
+  <fieldset>
+
+    <legend>Custom CSS/JS</legend>
+
+    <div class="field clearfix">
+      <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
+      <label>Custom CSS</label>
+      <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">Add your own JavaScript here. Use this field to paste in scripts for analytics tracking, retargeting, etc.</p>
+      <label>Custom JavaScript</label>
+      <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px" %>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
+  <span class="loader" data-loader="project_form" style="display:none"></span>
+
+<% end %>

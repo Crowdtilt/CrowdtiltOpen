@@ -7,6 +7,7 @@ class AdminController < ApplicationController
   def admin_website
     #Handle the form submission if request is PUT
     if request.put?
+      @current_tab = params[:current_tab] || nil
       if @settings.update_attributes(params[:settings])
         flash.now[:success] = "Website settings successfully updated!"
       else
