@@ -1,0 +1,106 @@
+<%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'campaign-page-content-form' %>
+
+  <fieldset>
+    <legend>Page Content</legend>
+
+    <div class="field clearfix">
+      <p class="explanation">A few other ideas: supporter, order, preorder, donor, contributor, participant, purchase.</p>
+      <label>How To Reference a Contributor (i.e. 'backer' )</label>
+      <%= f.text_field :contributor_reference %>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">We STRONGLY recommend including a video with your project. Just paste the youtube video id (it's the 11 character code that comes at the very end of the youtube url). You can also specify a placeholder image to show over top of the video in case you don't like your video's thumbnail.  Alternatively, you can choose to simply upload an image to show instead of a video.</p>
+
+        <label class="inline"><input id="campaign_media_type_video" name="campaign[media_type]" value="video" type="radio" <%= @campaign.media_type == 'video' ? "checked" : "" %>>Use Video</label>
+
+        <label class="inline ml-20"><input id="campaign_media_type_image" name="campaign[media_type]" value="image" type="radio" <%= @campaign.media_type == 'image' ? "checked" : "" %>>Use Image</label>
+
+      <div id="video-options" style="<%= @campaign.media_type == 'video' ? "" : "display:none" %>">
+        <label>Youtube Video ID</label>
+        <%= f.text_field :video_embed_id %>
+        <label>Video Placeholder</label>
+        <% if @campaign.video_placeholder.file? %>
+          <%= image_tag @campaign.video_placeholder.url(:thumb) %><br/>
+          <%= f.file_field :video_placeholder %><br/>
+          <%= f.check_box :video_placeholder_delete %><span>Delete current image</span>
+        <% else %>
+          <%= f.file_field :video_placeholder %>
+        <% end  %>
+      </div>
+
+      <div id="image-options" style="<%= @campaign.media_type == 'image' ? "" : "display:none"%>">
+        <label>Image</label>
+        <% if @campaign.main_image.file? %>
+          <%= image_tag @campaign.main_image.url(:thumb) %><br/>
+          <%= f.file_field :main_image %><br/>
+          <%= f.check_box :main_image_delete %><span>Delete current image</span>
+        <% else %>
+          <%= f.file_field :main_image %>
+        <% end  %>
+      </div>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">This text is displayed on the primary call to action button. Common choices include 'Pay', 'Contribute', 'Back this Project', 'Reserve for $199', etc.</p>
+      <label>Primary Call to Action Button</label>
+      <%= f.text_field :primary_call_to_action_button %>
+    </div>
+
+    <div class="field clearfix">
+      <label>Primary Call to Action Description</label>
+      <p class="explanation inline">This formatted text gets displayed near the primary call to action button.</p>
+      <%= f.cktext_area :primary_call_to_action_description %>
+    </div>
+
+    <div class="field clearfix">
+      <label>Main Content</label>
+      <p class="explanation inline">This is the meat and potatoes of your website&mdash;include rich text and images to engage your contributors!</p>
+      <%= f.cktext_area :main_content %>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">This text is displayed on the second call to action button position near the bottom of the homepage.</p>
+      <label>Secondary Call to Action Button</label>
+      <%= f.text_field :secondary_call_to_action_button %>
+    </div>
+
+    <div class="field clearfix">
+      <label>Secondary Call to Action Description</label>
+      <p class="explanation inline">This formatted text gets displayed near the secondary call to action button.</p>
+      <%= f.cktext_area :secondary_call_to_action_description %>
+    </div>
+
+    <div class="field clearfix">
+      <label>FAQs</label>
+      <p class="explanation inline">Add as many question/answer pairs as you'd like to display in the FAQ section of the homepage.</p>
+      <ul class="faq sortable">
+        <% iterator = 1 %>
+        <% @campaign.faqs.each do |faq| %>
+        <li>
+          <span><%= iterator %></span>
+          <input type="hidden" name="faq[][sort_order]" value="<%= iterator %>" />
+          <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
+          <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
+          <a href="#" class="faq-delete icon-trash"></a>
+        </li>
+        <% iterator+=1 %>
+        <% end %>
+        <li>
+          <span><%= @campaign.faqs.count + 1 %></span>
+          <input type="hidden" name="faq[][sort_order]" value="<%= @campaign.faqs.count + 1 %>" />
+          <textarea name="faq[][question]" placeholder="Question"></textarea>
+          <textarea name="faq[][answer]" placeholder="Answer"></textarea>
+          <a href="#" class="faq-delete icon-trash"></a>
+         </li>
+      </ul>
+      <a id="faq-add" href="#">Add FAQ</a>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <span class="loader" data-loader="campaign_form" style="display:none"></span>
+
+<% end %>

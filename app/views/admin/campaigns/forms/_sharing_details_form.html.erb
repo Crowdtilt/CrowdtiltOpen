@@ -1,19 +1,13 @@
-<%= form_for(@settings, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
-  <%= hidden_field_tag 'current_tab', 'sharing-form' %>
+<%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'campaign-sharing-form' %>
 
   <fieldset>
-    <legend>Social Sharing</legend>
+    <legend>Sharing Details</legend>
 
     <div class="field clearfix">
       <p class="explanation">This is the default text that will be used for the tweet button.</p>
       <label>Tweet Text</label>
       <%= f.text_area :tweet_text, rows: 2 %>
-    </div>
-
-    <div class="field clearfix">
-      <p class="explanation">Include your Facebook app ID here to set up your social sharing buttons. Visit https://developers.facebook.com/apps to create an app for your site. The like button will NOT show up unless you provide this ID.</p>
-      <label>Facebook App ID</label>
-      <%= f.text_field :facebook_app_id %>
     </div>
 
     <div class="field clearfix">
@@ -29,10 +23,10 @@
     </div>
 
     <div class="field clearfix">
-      <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px.</p>
+      <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
       <label>Facebook Image</label>
-      <% if @settings.facebook_image.file? %>
-        <%= image_tag @settings.facebook_image.url(:thumb) %><br/>
+      <% if @campaign.facebook_image.file? %>
+        <%= image_tag @campaign.facebook_image.url(:thumb) %><br/>
         <%= f.file_field :facebook_image %><br/>
         <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
       <% else %>
@@ -42,7 +36,7 @@
 
   </fieldset>
 
-  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
-  <span class="loader" data-loader="project_form" style="display:none"></span>
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <span class="loader" data-loader="campaign_form" style="display:none"></span>
 
 <% end %>

@@ -1,0 +1,18 @@
+<%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'campaign-publish-form' %>
+
+  <fieldset>
+    <legend>Publish</legend>
+
+    <div class="field clearfix">
+      <p class="explanation">Campaigns that are not published are accessible only by admins, which is helpful for both previewing new campaigns and archiving old campaigns you no longer want users to access. Once published, the campaign will show up on your homepage and be accessible to all visitors to your site.</p>
+      <label>Publish this campaign?</label>
+      <%= f.check_box :published_flag %>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <span class="loader" data-loader="campaign_form" style="display:none"></span>
+
+<% end %>

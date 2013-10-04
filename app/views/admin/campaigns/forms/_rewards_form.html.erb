@@ -1,0 +1,66 @@
+<%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'campaign-rewards-form' %>
+
+  <fieldset>
+    <legend>Rewards (optional)</legend>
+
+    <div class="field clearfix">
+      <div id="no-rewards" style="<%= 'display:none' unless @campaign.payment_type == 'fixed' %>">
+        <p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors.</p>
+      </div>
+
+      <div id="rewards" style="<%= 'display:none' if @campaign.payment_type == 'fixed' %>">
+        <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution. You can set a cap on how many of each reward are available and the minimum contribution amount needed to claim one.</p>
+        <div class="reference">
+          <label>How To Reference a Reward (i.e. reward, perk, option)</label>
+          <%= f.text_field :reward_reference %>
+        </div>
+        <ul>
+          <% @campaign.rewards.order("price ASC").each do |reward| %>
+          <li>
+            <table class="table">
+              <tr>
+                <th>Reward</th>
+                <th>Number Claimed</th>
+                <th>Delete?</th>
+              </tr>
+              <tr>
+                <td>
+                  <label>Minimum Contribution To Claim</label>
+                  <div class="currency">
+                    <input name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
+                    <span style="position:absolute">$</span>
+                  </div>
+                  <label>Title</label>
+                  <input name="reward[][title]" type="text" value="<%= reward.title %>"/><br/>
+                  <label>Description</label>
+                  <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
+                  <label>Estimated Delivery Date (i.e. May 2013)</label>
+                  <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
+                  <label>Number Available (leave blank if unlimited)</label>
+                  <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
+                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
+                </td>
+                <td><%= reward.payments.length %></td>
+                <td>
+                  <% if reward.payments.length > 0 %>
+                    N/A<input type="hidden" name="reward[][delete]" value=""/>
+                  <% else %>
+                    <input type="checkbox" name="reward[][delete]" value="delete"/>
+                  <% end %>
+                </td>
+              </tr>
+            </table>
+          </li>
+          <% end %>
+        </ul>
+        <a id="reward-add" href="#">Add Reward</a>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <span class="loader" data-loader="campaign_form" style="display:none"></span>
+
+<% end %>

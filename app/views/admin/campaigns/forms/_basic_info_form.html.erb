@@ -1,0 +1,41 @@
+<%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'campaign-basic-form' %>
+
+  <fieldset>
+    <legend>Basic Information</legend>
+
+    <div class="field clearfix">
+      <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
+      <label>Campaign Name</label>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">You can choose to set your goal based on the dollar amount you raise, or by the number of orders your contributors make.</p>
+      <label>Goal</label>
+      <label><input id="goal_type_dollars" name="campaign[goal_type]" value="dollars" type="radio" <%= @campaign.goal_type == 'dollars' ? "checked" : "" %>>Dollar Amount</label>
+
+       <div class="amount_input currency" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+        <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
+        <span style="position:absolute">$</span>
+      </div>
+
+       <label><input id="goal_type_orders" name="campaign[goal_type]" value="orders" type="radio" <%= @campaign.goal_type == 'orders' ? "checked" : "" %>>Number of Orders</label>
+
+      <div class="orders_input" style="<%= @campaign.goal_type == 'orders' ? "" : "display:none" %>">
+        <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0) %>
+      </div>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">When your campaign to raise money should end.</p>
+      <label>Expiration Date</label>
+      <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')) %>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <span class="loader" data-loader="campaign_form" style="display:none"></span>
+
+<% end %>

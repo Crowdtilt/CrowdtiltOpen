@@ -1,0 +1,56 @@
+<%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
+  <%= hidden_field_tag 'current_tab', 'campaign-payment-form' %>
+
+  <fieldset>
+    <legend>Payment Details</legend>
+
+    <div class="field clearfix">
+
+      <div id="flexible_payment_options" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+      <label><input id="campaign_payment_type_any" name="campaign[payment_type]" value="any" type="radio" <%= @campaign.payment_type == 'any' ? "checked" : "" %>><strong>Any</strong> amount is fine.</label>
+
+      <label><input id="campaign_payment_type_min" name="campaign[payment_type]" value="min" type="radio" <%= @campaign.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>
+
+      <div id="min-amount" style="<%= @campaign.payment_type == 'min' ? "" : "display:none" %>">
+        <label class="inline"><strong>Minimum amount: $ &nbsp;</strong></label>
+        <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
+      </div>
+
+      </div>
+      <label><input id="campaign_payment_type_fixed" name="campaign[payment_type]" value="fixed" type="radio" <%= (@campaign.payment_type == 'fixed' || @campaign.goal_type == 'orders') ? "checked" : "" %>>Require a <strong>specific amount</strong> from all contributors. <i>(ex. $150 from each person)</i></label>
+
+      <div id="preset-amount" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
+        <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
+        <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
+      </div>
+
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">Requires the user to include shipping address when checking out.</p>
+      <label>Collect Shipping Address?</label>
+      <%= f.check_box :collect_shipping %>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">Requires the user to provide additional information in a text box, such as sizes, colors, or other details.</p>
+      <label>Collect Additional Information?</label>
+      <%= f.check_box :collect_additional_info %>
+      <div class="additional_info_input" style="<%= @campaign.collect_additional_info ? "" : "display:none" %>">
+        <label>Include a message describing what you need:</label>
+        <%= f.text_area :additional_info_label, rows: 2 %>
+      </div>
+    </div>
+
+    <div class="field clearfix">
+      <p class="explanation">This passes the <%= Rails.configuration.processing_fee %>% processing fee onto your contributors, adding the fee amount to their contribution amount when they check out. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank account.</p>
+      <label>Pass Credit Card Processing Fee to Contributors?</label>
+      <%= f.check_box :apply_processing_fee %>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <span class="loader" data-loader="campaign_form" style="display:none"></span>
+
+<% end %>

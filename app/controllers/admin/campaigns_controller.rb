@@ -145,6 +145,7 @@ class Admin::CampaignsController < ApplicationController
 
   def update
     @campaign = Campaign.find(params[:id])
+    @current_tab = params[:current_tab] || nil
 
     is_default = params[:campaign].delete :is_default
 
@@ -247,7 +248,8 @@ class Admin::CampaignsController < ApplicationController
     else
       @campaign.update_api_data(response['campaign'])
       @campaign.save
-      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" } and return
+      flash.now[:success] = "Campaign updated!"
+      render action: "edit" and return
     end
   end
 
