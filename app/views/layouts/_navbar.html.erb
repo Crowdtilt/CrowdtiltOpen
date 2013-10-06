@@ -1,15 +1,10 @@
 <% if user_signed_in? && current_user.admin? %>
-<div id="navbar">
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container clearfix">
-      <ul class="nav pull-left">
-
-         <% if current_page?(root_path) %>
-           <li>
-             <a href="<%= url_for admin_website_path %>"><i class="icon-edit icon-white"></i> Edit homepage</a>
-           </li>
-         <% end %>
+<nav class="top-bar">
+<ul class="title-area">dsfdsff</ul>
+<li class="right"><a>Blah</a></li>
+  <% if current_page?(root_path) %>
+    <li><a href="<%= url_for admin_website_path %>"><i class="icon-edit icon-white"></i>  Edit homepage</a></li>
+  <% end %>
 
          <% if request.fullpath.include? 'admin' %>
            <li>
@@ -44,10 +39,8 @@
 
          <% end %>
 
-       </ul>
 
-        <ul class="nav pull-right">
-            <li class="dropdown">
+            <li class="has-dropdown">
               <%= image_tag 'user_icon.png' %>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= current_user.fullname %> <b class="caret"></b>
@@ -60,9 +53,5 @@
               </ul>
           </li>
         </ul>
-      </div>
-    </div>
-  </div>
-  <div class="spacer" style="height:30px; width: 100%"></div>
-</div>
+     </nav>
 <% end %>

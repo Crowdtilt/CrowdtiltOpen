@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Crowdhoster::Application.config.secret_token = ENV['SECRET_TOKEN']
+Crowdhoster::Application.config.secret_token = "123456789123456789abcdefghijklmnop123456789"

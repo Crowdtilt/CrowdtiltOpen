@@ -1,0 +1,2 @@
+module BootcampsHelper
+end

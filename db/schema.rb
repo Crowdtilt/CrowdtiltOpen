@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001205607) do
+ActiveRecord::Schema.define(:version => 20131006201628) do
+
+  create_table "bootcamps", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "st_pr"
+    t.string   "country"
+    t.string   "contact_email"
+    t.string   "website_url"
+    t.integer  "campaign_id"
+    t.integer  "lat"
+    t.integer  "lon"
+    t.integer  "twitter_handle"
+    t.text     "description"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"

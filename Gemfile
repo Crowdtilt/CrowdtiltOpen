@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
 
 gem 'unicorn'
 
 gem 'rails', '3.2.13'
-gem 'bootstrap-sass', '2.1'
+# gem 'bootstrap-sass', '2.1'
+
 gem 'devise'
 gem 'email_spec'
 gem 'nokogiri'
@@ -20,6 +20,8 @@ gem 'foreman'
 
 gem 'active_model_serializers'
 
+gem 'dstk'
+
 group :production do
   gem 'newrelic_rpm'
 end
@@ -31,6 +33,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem "asset_sync"
+  gem 'zurb-foundation'
+  gem 'compass-rails'
 end
 
 group :development, :test do
