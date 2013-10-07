@@ -32,4 +32,4 @@ config/environments/*.local.yml
 .DS_Store
 
 # Ignore local environment file
-.env
+
