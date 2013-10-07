@@ -63,12 +63,17 @@ d3.json("/assets/world.json", function(error, topology) {
         .attr("d", path); // add data we're going to display
 
 // add our bootcamps to their geo-location
-// illinois:
-var coords = projection(['-87.63563', '41.888026']);
 
-// template for adding cities 
+<% @bootcamps.each do |camp| %>
+var lat = (<%= camp.lat %>);
+var lon = (<%= camp.lon %>);
+
+var coords = projection([lon,lat]);
+
+// template for adding cities with Ruby script 
 g.append("circle")
     .attr("class", "logo")
+    .attr("id", "<%= camp.name %>")
     .attr("cx", coords[0])
     .attr("cy", coords[1])
     .attr("r", 10)
@@ -77,14 +82,16 @@ g.append("circle")
     .attr("stroke-width", 0.25)
     .on("mouseover", function(){ 
       d3.select(this)
-        .style("fill", "url(#logo)");
+        .style("fill", "red");
     })
     .on("mouseout", function(){ 
       d3.select(this) 
-        .style("fill", "transparent");
+        .style("fill", "blue");
     });
 
-// hardcoded locations for bootcamps 
+    <% end %>
+
+// hardcoded locations for bootcamps (to be removed later)
   g.append("circle")
     .attr("class", "logo")
     .attr("cx", 700)

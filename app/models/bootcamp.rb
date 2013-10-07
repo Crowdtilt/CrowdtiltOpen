@@ -4,7 +4,7 @@ class Bootcamp < ActiveRecord::Base
   has_many :tweets
 
 def full_location
-  "#{address} #{city} #{st_pr}"
+  "#{address} #{city} #{st_pr} #{country}"
 end
 
 end
