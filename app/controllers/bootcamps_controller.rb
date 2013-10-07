@@ -1,6 +1,6 @@
 class BootcampsController < ApplicationController
 
-  def index
+  def index 
     @bootcamps=Bootcamp.all
   end
 

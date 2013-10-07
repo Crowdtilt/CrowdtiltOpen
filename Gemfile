@@ -4,7 +4,7 @@ gem 'unicorn'
 
 gem 'rails', '3.2.13'
 # gem 'bootstrap-sass', '2.1'
-
+gem 'topojson-rails'
 gem 'devise'
 gem 'email_spec'
 gem 'nokogiri'
