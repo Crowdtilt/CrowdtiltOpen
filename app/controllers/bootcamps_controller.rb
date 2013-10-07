@@ -12,14 +12,6 @@ class BootcampsController < ApplicationController
     @bootcamp=Bootcamp.new
   end
 
-  def create
-    @bootcamp=Bootcamp.new(params[:bootcamp])
-    if @bootcamp.save
-      redirect_to
-
-
-  end
-
   def edit
   end
 

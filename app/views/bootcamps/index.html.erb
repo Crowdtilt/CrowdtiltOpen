@@ -1,0 +1,7 @@
+Sanity Check - do we have all bootcamps?
+<% @bootcamps.each do |camp| %>
+  <%= camp.name %>
+  <%= camp.city %>
+  <%= camp.website_url %>
+  <%= "#{camp.lat} #{camp.lon}" %>
+<% end %>
