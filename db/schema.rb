@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131006201628) do
+ActiveRecord::Schema.define(:version => 20131007185610) do
 
   create_table "bootcamps", :force => true do |t|
     t.string   "name"
@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(:version => 20131006201628) do
     t.string   "contact_email"
     t.string   "website_url"
     t.integer  "campaign_id"
-    t.integer  "lat"
-    t.integer  "lon"
-    t.integer  "twitter_handle"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "twitter_handle"
     t.text     "description"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
@@ -188,6 +188,12 @@ ActiveRecord::Schema.define(:version => 20131006201628) do
     t.string   "mailgun_route_id"
     t.string   "ct_prod_api_key"
     t.string   "ct_prod_api_secret"
+  end
+
+  create_table "tweets", :force => true do |t|
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
