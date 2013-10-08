@@ -52,6 +52,7 @@ class Admin::CampaignsController < ApplicationController
   end
 
   def create
+    is_default = params[:campaign].delete :is_default
     @campaign = Campaign.new(params[:campaign])
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
@@ -125,6 +126,14 @@ class Admin::CampaignsController < ApplicationController
         return
       end
 
+      # Set default campaign
+      if(is_default == "1")
+        @settings.default_campaign_id = @campaign.id
+      elsif (@settings.default_campaign_id == @campaign.id)
+        @settings.default_campaign_id = nil
+      end
+      @settings.save
+
       redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
       return
     end
@@ -136,6 +145,15 @@ class Admin::CampaignsController < ApplicationController
 
   def update
     @campaign = Campaign.find(params[:id])
+
+    is_default = params[:campaign].delete :is_default
+
+    if(is_default =="1")
+      @settings.default_campaign_id = @campaign.id
+    elsif (@settings.default_campaign_id == @campaign.id)
+      @settings.default_campaign_id = nil
+    end
+    @settings.save
 
     # We don't immediately update the campaign, becuase the Crowdtilt API may still fail a validation
     @campaign.assign_attributes(params[:campaign])

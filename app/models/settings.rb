@@ -3,7 +3,7 @@ class Settings < ActiveRecord::Base
                   :logo_image, :logo_image_delete, :copyright_text, :facebook_title,
                   :facebook_description, :facebook_image, :facebook_image_delete, :homepage_content,
                   :custom_css, :header_link_text, :header_link_url, :ct_sandbox_guest_id, :ct_production_guest_id,
-                  :ct_sandbox_admin_id, :ct_production_admin_id, :reply_to_email, :custom_js
+                  :ct_sandbox_admin_id, :ct_production_admin_id, :reply_to_email, :custom_js, :default_campaign_id
 
   attr_accessor :logo_image_delete, :facebook_image_delete
 
@@ -13,6 +13,8 @@ class Settings < ActiveRecord::Base
 
   before_validation { logo_image.clear if logo_image_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
+
+  belongs_to "default_campaign", :class_name => "Campaign"
 
   has_attached_file :logo_image,
                     styles: { thumb: "100x100#" }
