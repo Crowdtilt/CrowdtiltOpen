@@ -13,5 +13,6 @@
  *= require reset
  *= require jquery.ui.all
  *= require main
+ *= require tipsy
  *= require theme
 */
