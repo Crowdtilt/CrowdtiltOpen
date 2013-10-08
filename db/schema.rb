@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001205607) do
+ActiveRecord::Schema.define(:version => 20131007231616) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20131001205607) do
     t.string   "mailgun_route_id"
     t.string   "ct_prod_api_key"
     t.string   "ct_prod_api_secret"
+    t.integer  "default_campaign_id"
   end
 
   create_table "users", :force => true do |t|
