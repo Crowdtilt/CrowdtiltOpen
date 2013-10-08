@@ -1,0 +1,205 @@
+<style>
+
+
+path {
+  stroke: white;
+  stroke-width: 0.5px;
+  fill: #a6ee9a;
+    }
+
+.tooltip {   
+  color: tomato;
+  position: absolute;           
+  text-align: center;           
+  width: 200px;                  
+  height: 100px;                 
+  padding: 5px;             
+  font: 20px sans-serif;        
+  background: lightsteelblue;   
+  border: 1px dashed white;      
+  border-radius: 8px;
+  opacity: 0.8; 
+}
+
+</style>
+
+
+
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<%= javascript_include_tag "jquery.tipsy.js" %>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+// set the size of our map
+var width = 1500;
+    height = 650;
+
+// set up the view of the map
+// projections adjusts the display for 2D screens. 
+// projections distory land size and shape, choose wisely
+// Mercator is conservative option 
+var projection = d3.geo.mercator()
+    .center([80,40]) // default [0,0], North America [100,30]
+    .scale(500)    // default (150). zoom in w/ > values
+    .rotate([-190,0]); // [longitude, latitude, roll], def [0,0,0]
+
+// create svg window
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+// geo path generator used to specify projection type
+var path = d3.geo.path()
+    .projection(projection);
+// g is our appended svg
+var g = svg.append("g");
+
+
+
+// load and display the world, draws the map for us.
+d3.json("/assets/world.json", function(error, topology) {
+    g.selectAll("path")
+        .data(topojson.feature(topology, topology.objects.countries)
+            .features) // data that defines countries
+      .enter()
+        .append("path") // act on all path elements
+        .attr("d", path); // add data we're going to display
+
+// add our bootcamps to their geo-location
+
+<% @bootcamps.each_with_index do |camp, index| %>
+var lat = (<%= camp.lat %>);
+var lon = (<%= camp.lon %>);
+var imagePath = "<%= image_path(camp.name.downcase.gsub(" ", "-")+'.png') %>"
+var urlImagePath = "url(" + imagePath + ")"
+var coords = projection([lon,lat]);
+
+
+// template for adding cities with Ruby script 
+g.append("circle")
+    .attr("class", "logo")
+    .attr("id", "<%= camp.name %>")
+    .attr("cx", coords[0])
+    .attr("cy", coords[1])
+    .attr("r", 10)
+    .attr("fill", "url(#image<%= index %>)")
+    .attr("stroke", "white")
+    .attr("stroke-width", 0.25)
+    .on("mouseover", function(){ 
+      d3.select(this)
+         .transition().attr("r", 20).duration(50)
+         .style("fill", "url(#hoverimage<%= index %>)")
+         
+     })
+     .on("mouseout", function(){ 
+      d3.select(this)
+         .transition().attr("r", 10).duration(50)
+         .style("fill", "url(#image<%= index %>)");
+     })
+     
+
+
+    <% end %>
+
+$('svg circle').tipsy({ 
+        gravity: 's', 
+        fade:true,
+        fallback:"bootcamp",
+        html: true, 
+        title: function() {
+          var d = this.__data__;
+          return this.id;
+        }
+});
+ 
+
+
+//make a TOOLTIP 
+var tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("position", "absolute")
+  .style("z-index", "5")
+  .style("visibility", "hidden")
+  .text("Example of TOOLTIP TEXT HERE");
+
+  
+
+// when mouseover a logo, it should launch tooltip  
+d3.selectAll(".logo")
+  .on("mouseover.tooltip", function(){
+    console.log("mouseover")
+    return tooltip
+    .style("visibility", "visible");
+  })
+  .on("mousemove.tooltip", function(){
+    return tooltip
+    .style("top", (event.pageY-10)+"px")
+    .style("left",(event.pageX+10)+"px");
+  })
+  .on("mouseout.tooltip", function(){
+    return tooltip
+    .style("visibility", "hidden");
+  });
+
+ 
+});
+
+
+
+// moving and panning on the map: 
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1,9])
+    .on("zoom", move); 
+
+svg.call(zoom)
+
+// LIMITING THE RANGE OF ZOOMING BY SCROLL 
+function move() {
+  var t = d3.event.translate,
+      s = d3.event.scale;
+
+  t[0] = Math.min(width / 2 * (s - 1), Math.max(width / 2 * (1 - s), t[0]));
+  t[1] = Math.min(height / 2 * (s - 1) + 230 * s, Math.max(height / 2 * (1 - s) - 230 * s, t[1]));
+  zoom.translate(t);
+  g.style("stroke-width", 1 / s).attr("transform", "translate(" + t + ")scale(" + s + ")");
+}
+
+
+</script>
+<svg id="logos" width="80" height="80">
+  <defs id="mydefs">
+  <% @bootcamps.each_with_index do |camp, index| %>
+    <pattern id="image<%= index %>" x="0" y="0" height="40" width="40">
+      <image width="20" height="20" xlink:href="<%= image_path(camp.name.downcase.gsub(" ", "-")+'.png') %>"></image>
+    </pattern>
+  <% end %>
+  </defs>
+
+<svg id="hoverlogos" width="160" height="160">
+  <defs id="mydefs">
+    <% @bootcamps.each_with_index do |camp, index| %>
+    <pattern id="hoverimage<%= index %>" x="0" y="0" height="80" width="80">
+      <image width="40" height="40" xlink:href="<%= image_path(camp.name.downcase.gsub(" ", "-")+'.png') %>"></image>
+    </pattern>
+  <% end %>
+  </defs>
+
+<!-- est. pattern for logos to insert into d3 circle object -->
+<!-- <svg id="mySvg" width="80" height="80">
+  <defs id="mydefs">
+    <pattern id="image" x="0" y="0" height="40" width="40">
+      <image width="20" height="20" xlink:href=urlImagePath></image>
+    </pattern>
+
+    <pattern id="image1" x="0" y="0" height="40" width="40">
+      <image width="20" height="20" xlink:href="http://scm-l3.technorati.com/12/12/13/73853/devbootcamp.png?t=20121213131231
+"></image>
+    </pattern>
+
+    <pattern id="image2" x="0" y="0" height="40" width="40">
+      <image width="20" height="20" xlink:href="http://cdn.skilledup.com/wp-content/uploads/2013/08/hacker-school.jpg"></image>
+    </pattern>
+  </defs> -->
+
+
+</script>
+

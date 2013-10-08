@@ -1,5 +1,5 @@
 Crowdhoster::Application.routes.draw do
-
+  resources :bootcamps
   mount Ckeditor::Engine => '/ckeditor'
 
   # PAGES
@@ -37,3 +37,4 @@ Crowdhoster::Application.routes.draw do
     end
   end
 end
+

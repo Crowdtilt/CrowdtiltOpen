@@ -13,6 +13,7 @@
 
 //= require html5shiv-printshiv
 //= require jquery
+//= require foundation
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require jquery.textchange
@@ -21,7 +22,6 @@
 //= require additional-methods.min
 //= require ckeditorbase
 //= require ckeditor/init
-//= require bootstrap
 //= require main
 //= require admin
 //= require campaigns
