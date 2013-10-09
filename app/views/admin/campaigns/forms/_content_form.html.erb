@@ -1,5 +1,5 @@
 <%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
-  <%= hidden_field_tag 'current_tab', 'campaign-page-content-form' %>
+  <%= hidden_field_tag 'current_tab', 'campaign-content-form' %>
 
   <fieldset>
     <legend>Page Content</legend>
@@ -96,6 +96,23 @@
          </li>
       </ul>
       <a id="faq-add" href="#">Add FAQ</a>
+    </div>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Checkout Page Content</legend>
+
+    <div class="field clearfix">
+      <label>Checkout Sidebar Content</label>
+      <p class="explanation inline">This content is displayed on the right sidebar of the checkout page. A question/answer format is often used.</p>
+      <%= f.cktext_area :checkout_sidebar_content %>
+    </div>
+
+    <div class="field clearfix">
+      <label>Confirmation Page Content</label>
+      <p class="explanation inline">This content appears on the confirmation page when a contributor completes a successful transaction.</p>
+      <%= f.cktext_area :confirmation_page_content %>
     </div>
 
   </fieldset>

@@ -12,6 +12,26 @@
 
   </fieldset>
 
+  <fieldset>
+    <legend>Payment Mode</legend>
+
+    <div class="field clearfix">
+      <% if !f.object.production_flag %>
+        <p class="explanation">Campaigns remain in 'sandbox' mode until you choose to activate real payments. This lets you run test transactions on the campaign. WARNING: once you activate payments, you cannot go back to sandbox mode.</p>
+        <% if @settings.payments_activated? %>
+          <label>Activate payments?</label>
+          <%= f.check_box :production_flag %>
+        <% else %>
+          You must set up your payment processor before activating payments. Visit "Payment Settings" from the admin menu to do this.
+        <% end %>
+      <% else %>
+        <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>
+        <label><i class="icon-ok"></i> Payments activated</label>
+      <% end %>
+    </div>
+
+  </fieldset>
+
   <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
   <span class="loader" data-loader="campaign_form" style="display:none"></span>
 
