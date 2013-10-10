@@ -25,7 +25,7 @@ module Crowdhoster
     # --- Standard Rails Config ---
     config.time_zone = 'GMT'
     config.encoding = "utf-8"
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :card_number, :security_code]
     config.active_record.whitelist_attributes = true
     # Enable the asset pipeline
     config.assets.enabled = true
