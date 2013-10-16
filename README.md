@@ -63,7 +63,7 @@ To run Crowdhoster you'll also need to sign up for the following:
 
 * a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)
 * the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys
-* [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets
+* [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets. The bucket should be in the US Standard (us-east-1) zone.
 * [Mailgun](http://www.mailgun.com/) (free)
 
 ### Local Setup
@@ -92,7 +92,7 @@ $ cp .env.example .env
 ```
 
 
-Then open up the .env file and fill in the variables with your app_name and credentials. Leave ```ENABLE_ASSET_SYNC``` set to 'true' if you plan to use AWS to host your assets (recommended).
+Then open up the .env file and fill in the variables with your app_name and credentials. Leave ```ENABLE_ASSET_SYNC``` set to 'true' if you plan to use AWS to host your assets (recommended). The bucket for asset syncing should be in the US Standard (us-east-1) zone.
 
 The ```SECRET_TOKEN``` variable should be at least 30 characters and all random, no regular words or you'll be exposed to dictionary attacks.  You can generate a new one by running this command from the root of your project directory:
 
