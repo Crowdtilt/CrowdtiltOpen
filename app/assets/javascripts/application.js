@@ -28,3 +28,4 @@
 //= require theme
 //= require validate
 //= require event_tracking
+//= require unsaved_changes.js
