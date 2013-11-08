@@ -164,7 +164,8 @@ Install the Heroku config plugin if you don't already have it installed
 $ heroku plugins:install git://github.com/ddollar/heroku-config.git
 ```
 
-Push the configuration to Heroku
+Push the configuration to Heroku.  
+NOTE: If you have already written config vars to Heroku, they will not be overwritten unless you pass the `--overwrite` flag as well.
 
 ```
 $ heroku config:push
