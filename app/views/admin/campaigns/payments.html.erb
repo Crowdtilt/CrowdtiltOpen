@@ -40,21 +40,24 @@
             <th>Date</th>
             <th>Status</th>
             <th>ID</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <% @payments.each do |payment| %>
           <tr>
             <td><%= payment.fullname %></td>
-            <td><%= payment.email %></td>
+            <td class="email"><%= payment.email %></td>
             <% if @campaign.goal_type == 'orders' %>
             <td><%= payment.quantity %></td>
             <% end %>
-            <td>$<%= number_with_precision(payment.amount.to_f/100.0, precision: 2) %></td>
-            <td>$<%= number_with_precision(payment.user_fee_amount.to_f/100.0, precision: 2) %></td>
+            <td class="amount">$<%= number_with_precision(payment.amount.to_f/100.0, precision: 2) %></td>
+            <td class="user_fee_amount">$<%= number_with_precision(payment.user_fee_amount.to_f/100.0, precision: 2) %></td>
             <td><%= payment.created_at.strftime("%m/%d/%Y") %></td>
-            <td><%= payment.status %></td>
-            <td><%= payment.ct_payment_id %></td>
+            <td class="status"><%= payment.status %></td>
+            <td class="ct_payment_id"><%= payment.ct_payment_id %></td>
+            <td><% if ['authorized', 'charged'].include? payment.status %><a class="refund-payment" style="cursor: pointer">Refund</a><% end %></td>
+            <td style="width: 18px"><span class="loader" style="display: none"></span></td>
           </tr>
           <% end %>
         </tbody>

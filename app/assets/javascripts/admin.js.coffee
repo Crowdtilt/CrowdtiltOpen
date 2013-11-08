@@ -109,6 +109,41 @@ Crowdhoster.admin =
             $this.find('input[name="faq[][sort_order]"]').val(iterator)
             iterator++
 
+
+    $('.refund-payment').on 'click', (e) ->
+      row = $(this).parent().parent()
+      cell = $(this).parent()
+      paymentId = row.find('td.ct_payment_id').text()
+      email = row.find('td.email').text()
+      amount = parseFloat(row.find('td.amount').text().split('$')[1])
+      user_fee_amount = parseFloat(row.find('td.user_fee_amount').text().split('$')[1])
+      total = amount + user_fee_amount
+      confirm = window.confirm("Are you sure you want to refund " + email + " for $" + total.toFixed(2) + "?")
+      if (confirm)
+        loader = row.find('td > .loader')
+        loader.show() 
+        status = row.find('td.status')
+        origColor = row.find('td.ct_payment_id').css("background-color")
+        $.post("/admin/payments/" + paymentId + "/refund")
+          .done(() ->
+            status.animate({
+              backgroundColor: '#5cb85c'
+            }, 400, 'swing', () ->
+              $(this).animate({
+                backgroundColor: origColor
+              })
+            ).text('refunded')
+            cell.html('')
+          )
+          .fail(() ->
+            status.animate({
+              backgroundColor: '#d9534f'
+            }, 300, 'swing')
+          )
+          .always(() ->
+            loader.hide()
+          )
+
   # Custom Named Functions
 
   submitWebsiteForm: (form) ->
