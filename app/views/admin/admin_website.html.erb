@@ -120,6 +120,11 @@
         <div id="advanced" style="display:none">
 
           <div class="field clearfix">
+            <p class="explanation">Uncheck this box if you would like all campaigns to be private and not appear on search engines like Google.</p>
+            <label>Allow search engines to index your Crowdhoster site</label>
+            <%= f.check_box :indexable %>
+          </div>
+          <div class="field clearfix">
             <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
             <label>Custom CSS</label>
             <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>

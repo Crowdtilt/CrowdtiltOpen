@@ -29,8 +29,8 @@ $gray_background_border_color: #C4C4C4;
 
 // Button colors/background/border
 $button_color:                  white;
+$button_background_color:       #0088d6;
 $button_hovered_color:          #0088d6;
-$button_active_background:      #FAFAFA;
 $button_active_border:          #C8C8C8;
 
 // This only affects .blue_button, which is the "Reserve Now" button you see on Lockitron's homepage
@@ -87,7 +87,7 @@ details summary::-webkit-details-marker { display:none; content: ""; }
 }
 
 .button:active {
-  background: $button_active_background;
+  background: $button_background_color;
   border: 1px solid $button_active_border;
 }
 

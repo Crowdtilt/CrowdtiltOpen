@@ -60,6 +60,16 @@ class Payment < ActiveRecord::Base
     self.card_expiration_year = payment['card']['expiration_year']
   end
 
+  def send_admin_notification
+    AdminMailer.payment_notification(self.id).deliver
+  end
+
+  def refund!
+    self.campaign.production_flag ? Crowdtilt.production(Settings.first) : Crowdtilt.sandbox
+    Crowdtilt.post("/campaigns/#{self.campaign.ct_campaign_id}/payments/#{self.ct_payment_id}/refund")
+    self.update_attribute(:status, "refunded")
+  end
+
   def self.display_dollars(amount)
     "$#{(amount.to_f/100.0).round(2)}"
   end
@@ -68,7 +78,4 @@ class Payment < ActiveRecord::Base
     date.strftime("%m/%d/%Y")
   end
 
-  def send_admin_notification
-    AdminMailer.payment_notification(self.id).deliver
-  end
 end
