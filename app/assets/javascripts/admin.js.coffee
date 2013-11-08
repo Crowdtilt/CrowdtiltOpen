@@ -139,6 +139,9 @@ Crowdhoster.admin =
             status.animate({
               backgroundColor: '#d9534f'
             }, 300, 'swing')
+            setTimeout(() ->
+              alert('Sorry, this payment could not be refunded. These funds may have already been released to you. If you have any questions, please contact team@crowdhoster.com with the payment ID.')
+            , 300)
           )
           .always(() ->
             loader.hide()
