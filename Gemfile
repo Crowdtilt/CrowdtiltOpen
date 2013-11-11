@@ -53,4 +53,6 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'crowdtilt', github: 'msaint/crowdtilt'
+gem "therubyracer", :require => 'v8'
+
+gem 'crowdtilt'
