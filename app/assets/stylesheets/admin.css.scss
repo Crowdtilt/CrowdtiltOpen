@@ -163,12 +163,20 @@
 
   #admin_bank_setup {
     .main_content {
-      width: 560px;
+      width: 900px;
       float: left;
     }
 
     fieldset {
       margin-bottom: 30px;
+    }
+
+    .account_numbers {
+      border-bottom: 1px solid gray;
+    }
+
+    .more_info {
+      padding-top: 10px;
     }
 
     .form-row .field {
