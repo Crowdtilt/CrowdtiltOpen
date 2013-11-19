@@ -9,11 +9,17 @@
            <li>
              <a href="<%= url_for admin_website_path %>"><i class="icon-edit icon-white"></i> Edit homepage</a>
            </li>
+           <li>
+              <a href="<%= url_for new_admin_campaign_path %>"><i class="icon-plus icon-white"></i> New Campaign</a>
+           </li>
          <% end %>
 
          <% if request.fullpath.include? 'admin' %>
            <li>
              <a href="<%= url_for root_path %>"><i class="icon-chevron-left icon-white"></i> Back to website</a>
+           </li>
+           <li>
+              <a href="<%= url_for new_admin_campaign_path %>"><i class="icon-plus icon-white"></i> New Campaign</a>
            </li>
          <% end %>
 
