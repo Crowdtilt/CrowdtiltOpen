@@ -63,7 +63,8 @@ module Crowdhoster
        :password => ENV['MAILGUN_PASSWORD']
       }
 
-    config.processing_fee = 2.9
+    config.processing_fee_percentage = 2.9
+    config.processing_fee_flat_cents = 30
 
   end
 end
