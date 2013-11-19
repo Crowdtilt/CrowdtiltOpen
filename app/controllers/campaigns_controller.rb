@@ -54,7 +54,7 @@ class CampaignsController < ApplicationController
       return
     end
 
-    @fee = (@campaign.apply_processing_fee)? ((@amount * (Rails.configuration.processing_fee.to_f/100))*100).ceil/100.0 : 0
+    @fee = (@campaign.apply_processing_fee)? calculate_processing_fee(@amount * 100)/100.0 : 0
     @total = @amount + @fee
 
   end
@@ -69,7 +69,7 @@ class CampaignsController < ApplicationController
 
     #calculate amount and fee in cents
     amount = (params[:amount].to_f*100).ceil
-    fee = (amount * (Rails.configuration.processing_fee.to_f/100)).ceil
+    fee = calculate_processing_fee(amount)
     quantity = params[:quantity].to_i
 
     #Shipping Info
