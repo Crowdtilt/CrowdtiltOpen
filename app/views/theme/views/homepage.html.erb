@@ -47,6 +47,16 @@
             <% end %>
 
             <p class="numbers pull-left">
+              <% if campaign.goal_type == 'dollars' %>
+              <strong>$<%= campaign.raised_amount.ceil %></strong><br/>
+              <%= campaign.progress_text %>
+              <% else %>
+               <strong><%= campaign.orders %></strong><br/>
+              <%= campaign.contributor_reference.pluralize(campaign.orders) %>
+              <% end %>
+            </p>
+
+            <p class="numbers pull-right" style="text-align:right">
             <% if campaign.expired? %>
               <strong>No</strong><br/>days left!
             <% else %>
@@ -55,16 +65,6 @@
                 <%= distance_of_time_in_words_to_now(campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left
               </span>
             <% end %>
-            </p>
-
-            <p class="numbers pull-right" style="text-align:right">
-              <% if campaign.goal_type == 'dollars' %>
-              <strong>$<%= campaign.raised_amount.ceil %></strong><br/>
-              <%= campaign.progress_text %>
-              <% else %>
-               <strong><%= campaign.orders %></strong><br/>
-              <%= campaign.contributor_reference.pluralize(campaign.orders) %>
-              <% end %>
             </p>
 
           </a>
