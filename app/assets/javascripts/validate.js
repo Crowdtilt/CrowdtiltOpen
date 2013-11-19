@@ -5,6 +5,7 @@ $( document ).ready(function() {
 
     // custom handler to call named function ""
     submitHandler: function (form) {
+      $(window).unbind('beforeunload', unsavedChangesChecker);
       Crowdhoster.admin.submitWebsiteForm(form);
     },
 
@@ -51,6 +52,7 @@ $( document ).ready(function() {
 
     // custom handler to call named function ""
     submitHandler: function (form) {
+      $(window).unbind('beforeunload', unsavedChangesChecker);
       Crowdhoster.admin.submitCampaignForm(form);
     },
 
@@ -249,7 +251,7 @@ $( document ).ready(function() {
       },
       email: {
         required: "Please enter your email address.",
-        email: "Hmm. That doesn’t look like a valid email."
+        email: "Hmm. That doesn't look like a valid email."
       },
       additional_info: {
         required: "We need this additional information to complete your contribution."
@@ -271,8 +273,8 @@ $( document ).ready(function() {
       },
       card_number: {
         required: "We need your card number to charge it",
-        minlength: "Hmm. That doesn’t look valid just yet.",
-        creditcard: "Hmm. That doesn’t look valid just yet."
+        minlength: "Hmm. That doesn't look valid just yet.",
+        creditcard: "Hmm. That doesn't look valid just yet."
       },
       security_code: {
         required: "Your security code is required. Fill 'er in!",

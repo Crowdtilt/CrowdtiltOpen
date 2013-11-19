@@ -31,6 +31,9 @@ Crowdhoster.admin =
         t = h + ':' + ("0" + d.getMinutes()).slice(-2) + ' am'
       $('#campaign_expiration_date').val($.datepicker.formatDate('mm/dd/yy',d) + ' ' + t)
 
+    if $('#campaign_expiration_date').length
+      $('#campaign_expiration_date')[0].defaultValue = $('#campaign_expiration_date').val()
+
     $('input#campaign_collect_additional_info').on "change", ->
       $('.additional_info_input').slideToggle()
 

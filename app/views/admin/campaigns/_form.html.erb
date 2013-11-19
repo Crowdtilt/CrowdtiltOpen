@@ -83,7 +83,7 @@
     </div>
 
     <div class="field clearfix">
-      <p class="explanation">This passes the <%= Rails.configuration.processing_fee %>% processing fee onto your contributors, adding the fee amount to their contribution amount when they check out. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank account.</p>
+      <p class="explanation">This passes the <%= Rails.configuration.processing_fee_percentage %>% + <%= Rails.configuration.processing_fee_flat_cents %>¢ per-transaction processing fee onto your contributors, adding the fee amount to their contribution amount when they check out. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank account.</p>
       <label>Pass Credit Card Processing Fee to Contributors?</label>
       <%= f.check_box :apply_processing_fee %>
     </div>
