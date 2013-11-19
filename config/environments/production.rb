@@ -38,6 +38,20 @@ Crowdhoster::Application.configure do
 
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  
+  # Denser logs with lograge
+  config.lograge.enabled = true
+
+  config.lograge.custom_options = lambda do |event|
+    unwanted_keys = %w(action controller format)
+    params = event.payload[:params].reject { |key,_| unwanted_keys.include? key }
+ 
+    return {:params => params}
+  end
+
+  # Logging settings for heroku
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
@@ -70,9 +84,5 @@ Crowdhoster::Application.configure do
     config.action_controller.asset_host = "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"
     config.assets.prefix = "/#{ENV['APP_NAME']}/assets"
   end
-
-  # Logging settings for heroku
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 
 end

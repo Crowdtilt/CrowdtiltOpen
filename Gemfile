@@ -22,6 +22,7 @@ gem 'active_model_serializers'
 
 group :production do
   gem 'newrelic_rpm'
+  gem 'lograge'
 end
 
 # Gems used only for assets and not required
