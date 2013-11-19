@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
         # Put user back on admin area
         redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }
       else
-        redirect_to new_user_registration_url, :flash => { :error => "App is not initialized" }
+        redirect_to new_user_registration_url, :flash => { :error => "Please create an account below to initialize the app." }
       end
     end
   end
