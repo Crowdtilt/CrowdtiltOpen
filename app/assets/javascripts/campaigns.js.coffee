@@ -98,7 +98,7 @@ Crowdhoster.campaigns =
         form.appendChild(input[0])
         form.submit()
       else
-        $('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p>')
+        $('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Support request for a payment issue&body=PLEASE DESCRIBE YOUR PAYMENT ISSUES HERE">click here</a> to contact support.</p>')
         $('#errors').show()
         $('.loader').hide()
         $button = $('button[type="submit"]')
