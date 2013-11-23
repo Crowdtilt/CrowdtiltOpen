@@ -64,6 +64,8 @@ class ApplicationController < ActionController::Base
           sign_out current_user
           if(exception.message == "Invalid credentials" && Rails.env.development?)
               errorMsg =   'Invalid credentials, check Crowdtilt API Key and API Secret'
+          else
+               errorMsg = exception.message
           end
           redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{errorMsg}" }
           return
