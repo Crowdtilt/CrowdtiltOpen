@@ -3,20 +3,24 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container clearfix">
-      <ul class="nav pull-left">
+      <ul class="navbar-left">
 
          <% if current_page?(root_path) %>
            <li>
-             <a href="<%= url_for admin_website_path %>"><i class="icon-edit icon-white"></i> Edit homepage</a>
+             <button type="button" class="btn btn-default btn-xs">
+               <a href="<%= url_for admin_website_path %>"><span class="glyphicon glyphicon-edit"></span> Edit homepage</a>
+             </button>
            </li>
            <li>
-              <a href="<%= url_for new_admin_campaign_path %>"><i class="icon-plus icon-white"></i> New Campaign</a>
+            <button type="button" class="btn btn-default btn-xs">
+              <a href="<%= url_for new_admin_campaign_path %>"><i class="glyphicon glyphicon-plus"></i> New Campaign</a>
+            </button>
            </li>
          <% end %>
 
          <% if request.fullpath.include? 'admin' %>
            <li>
-             <a href="<%= url_for root_path %>"><i class="icon-chevron-left icon-white"></i> Back to website</a>
+             <a href="<%= url_for root_path %>"><i class="glyphicon glyphicon-chevron-left"></i> Back to website</a>
            </li>
            <li>
               <a href="<%= url_for new_admin_campaign_path %>"><i class="icon-plus icon-white"></i> New Campaign</a>
@@ -25,25 +29,27 @@
 
          <% if params[:controller] == 'campaigns' %>
            <li>
-             <a href="<%= edit_admin_campaign_path(@campaign) %>"><i class="icon-edit icon-white"></i> Edit campaign</a>
+            <button type="button" class="btn btn-default btn-xs">
+             <a href="<%= edit_admin_campaign_path(@campaign) %>"><i class="glyphicon glyphicon-edit"></i> Edit campaign</a>
+            </button>
            </li>
 
            <% if !@campaign.published_flag %>
-             <li class="status red show_tooltip" data-placement="bottom" data-title="Visible to ADMINS ONLY">
+             <li class="status label label-danger show_tooltip" data-placement="bottom" data-title="Visible to ADMINS ONLY">
                Not published
              </li>
            <% else %>
-             <li class="status green show_tooltip" data-placement="bottom" data-title="Visible to ALL">
+             <li class="status label label-success show_tooltip" data-placement="bottom" data-title="Visible to ALL">
                Published
              </li>
            <% end %>
 
            <% if !@campaign.production_flag %>
-             <li class="status red show_tooltip" data-placement="bottom" data-title="Transactions WILL NOT be processed">
+             <li class="status label label-danger show_tooltip" data-placement="bottom" data-title="Transactions WILL NOT be processed">
                Sandbox payments
              </li>
            <% else %>
-             <li class="status green show_tooltip" data-placement="bottom" data-title="Transactions WILL be processed">
+             <li class="status label label-success show_tooltip" data-placement="bottom" data-title="Transactions WILL be processed">
                Payments activated
              </li>
            <% end %>
@@ -52,7 +58,7 @@
 
        </ul>
 
-        <ul class="nav pull-right">
+        <ul class="navbar-right">
             <li class="dropdown">
               <%= image_tag 'user_icon.png' %>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">

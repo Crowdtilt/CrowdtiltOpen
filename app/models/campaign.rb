@@ -27,12 +27,13 @@ class Campaign < ActiveRecord::Base
   before_validation { main_image.clear if main_image_delete == '1' }
   before_validation { video_placeholder.clear if video_placeholder_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
-
+  
+  #The hash indicates cropping, use ! for forced scaling, use ^ to preserve aspect ratio
   has_attached_file :main_image,
-                    styles: { main: "512x385!", medium: "640x360!", small: "190x143!", thumb: "100x100#" }
+                    styles: { main: "512x385^", medium: "640x360^", small: "190x143^", thumb: "100x100^" }
 
   has_attached_file :video_placeholder,
-                    styles: { main: "512x385!", medium: "640x360!", thumb: "100x100#" }  #The hash indicates cropping, use ! for forced scaling
+                    styles: { main: "512x385^", medium: "640x360^", thumb: "100x100^" }
 
   has_attached_file :facebook_image,
                     styles: { thumb: "100x100#" }

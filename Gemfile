@@ -3,8 +3,10 @@ ruby "1.9.3"
 
 gem 'unicorn'
 
+#Adding support for bootstrap 3.0 and bourbon
 gem 'rails', '3.2.13'
-gem 'bootstrap-sass', '2.1'
+gem 'bootstrap-sass', '~> 3.0.2.0'
+gem 'bourbon'
 gem 'devise'
 gem 'email_spec'
 gem 'nokogiri'

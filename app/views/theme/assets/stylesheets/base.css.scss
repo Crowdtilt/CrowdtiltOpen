@@ -28,7 +28,7 @@ $gray_background_bottom_color: #FAFAFA;
 $gray_background_border_color: #C4C4C4;
 
 // Button colors/background/border
-$button_color:                  white;
+$button_color:                  #343943;
 $button_background_color:       #0088d6;
 $button_hovered_color:          #0088d6;
 $button_active_border:          #C8C8C8;
@@ -140,10 +140,10 @@ body.lt-ie9 {
       0 1px 1px $button_box_shadow_color /* drop shadow */,
       inset 0 -1px 1px $button_box_shadow_inset_color /* inner shadow */;
     background-image: $button_ie9_gradient_hover; /* gradient fill */
-    background-image: -moz-linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-    background-image: -o-linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-    background-image: -webkit-linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-    background-image: linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
+    background-image: -moz-linear-gradient(180deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
+    background-image: -o-linear-gradient(180deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
+    background-image: -webkit-linear-gradient(180deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
+    background-image: linear-gradient(180deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
     text-decoration: none;
   }
 
