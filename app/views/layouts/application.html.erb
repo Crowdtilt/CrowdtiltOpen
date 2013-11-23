@@ -2,6 +2,9 @@
 <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- Mobile and IE fixes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><%= @settings.site_name %></title>
     <% if @settings.indexable == false %>
       <meta name="robots" content="noindex, nofollow">

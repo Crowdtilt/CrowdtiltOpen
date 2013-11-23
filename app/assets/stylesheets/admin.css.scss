@@ -23,6 +23,18 @@
   }
 
   #admin_website, #admin_campaigns {
+    
+    /* Setting width for forms without additional divs for columns */
+    
+    .input-group .form-control {
+      width: 37.5%;
+    }
+
+    .form-control {
+      width: 40%;
+    }
+    
+    /* Done setting form widths */
 
     fieldset {
       margin-bottom: 30px;
@@ -40,7 +52,7 @@
 
       .explanation {
         float: right;
-        width: 400px;
+        width: 40%;
       }
 
       .explanation.inline {
@@ -48,9 +60,16 @@
         width: 100%;
       }
 
+      .explanation-left {
+        @extend .explanation;
+        float: left;
+      }
+
       label {
-        margin-bottom: 15px;
+        display: block;
+        margin-bottom: 8px;
         font-size: 18px;
+        font-weight: 300;
       }
 
       label.inline {
@@ -60,28 +79,10 @@
 
     .additional_info_input {
       margin-top: 20px;
-      textarea {
-        width: 360px;
-      }
     }
 
     #preset-amount, #min-amount {
       margin-left: 20px;
-    }
-
-    .currency {
-      position: relative;
-
-      input {
-        padding-left: 24px;
-        width: 192px;
-      }
-
-      span {
-        position: absolute;
-        top: 5px;
-        left: 10px;
-      }
     }
 
     #rewards {
@@ -127,17 +128,15 @@
         vertical-align: middle;
         cursor: move;
 
-        textarea {
-          width: 400px;
-          max-width: 400px;
-          margin-bottom: 0px;
-        }
-
         .faq-delete {
           opacity: 0.5;
           &:hover {
             opacity: 1;
           }
+        }
+        .form-control {
+          display: inline-block;
+          margin-right: 1%;
         }
       }
     }
@@ -216,24 +215,4 @@
   p {
     font-size: 14px;
   }
-}
-
-.admin-alert {
-  margin-top: 30px!important;
-}
-
-.admin-alert.alert.alert-success {
-  background: rgba(115, 211, 107, 1)!important;
-  text-shadow: none;
-}
-
-.admin-alert.alert.alert-notice {
-  background: rgba(211, 211, 136, 1)!important;
-  text-shadow: none;
-}
-
-.admin-alert.alert.alert-error {
-  background: rgba(219, 94, 94, 1)!important;
-  color: white;
-  text-shadow: none;
 }

@@ -22,10 +22,10 @@
       <label>Goal</label>
       <label><input id="goal_type_dollars" name="campaign[goal_type]" value="dollars" type="radio" <%= @campaign.goal_type == 'dollars' ? "checked" : "" %>>Dollar Amount</label>
 
-       <div class="amount_input currency" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+       <div class="amount_input input-group" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+        <span class="input-group-addon">$</span>
         <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
-        <span style="position:absolute">$</span>
-      </div>
+       </div>
 
        <label><input id="goal_type_orders" name="campaign[goal_type]" value="orders" type="radio" <%= @campaign.goal_type == 'orders' ? "checked" : "" %>>Number of Orders</label>
 
@@ -52,16 +52,22 @@
       <label><input id="campaign_payment_type_min" name="campaign[payment_type]" value="min" type="radio" <%= @campaign.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>
 
       <div id="min-amount" style="<%= @campaign.payment_type == 'min' ? "" : "display:none" %>">
-        <label class="inline"><strong>Minimum amount: $ &nbsp;</strong></label>
-        <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
+        <label class="inline"><strong>Minimum amount: &nbsp;</strong></label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
+        </div>
       </div>
 
       </div>
       <label><input id="campaign_payment_type_fixed" name="campaign[payment_type]" value="fixed" type="radio" <%= (@campaign.payment_type == 'fixed' || @campaign.goal_type == 'orders') ? "checked" : "" %>>Require a <strong>specific amount</strong> from all contributors. <i>(ex. $150 from each person)</i></label>
 
       <div id="preset-amount" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
-        <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
-        <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
+        <label class="inline"><strong>Preset amount: &nbsp;</strong></label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
+        </div>
       </div>
 
     </div>
@@ -115,22 +121,22 @@
               </tr>
               <tr>
                 <td>
-                  <label>Minimum Contribution To Claim</label>
-                  <div class="currency">
-                    <input name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
-                    <span style="position:absolute">$</span>
+                  <label for="minimumContribution">Minimum Contribution To Claim</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input class="form-control" name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
                   </div>
                   <label>Title</label>
-                  <input name="reward[][title]" type="text" value="<%= reward.title %>"/><br/>
+                  <input name="reward[][title]" type="text" value="<%= reward.title %>" class="form-control"/><br/>
                   <label>Image URL</label>
-                  <input name="reward[][image_url]" type="text" value="<%= reward.image_url %>"/><br/>
+                  <input name="reward[][image_url]" type="text" value="<%= reward.image_url %>" class="form-control"/><br/>
                   <label>Description</label>
-                  <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
+                  <textarea name="reward[][description]" class="form-control"><%= reward.description %></textarea><br/>
                   <label>Estimated Delivery Date (i.e. May 2013)</label>
-                  <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
+                  <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>" class="form-control"/><br/>
                   <label>Number Available (leave blank if unlimited)</label>
-                  <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
-                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
+                  <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>" class="form-control"/>
+                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>" class="form-control"/>
                 </td>
                 <td><%= reward.payments.length %></td>
                 <td>
@@ -231,18 +237,18 @@
         <li>
           <span><%= iterator %></span>
           <input type="hidden" name="faq[][sort_order]" value="<%= iterator %>" />
-          <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
-          <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
-          <a href="#" class="faq-delete icon-trash"></a>
+          <textarea name="faq[][question]" placeholder="Question" class="form-control"><%= faq.question %></textarea>
+          <textarea name="faq[][answer]" placeholder="Answer" class="form-control"><%= faq.answer %></textarea>
+          <a href="#" class="faq-delete glyphicon glyphicon-trash pull-right"></a>
         </li>
         <% iterator+=1 %>
         <% end %>
         <li>
           <span><%= @campaign.faqs.count + 1 %></span>
           <input type="hidden" name="faq[][sort_order]" value="<%= @campaign.faqs.count + 1 %>" />
-          <textarea name="faq[][question]" placeholder="Question"></textarea>
-          <textarea name="faq[][answer]" placeholder="Answer"></textarea>
-          <a href="#" class="faq-delete icon-trash"></a>
+          <textarea name="faq[][question]" placeholder="Question" class="form-control"></textarea>
+          <textarea name="faq[][answer]" placeholder="Answer" class="form-control"></textarea>
+          <a href="#" class="faq-delete glyphicon glyphicon-trash pull-right"></a>
          </li>
       </ul>
       <a id="faq-add" href="#">Add FAQ</a>
@@ -336,7 +342,7 @@
           <label>Activate payments?</label>
           <%= f.check_box :production_flag %>
         <% else %>
-          You must set up your payment processor before activating payments. Visit "Payment Settings" from the admin menu to do this.
+          <p class="explanation-left">You must set up your payment processor before activating payments. Visit "Payment Settings" from the admin menu to do this.</p>
         <% end %>
       <% else %>
         <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>

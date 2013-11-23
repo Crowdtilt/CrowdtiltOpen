@@ -17,7 +17,7 @@ class CampaignsController < ApplicationController
       @reward = Reward.find_by_id(params[:reward])
       unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out?
         @reward = false
-        flash.now[:notice] = "Please select a different reward"
+        flash.now[:warning] = "Please select a different reward"
       end
     end
   end
@@ -29,7 +29,7 @@ class CampaignsController < ApplicationController
         @quantity = params[:quantity].to_i
         @amount = ((@quantity * @campaign.fixed_payment_amount.to_f)*100).ceil/100.0
       else
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid quantity!" }
+        redirect_to checkout_amount_url(@campaign), flash: { danger: "Invalid quantity!" }
         return
       end
     elsif params.has_key?(:amount) && params[:amount].to_f >= @campaign.min_payment_amount
@@ -40,17 +40,17 @@ class CampaignsController < ApplicationController
         begin
           @reward = Reward.find(params[:reward])
         rescue => exception
-          redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" }
+          redirect_to checkout_amount_url(@campaign), flash: { danger: "Please select a different reward" }
           return
         end
         unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= @amount
-          redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid reward!" }
+          redirect_to checkout_amount_url(@campaign), flash: { danger: "Invalid reward!" }
           return
         end
       end
 
     else
-      redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid amount!" }
+      redirect_to checkout_amount_url(@campaign), flash: { danger: "Invalid amount!" }
       return
     end
 
@@ -88,7 +88,7 @@ class CampaignsController < ApplicationController
     if params[:reward].to_i != 0
       @reward = Reward.find_by_id(params[:reward])
       unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= amount
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" } and return
+        redirect_to checkout_amount_url(@campaign), flash: { danger: "Please select a different reward" } and return
       end
     end
 
@@ -124,7 +124,7 @@ class CampaignsController < ApplicationController
       @payment.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
-      redirect_to checkout_amount_url(@campaign), flash: { error: message[0...-2] } and return
+      redirect_to checkout_amount_url(@campaign), flash: { danger: message[0...-2] } and return
     end
 
     # Check if there's an existing payment with the same payment_params and client_timestamp. 
@@ -134,7 +134,7 @@ class CampaignsController < ApplicationController
       when nil
         flash_msg = { info: "Your payment is still being processed! If you have not received a confirmation email, please try again or contact support by emailing team@crowdhoster.com" }
       when 'error'
-        flash_msg = { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com." }
+        flash_msg = { danger: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com." }
       else
         # A status other than nil or 'error' indicates success! Treat as original payment
         redirect_to checkout_confirmation_url(@campaign), :status => 303, :flash => { payment_guid: @payment.ct_payment_id } and return
@@ -173,7 +173,7 @@ class CampaignsController < ApplicationController
     rescue => exception
       @payment.update_attribute(:status, 'error')
       logger.info "ERROR WITH POST TO /payments: #{exception.message}"
-      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
+      redirect_to checkout_amount_url(@campaign), flash: { danger: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
     end
 
     # Sync payment data
@@ -216,14 +216,14 @@ class CampaignsController < ApplicationController
   def check_published
     if !@campaign.published_flag
       unless user_signed_in? && current_user.admin?
-        redirect_to root_url, :flash => { :error => "Campaign is no longer available" }
+        redirect_to root_url, :flash => { :danger => "Campaign is no longer available" }
       end
     end
   end
 
   def check_exp
     if @campaign.expired?
-      redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
+      redirect_to campaign_home_url(@campaign), :flash => { :danger => "Campaign is expired!" }
     end
   end
 

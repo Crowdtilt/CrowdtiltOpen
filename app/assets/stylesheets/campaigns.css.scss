@@ -2,25 +2,26 @@
   width: 100%;
   padding: 50px 0;
 
-  .main_content {
-    width: 560px;
-    float: left;
-    h3 {
-      margin: 0px 0px 30px;
-      color: #4b4b4b;
-      a {
-        color: #4b4b4b;
-        text-decoration: none;
-        &:hover {
-          text-decoration: none;
-        }
+  h3 {
+  margin: 0px 0px 30px;
+  text-align: center;
+  color: #4b4b4b;
+  a {
+    color: #4b4b4b;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
       }
     }
+  }
+
+  .main_content {
 
     .checkout_block {
-      background-color: #ffffff;
-      padding: 30px;
-      margin-bottom: 0px;
+      margin-bottom: 15px;
+      label {
+        font-weight: 300;
+      }
     }
 
     p {
@@ -40,18 +41,7 @@
 
     .amount_input {
       position: relative;
-      display: inline-block;
 
-      input {
-        padding-left: 24px;
-        width: 200px;
-      }
-
-      span {
-        position: absolute;
-        top: 5px;
-        left: 10px;
-      }
     }
 
     #reward_select {
@@ -67,11 +57,12 @@
               display: inline;
               float: left;
               margin-left: 10px;
+              margin-right: 10px;   
               font-weight: bold;
             }
             .reward_description {
-              margin-left: 120px;
-              width: 320px;
+              margin-left: 20%;
+              width: 70%;
               p {
                 font-size: 14px;
                 margin: 0px;
@@ -99,10 +90,7 @@
               }
             }
             .reward_edit {
-              display: block;
-              position: absolute;
-              top: 15px;
-              right: 25px;
+              display: inline-block;
             }
           }
           &.active {
@@ -121,7 +109,7 @@
     }
 
     .btn {
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     h4 {
@@ -136,11 +124,7 @@
     }
 
     fieldset {
-      display: inline-block;
-    }
-
-    #fullname, #email, #address_one, #address_two, #additional_info{
-      width: 480px;
+      display: block;
     }
 
     .billing_address {
@@ -179,13 +163,11 @@
   }
 
   .sidebar {
-    float: right;
-    width: 345px;
 
     .crowdtilt-powered {
-      margin-bottom: 34px;
+      margin-bottom: 30px;
       img {
-        float: right;
+        max-width: 317px;
       }
     }
 
@@ -227,10 +209,7 @@
   }
 
   .confirmation_sidebar {
-    float: left;
     background: white;
-    margin-left: 20px;
-    width: 315px;
     p {
       font-size: 14px;
     }
