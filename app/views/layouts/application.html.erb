@@ -38,6 +38,7 @@
 
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
+      <div><%= debug(@exception) %></div>
     <% end %>
 
     <%= raw(@settings.custom_js) %>
