@@ -59,7 +59,7 @@ class CampaignsController < ApplicationController
 
   end
 
-  def checkout_confirmation
+  def checkout_process
 
     ct_user_id = params[:ct_user_id]
     ct_card_id = params[:ct_card_id]
@@ -170,6 +170,17 @@ class CampaignsController < ApplicationController
       logger.info "ERROR WITH EMAIL RECEIPT: #{exception.message}"
     end
 
+    redirect_to checkout_confirmation_url(@campaign), :status => 303, :flash => { payment_guid: @payment.ct_payment_id }
+
+  end
+
+  def checkout_confirmation
+    @payment = Payment.where(:ct_payment_id => flash[:payment_guid]).first
+    flash[:payment_guid] = nil # Unset flash because application renders all flash vars (long-term should be refactored)
+
+    if !@payment
+      redirect_to campaign_home_url(@campaign)
+    end
   end
 
   private

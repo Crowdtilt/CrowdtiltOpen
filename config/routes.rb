@@ -27,6 +27,7 @@ Crowdhoster::Application.routes.draw do
   # CAMPAIGNS
   match '/:id/checkout/amount',                to: 'campaigns#checkout_amount',             as: :checkout_amount
   match '/:id/checkout/payment',               to: 'campaigns#checkout_payment',            as: :checkout_payment
+  match '/:id/checkout/process',               to: 'campaigns#checkout_process',            as: :checkout_process
   match '/:id/checkout/confirmation',          to: 'campaigns#checkout_confirmation',       as: :checkout_confirmation
   match '/:id',                                to: 'campaigns#home',                        as: :campaign_home
 
