@@ -14,31 +14,31 @@ class AdminController < ApplicationController
         @settings.errors.each do |key, error|
           message = message + key.to_s.humanize + ' ' + error.to_s + ', '
         end
-        flash.now[:error] = message[0...-2]
+        flash.now[:danger] = message[0...-2]
       end
     end
   end
 
   def admin_processor_setup
     if request.post?
-      flash.now[:error] = "Invalid credentials" and return if params[:ct_prod_api_key].blank? || params[:ct_prod_api_secret].blank?
+      flash.now[:danger] = "Invalid credentials" and return if params[:ct_prod_api_key].blank? || params[:ct_prod_api_secret].blank?
       if @settings.activate_payments(params[:ct_prod_api_key], params[:ct_prod_api_secret])
         flash.now[:success] = "Your payment processor is all set up!"
       else
-        flash.now[:error] = "Invalid credentials"
+        flash.now[:danger] = "Invalid credentials"
       end
     end
   end
 
   def admin_bank_setup
-    redirect_to admin_processor_setup_url, flash: { error: "Please set up your payment processor before providing your bank details" } and return unless @settings.payments_activated?
+    redirect_to admin_processor_setup_url, flash: { danger: "Please set up your payment processor before providing your bank details" } and return unless @settings.payments_activated?
     @bank = {}
     begin
       response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
     rescue => exception # response threw an error, default bank may not be set up
       if request.post?
         if params[:ct_bank_id].blank?
-          flash.now[:error] = "An error occurred, please try again" and return
+          flash.now[:danger] = "An error occurred, please try again" and return
         else
           begin
             bank = {
@@ -46,7 +46,7 @@ class AdminController < ApplicationController
             }
             response = Crowdtilt.post('/users/' + @ct_admin_id + '/banks/default', {bank: bank})
           rescue => exception
-            flash.now[:error] = exception.message and return
+            flash.now[:danger] = exception.message and return
           else
             @bank = response['bank']
           end
@@ -56,7 +56,7 @@ class AdminController < ApplicationController
       if response['bank'] # default bank is already set up
         @bank = response['bank']
       else
-        flash.now[:error] = "An error occurred, please contact team@crowdhoster.com" # this should never happen
+        flash.now[:danger] = "An error occurred, please contact team@crowdhoster.com" # this should never happen
       end
     end
   end
@@ -96,7 +96,7 @@ class AdminController < ApplicationController
       if current_user.update_attributes(params[:user])
         flash.now[:success] = "Notification settings saved!"
       else
-        flash.now[:error] = "There was an error saving your notification settings. Please try again!"
+        flash.now[:danger] = "There was an error saving your notification settings. Please try again!"
       end
     end
   end
