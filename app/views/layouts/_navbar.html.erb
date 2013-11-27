@@ -1,19 +1,18 @@
 <% if user_signed_in? && current_user.admin? %>
 <div id="navbar">
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="navbar-inner">
       <div class="container clearfix">
-      <ul class="navbar-left">
+      <ul class="nav navbar-left">
 
          <% if current_page?(root_path) %>
            <li>
-             <button type="button" class="btn btn-default btn-xs">
+             <button type="button" class="btn btn-default btn-xs navbar-btn">
                <a href="<%= url_for admin_website_path %>"><span class="glyphicon glyphicon-edit"></span> Edit homepage</a>
              </button>
-
            </li>
            <li>
-            <button type="button" class="btn btn-default btn-xs">
+            <button type="button" class="btn btn-default btn-xs navbar-btn">
               <a href="<%= url_for new_admin_campaign_path %>"><i class="glyphicon glyphicon-plus"></i> New Campaign</a>
             </button>
            </li>
@@ -21,17 +20,20 @@
 
          <% if request.fullpath.include? 'admin' %>
            <li>
+            <button type="button" class="btn btn-default btn-xs navbar-btn">
              <a href="<%= url_for root_path %>"><i class="glyphicon glyphicon-chevron-left"></i> Back to website</a>
-
+            </button>
            </li>
            <li>
-              <a href="<%= url_for new_admin_campaign_path %>"><i class="icon-plus icon-white"></i> New Campaign</a>
+            <button type="button" class="btn btn-default btn-xs navbar-btn">
+              <a href="<%= url_for new_admin_campaign_path %>"><i class="glyphicon glyphicon-plus"></i> New Campaign</a>
+            </button>
            </li>
          <% end %>
 
          <% if params[:controller] == 'campaigns' %>
            <li>
-            <button type="button" class="btn btn-default btn-xs">
+            <button type="button" class="btn btn-default btn-xs navbar-btn">
              <a href="<%= edit_admin_campaign_path(@campaign) %>"><i class="glyphicon glyphicon-edit"></i> Edit campaign</a>
             </button>
            </li>
@@ -60,7 +62,7 @@
 
        </ul>
 
-        <ul class="navbar-right">
+        <ul class="nav navbar-right">
             <li class="dropdown">
               <%= image_tag 'user_icon.png' %>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -76,7 +78,7 @@
         </ul>
       </div>
     </div>
-  </div>
+  </nav>
   <div class="spacer" style="height:30px; width: 100%"></div>
 </div>
 <% end %>

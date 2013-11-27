@@ -1,7 +1,3 @@
-/* Bourbon mixin library for SASS 
-@import "bourbon";
-*/
-
 /* Bootstrap framework for general styling */
 @import "bootstrap";
 
@@ -10,7 +6,6 @@
 
 /* Top level layout sections */
 @import "navbar";
-@import "flash";
 
 /* Non-customizable section styles */
 @import "devise";
