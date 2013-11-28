@@ -23,6 +23,7 @@ $( document ).ready(function() {
     rules: {
       "settings[site_name]": { required: true },
       "settings[reply_to_email]": { required: true, email: true },
+      "settings[phone_number]": { phoneUS: true },
       "settings[header_link_url]": { url: true },
       "settings[tweet_text]": { maxlength: 120 },
       "settings[facebook_app_id]": { digits: true },
@@ -33,6 +34,9 @@ $( document ).ready(function() {
       "settings[reply_to_email]": {
         required: "Please enter a reply to email address",
         email: "Hmm. That doesn't look like a valid email"
+      },
+      "settings[phone_number]": {
+        phoneUS: "Hmm. That doesn't look like a valid phone number. <br> ex: 555-555-5555"
       },
       "settings[header_link_url]": {
         url: "Hmm. That doesn't look like a valid URL. ex: http://crowdtilt.com"
@@ -234,7 +238,6 @@ $( document ).ready(function() {
     rules: {
       fullname: { required: true },
       email: { required: true, email: true },
-      additional_info: { required: true },
       address_one: { required: true },
       city: { required: true },
       state: { required: true },
@@ -252,9 +255,6 @@ $( document ).ready(function() {
       email: {
         required: "Please enter your email address.",
         email: "Hmm. That doesn't look like a valid email."
-      },
-      additional_info: {
-        required: "We need this additional information to complete your contribution."
       },
       address_one: {
         required: "We need your street address"
