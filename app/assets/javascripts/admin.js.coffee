@@ -79,7 +79,7 @@ Crowdhoster.admin =
 
     $('#reward-add').on 'click', (e) ->
       e.preventDefault()
-      $('#rewards ul').append('<li><table class="table"><tr><th>Reward</th><th>Number Claimed</th><th>Delete?</th></tr><tr><td><label>Minimum Contribution To Claim</label><div class="currency"><input name="reward[][price]" type="text" /><span style="position:absolute">$</span></div><label>Title</label><input name="reward[][title]" type="text" /><br/><label>Description</label><textarea name="reward[][description]"></textarea><br/><label>Estimated Delivery Date (i.e. May 2013)</label><input name="reward[][delivery_date]" type="text" /><br/><label>Number Available (leave blank if unlimited)</label><input name="reward[][number]" type="text" /></td><td>0</td><td><input type="checkbox" name="reward[][delete]" value="delete"/></td></tr></table></li>')
+      $('#rewards ul').append('<li><table class="table"><tr><th>Reward</th><th>Number Claimed</th><th>Delete?</th></tr><tr><td><label>Minimum Contribution To Claim</label><div class="currency input-group"><span class="input-group-addon">$</span><input name="reward[][price]" type="text" class="form-control"/></div><label>Title</label><input name="reward[][title]" type="text" class="form-control"/><br/><label>Description</label><textarea name="reward[][description]" class="form-control"></textarea><br/><label>Estimated Delivery Date (i.e. May 2013)</label><input name="reward[][delivery_date]" type="text" class="form-control"/><br/><label>Number Available (leave blank if unlimited)</label><input name="reward[][number]" type="text" class="form-control" /></td><td>0</td><td><input type="checkbox" name="reward[][delete]" value="delete"/></td></tr></table></li>')
 
     $('.faq.sortable').sortable
       stop: (e, ui) ->

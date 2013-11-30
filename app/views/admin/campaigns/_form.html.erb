@@ -6,7 +6,7 @@
     <div class="field clearfix">
       <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
       <label>Campaign Name</label>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
     <div class="field clearfix">
       <p class="explanation">If you set this to be the default campaign, the homepage will redirect to the campaign.</p>
@@ -22,22 +22,22 @@
       <label>Goal</label>
       <label><input id="goal_type_dollars" name="campaign[goal_type]" value="dollars" type="radio" <%= @campaign.goal_type == 'dollars' ? "checked" : "" %>>Dollar Amount</label>
 
-       <div class="amount_input currency" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
-        <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
-        <span style="position:absolute">$</span>
+       <div class="amount_input input-group" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+        <span class="input-group-addon">$</span>
+        <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0), class: "form-control" %>
       </div>
 
        <label><input id="goal_type_orders" name="campaign[goal_type]" value="orders" type="radio" <%= @campaign.goal_type == 'orders' ? "checked" : "" %>>Number of Orders</label>
 
       <div class="orders_input" style="<%= @campaign.goal_type == 'orders' ? "" : "display:none" %>">
-        <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0) %>
+        <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0), class: "form-control" %>
       </div>
     </div>
 
     <div class="field clearfix">
       <p class="explanation">When your campaign to raise money should end.</p>
       <label>Expiration Date</label>
-      <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')) %>
+      <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')), class: "form-control" %>
     </div>
   </fieldset>
 
@@ -52,16 +52,22 @@
       <label><input id="campaign_payment_type_min" name="campaign[payment_type]" value="min" type="radio" <%= @campaign.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>
 
       <div id="min-amount" style="<%= @campaign.payment_type == 'min' ? "" : "display:none" %>">
-        <label class="inline"><strong>Minimum amount: $ &nbsp;</strong></label>
-        <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
+        <label class="inline"><strong>Minimum amount: &nbsp;</strong></label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0), class: "form-control" %>
+        </div>
       </div>
 
       </div>
       <label><input id="campaign_payment_type_fixed" name="campaign[payment_type]" value="fixed" type="radio" <%= (@campaign.payment_type == 'fixed' || @campaign.goal_type == 'orders') ? "checked" : "" %>>Require a <strong>specific amount</strong> from all contributors. <i>(ex. $150 from each person)</i></label>
 
       <div id="preset-amount" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
-        <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
-        <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
+        <label class="inline"><strong>Preset amount: &nbsp;</strong></label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0), class: "form-control" %>
+        </div>
       </div>
 
     </div>
@@ -78,7 +84,7 @@
       <%= f.check_box :collect_additional_info %>
       <div class="additional_info_input" style="<%= @campaign.collect_additional_info ? "" : "display:none" %>">
         <label>Include a message describing what you need:</label>
-        <%= f.text_area :additional_info_label, rows: 2 %>
+        <%= f.text_area :additional_info_label, rows: 2, class: "form-control" %>
       </div>
     </div>
 
@@ -102,7 +108,7 @@
         <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution. You can set a cap on how many of each reward are available and the minimum contribution amount needed to claim one.</p>
         <div class="reference">
           <label>How To Reference a Reward (i.e. reward, perk, option)</label>
-          <%= f.text_field :reward_reference %>
+          <%= f.text_field :reward_reference, class: "form-control" %>
         </div>
         <ul>
           <% @campaign.rewards.order("price ASC").each do |reward| %>
@@ -115,20 +121,22 @@
               </tr>
               <tr>
                 <td>
-                  <label>Minimum Contribution To Claim</label>
                   <div class="currency">
-                    <input name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
-                    <span style="position:absolute">$</span>
+                    <div class="input-group">
+                      <label for="minimumContribution">Minimum Contribution To Claim</label>
+                      <span class="input-group-addon">$</span>
+                      <input class="form-control" name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
+                    </div>
+                    <label for="campaignTitle">Title</label>
+                    <input name="reward[][title]" type="text" value="<%= reward.title %>" class="form-control"/><br/>
+                    <label>Description</label>
+                    <textarea name="reward[][description]" class="form-control"><%= reward.description %></textarea><br/>
+                    <label>Estimated Delivery Date (i.e. May 2013)</label>
+                    <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>" class="form-control"/><br/>
+                    <label>Number Available (leave blank if unlimited)</label>
+                    <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>" class="form-control"/>
+                    <input type="hidden" name="reward[][id]" value="<%= reward.id %>" class="form-control"/>
                   </div>
-                  <label>Title</label>
-                  <input name="reward[][title]" type="text" value="<%= reward.title %>"/><br/>
-                  <label>Description</label>
-                  <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
-                  <label>Estimated Delivery Date (i.e. May 2013)</label>
-                  <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
-                  <label>Number Available (leave blank if unlimited)</label>
-                  <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
-                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                 </td>
                 <td><%= reward.payments.length %></td>
                 <td>
@@ -155,7 +163,7 @@
     <div class="field clearfix">
       <p class="explanation">A few other ideas: supporter, order, preorder, donor, contributor, participant, purchase.</p>
       <label>How To Reference a Contributor (i.e. 'backer' )</label>
-      <%= f.text_field :contributor_reference %>
+      <%= f.text_field :contributor_reference, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
@@ -193,13 +201,13 @@
     <div class="field clearfix">
       <p class="explanation">This text is displayed on the primary call to action button. Common choices include 'Pay', 'Contribute', 'Back this Project', 'Reserve for $199', etc.</p>
       <label>Primary Call to Action Button</label>
-      <%= f.text_field :primary_call_to_action_button %>
+      <%= f.text_field :primary_call_to_action_button, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
       <label>Primary Call to Action Description</label>
       <p class="explanation inline">This formatted text gets displayed near the primary call to action button.</p>
-      <%= f.cktext_area :primary_call_to_action_description %>
+      <%= f.cktext_area :primary_call_to_action_description, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
@@ -211,7 +219,7 @@
     <div class="field clearfix">
       <p class="explanation">This text is displayed on the second call to action button position near the bottom of the homepage.</p>
       <label>Secondary Call to Action Button</label>
-      <%= f.text_field :secondary_call_to_action_button %>
+      <%= f.text_field :secondary_call_to_action_button, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
@@ -229,18 +237,18 @@
         <li>
           <span><%= iterator %></span>
           <input type="hidden" name="faq[][sort_order]" value="<%= iterator %>" />
-          <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
-          <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
-          <a href="#" class="faq-delete icon-trash"></a>
+          <textarea name="faq[][question]" placeholder="Question" class="form-control"><%= faq.question %></textarea>
+          <textarea name="faq[][answer]" placeholder="Answer" class="form-control"><%= faq.answer %></textarea>
+          <a href="#" class="faq-delete glyphicon glyphicon-trash pull-right"></a>
         </li>
         <% iterator+=1 %>
         <% end %>
         <li>
           <span><%= @campaign.faqs.count + 1 %></span>
           <input type="hidden" name="faq[][sort_order]" value="<%= @campaign.faqs.count + 1 %>" />
-          <textarea name="faq[][question]" placeholder="Question"></textarea>
-          <textarea name="faq[][answer]" placeholder="Answer"></textarea>
-          <a href="#" class="faq-delete icon-trash"></a>
+          <textarea name="faq[][question]" placeholder="Question" class="form-control"></textarea>
+          <textarea name="faq[][answer]" placeholder="Answer" class="form-control"></textarea>
+          <a href="#" class="faq-delete glyphicon glyphicon-trash pull-right"></a>
          </li>
       </ul>
       <a id="faq-add" href="#">Add FAQ</a>
@@ -255,7 +263,7 @@
       <%= f.check_box :include_comments %>
       <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
         <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/" target="_blank">Need one?</a>)</label>
-        <%= f.text_field :comments_shortname %>
+        <%= f.text_field :comments_shortname, class: "form-control" %>
       </div>
     </div>
   </fieldset>
@@ -283,19 +291,19 @@
     <div class="field clearfix">
       <p class="explanation">This is the default text that will be used for the tweet button.</p>
       <label>Tweet Text</label>
-      <%= f.text_area :tweet_text, rows: 2 %>
+      <%= f.text_area :tweet_text, rows: 2, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
       <p class="explanation">The title shown when your site is shared via Facebook. Leave this blank if you want to use your project name.</p>
       <label>Facebook Title</label>
-      <%= f.text_field :facebook_title %>
+      <%= f.text_field :facebook_title, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
       <p class="explanation">The description shown when your site is shared via Facebook.</p>
       <label>Facebook Description</label>
-      <%= f.text_area :facebook_description, rows: 2 %>
+      <%= f.text_area :facebook_description, rows: 2, class: "form-control" %>
     </div>
 
     <div class="field clearfix">
