@@ -34,24 +34,24 @@
           <div class="form-row clearfix">
             <div class="form-group">
               <label for="full_legal_name">Legal Name (first and last)</label>
-              <input class="form-control" name="full_legal_name" id="full_legal_name" type="text">
+              <input name="full_legal_name" id="full_legal_name" type="text">
             </div>
 
             <div class="form-group">
               <label for="phone">Phone (XXX-XXX-XXXX)</label>
-              <input class="form-control" name="phone" id="phone" type="text">
+              <input name="phone" id="phone" type="text">
             </div>
           </div>
 
           <div class="form-row clearfix">
             <div class="form-group">
               <label for="street_address">Street Address</label>
-              <input class="form-control" name="street_address" id="street_address" type="text" style="width: 320px">
+              <input name="street_address" id="street_address" type="text" style="width: 320px">
             </div>
 
             <div class="form-group">
               <label for="zip">Zip Code</label>
-              <input class="form-control" name="zip" id="zip" type="text" style="width: 100px">
+              <input name="zip" id="zip" type="text" style="width: 100px">
             </div>
           </div>
 
@@ -76,7 +76,7 @@
 
             <div class="form-group">
               <label for="birth_year">Birth Year (YYYY)</label>
-              <input class="form-control" name="birth_year" id="birth_year" type="text" style="width: 100px">
+              <input name="birth_year" id="birth_year" type="text" style="width: 100px">
             </div>
           </div>
 
@@ -87,17 +87,17 @@
           <div class="form-row clearfix">
             <div class="form-group">
               <label for="routing_number">Routing Number <i class="icon icon-info-sign show_tooltip" data-placement="right" data-title="Your routing number is the nine digit number in the bottom left corner of your check."></i></label>
-              <input class="form-control" name="bank_routing_number" id="bank_routing_number" type="text">
+              <input name="bank_routing_number" id="bank_routing_number" type="text">
             </div>
 
             <div class="form-group">
               <label for="account_number">Account Number <i class="icon icon-info-sign show_tooltip" data-placement="right" data-title="Your account number is the number to the right of the routing number on your check."></i></label>
-              <input class="form-control" name="account_number" id="account_number" type="text">
+              <input name="account_number" id="account_number" type="text">
             </div>
           </div>
         </fieldset>
 
-        <input class="form-control" id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @ct_admin_id %>" >
+        <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @ct_admin_id %>" >
 
         <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
         <span class="loader" data-loader="bank_form" style="display:none"></span>

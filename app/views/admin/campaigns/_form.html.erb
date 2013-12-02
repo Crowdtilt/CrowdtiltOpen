@@ -6,7 +6,7 @@
     <div class="field clearfix">
       <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
       <label>Campaign Name</label>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field :name %>
     </div>
     <div class="field clearfix">
       <p class="explanation">If you set this to be the default campaign, the homepage will redirect to the campaign.</p>
@@ -24,20 +24,20 @@
 
        <div class="amount_input input-group" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
         <span class="input-group-addon">$</span>
-        <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0), class: "form-control" %>
+        <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
       </div>
 
        <label><input id="goal_type_orders" name="campaign[goal_type]" value="orders" type="radio" <%= @campaign.goal_type == 'orders' ? "checked" : "" %>>Number of Orders</label>
 
       <div class="orders_input" style="<%= @campaign.goal_type == 'orders' ? "" : "display:none" %>">
-        <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0), class: "form-control" %>
+        <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0) %>
       </div>
     </div>
 
     <div class="field clearfix">
       <p class="explanation">When your campaign to raise money should end.</p>
       <label>Expiration Date</label>
-      <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')), class: "form-control" %>
+      <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')) %>
     </div>
   </fieldset>
 
@@ -55,7 +55,7 @@
         <label class="inline"><strong>Minimum amount: &nbsp;</strong></label>
         <div class="input-group">
           <span class="input-group-addon">$</span>
-          <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0), class: "form-control" %>
+          <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
         </div>
       </div>
 
@@ -66,7 +66,7 @@
         <label class="inline"><strong>Preset amount: &nbsp;</strong></label>
         <div class="input-group">
           <span class="input-group-addon">$</span>
-          <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0), class: "form-control" %>
+          <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
         </div>
       </div>
 
@@ -84,7 +84,7 @@
       <%= f.check_box :collect_additional_info %>
       <div class="additional_info_input" style="<%= @campaign.collect_additional_info ? "" : "display:none" %>">
         <label>Include a message describing what you need:</label>
-        <%= f.text_area :additional_info_label, rows: 2, class: "form-control" %>
+        <%= f.text_area :additional_info_label, rows: 2 %>
       </div>
     </div>
 
@@ -108,7 +108,7 @@
         <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution. You can set a cap on how many of each reward are available and the minimum contribution amount needed to claim one.</p>
         <div class="reference">
           <label>How To Reference a Reward (i.e. reward, perk, option)</label>
-          <%= f.text_field :reward_reference, class: "form-control" %>
+          <%= f.text_field :reward_reference %>
         </div>
         <ul>
           <% @campaign.rewards.order("price ASC").each do |reward| %>
@@ -122,8 +122,8 @@
               <tr>
                 <td>
                   <div class="currency">
+                    <label for="minimumContribution">Minimum Contribution To Claim</label>
                     <div class="input-group">
-                      <label for="minimumContribution">Minimum Contribution To Claim</label>
                       <span class="input-group-addon">$</span>
                       <input class="form-control" name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
                     </div>
@@ -163,7 +163,7 @@
     <div class="field clearfix">
       <p class="explanation">A few other ideas: supporter, order, preorder, donor, contributor, participant, purchase.</p>
       <label>How To Reference a Contributor (i.e. 'backer' )</label>
-      <%= f.text_field :contributor_reference, class: "form-control" %>
+      <%= f.text_field :contributor_reference %>
     </div>
 
     <div class="field clearfix">
@@ -201,13 +201,13 @@
     <div class="field clearfix">
       <p class="explanation">This text is displayed on the primary call to action button. Common choices include 'Pay', 'Contribute', 'Back this Project', 'Reserve for $199', etc.</p>
       <label>Primary Call to Action Button</label>
-      <%= f.text_field :primary_call_to_action_button, class: "form-control" %>
+      <%= f.text_field :primary_call_to_action_button %>
     </div>
 
     <div class="field clearfix">
       <label>Primary Call to Action Description</label>
       <p class="explanation inline">This formatted text gets displayed near the primary call to action button.</p>
-      <%= f.cktext_area :primary_call_to_action_description, class: "form-control" %>
+      <%= f.cktext_area :primary_call_to_action_description %>
     </div>
 
     <div class="field clearfix">
@@ -219,7 +219,7 @@
     <div class="field clearfix">
       <p class="explanation">This text is displayed on the second call to action button position near the bottom of the homepage.</p>
       <label>Secondary Call to Action Button</label>
-      <%= f.text_field :secondary_call_to_action_button, class: "form-control" %>
+      <%= f.text_field :secondary_call_to_action_button %>
     </div>
 
     <div class="field clearfix">
@@ -263,7 +263,7 @@
       <%= f.check_box :include_comments %>
       <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
         <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/" target="_blank">Need one?</a>)</label>
-        <%= f.text_field :comments_shortname, class: "form-control" %>
+        <%= f.text_field :comments_shortname %>
       </div>
     </div>
   </fieldset>
@@ -291,19 +291,19 @@
     <div class="field clearfix">
       <p class="explanation">This is the default text that will be used for the tweet button.</p>
       <label>Tweet Text</label>
-      <%= f.text_area :tweet_text, rows: 2, class: "form-control" %>
+      <%= f.text_area :tweet_text, rows: 2 %>
     </div>
 
     <div class="field clearfix">
       <p class="explanation">The title shown when your site is shared via Facebook. Leave this blank if you want to use your project name.</p>
       <label>Facebook Title</label>
-      <%= f.text_field :facebook_title, class: "form-control" %>
+      <%= f.text_field :facebook_title %>
     </div>
 
     <div class="field clearfix">
       <p class="explanation">The description shown when your site is shared via Facebook.</p>
       <label>Facebook Description</label>
-      <%= f.text_area :facebook_description, rows: 2, class: "form-control" %>
+      <%= f.text_area :facebook_description, rows: 2 %>
     </div>
 
     <div class="field clearfix">
@@ -342,7 +342,7 @@
           <label>Activate payments?</label>
           <%= f.check_box :production_flag %>
         <% else %>
-          You must set up your payment processor before activating payments. Visit "Payment Settings" from the admin menu to do this.
+          <p class="explanation-left">You must set up your payment processor before activating payments. Visit "Payment Settings" from the admin menu to do this.</p>
         <% end %>
       <% else %>
         <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>

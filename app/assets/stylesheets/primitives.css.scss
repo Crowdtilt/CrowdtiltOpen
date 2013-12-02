@@ -19,6 +19,11 @@ $tertiary_font:  "Arial";
   text-align: center;
 }
 
+// Adding form-control bootstrap styling to necessary input fields
+textarea, input[type=text], input[type=email], input[type=password] {
+  @extend .form-control;
+}
+
 #main {
   min-height: 400px;
 }

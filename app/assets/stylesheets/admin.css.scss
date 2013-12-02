@@ -25,14 +25,17 @@
   #admin_website, #admin_campaigns {
     
     /* Setting width for forms without additional divs for columns */
+    
+    .input-group .form-control {
+      width: 37.5%;
+    }
+
     .form-control {
       width: 40%;
     }
-
-    .currency {
-      width: 38%;
-    }
     
+    /* Done setting form widths */
+
     fieldset {
       margin-bottom: 30px;
     }
@@ -57,9 +60,13 @@
         width: 100%;
       }
 
+      .explanation-left {
+        @extend .explanation;
+        float: left;
+      }
+
       label {
         display: block;
-        margin-top: 8px;
         margin-bottom: 8px;
         font-size: 18px;
         font-weight: 300;
