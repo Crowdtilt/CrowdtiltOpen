@@ -26,7 +26,11 @@
     
     /* Setting width for forms without additional divs for columns */
     .form-control {
-      width: 40%
+      width: 40%;
+    }
+
+    .currency {
+      width: 38%;
     }
     
     fieldset {
@@ -55,7 +59,8 @@
 
       label {
         display: block;
-        margin-bottom: 15px;
+        margin-top: 8px;
+        margin-bottom: 8px;
         font-size: 18px;
         font-weight: 300;
       }
