@@ -35,15 +35,15 @@
             </p>
 
             <% if campaign.raised_amount.to_f/100 < campaign.goal_dollars.to_f %>
-              <div id='progress_bg'>
-                <div id='progress' class='' style='width: <%= campaign.tilt_percent.nil? ? 0 : campaign.tilt_percent.ceil %>%;'>
+              <div class='progress'>
+                <div class='progress-bar' role='progressbar' aria-valuemin='0' aria-valuemax='100' style='width: <%= campaign.tilt_percent.nil? ? 0 : campaign.tilt_percent.ceil %>%; min-width: 2%;'>
                 </div>
               </div>
             <% else %>
-              <div id="progress_bg">
-                <div id="progress">
+              <div class="progress">
+                <div class="progress-bar">
                 </div>
-                </div>
+              </div>
             <% end %>
 
             <p class="numbers pull-left">

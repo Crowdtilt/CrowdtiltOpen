@@ -53,7 +53,6 @@
     }
 
     #image {
-      float: left;
       max-width: 100%;
       height: auto;
       -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
@@ -171,6 +170,8 @@
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
     .main_content {
+      padding-left: 15px;
+      padding-right: 15px;
       .tabbable {
         width: 100%;
         float: left;
