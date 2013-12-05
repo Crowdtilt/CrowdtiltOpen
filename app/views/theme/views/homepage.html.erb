@@ -6,10 +6,12 @@
       </div>
 
     <div class="campaigns">
+      <div class="row">
 
       <% if @campaigns.count > 0 %>
         <% @campaigns.each do |campaign| %>
           <% if campaign.published_flag %>
+          <div class="col-md-3">
           <a href="<%= url_for campaign_home_path(campaign) %>" class="campaign clearfix">
 
             <% if campaign.media_type == 'video' && !campaign.video_embed_id.blank?%>
@@ -69,6 +71,7 @@
 
           </a>
           <% end %>
+        </div>
         <% end %>
       <% else %>
 
