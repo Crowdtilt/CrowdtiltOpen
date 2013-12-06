@@ -19,6 +19,9 @@
       background-color: #ffffff;
       padding: 30px;
       margin-bottom: 0px;
+      label {
+        font-weight: 300;
+      }
     }
 
     p {
@@ -54,11 +57,12 @@
               display: inline;
               float: left;
               margin-left: 10px;
+              margin-right: 10px;   
               font-weight: bold;
             }
             .reward_description {
-              margin-left: 120px;
-              width: 320px;
+              margin-left: 20%;
+              width: 70%;
               p {
                 font-size: 14px;
                 margin: 0px;
@@ -123,11 +127,7 @@
     }
 
     fieldset {
-      display: inline-block;
-    }
-
-    #fullname, #email, #address_one, #address_two, #additional_info{
-      width: 480px;
+      display: block;
     }
 
     .billing_address {

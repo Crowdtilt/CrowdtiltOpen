@@ -20,8 +20,8 @@ $tertiary_font:  "Arial";
   text-align: center;
 }
 
-// Adding form-control bootstrap styling to necessary input fields
-textarea, input[type=text], input[type=email], input[type=password] {
+// Adding form-control bootstrap styling to necessary input fields and selects
+textarea, input[type=text], input[type=email], input[type=password], select {
   @extend .form-control;
 }
 
