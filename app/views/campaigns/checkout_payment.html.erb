@@ -90,6 +90,7 @@
                     <div class="card_number col-md-6">
                       <label for="card_number">Card Number</label>
                       <input name="card_number" id="card_number" type="text" autocomplete="off">
+                      <label for="card_number" class="error" style="display: none"></label>
                     </div>
                     <div class="col-md-3">
                       <label>Expiration Month</label>
@@ -132,18 +133,18 @@
                   <div class="clearfix">
                     <div class="row">
                       <div class="col-md-6">
-                        <label for="security_code">Security Code <i class="glyphicon glyhpicon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></i></label>
+                        <label for="security_code">Security Code <i class="glyphicon glyphicon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></i></label>
                         <input id="security_code" name="security_code" type="text" autocomplete="off">
+                        <label for="security_code" class="error" style="display: none"></label>
                       </div>
                       <div class="billing_postal_code col-md-6">
                         <label for="billing_postal_code">Billing Postal Code</label>
                         <input id="billing_postal_code" name="billing_postal_code" type="text">
+                        <label for="billing_postal_code" class="error" style="display: none"></label>
                       </div>
                   </div>
                 </fieldset>
-              <label for="card_number" class="error" style="display: none"></label>
-              <label for="security_code" class="error" style="display: none"></label>
-              <label for="billing_postal_code" class="error" style="display: none"></label>
+              
 
               <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
 
