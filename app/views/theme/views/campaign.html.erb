@@ -46,36 +46,57 @@
 
           <div class="col-md-4">
             <div id="backing">
-              <ul>
+              
+              <div class="row">
+                <%# If Goal is Dollars %>
+                  <% if @campaign.goal_type == 'dollars' %>
+                  <div class="stats col-md-4" id="backers">
+                    <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
+                    <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
+                  </div>
+                  <div class="stats col-md-4">
+                    <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
+                    <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
+                  </div>
 
-                <% if @campaign.goal_type == 'dollars' %>
-                <li class="stats" id="backers">
-                  <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
-                  <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
-                </li>
-                <li class="stats">
-                  <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
-                  <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
-                </li>
-                <% else %>
-                <li class="stats">
-                  <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
-                  <span>of <%= @campaign.goal_orders %> needed</span>
-                </li>
-                <% end %>
+                    <%# Checking to see if Campaign is Expired %>
+                    <% if !@campaign.expired? %>
+                      <div class="stats col-md-4" id="days">
+                        <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
+                        <span><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
+                      </div>
+                    <% else %>
+                      <div class="stats col-md-4" id="days">
+                          No
+                          <span>days left!</span>
+                      </div>
+                    <% end %>
+                    <%# End Expiration Check %>
 
-                <% if !@campaign.expired? %>
-                  <li class="stats" id="days">
-                    <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
-                    <span style="width:100px"><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
-                  </li>
-                <% else %>
-                  <li class="stats" id="days">
-                      No
-                      <span>days left!</span>
-                    </li>
-                <% end %>
-              </ul>
+                  <% else %>
+                  <%# Else, Goal is in Orders %>
+                  <div class="stats col-md-6">
+                    <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
+                    <span>of <%= @campaign.goal_orders %> needed</span>
+                  </div>
+
+                    <%# Checking to see if Campaign is Expired %>
+                    <% if !@campaign.expired? %>
+                      <div class="stats col-md-6" id="days">
+                        <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
+                        <span><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
+                      </div>
+                    <% else %>
+                      <div class="stats col-md-6" id="days">
+                          No
+                          <span>days left!</span>
+                      </div>
+                    <% end %>
+                    <%# End Expiration Check %>
+
+                  <% end %>
+                  <%# End If/Else %>
+              </div>
 
               <% if @campaign.raised_amount < @campaign.goal_dollars %>
                 <div class='progress'>
