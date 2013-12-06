@@ -1,14 +1,14 @@
 <div id="checkout">
   <div class="container content_box clearfix">
     <div class="row">
-      <div class="main_content">
+      <div class="main_content col-md-8">
         <%= raw(@campaign.confirmation_page_content) %>
         <div class="share clearfix">
           <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
         </div>
         <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>"><%= @campaign.name %> homepage</a></p>
       </div>
-      <div class="well confirmation_sidebar" id="completed_purchase">
+      <div class="well confirmation_sidebar col-md-4" id="completed_purchase">
         <h4>Payment Summary</h4>
         <% if !@campaign.production_flag %>
           <div style="color: red; margin-bottom: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
