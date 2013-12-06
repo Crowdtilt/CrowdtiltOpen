@@ -37,11 +37,10 @@
               <div class="amount_section">
               <h4 class="amount_header">Please enter an amount: </h4>
               <br/>
-              <div class="amount_input" style="position:relative">
-                <input id="amount" type="text" name="amount" value="<%= short_price(@reward.price) if @reward %>"/>&nbsp;&nbsp;
-                <span style="position:absolute">$</span>
+              <div class="amount_input input-group">
+                <span class="input-group-addon">$</span>
+                <input id="amount" type="text" class="form-control" name="amount" value="<%= short_price(@reward.price) if @reward %>" placeholder="Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %>"/>
               </div>
-              <span class="minimum">Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
               <label class="error hide"></label>
               </div>
               <input id="quantity" type="hidden" name="quantity" value="1"/>
@@ -90,7 +89,7 @@
 
       </div>
 
-      <div class="sidebar col-md-6">
+      <div class="sidebar col-md-4 col-md-offset-2">
         <div class="custom_content">
           <%= raw(@campaign.checkout_sidebar_content) %>
         </div>

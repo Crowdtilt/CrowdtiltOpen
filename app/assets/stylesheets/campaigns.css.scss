@@ -3,8 +3,6 @@
   padding: 50px 0;
 
   .main_content {
-    width: 560px;
-    float: left;
     h3 {
       margin: 0px 0px 30px;
       color: #4b4b4b;
@@ -40,18 +38,7 @@
 
     .amount_input {
       position: relative;
-      display: inline-block;
 
-      input {
-        padding-left: 24px;
-        width: 200px;
-      }
-
-      span {
-        position: absolute;
-        top: 5px;
-        left: 10px;
-      }
     }
 
     #reward_select {
@@ -179,13 +166,11 @@
   }
 
   .sidebar {
-    float: right;
-    width: 345px;
 
     .crowdtilt-powered {
       margin-bottom: 34px;
       img {
-        float: right;
+        max-width: 317px;
       }
     }
 
@@ -230,7 +215,6 @@
     float: left;
     background: white;
     margin-left: 20px;
-    width: 315px;
     p {
       font-size: 14px;
     }
