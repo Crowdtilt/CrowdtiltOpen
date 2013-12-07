@@ -127,6 +127,7 @@
           <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
           <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
           <input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
+          <input id="client_timestamp" type="hidden" name="client_timestamp" value="">
 
           <% if !@campaign.production_flag %>
             <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>

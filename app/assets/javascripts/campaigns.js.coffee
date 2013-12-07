@@ -98,6 +98,7 @@ Crowdhoster.campaigns =
         input = $('<input name="ct_card_id" value="' + token + '" type="hidden" />');
         form = document.getElementById('payment_form')
         form.appendChild(input[0])
+        $('#client_timestamp').val((new Date()).getTime())
         form.submit()
       else
         $('#refresh-msg').hide()
