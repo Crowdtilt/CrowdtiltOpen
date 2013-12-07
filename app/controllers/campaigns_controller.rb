@@ -133,6 +133,8 @@ class CampaignsController < ApplicationController
       case existing_payment.status
       when nil
         flash_msg = { info: "Your payment is still being processed! If you have not received a confirmation email, please try again or contact support by emailing team@crowdhoster.com" }
+      when 'error'
+        flash_msg = { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com." }
       else
         # A status other than nil or 'error' indicates success! Treat as original payment
         redirect_to checkout_confirmation_url(@campaign), :status => 303, :flash => { payment_guid: @payment.ct_payment_id } and return
@@ -169,6 +171,7 @@ class CampaignsController < ApplicationController
       logger.info "CROWDTILT API RESPONSE:"
       logger.info response
     rescue => exception
+      @payment.update_attribute(:status, 'error')
       logger.info "ERROR WITH POST TO /payments: #{exception.message}"
       redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
     end

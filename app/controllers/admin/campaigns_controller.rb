@@ -282,11 +282,11 @@ class Admin::CampaignsController < ApplicationController
       if payment
         @payments = [payment]
       else
-        @payments = @campaign.payments.order("created_at ASC")
+        @payments = @campaign.payments_completed.order("created_at ASC")
         flash.now[:error] = "Contributor not found for " + params[:payment_id]
       end
     else
-      @payments = @campaign.payments.order("created_at ASC")
+      @payments = @campaign.payments_completed.order("created_at ASC")
     end
 
     respond_to do |format|
