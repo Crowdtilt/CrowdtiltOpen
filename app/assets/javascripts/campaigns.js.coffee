@@ -59,6 +59,7 @@ Crowdhoster.campaigns =
         this.submit()
 
   submitPaymentForm: (form) ->
+    $('#refresh-msg').show()
     $('#errors').hide()
     $('#errors').html('')
     $('button[type="submit"]').attr('disabled', true).html('Processing, please wait...')
@@ -76,6 +77,7 @@ Crowdhoster.campaigns =
 
     errors = crowdtilt.card.validate(cardData)
     if !$.isEmptyObject(errors)
+      $('#refresh-msg').hide()
       $.each errors, (index, value) ->
         $('#errors').append('<p>' + value + '</p>')
       $('#errors').show()
@@ -98,6 +100,7 @@ Crowdhoster.campaigns =
         form.appendChild(input[0])
         form.submit()
       else
+        $('#refresh-msg').hide()
         $('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Support request for a payment issue&body=PLEASE DESCRIBE YOUR PAYMENT ISSUES HERE">click here</a> to contact support.</p>')
         $('#errors').show()
         $('.loader').hide()
