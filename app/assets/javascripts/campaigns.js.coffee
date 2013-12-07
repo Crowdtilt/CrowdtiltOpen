@@ -11,7 +11,7 @@ Crowdhoster.campaigns =
 
     # Checkout section functions:
     if($('#checkout').length)
-      $('html,body').animate({scrollTop: $('#checkout').offset().top})
+      $('html,body').animate({scrollTop: $('#header')[0].scrollHeight})
 
     $('#quantity').on "change", (e) ->
       quantity = $(this).val()
