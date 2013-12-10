@@ -198,9 +198,9 @@ class CampaignsController < ApplicationController
 
   def checkout_confirmation
     @payment = Payment.where(:ct_payment_id => flash[:payment_guid]).first
-    flash[:payment_guid] = nil # Unset flash because application renders all flash vars (long-term should be refactored)
+    flash.keep(:payment_guid) # Preserve on refresh of this page only
 
-    if !@payment
+    if flash[:payment_guid].nil? || !@payment
       redirect_to campaign_home_url(@campaign)
     end
   end
