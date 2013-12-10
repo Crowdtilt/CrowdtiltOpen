@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131128003747) do
+ActiveRecord::Schema.define(:version => 20131206225359) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(:version => 20131128003747) do
     t.string   "card_expiration_month"
     t.string   "card_expiration_year"
     t.integer  "campaign_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "address_one"
     t.string   "address_two"
     t.string   "city"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20131128003747) do
     t.integer  "reward_id"
     t.text     "additional_info"
     t.string   "billing_postal_code"
+    t.integer  "client_timestamp",      :limit => 8
   end
 
   create_table "rewards", :force => true do |t|
