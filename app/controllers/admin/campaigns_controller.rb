@@ -285,6 +285,12 @@ class Admin::CampaignsController < ApplicationController
         @payments = @campaign.payments_completed.order("created_at ASC")
         flash.now[:error] = "Contributor not found for " + params[:payment_id]
       end
+    elsif params.has_key?(:email) && !params[:email].blank?
+      @payments = @campaign.payments_completed.where("lower(email) = ?", params[:email].downcase)
+      if @payments.blank?
+        @payments = @campaign.payments_completed.order("created_at ASC")
+        flash.now[:error] = "Contributor not found for " + params[:email]
+      end
     else
       @payments = @campaign.payments_completed.order("created_at ASC")
     end
