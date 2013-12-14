@@ -24,7 +24,7 @@
         <div class="field clearfix">
           <p class="explanation">Enter a phone number where contributors can reach you.</p>
           <label>Contact Phone Number (Optional)</label>
-          <%= f.text_field :phone_number %>
+          <%= f.text_field :phone_number, :placeholder => "555-555-5555" %>
         </div>
 
         <div class="field clearfix">
@@ -95,9 +95,9 @@
       <legend>Google Analytics</legend>
 
         <div class="field clearfix">
-          <p class="explanation">If would like to add tracking to your site, sign up for an account at https://google.com/analytics, then paste your tracking ID here.</p>
+          <p class="explanation">If would like to add tracking to your site, <a href="http://www.google.com/analytics/" target="_blank">sign up for an account</a>, then paste your tracking ID here.</p>
           <label>Google Analytics ID</label>
-          <%= f.text_field :google_id %>
+          <%= f.text_field :google_id, :placeholder => "UA-0000000-0" %>
         </div>
 
       </fieldset>
@@ -131,13 +131,13 @@
           <div class="field clearfix">
             <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
             <label>Custom CSS</label>
-            <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>
+            <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px", :placeholder => "#campaign #funding_area { background: white; }" %>
           </div>
 
           <div class="field clearfix">
             <p class="explanation">Add your own JavaScript here. Use this field to paste in scripts for analytics tracking, retargeting, etc.</p>
             <label>Custom JavaScript</label>
-            <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px" %>
+            <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px", :placeholder => "<script> CODE </script>" %>
           </div>
 
        </div>
