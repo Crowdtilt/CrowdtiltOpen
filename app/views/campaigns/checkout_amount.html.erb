@@ -52,7 +52,7 @@
               <h4>Select your <%= @campaign.reward_reference %>: </h4>
               <ul>
                 <li class="reward_option active <%= raw('hide') if @reward %> clearfix" data-id="0" data-price="<%= short_price(@campaign.min_payment_amount) %>">
-                    <input class="reward_input" type="checkbox" name="reward" value="0">
+                    <input class="reward_input" type="radio" name="reward" value="0">
                     <label class="price"></label>
                     <div class="reward_description">
                       <p class="title">No <%= @campaign.reward_reference %></p>
@@ -62,7 +62,7 @@
                 <% @campaign.rewards.order("price ASC").each do |reward| %>
                 <% if reward.visible? %>
                   <li class="reward_option <%= raw('active') unless reward.sold_out? %> <%= ((@reward.id == reward.id) ? raw('selected') : raw('hide')) if @reward %> clearfix" data-id="<%= reward.id %>" data-price="<%= short_price(reward.price) %>">
-                    <input class="reward_input" type="checkbox" name="reward" value="<%= reward.id %>" <%= raw('disabled') if reward.sold_out? %><%= raw('checked="checked"') if @reward && @reward.id == reward.id %>>
+                    <input class="reward_input" type="radio" name="reward" value="<%= reward.id %>" <%= raw('disabled') if reward.sold_out? %><%= raw('checked="checked"') if @reward && @reward.id == reward.id %>>
                     <label class="price">$<%= short_price(reward.price) %> +</label>
                     <div class="reward_description">
                       <p class="title"><%= reward.title %></p>

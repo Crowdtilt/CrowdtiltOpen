@@ -171,11 +171,12 @@
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
     .main_content {
-      padding-left: 15px;
-      padding-right: 15px;
       .tabbable {
         width: 100%;
         float: left;
+      }
+      .tab-content {
+        margin-top: 15px;
       }
     }
     .rewards_sidebar {
@@ -183,6 +184,7 @@
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px;
+      display: inline-block;
       h3 {
         margin: 20px 0px 0px 20px;
         padding-top: 10px;
