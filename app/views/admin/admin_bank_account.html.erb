@@ -5,7 +5,7 @@
 
     <ul class="nav nav-tabs nav-bank-setup">
       <li><a href="<%= admin_processor_setup_path %>">Payment Processor</a></li>
-      <li class="active"><a href="<%= admin_bank_setup_path %>">Bank Setup</a></li>
+      <li class="active"><a href="<%= admin_bank_account_path %>">Bank Setup</a></li>
     </ul>
 
   <div id="admin_bank_setup">
@@ -21,14 +21,14 @@
       </div>
       <div class="more_info">
         <p>Campaign funds are transferred automatically to your account within 2 business days of campaign expiration. </p>
-        <p>Need to change your bank account? <a href="mailto:team@crowdhoster.com?subject=Please reset my bank account info&body=Hi! I'd like to change my bank account. Please reset it for the Crowdhoster site named:">Send us an email</a>.</p>
+        <p>Need to change your bank account? <%= link_to 'Delete bank account', delete_admin_bank_account_path, :confirm => 'Are you sure you want to delete this bank account?', :method => :delete %></p>
       </div>
 
       <% else %>
 
-      <%= form_tag(admin_bank_setup_path, method: "post", id: "admin_bank_form") %>
+      <%= form_tag(create_admin_bank_account_path, method: "post", id: "admin_bank_form") %>
 
-      <h4>Personal Information <span class="label show_tooltip" data-placement="right" data-title="BUSINESS ACCOUNTS: <br>To prevent fraud, we verify your personal identity independently of your business bank account. <br> Please enter your personal details here and your business account routing and account numbers in the 'Banking Information' section below.">Business Account?</span></h4>
+      <h4>Personal Information <span class="label show_tooltip" data-placement="right" data-title="BUSINESS ACCOUNTS: <br>To prevent fraud, we verify your personal identity independently of your business bank account. <br> DO NOT ENTER YOUR BUSINESS ADDRESS / PHONE. Please enter your personal details here and your business account routing and account numbers in the 'Banking Information' section below.">Using a business account?</span></h4>
       <fieldset>
 
           <div class="form-row clearfix">

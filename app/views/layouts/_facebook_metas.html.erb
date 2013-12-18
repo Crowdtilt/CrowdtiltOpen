@@ -1,8 +1,6 @@
 <meta property='og:type' content="website" />
 <meta property='og:site_name' content="<%= @settings.facebook_title.blank? ? @settings.site_name : @settings.facebook_title %>" />
-<% if !@settings.facebook_app_id.blank? %>
-  <meta property='fb:app_id' content="<%= @settings.facebook_app_id %>" />
-<% end %>
+<meta property='fb:app_id' content="<%= @settings.facebook_app_id.present? ? @settings.facebook_app_id : 331145500360318 %>" />
 
 <% params[:controller] == 'campaigns' ? c = @campaign : c = false %>
 

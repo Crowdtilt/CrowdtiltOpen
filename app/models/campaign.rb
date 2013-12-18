@@ -68,12 +68,21 @@ class Campaign < ActiveRecord::Base
     (self.payment_type != 'fixed' && self.rewards.length > 0)
   end
 
+  def payments_completed
+    self.payments.where(:status => %w(authorized charged released rejected refunded offline))
+  end
+
+  def payments_successful
+    # 'rejected' is a post-tilt state, so they are included in successful payments.
+    self.payments.where(:status => %w(authorized charged released rejected offline))
+  end
+
   def raised_amount
-    payments.where("payments.status!='refunded'").sum(:amount)/100.0
+    self.payments_successful.sum(:amount)/100.0
   end
 
   def number_of_contributions
-    payments.where("payments.status!='refunded'").count
+    self.payments_successful.count
   end
 
   def tilt_percent
