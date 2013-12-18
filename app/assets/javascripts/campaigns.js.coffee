@@ -69,7 +69,7 @@ Crowdhoster.campaigns =
     $form = $(form)
 
     cardData =
-      number: $form.find('#card_number').val()
+      number: $form.find('#card_number').val().replace(/\s/g, "")
       expiration_month: $form.find('#expiration_month').val()
       expiration_year: $form.find('#expiration_year').val()
       security_code: $form.find('#security_code').val()
