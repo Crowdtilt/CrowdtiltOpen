@@ -4,7 +4,7 @@
 
 "Launch your own crowdfunding site... without touching a line of code"
 
-But if you're here—well, maybe you want to touch some code.
+But if you're here&mdash;well, maybe you want to touch some code.
 
 ---
 **Demo**
@@ -34,10 +34,10 @@ Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
 ### Dependencies
 To run Crowdhoster you'll need the following prerequisites installed:
 
-* [Homebrew](http://mxcl.github.io/homebrew/) (for downloading software packages)
+* [Homebrew](http://brew.sh/) (for downloading software packages)
 
 ```
-$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+$ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 ```
 * [Git](http://git-scm.com/) (version control)
 
@@ -73,7 +73,7 @@ Get  started by:
 * Downloading a .zip of the [latest release](https://github.com/Crowdtilt/Crowdhoster/releases) to your local machine
 
   or
- 
+
 * Creating a fork of Crowdhoster and cloning it to your local machine.
 
 
@@ -164,7 +164,7 @@ Install the Heroku config plugin if you don't already have it installed
 $ heroku plugins:install git://github.com/ddollar/heroku-config.git
 ```
 
-Push the configuration to Heroku.  
+Push the configuration to Heroku.
 NOTE: If you have already written config vars to Heroku, they will not be overwritten unless you pass the `--overwrite` flag as well.
 
 ```
