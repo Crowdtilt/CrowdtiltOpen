@@ -189,13 +189,19 @@ Launch the app!
 $ heroku open
 ```
 
+(Optional) It is highly recommended to install the Papertrail addon to create searchable logs should you run into issues. The "choklad" level is free.
+
+```
+$ heroku addons:add papertrail:choklad
+```
+
 ## Contribute
 
 Looking to help make Crowdhoster better?
 
 Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/Crowdhoster/issues).
 
-Contribute by forking the repo and working on a branch. Submit your changes via pull request. 
+Contribute by forking the repo and working on a branch. Submit your changes via pull request.
 
 A more complete contribution and style guide is coming soon!
 
