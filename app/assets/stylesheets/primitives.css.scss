@@ -30,7 +30,8 @@ textarea, input[type=text], input[type=email], input[type=password], select {
 }
 
 .content_box {
-  padding: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
@@ -118,27 +119,6 @@ select.error {
   border-color: #b94a48;
 }
 
-#share_buttons {
-
-  position: relative;
-  .like {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-  }
-
-  .tweet {
-    position: absolute;
-    top: 0px;
-    left: 110px;
-  }
-
-  .pin {
-    position: absolute;
-    top: 0px;
-    left: 225px;
-  }
-}
 
 /* Time Picker */
 .ui-datepicker {font-size: 12px}

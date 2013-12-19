@@ -127,13 +127,13 @@
               <div class="call_to_action_description">
                 <%= raw(@campaign.primary_call_to_action_description) %>
               </div>
+              <div class="share row">
+                <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
+              </div>
             </div>
           </div>
+
         </div>
-      </div>
-      
-      <div class="share">
-        <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
       </div>
 
     </div>

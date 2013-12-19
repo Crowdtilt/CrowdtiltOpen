@@ -1,8 +1,14 @@
 <div id="checkout">
-  <div class="container content_box clearfix">
+  <div class="container clearfix">
+    
     <div class="row">
-      <div class="main_content col-md-6">
+      <div class="col-md-12">
         <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="main_content col-md-8">
 
         <div class="well checkout_block">
           <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
@@ -56,8 +62,8 @@
                     <label class="price"></label>
                     <div class="reward_description">
                       <p class="title">No <%= @campaign.reward_reference %></p>
+                      <a class="reward_edit btn btn-warning" role="button" href="#" style="display:none">Edit</a>
                     </div>
-                    <a class="reward_edit" href="#" style="display:none">edit</a>
                 </li>
                 <% @campaign.rewards.order("price ASC").each do |reward| %>
                 <% if reward.visible? %>
@@ -72,8 +78,8 @@
                       </p>
                       <p class="description"><%= reward.description %></p>
                       <p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
+                      <a class="reward_edit btn btn-warning" role="button" href="#" style="<%= 'display:none' unless @reward && @reward.id == reward.id %>">Edit</a>
                     </div>
-                    <a class="reward_edit" href="#" style="<%= 'display:none' unless @reward && @reward.id == reward.id %>">edit</a>
                   </li>
                 <% end %>
                 <% end %>
@@ -89,7 +95,7 @@
 
       </div>
 
-      <div class="sidebar col-md-4 col-md-offset-2">
+      <div class="sidebar well col-md-4">
         <div class="custom_content">
           <%= raw(@campaign.checkout_sidebar_content) %>
         </div>

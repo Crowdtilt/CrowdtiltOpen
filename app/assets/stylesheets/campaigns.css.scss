@@ -2,23 +2,23 @@
   width: 100%;
   padding: 50px 0;
 
-  .main_content {
-    h3 {
-      margin: 0px 0px 30px;
-      color: #4b4b4b;
-      a {
-        color: #4b4b4b;
-        text-decoration: none;
-        &:hover {
-          text-decoration: none;
-        }
+  h3 {
+  margin: 0px 0px 30px;
+  text-align: center;
+  color: #4b4b4b;
+  a {
+    color: #4b4b4b;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
       }
     }
+  }
+
+  .main_content {
 
     .checkout_block {
-      background-color: #ffffff;
-      padding: 30px;
-      margin-bottom: 0px;
+      margin-bottom: 15px;
       label {
         font-weight: 300;
       }
@@ -90,10 +90,7 @@
               }
             }
             .reward_edit {
-              display: block;
-              position: absolute;
-              top: 15px;
-              right: 25px;
+              display: inline-block;
             }
           }
           &.active {
@@ -112,7 +109,7 @@
     }
 
     .btn {
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     h4 {
