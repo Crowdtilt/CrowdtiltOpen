@@ -1,5 +1,5 @@
 class Reward < ActiveRecord::Base
-  attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id, :visible_flag
+  attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id, :visible_flag, :image_url
 
    validates :title, :description, :delivery_date, :price, presence: true
 

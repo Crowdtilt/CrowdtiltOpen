@@ -162,6 +162,7 @@
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? %>" class="<%= 'disabled' if reward.sold_out? %>">
                   <p class="price">$<%= number_with_precision(reward.price, precision: (reward.price*100%100==0.0 ? 0 : 2)) %></p>
                   <p class="title"><%= reward.title %></p>
+                  <% if reward.image_url.present? %><p class="image"><img src="<%= reward.image_url %>"></p><% end %>
                   <p class="description"><%= reward.description %></p>
                   <p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
                   <p class="claimed">

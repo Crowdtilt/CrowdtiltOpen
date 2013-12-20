@@ -42,6 +42,7 @@ class Admin::CampaignsController < ApplicationController
     # Completely refresh the rewards
     old_campaign.rewards.each do |reward|
       @campaign.rewards.create title: reward.title,
+                               image_url: reward.image_url,
                                description: reward.description,
                                delivery_date: reward.delivery_date,
                                number: reward.number,
@@ -107,6 +108,7 @@ class Admin::CampaignsController < ApplicationController
         params[:reward].each do |reward|
           unless reward['delete'] && reward['delete'] == 'delete'
               @campaign.rewards.create title: reward['title'],
+                                       image_url: reward['image_url'],
                                        description: reward['description'],
                                        delivery_date: reward['delivery_date'],
                                        number: reward['number'].to_i,
@@ -180,6 +182,7 @@ class Admin::CampaignsController < ApplicationController
           if reward['id']
               r = Reward.find(reward['id'])
               r.title = reward['title']
+              r.image_url = reward['image_url']
               r.description = reward['description']
               r.delivery_date = reward['delivery_date']
               r.number = reward['number'].to_i
@@ -191,6 +194,7 @@ class Admin::CampaignsController < ApplicationController
               end
           else
             @campaign.rewards.create title: reward['title'],
+                                     image_url: reward['image_url'],
                                      description: reward['description'],
                                      delivery_date: reward['delivery_date'],
                                      number: reward['number'].to_i,
