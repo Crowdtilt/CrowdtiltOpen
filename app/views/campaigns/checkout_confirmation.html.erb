@@ -18,7 +18,7 @@
       <strong>Card:</strong><br/> <%= @payment.card_type %> ************<%= @payment.card_last_four %>
       (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/><br/>
       <% if @campaign.rewards? %>
-        <strong>Reward Selected:</strong><br/> <%= @reward ? @reward.title : 'None' %> <br/><br/>
+        <strong>Reward Selected:</strong><br/> <%= @payment.reward ? @payment.reward.title : 'None' %> <br/><br/>
       <% end %>
       <% if @campaign.goal_type == 'orders' %>
         <strong>Quantity:</strong><br/> <%= @payment.quantity %> <br/><br/>
