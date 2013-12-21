@@ -49,18 +49,28 @@ Crowdhoster.admin =
       $('#min-amount').slideUp()
       $('#no-rewards').slideUp()
       $('#rewards').slideDown()
+      $('#campaign_collect_shipping_message').hide()
+      $('#campaign_collect_shipping_warning').show()
+      $('#global-shipping-check').hide()
 
     $('input#campaign_payment_type_fixed').on "change", ->
       $('#min-amount').slideUp()
       $('#preset-amount').slideDown()
       $('#rewards').slideUp()
       $('#no-rewards').slideDown()
+      $('#global-shipping').slideDown()
+      $('#global-shipping-check').show()
+      $('#campaign_collect_shipping_message').show()
+      $('#campaign_collect_shipping_warning').hide()
 
     $('input#campaign_payment_type_min').on "change", ->
       $('#preset-amount').slideUp()
       $('#min-amount').slideDown()
       $('#no-rewards').slideUp()
       $('#rewards').slideDown()
+      $('#campaign_collect_shipping_message').hide()
+      $('#campaign_collect_shipping_warning').show()
+      $('#global-shipping-check').hide()
 
     $('input#goal_type_dollars').on "change", ->
       $('input#campaign_payment_type_min').attr('disabled', false)
@@ -79,7 +89,7 @@ Crowdhoster.admin =
 
     $('#reward-add').on 'click', (e) ->
       e.preventDefault()
-      $('#rewards ul').append('<li><table class="table"><tr><th>Reward</th><th>Number Claimed</th><th>Delete?</th></tr><tr><td><label>Minimum Contribution To Claim</label><div class="currency"><input name="reward[][price]" type="text" /><span style="position:absolute">$</span></div><label>Title (required)</label><input name="reward[][title]" type="text" /><br/><label>Image URL (optional)</label><input placeholder="http://www.host.com/image.jpg" name="reward[][image_url]" type="text" /><br/><label>Description (required)</label><textarea name="reward[][description]"></textarea><br/><label>Estimated Delivery Date (required)</label><input placeholder="i.e. May 2013" name="reward[][delivery_date]" type="text" /><br/><label>Number Available (leave blank if unlimited)</label><input name="reward[][number]" type="text" /></td><td>0</td><td><input type="checkbox" name="reward[][delete]" value="delete"/></td></tr></table></li>')
+      $('#rewards ul').append('<li><table class="table"><tr><th>Reward</th><th>Number Claimed</th><th>Delete?</th></tr><tr><td><label>Minimum Contribution To Claim</label><div class="currency"><input name="reward[][price]" type="text" /><span style="position:absolute">$</span></div><label>Title</label><input name="reward[][title]" type="text" /><br/><label>Image URL (optional)</label><input placeholder="http://www.host.com/image.jpg" name="reward[][image_url]" type="text" /><br/><label>Description</label><textarea name="reward[][description]"></textarea><br/><label>Estimated Delivery Date (i.e. May 2013)</label><input name="reward[][delivery_date]" type="text" /><br/><label>Number Available (leave blank if unlimited)</label><input name="reward[][number]" type="text" /><label>Collect shipping address for this reward?</label><input name="reward[][collect_shipping_flag]" type="checkbox" checked /></td><td>0</td><td><input type="checkbox" name="reward[][delete]" value="delete"/></td></tr></table></li>')
 
     $('.faq.sortable').sortable
       stop: (e, ui) ->

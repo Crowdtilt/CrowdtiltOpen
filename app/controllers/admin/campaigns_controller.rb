@@ -46,7 +46,8 @@ class Admin::CampaignsController < ApplicationController
                                description: reward.description,
                                delivery_date: reward.delivery_date,
                                number: reward.number,
-                               price: reward.price
+                               price: reward.price,
+                               collect_shipping_flag: reward.collect_shipping_flag
     end
 
     render action: "edit"
@@ -112,7 +113,8 @@ class Admin::CampaignsController < ApplicationController
                                        description: reward['description'],
                                        delivery_date: reward['delivery_date'],
                                        number: reward['number'].to_i,
-                                       price: reward['price'].to_f
+                                       price: reward['price'].to_f,
+                                       collect_shipping_flag: reward['collect_shipping_flag']
           end
         end
       end
@@ -187,6 +189,7 @@ class Admin::CampaignsController < ApplicationController
               r.delivery_date = reward['delivery_date']
               r.number = reward['number'].to_i
               r.price = reward['price'].to_f
+              r.collect_shipping_flag = reward['collect_shipping_flag']
               unless r.save
                 flash.now[:error] = "Invalid rewards"
                 render action: "edit"
@@ -198,7 +201,8 @@ class Admin::CampaignsController < ApplicationController
                                      description: reward['description'],
                                      delivery_date: reward['delivery_date'],
                                      number: reward['number'].to_i,
-                                     price: reward['price'].to_f
+                                     price: reward['price'].to_f,
+                                     collect_shipping_flag: reward['collect_shipping_flag']
           end
         end
       end
