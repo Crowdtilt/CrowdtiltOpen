@@ -83,6 +83,12 @@ $( document ).ready(function() {
       "campaign[fixed_payment_amount]": { required: true, number: true, min: 1 },
       "campaign[additional_info_label]": { required: true },
       "campaign[reward_reference]": { required: true },
+      "reward[][price]": { required: true, number: true },
+      "reward[][title]": { required: true },
+      "reward[][image_url]": { url: true },
+      "reward[][description]": { required: true },
+      "reward[][delivery_date]": { required: true },
+      "reward[][number]": { number: true },
       "campaign[contributor_reference]": { required: true },
       "campaign[video_embed_id]": { minlength: 11 , maxlength: 11},
       "campaign[primary_call_to_action_button]": { required: true },
@@ -124,6 +130,25 @@ $( document ).ready(function() {
       },
       "campaign[reward_reference]": {
         required: "You must choose a word"
+      },
+      "reward[][price]": {
+        required: "You must enter a price",
+        number: "The price must be a number"
+      },
+      "reward[][title]": {
+        required: "You must enter a title"
+      },
+      "reward[][image_url]": {
+        url: "This must be a valid image URL"
+      },
+      "reward[][description]": {
+        required: "You must enter a description"
+      },
+      "reward[][delivery_date]": {
+        required: "You must choose a delivery date"
+      },
+      "reward[][number]": {
+        number: "This must be a number"
       },
       "campaign[contributor_reference]": {
         required: "You must choose a word"
