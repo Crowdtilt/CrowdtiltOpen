@@ -101,6 +101,11 @@
             color: black;
             font-size: 14px;
             margin-bottom: 0px;
+            &.error {
+              color: #b94a48;
+              margin-bottom: 10px;
+              font-size: 14px;
+            }
           }
           table {
             margin-bottom: 0px;
