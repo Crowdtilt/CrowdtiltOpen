@@ -257,7 +257,10 @@
       <%= f.check_box :include_comments %>
       <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
         <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/" target="_blank">Need one?</a>)</label>
-        <%= f.text_field :comments_shortname %>
+        <div class="input-append">
+          <%= f.text_field :comments_shortname, :placeholder => 'shortname' %>
+          <span class="add-on">.disqus.com</span>
+        </div>
       </div>
     </div>
   </fieldset>
