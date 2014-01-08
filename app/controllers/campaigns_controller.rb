@@ -120,11 +120,8 @@ class CampaignsController < ApplicationController
      @payment = @campaign.payments.new(payment_params)
 
     if !@payment.valid?
-      message = ''
-      @payment.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
-      redirect_to checkout_amount_url(@campaign), flash: { error: message[0...-2] } and return
+      error_messages = @payment.errors.full_messages.join(', ')
+      redirect_to checkout_amount_url(@campaign), flash: { error: error_messages } and return
     end
 
     # Check if there's an existing payment with the same payment_params and client_timestamp. 
