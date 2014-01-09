@@ -25,7 +25,7 @@
           <% end %>
           </fieldset>
 
-          <% if (@campaign.payment_type == 'fixed' && @campaign.collect_shipping) || (@reward && @reward.collect_shipping_flag) %>
+          <% if (@campaign.payment_type == 'fixed' && @campaign.collect_shipping_flag) || (@reward && @reward.collect_shipping_flag) %>
           <h4>Shipping Address</h4>
 
           <fieldset>

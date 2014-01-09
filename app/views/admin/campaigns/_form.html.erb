@@ -71,7 +71,7 @@
       <p id="campaign_collect_shipping_warning" class="explanation message" style="<% if @campaign.payment_type == 'fixed' %>display:none<% end %>">If you're creating a campaign with rewards, you can select whether or not to collect shipping as you create each reward below.</p>
       <div id="global-shipping-check">
         <label class="message">Collect Shipping Address?</label>
-        <%= f.check_box :collect_shipping %>
+        <%= f.check_box :collect_shipping_flag %>
       </div>
     </div>
 
