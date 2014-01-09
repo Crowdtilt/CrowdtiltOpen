@@ -23,7 +23,7 @@
       <% if @campaign.goal_type == 'orders' %>
         <strong>Quantity:</strong><br/> <%= @payment.quantity %> <br/><br/>
       <% end %>
-      <% if @campaign.collect_shipping %>
+      <% if @campaign.collect_shipping_flag %>
         <strong>Shipping Address:</strong><br/>
         <%= @payment.address_one %><br/>
         <% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>

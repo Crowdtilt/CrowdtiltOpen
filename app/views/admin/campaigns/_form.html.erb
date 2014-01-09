@@ -66,10 +66,13 @@
 
     </div>
 
-    <div class="field clearfix">
-      <p class="explanation">Requires the user to include shipping address when checking out.</p>
-      <label>Collect Shipping Address?</label>
-      <%= f.check_box :collect_shipping %>
+    <div id="global-shipping" class="field clearfix" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
+      <p id="campaign_collect_shipping_message" class="explanation" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">Requires the user to include shipping address when checking out.</p>
+      <p id="campaign_collect_shipping_warning" class="explanation message" style="<% if @campaign.payment_type == 'fixed' %>display:none<% end %>">If you're creating a campaign with rewards, you can select whether or not to collect shipping as you create each reward below.</p>
+      <div id="global-shipping-check">
+        <label class="message">Collect Shipping Address?</label>
+        <%= f.check_box :collect_shipping_flag %>
+      </div>
     </div>
 
     <div class="field clearfix">
@@ -130,6 +133,8 @@
                   <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
                   <label>Number Available (leave blank if unlimited)</label>
                   <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
+                  <label>Collect shipping address for this reward?</label>
+                  <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
                   <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                 </td>
                 <td><%= reward.payments.length %></td>
