@@ -10,11 +10,7 @@ class AdminController < ApplicationController
       if @settings.update_attributes(params[:settings])
         flash.now[:success] = "Website settings successfully updated!"
       else
-        message = ''
-        @settings.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
-        flash.now[:error] = message[0...-2]
+        flash.now[:error] = @settings.errors.full_messages.join(', ')
       end
     end
   end
