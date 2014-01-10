@@ -364,6 +364,10 @@
         <p><%= api_campaign_url(id: @campaign.id)%></p>
         <label>API key</label>
         <p><%= @settings.api_key %></p>
+        <label>Example Usage (Return a JSON array of campaign data)</label>
+        <p><%= api_campaign_url(id: @campaign.id)%>?api_key=<%= @settings.api_key %></p>
+        <label>Example Usage (Return a JSON array of all payments)</label>
+        <p><%= api_campaign_url(id: @campaign.id)%>/payments?api_key=<%= @settings.api_key %></p>
       </div>
      </div>
   </fieldset>
