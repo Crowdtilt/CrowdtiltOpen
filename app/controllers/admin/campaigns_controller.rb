@@ -14,6 +14,7 @@ class Admin::CampaignsController < ApplicationController
   def copy
     old_campaign = Campaign.find(params[:id])
     @campaign = old_campaign.dup
+    @campaign.expiration_date = Time.now + 30.days
     @campaign.published_flag = false
     @campaign.production_flag = false
 
