@@ -6,7 +6,8 @@ Crowdhoster::Application.routes.draw do
   root                                         to: 'pages#index'
 
   # USERS
-  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }  do
+  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }
+  devise_scope :user do
     match '/user/settings',                    to: 'devise/registrations#edit',             as: :user_settings
   end
 
