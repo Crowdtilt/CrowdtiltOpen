@@ -19,19 +19,19 @@ gem update
 echo "----------   Setting RVM Installing Rails --------------"
 gem install --no-rdoc --no-ri rails
 echo "----------   Installing Depend. & Imagemagick --------------"
-apt-get -y install libxslt-dev libxml2-dev libsqlite3-dev
-apt-get -y install imagemagick
-wget -qO- https://toolbelt.heroku.com/install.sh | sh 
+apt-get install libxslt-dev libxml2-dev libsqlite3-dev
+apt-get install imagemagick
+wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 echo "----------   Installing Node JS --------------"
-apt-get -y install -y python-software-properties python g++ make
-add-apt-repository ppa:chris-lea/node.js 
+apt-get install -y python-software-properties python g++ make
+add-apt-repository ppa:chris-lea/node.js
 apt-get update
-apt-get -y install nodejs
+apt-get install nodejs
 echo "----------   Installing GIT --------------"
-apt-get -y install git-core
+apt-get install git-core
 echo "----------   Installing Postgresql --------------"
-apt-get -y install postgresql postgresql-contrib
-apt-get -y install libpq-dev
+apt-get install postgresql postgresql-contrib
+apt-get install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
 
 echo "----------   Getting Repository --------------"
