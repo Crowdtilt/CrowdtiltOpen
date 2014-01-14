@@ -78,8 +78,6 @@ class ApplicationController < ActionController::Base
             redirect_to user_session_url , :flash => { :error => "Please sign in below." }
          end
       end
-      else
-        
     end
   end
 
