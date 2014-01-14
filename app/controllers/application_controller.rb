@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   def load_settings
-    @settings = Settings.find_by_id(1)
+    @settings = Settings.first
 
     if !@settings
       @settings = Settings.create
@@ -72,13 +72,11 @@ class ApplicationController < ActionController::Base
         # Put user back on admin area
         redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }
       else
-         @usercount = User.count
-         if(@usercount == 0)
-            redirect_to new_user_registration_url, :flash => { :error => "Please create an account below to initialize the app." }
-         else
+         if (User.count)
             redirect_to user_session_url , :flash => { :error => "Please sign in below." }
+         else
+            redirect_to new_user_registration_url, :flash => { :error => "Please create an account below to initialize the app." }
          end
-        
       end
     end
   end
