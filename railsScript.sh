@@ -23,7 +23,7 @@ apt-get install libxslt-dev libxml2-dev libsqlite3-dev
 apt-get install imagemagick
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 echo "----------   Installing Node JS --------------"
-apt-get install -y python-software-properties python g++ make
+apt-get install  python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
 apt-get update
 apt-get install nodejs
