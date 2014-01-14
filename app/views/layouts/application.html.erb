@@ -24,9 +24,6 @@
       <% if !value.blank? %><div class="alert alert-<%= key %>"><%= value %></div><% end %>
     <% end %>
     <div id="main">
-    	<% if notice %>
-  			<p class="admin-alert alert alert-<notice"><%= notice %></p>
-		<% end %>
 		<% if alert %>
   			<p class="admin-alert alert alert-error"><%= alert %></p>
 		<% end %>
