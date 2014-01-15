@@ -63,7 +63,7 @@ wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Cr
 sudo -u postgres createuser --superuser $USER
 sudo -u postgres createuser --superuser $CrowdHoster_CUser
 SCRIPT
-
+cd $CrowdHoster_PWD
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
 echo "------------ THANKS : CrowdHoster team ----------"
