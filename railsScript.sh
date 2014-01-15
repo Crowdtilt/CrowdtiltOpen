@@ -4,6 +4,7 @@ clear
 echo "This script requires superuser access to install apt packages."
 echo "You will be prompted for your password by sudo."
 CrowdHoster_CUser=$USER
+echo "switching from $CrowdHoster_CUser to root"
 # clear any previous sudo permission
 sudo -k
 # run inside sudo
@@ -51,6 +52,7 @@ wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Cr
 
 SCRIPT
 sudo -u postgres createuser --superuser $USER
+echo "Test User:$USER  -- VAR:$CrowdHoster_CUser"
 source /etc/profile.d/rvm.sh
 echo "----------   Getting Repository --------------"
 mkdir GIT
