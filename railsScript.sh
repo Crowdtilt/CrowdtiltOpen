@@ -48,9 +48,9 @@ rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
 echo "------------ Database Configuration Started ----------"
 wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
 /etc/init.d/postgresql restart
-sudo -u postgres createuser --superuser $CrowdHoster_CUser
 
 SCRIPT
+sudo -u postgres createuser --superuser $USER
 source /etc/profile.d/rvm.sh
 echo "----------   Getting Repository --------------"
 mkdir GIT
