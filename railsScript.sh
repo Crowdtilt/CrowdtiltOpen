@@ -25,7 +25,7 @@ echo "----------   Installing Heroku --------------"
 echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
 wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
 apt-get update
-apt-get install -y heroku-toolbelt
+apt-get install heroku-toolbelt
 echo "----------   Installing Node JS --------------"
 apt-get install  python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
