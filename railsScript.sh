@@ -44,15 +44,6 @@ echo "----------   Installing Postgresql --------------"
 apt-get -y install postgresql postgresql-contrib
 apt-get -y install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
-
-echo "----------   Getting Repository --------------"
-mkdir GIT
-cd GIT
-git clone https://github.com/Crowdtilt/Crowdhoster.git
-echo "----------   Updating With Bundle --------------"
-cd Crowdhoster
-cp .env.example .env
-bundle install 
 echo "------------ Database Configuration Started ----------"
 CrowdHoster_PSName=/etc/postgresql/9.1/main/pg_hba.conf
 CrowdHoster_PSSize=$(stat -c%s "$CrowdHoster_PSName")
@@ -62,6 +53,16 @@ then
 	/etc/init.d/postgresql restart
 fi
 sudo -u postgres createuser --superuser $USER
+echo "----------   Getting Repository --------------"
+mkdir GIT
+cd GIT
+git clone https://github.com/Crowdtilt/Crowdhoster.git
+echo "----------   Updating With Bundle --------------"
+cd Crowdhoster
+cp .env.example .env
+bundle install 
+foreman run rake db:create
+foreman run rake db:migrate
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
 echo "------------ THANKS : CrowdHoster team ----------"
