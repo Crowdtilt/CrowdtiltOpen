@@ -1,5 +1,14 @@
 #!/bin/bash
+{
 clear
+echo "This script requires superuser access to install apt packages."
+echo "You will be prompted for your password by sudo."
+
+# clear any previous sudo permission
+sudo -k
+# run inside sudo
+sudo bash <<SCRIPT
+
 echo "----------   Updating Sources List --------------"
 sed -i -e 's/us.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/sources.list
 apt-get update
@@ -48,3 +57,5 @@ cp .env.example .env
 bundle install 
 
 echo "Rails Script Completed - Enjoy !!"
+SCRIPT
+}
