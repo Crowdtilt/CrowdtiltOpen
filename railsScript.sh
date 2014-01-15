@@ -29,22 +29,22 @@ echo "----------   Setting RVM Installing Rails --------------"
 gem install --no-rdoc --no-ri rails
 echo "----------   Installing Depend. & Imagemagick --------------"
 apt-get -y install libxslt-dev libxml2-dev libsqlite3-dev
-apt-get install imagemagick
+apt-get -y install imagemagick
 echo "----------   Installing Heroku --------------"
 echo "deb https://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
 wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
 apt-get update
 apt-get -y install heroku-toolbelt
 echo "----------   Installing Node JS --------------"
-apt-get install  python-software-properties python g++ make
+apt-get -y install  python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
 apt-get update
-apt-get install nodejs
+apt-get -y install nodejs
 echo "----------   Installing GIT --------------"
-apt-get install git-core
+apt-get -y install git-core
 echo "----------   Installing Postgresql --------------"
-apt-get install postgresql postgresql-contrib
-apt-get install libpq-dev
+apt-get -y install postgresql postgresql-contrib
+apt-get -y install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
 
 echo "----------   Getting Repository --------------"
