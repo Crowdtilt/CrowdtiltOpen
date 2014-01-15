@@ -13,7 +13,7 @@ echo "----------   Updating Sources List --------------"
 sed -i -e 's/us.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/sources.list
 apt-get update
 echo "----------   Installing Curl --------------"
-apt-get install curl
+apt-get -y install curl
 echo "----------   Installing RVM --------------"
 \curl -sSL https://get.rvm.io | bash
 echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
@@ -23,7 +23,7 @@ rvm requirements
 echo "----------   Setting RVM Installing Ruby 1.9.3 --------------"
 rvm install 1.9.3
 rvm use 1.9.3 --default
-apt-get install libyaml-dev
+apt-get -y install libyaml-dev
 gem update
 echo "----------   Setting RVM Installing Rails --------------"
 gem install --no-rdoc --no-ri rails
