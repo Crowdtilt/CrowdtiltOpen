@@ -21,7 +21,11 @@ gem install --no-rdoc --no-ri rails
 echo "----------   Installing Depend. & Imagemagick --------------"
 apt-get install libxslt-dev libxml2-dev libsqlite3-dev
 apt-get install imagemagick
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+echo "----------   Installing Heroku --------------"
+echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+apt-get update
+apt-get install -y heroku-toolbelt
 echo "----------   Installing Node JS --------------"
 apt-get install  python-software-properties python g++ make
 add-apt-repository ppa:chris-lea/node.js
