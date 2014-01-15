@@ -47,18 +47,8 @@ echo "----------   Installing Postgresql --------------"
 apt-get -y install postgresql postgresql-contrib
 apt-get -y install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
-sudo -u postgres createuser --superuser $USER
-SCRIPT
-
-
-echo "------------ Database Configuration Started ----------"
-
-echo "Giving access to $USER ----------"
-sudo wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
-sudo /etc/init.d/postgresql restart
-sudo -u postgres createuser --superuser $USER
-cd $CrowdHoster_PWD
 echo "----------   Getting Repository --------------"
+cd $CrowdHoster_PWD
 mkdir GIT
 cd GIT
 git clone https://github.com/Crowdtilt/Crowdhoster.git
@@ -67,6 +57,13 @@ echo "----------   Updating With Bundle --------------"
 cd Crowdhoster
 cp .env.example .env
 bundle install 
+echo "------------ Database Configuration Started ----------"
+wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
+/etc/init.d/postgresql restart
+sudo -u postgres createuser --superuser $USER
+sudo -u postgres createuser --superuser $CrowdHoster_CUser
+SCRIPT
+
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
 echo "------------ THANKS : CrowdHoster team ----------"
