@@ -51,7 +51,7 @@ wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Cr
 sudo -u postgres createuser --superuser $CrowdHoster_CUser
 
 SCRIPT
-
+source /etc/profile.d/rvm.sh
 echo "----------   Getting Repository --------------"
 mkdir GIT
 cd GIT
