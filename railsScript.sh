@@ -49,6 +49,9 @@ echo "------------ Database Configuration Started ----------"
 wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
 /etc/init.d/postgresql restart
 sudo -u postgres createuser --superuser $CrowdHoster_CUser
+
+SCRIPT
+
 echo "----------   Getting Repository --------------"
 mkdir GIT
 cd GIT
@@ -60,5 +63,4 @@ bundle install
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
 echo "------------ THANKS : CrowdHoster team ----------"
-SCRIPT
 }
