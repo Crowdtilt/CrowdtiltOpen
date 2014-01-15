@@ -10,7 +10,7 @@ class AdminMailer < ActionMailer::Base
 
     if (recipients.length > 0)
       begin
-        @settings = Settings.find_by_id(1)
+        @settings = Settings.first
         @payment = Payment.find(payment_id)
       rescue ActiveRecord::RecordNotFound
         logger.error "Email failed - could not find Payment #{payment_id}"

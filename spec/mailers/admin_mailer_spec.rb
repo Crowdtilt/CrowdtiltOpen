@@ -3,10 +3,12 @@ include EmailSpec::Helpers
 include EmailSpec::Matchers
 
 describe AdminMailer, '#payment_notification' do
-  before(:all) do
-    campaign = FactoryGirl.create(:campaign)
-    @payment = FactoryGirl.create(:payment, campaign: campaign)
-    @email = AdminMailer.payment_notification(@payment)
+  before(:each) do
+    FactoryGirl.create(:settings)
+    FactoryGirl.create(:user, :admin)
+    @campaign = FactoryGirl.create(:campaign)
+    @payment = FactoryGirl.create(:payment, campaign: @campaign)
+    @email = AdminMailer.payment_notification(@payment.id)
   end
 
   it 'delivers the snippet to the proper address' do
@@ -14,7 +16,7 @@ describe AdminMailer, '#payment_notification' do
   end
 
   it "has the correct subject" do
-    expect(@email).to have_subject(/Your Crowdhoster project has a new backer!/)
+    expect(@email).to have_subject(/New backer for \"#{@campaign.name}\"/)
   end
 
   it "contains the proper copy" do

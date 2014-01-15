@@ -10,11 +10,7 @@ class AdminController < ApplicationController
       if @settings.update_attributes(params[:settings])
         flash.now[:success] = "Website settings successfully updated!"
       else
-        message = ''
-        @settings.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
-        flash.now[:danger] = message[0...-2]
+        flash.now[:danger] = @settings.errors.full_messages.join(', ')
       end
     end
   end
@@ -71,12 +67,12 @@ class AdminController < ApplicationController
     begin
       response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
     rescue => exception
-        flash = { :error => "No default bank account" }
+        flash = { :danger => "No default bank account" }
     else
       begin
         Crowdtilt.delete('/users/' + @ct_admin_id + '/banks/' + response['bank']['id'])
       rescue => exception
-        flash = { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
+        flash = { :danger => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
       else
         flash = { :info => "Bank account deleted successfully" }
       end

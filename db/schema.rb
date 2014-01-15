@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131220221035) do
+ActiveRecord::Schema.define(:version => 20140108234623) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20131220221035) do
     t.boolean  "is_tilted"
     t.boolean  "is_paid"
     t.boolean  "published_flag",                       :default => false,        :null => false
-    t.boolean  "collect_shipping",                     :default => false,        :null => false
+    t.boolean  "collect_shipping_flag",                :default => false,        :null => false
     t.string   "goal_type",                            :default => "dollars",    :null => false
     t.float    "goal_dollars",                         :default => 1.0,          :null => false
     t.integer  "goal_orders",                          :default => 1,            :null => false
@@ -134,10 +134,11 @@ ActiveRecord::Schema.define(:version => 20131220221035) do
     t.integer  "number"
     t.float    "price"
     t.integer  "campaign_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "visible_flag",  :default => true, :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.boolean  "visible_flag",          :default => true, :null => false
     t.string   "image_url"
+    t.boolean  "collect_shipping_flag", :default => true
   end
 
   create_table "settings", :force => true do |t|

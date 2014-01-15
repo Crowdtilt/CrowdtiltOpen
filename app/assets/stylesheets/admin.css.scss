@@ -60,9 +60,9 @@
         width: 100%;
       }
 
-      .explanation-left {
-        @extend .explanation;
+      .explanation.message {
         float: left;
+        width: 900px;
       }
 
       label {

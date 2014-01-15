@@ -14,6 +14,7 @@ class Admin::CampaignsController < ApplicationController
   def copy
     old_campaign = Campaign.find(params[:id])
     @campaign = old_campaign.dup
+    @campaign.expiration_date = Time.now + 30.days
     @campaign.published_flag = false
     @campaign.production_flag = false
 
@@ -46,7 +47,8 @@ class Admin::CampaignsController < ApplicationController
                                description: reward.description,
                                delivery_date: reward.delivery_date,
                                number: reward.number,
-                               price: reward.price
+                               price: reward.price,
+                               collect_shipping_flag: reward.collect_shipping_flag
     end
 
     render action: "edit"
@@ -58,11 +60,7 @@ class Admin::CampaignsController < ApplicationController
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
-      message = ''
-      @campaign.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
-      flash.now[:danger] = message[0...-2]
+      flash.now[:danger] = @campaign.errors.full_messages.join(', ')
       render action: "new"
       return
     end
@@ -112,18 +110,15 @@ class Admin::CampaignsController < ApplicationController
                                        description: reward['description'],
                                        delivery_date: reward['delivery_date'],
                                        number: reward['number'].to_i,
-                                       price: reward['price'].to_f
+                                       price: reward['price'].to_f,
+                                       collect_shipping_flag: reward['collect_shipping_flag']
           end
         end
       end
 
       # Check again for campaign validity now that we've added faqs and rewards
       if !@campaign.valid?
-        message = ''
-        @campaign.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
-        flash.now[:danger] = message[0...-2]
+        flash.now[:danger] = @campaign.errors.full_messages.join(', ')
         render action: "new"
         return
       end
@@ -187,6 +182,7 @@ class Admin::CampaignsController < ApplicationController
               r.delivery_date = reward['delivery_date']
               r.number = reward['number'].to_i
               r.price = reward['price'].to_f
+              r.collect_shipping_flag = reward['collect_shipping_flag']
               unless r.save
                 flash.now[:danger] = "Invalid rewards"
                 render action: "edit"
@@ -198,7 +194,8 @@ class Admin::CampaignsController < ApplicationController
                                      description: reward['description'],
                                      delivery_date: reward['delivery_date'],
                                      number: reward['number'].to_i,
-                                     price: reward['price'].to_f
+                                     price: reward['price'].to_f,
+                                     collect_shipping_flag: reward['collect_shipping_flag']
           end
         end
       end
@@ -206,11 +203,7 @@ class Admin::CampaignsController < ApplicationController
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
-      message = ''
-      @campaign.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
-      flash.now[:danger] = message[0...-2]
+      flash.now[:danger] = @campaign.errors.full_messages.join(', ')
       render action: "edit"
       return
     end
@@ -293,7 +286,7 @@ class Admin::CampaignsController < ApplicationController
       @payments = @campaign.payments_completed.where("lower(email) = ?", params[:email].downcase)
       if @payments.blank?
         @payments = @campaign.payments_completed.order("created_at ASC")
-        flash.now[:error] = "Contributor not found for " + params[:email]
+        flash.now[:danger] = "Contributor not found for " + params[:email]
       end
     else
       @payments = @campaign.payments_completed.order("created_at ASC")
