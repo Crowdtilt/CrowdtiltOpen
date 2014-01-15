@@ -45,13 +45,8 @@ apt-get -y install postgresql postgresql-contrib
 apt-get -y install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
 echo "------------ Database Configuration Started ----------"
-CrowdHoster_PSName=/etc/postgresql/9.1/main/pg_hba.conf
-CrowdHoster_PSSize=$(stat -c%s "$CrowdHoster_PSName")
-if [ "$CrowdHoster_PSSize" == 4649 ]
-then
-	wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
-	/etc/init.d/postgresql restart
-fi
+wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
+/etc/init.d/postgresql restart
 sudo -u postgres createuser --superuser $USER
 echo "----------   Getting Repository --------------"
 mkdir GIT
