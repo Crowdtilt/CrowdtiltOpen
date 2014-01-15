@@ -59,7 +59,6 @@ cd $CrowdHoster_PWD
 mkdir  GIT
 cd GIT
 git clone https://github.com/Crowdtilt/Crowdhoster.git
-echo "----------   Updating With Bundle --------------"
 cd Crowdhoster
 cp .env.example .env
 echo "------------ Script Completed ----------"
