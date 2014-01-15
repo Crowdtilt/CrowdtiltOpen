@@ -49,11 +49,12 @@ apt-get -y install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
 echo "----------   Getting Repository --------------"
 cd $CrowdHoster_PWD
-mkdir GIT
+mkdir -m 777 GIT
 cd GIT
 git clone https://github.com/Crowdtilt/Crowdhoster.git
 source /etc/profile.d/rvm.sh
 echo "----------   Updating With Bundle --------------"
+chmod 777 Crowdhoster
 cd Crowdhoster
 cp .env.example .env
 bundle install 
