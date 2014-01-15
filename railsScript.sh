@@ -50,22 +50,23 @@ rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
 sudo -u postgres createuser --superuser $USER
 SCRIPT
 
-cd $CrowdHoster_PWD
-source /etc/profile.d/rvm.sh
-echo "----------   Getting Repository --------------"
-mkdir GIT
-cd GIT
-git clone https://github.com/Crowdtilt/Crowdhoster.git
-echo "----------   Updating With Bundle --------------"
-cd Crowdhoster
-cp .env.example .env
-bundle install 
+
 echo "------------ Database Configuration Started ----------"
 
 echo "Giving access to $USER ----------"
 sudo wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
 sudo /etc/init.d/postgresql restart
 sudo -u postgres createuser --superuser $USER
+cd $CrowdHoster_PWD
+echo "----------   Getting Repository --------------"
+mkdir GIT
+cd GIT
+git clone https://github.com/Crowdtilt/Crowdhoster.git
+source /etc/profile.d/rvm.sh
+echo "----------   Updating With Bundle --------------"
+cd Crowdhoster
+cp .env.example .env
+bundle install 
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
 echo "------------ THANKS : CrowdHoster team ----------"
