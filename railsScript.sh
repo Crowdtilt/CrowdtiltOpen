@@ -4,6 +4,7 @@ clear
 echo "This script requires superuser access to install apt packages."
 echo "You will be prompted for your password by sudo."
 CrowdHoster_CUser=$USER
+CrowdHoster_PWD=pwd
 echo "switching from $CrowdHoster_CUser to root"
 # clear any previous sudo permission
 sudo -k
@@ -46,6 +47,11 @@ echo "----------   Installing Postgresql --------------"
 apt-get -y install postgresql postgresql-contrib
 apt-get -y install libpq-dev
 rvmsudo gem install pg -v '0.17.1' -- --with-pg-lib=/usr/include/postgresql
+sudo -u postgres createuser --superuser $USER
+SCRIPT
+
+cd $CrowdHoster_PWD
+source /etc/profile.d/rvm.sh
 echo "----------   Getting Repository --------------"
 mkdir GIT
 cd GIT
@@ -55,10 +61,10 @@ cd Crowdhoster
 cp .env.example .env
 bundle install 
 echo "------------ Database Configuration Started ----------"
-wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
-/etc/init.d/postgresql restart
-SCRIPT
+
 echo "Giving access to $USER ----------"
+sudo wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
+sudo /etc/init.d/postgresql restart
 sudo -u postgres createuser --superuser $USER
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
