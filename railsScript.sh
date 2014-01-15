@@ -3,12 +3,10 @@
 clear
 echo "This script requires superuser access to install apt packages."
 echo "You will be prompted for your password by sudo."
-
 # clear any previous sudo permission
 sudo -k
 # run inside sudo
 sudo bash <<SCRIPT
-
 echo "----------   Updating Sources List --------------"
 sed -i -e 's/us.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/sources.list
 apt-get update
@@ -55,7 +53,6 @@ echo "----------   Updating With Bundle --------------"
 cd Crowdhoster
 cp .env.example .env
 bundle install 
-
 echo "------------ Database Configuration Started ----------"
 CrowdHoster_PSName=/etc/postgresql/9.1/main/pg_hba.conf
 CrowdHoster_PSSize=$(stat -c%s "$CrowdHoster_PSName")
