@@ -54,12 +54,11 @@ echo "----------   Updating With Bundle --------------"
 cd Crowdhoster
 cp .env.example .env
 bundle install 
-
-SCRIPT
-
 echo "------------ Database Configuration Started ----------"
 wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
 /etc/init.d/postgresql restart
+SCRIPT
+echo "Giving access to $USER ----------"
 sudo -u postgres createuser --superuser $USER
 echo "------------ Script Completed ----------"
 echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
