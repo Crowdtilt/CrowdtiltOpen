@@ -59,7 +59,6 @@ cd $CrowdHoster_PWD
 mkdir  GIT
 cd GIT
 git clone https://github.com/Crowdtilt/Crowdhoster.git
-source /etc/profile.d/rvm.sh
 echo "----------   Updating With Bundle --------------"
 cd Crowdhoster
 cp .env.example .env
