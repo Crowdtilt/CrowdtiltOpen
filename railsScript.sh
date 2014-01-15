@@ -56,6 +56,17 @@ cd Crowdhoster
 cp .env.example .env
 bundle install 
 
-echo "Rails Script Completed - Enjoy !!"
+echo "------------ Database Configuration Started ----------"
+CrowdHoster_PSName=/etc/postgresql/9.1/main/pg_hba.conf
+CrowdHoster_PSSize=$(stat -c%s "$CrowdHoster_PSName")
+if [ "$CrowdHoster_PSSize" == 4649 ]
+then
+	wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Crowdhoster/master/pg_hba.conf
+	/etc/init.d/postgresql restart
+fi
+sudo -u postgres createuser --superuser $USER
+echo "------------ Script Completed ----------"
+echo "Installation of Rails and CrowdHoster Configuration is Completed  !!"
+echo "------------ THANKS : CrowdHoster team ----------"
 SCRIPT
 }
