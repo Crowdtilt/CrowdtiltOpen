@@ -52,6 +52,7 @@ wget -O /etc/postgresql/9.1/main/pg_hba.conf https://raw2.github.com/rmostafa/Cr
 
 SCRIPT
 sudo -u postgres createuser --superuser $USER
+su - $CrowdHoster_CUser
 echo "Test User:$USER  -- VAR:$CrowdHoster_CUser"
 source /etc/profile.d/rvm.sh
 echo "----------   Getting Repository --------------"
