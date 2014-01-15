@@ -4,7 +4,7 @@ clear
 echo "This script requires superuser access to install apt packages."
 echo "You will be prompted for your password by sudo."
 CrowdHoster_CUser=$USER
-CrowdHoster_PWD=pwd
+CrowdHoster_PWD=$(pwd)
 echo "switching from $CrowdHoster_CUser to root"
 # clear any previous sudo permission
 sudo -k
