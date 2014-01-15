@@ -18,7 +18,6 @@ apt-get -y install curl
 echo "----------   Installing RVM --------------"
 \curl -sSL https://get.rvm.io | bash
 echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
-source /etc/profile.d/rvm.sh
 echo "----------   Setting RVM Requirements --------------"
 rvm requirements
 echo "----------   Setting RVM Installing Ruby 1.9.3 --------------"
