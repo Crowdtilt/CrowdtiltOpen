@@ -1,5 +1,6 @@
 class Reward < ActiveRecord::Base
-  attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id, :visible_flag, :image_url, :collect_shipping_flag
+  attr_accessible :title, :description, :delivery_date, :number, :price, :campaign_id, :visible_flag,
+                  :image_url, :collect_shipping_flag, :include_claimed
 
    validates :title, :description, :delivery_date, :price, presence: true
    validates :image_url, :format => URI::regexp(%w(http https)), :allow_blank => true
