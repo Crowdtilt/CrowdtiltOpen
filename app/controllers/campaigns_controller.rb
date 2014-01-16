@@ -202,6 +202,15 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def delete_reward
+    #redirect_to root_url, :flash => { :error => "Campaign is no longer available" }
+    @r = Reward.find(params[:reward])
+    @r.destroy
+    redirect_to root_url, :flash => { :notice => "Reward " + @r.title + " is no longer available" }
+    #flash.now[:error] = "Reward " + @reward.title +  " Deleted"
+    #@reward.destroy
+    
+  end
   private
 
   def load_campaign
@@ -223,5 +232,5 @@ class CampaignsController < ApplicationController
       redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
     end
   end
-
+  
 end
