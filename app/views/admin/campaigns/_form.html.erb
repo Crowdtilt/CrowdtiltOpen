@@ -106,6 +106,8 @@
         <div class="reference">
           <label>How To Reference a Reward (i.e. reward, perk, option)</label>
           <%= f.text_field :reward_reference %>
+          <label>Display number of rewards claimed after campaign has ended?</label>
+          <%= f.check_box :include_rewards_claimed %>
         </div>
         <ul>
           <% @campaign.rewards.order("price ASC").each do |reward| %>
@@ -135,6 +137,8 @@
                   <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
                   <label>Collect shipping address for this reward?</label>
                   <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
+                  <label>Display number of reward claimed after campaign has ended?</label>
+                  <input name="reward[][include_claimed]" type="checkbox" <% if reward.include_claimed %>checked="checked"<% end %>/>
                   <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                 </td>
                 <td><%= reward.payments.length %></td>
