@@ -15,7 +15,7 @@ class Campaign < ActiveRecord::Base
                   :stats_number_of_contributions, :stats_raised_amount, :stats_tilt_percent,
                   :stats_unique_contributors, :published_flag, :collect_shipping_flag, :production_flag,
                   :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label,
-                  :include_comments, :comments_shortname
+                  :include_comments, :comments_shortname, :include_rewards_claimed
 
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
 
@@ -68,6 +68,14 @@ class Campaign < ActiveRecord::Base
     (self.payment_type != 'fixed' && self.rewards.length > 0)
   end
 
+  def rewards_claimed
+    @sum = 0
+    self.rewards.each do |reward|
+      @sum += reward.payments.length 
+    end
+    return @sum
+  end 
+  
   def payments_completed
     self.payments.where(:status => %w(authorized charged released rejected refunded offline))
   end
