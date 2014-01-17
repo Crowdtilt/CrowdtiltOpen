@@ -112,7 +112,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def payments_can_be_activated
-      if self.production_flag && !Settings.find_by_id(1).payments_activated?
+      if self.production_flag && !Settings.first.payments_activated?
         errors.add(:base, "cannot activate payments")
       end
   end
