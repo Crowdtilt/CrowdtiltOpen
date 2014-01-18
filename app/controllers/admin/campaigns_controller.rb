@@ -48,7 +48,8 @@ class Admin::CampaignsController < ApplicationController
                                delivery_date: reward.delivery_date,
                                number: reward.number,
                                price: reward.price,
-                               collect_shipping_flag: reward.collect_shipping_flag
+                               collect_shipping_flag: reward.collect_shipping_flag,
+                               include_claimed: reward.include_claimed
     end
 
     render action: "edit"
@@ -111,7 +112,8 @@ class Admin::CampaignsController < ApplicationController
                                        delivery_date: reward['delivery_date'],
                                        number: reward['number'].to_i,
                                        price: reward['price'].to_f,
-                                       collect_shipping_flag: reward['collect_shipping_flag']
+                                       collect_shipping_flag: reward['collect_shipping_flag'],
+                                       include_claimed: reward['include_claimed']
           end
         end
       end
@@ -183,6 +185,7 @@ class Admin::CampaignsController < ApplicationController
               r.number = reward['number'].to_i
               r.price = reward['price'].to_f
               r.collect_shipping_flag = reward['collect_shipping_flag']
+              r.include_claimed = reward['include_claimed']
               unless r.save
                 flash.now[:danger] = "Invalid rewards"
                 render action: "edit"
@@ -195,7 +198,8 @@ class Admin::CampaignsController < ApplicationController
                                      delivery_date: reward['delivery_date'],
                                      number: reward['number'].to_i,
                                      price: reward['price'].to_f,
-                                     collect_shipping_flag: reward['collect_shipping_flag']
+                                     collect_shipping_flag: reward['collect_shipping_flag'],
+                                     include_claimed: reward['include_claimed']
           end
         end
       end

@@ -27,6 +27,9 @@
       <% if !value.blank? %><div class="alert alert-<%= key %>"><%= value %></div><% end %>
     <% end %>
     <div id="main">
+      <% if alert %>
+        	<p class="admin-alert alert alert-error"><%= alert %></p>
+	  <% end %>
       <%= yield %>
     </div>
     <%= render 'theme/views/footer' %>

@@ -124,6 +124,27 @@
           font-family: $primary_font, $secondary_font, $tertiary_font;
         }
       }
+      
+      .stats-awards {
+        float: left;
+        width:70%;
+        margin: 0 auto;
+        color: #3f3f3f;
+        font-size: 24px;
+        display: block;
+        display: inline-block;
+        font-family: $primary_font, $secondary_font, $tertiary_font;
+        padding-right: 23px;
+        padding-left: 23px;
+        text-align: center;
+        span {
+          color: #868686;
+          font-size: 18px;
+          margin-top: 5px;
+          display: block;
+          font-family: $primary_font, $secondary_font, $tertiary_font;
+        }
+      }
     }
 
     body.lt-ie9
