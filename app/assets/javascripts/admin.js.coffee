@@ -41,8 +41,12 @@ Crowdhoster.admin =
       $('.include_comments_input').slideToggle()
 
     $('input[name="campaign[media_type]"]').on "change", ->
-      $('#video-options').slideToggle()
-      $('#image-options').slideToggle()
+      if $('input[name="campaign[media_type]"]:checked').val() == "image"
+        $('#video-options').slideUp()
+        $('#image-options').slideDown()
+      else
+        $('#video-options').slideDown()
+        $('#image-options').slideUp()
 
     $('input#campaign_payment_type_any').on "change", ->
       $('#preset-amount').slideUp()
