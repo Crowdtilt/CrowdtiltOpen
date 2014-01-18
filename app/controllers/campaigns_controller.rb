@@ -233,7 +233,7 @@ class CampaignsController < ApplicationController
   end
 
   def check_exp
-    if @campaign.expired?
+    if @campaign.expired? && !@campaign.accept_closed_project_payment?
       redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
     end
   end

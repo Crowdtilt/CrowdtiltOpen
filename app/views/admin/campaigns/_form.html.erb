@@ -355,7 +355,11 @@
         <label><i class="icon-ok"></i> Payments activated</label>
       <% end %>
     </div>
-
+	<div class="field clearfix">
+      <p class="explanation">Accept payments after campaign has tilted and expired</p>
+      <label>Force Payment Acceptance?</label>
+      <%= f.check_box :accept_closed_project_payment %>
+    </div>
   </fieldset>
 
   <% if @campaign.persisted? %>

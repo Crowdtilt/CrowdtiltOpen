@@ -96,9 +96,15 @@
         			</ul>
         		</div>
               <% end %>
-              <span class="blue_button expired">
-                <%= @campaign.primary_call_to_action_button %>
-              </span>
+              <% if @campaign.accept_closed_project_payment %>
+                  <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
+                  	<%= @campaign.primary_call_to_action_button %>
+                  </a>
+              <% else %>
+                  <span class="blue_button expired">
+                    <%= @campaign.primary_call_to_action_button %>
+                  </span>
+              <% end %>
             <% else %>
               <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
                 <%= @campaign.primary_call_to_action_button %>
@@ -203,9 +209,15 @@
       <div><%= raw(@campaign.secondary_call_to_action_description) %></div>
       <div class="center">
         <% if @campaign.expired? %>
-          <span class="blue_button expired">
-            <%= @campaign.secondary_call_to_action_button %>
-          </span>
+        	<% if @campaign.accept_closed_project_payment %>
+                <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
+            		<%= @campaign.secondary_call_to_action_button %>
+          		</a>
+            <% else %>
+                <span class="blue_button expired">
+            		<%= @campaign.secondary_call_to_action_button %>
+          		</span>
+            <% end %>
         <% else %>
           <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
             <%= @campaign.secondary_call_to_action_button %>
