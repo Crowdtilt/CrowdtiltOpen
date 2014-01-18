@@ -33,3 +33,5 @@ config/environments/*.local.yml
 
 # Ignore local environment file
 .env
+# Ignore local environment file
+.project

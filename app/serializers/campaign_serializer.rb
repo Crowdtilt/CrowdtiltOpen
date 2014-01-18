@@ -11,7 +11,7 @@ class CampaignSerializer < ActiveModel::Serializer
              :stats_number_of_contributions, :stats_raised_amount, :stats_tilt_percent,
              :stats_unique_contributors, :published_flag, :collect_shipping_flag, :production_flag,
              :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label, :url, :payments_uri,
-             :include_comments, :comments_shortname
+             :include_comments, :comments_shortname, :favicon, :favicon_delete
 
   def url
     campaign_home_url(object)
