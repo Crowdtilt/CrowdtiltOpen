@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140118102307) do
+ActiveRecord::Schema.define(:version => 20140118175257) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -72,6 +72,10 @@ ActiveRecord::Schema.define(:version => 20140118102307) do
     t.string   "comments_shortname"
     t.boolean  "include_rewards_claimed"
     t.boolean  "accept_closed_project_payment"
+    t.string   "favicon_file_name"
+    t.string   "favicon_content_type"
+    t.integer  "favicon_file_size"
+    t.datetime "favicon_updated_at"
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true

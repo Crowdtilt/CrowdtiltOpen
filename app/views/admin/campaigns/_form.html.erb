@@ -178,7 +178,7 @@
 
 
 
-      <div id="video-options" style="<%= @campaign.media_type == 'video' ? "" : "display:none" %>">
+      <div id="video-options" style="<%= @campaign.media_type == 'video' || @campaign.media_type == 'vimeo' ? "" : "display:none" %>">
         <label>Video ID</label>
         <%= f.text_field :video_embed_id %>
         <label>Video Placeholder</label>
@@ -202,7 +202,21 @@
         <% end  %>
       </div>
     </div>
-
+	
+	<div class="field clearfix">
+		<p class="explanation">This'll be the favorite icon placed in the browser window</p>
+      	<label>Favorite Icon</label>
+		<div id="image-options">
+        <% if @campaign.favicon.file? %>
+          <%= image_tag @campaign.favicon.url %><br/>
+          <%= f.file_field :favicon %><br/>
+          <%= f.check_box :favicon_delete %><span>Delete current image</span>
+        <% else %>
+          <%= f.file_field :favicon %>
+        <% end  %>
+      </div>
+	</div>
+	
     <div class="field clearfix">
       <p class="explanation">This text is displayed on the primary call to action button. Common choices include 'Pay', 'Contribute', 'Back this Project', 'Reserve for $199', etc.</p>
       <label>Primary Call to Action Button</label>
