@@ -233,6 +233,35 @@
         margin: 0px;
         li {
           border-bottom: 1px solid gray;
+          &:hover{
+            .rewards_toolbox{display:block;}
+          }
+          .rewards_toolbox{width:80px;height:26px;float:right;margin-top: 10px;display:none;
+            .toolbox_container{
+              top:0.5em;right:1em;
+              list-style-type:none;
+              float:right;
+              padding:2px;
+              a{
+                display: inline;
+                padding: 0px 0px;
+              &:hover {
+                  text-decoration: none;
+                  background: none;
+                }
+              }
+              &:hover {
+                border :1px solid #eee;
+              }
+              .toolbox_item{
+                float:left;
+                background-color:#fff;box-shadow:0 0 2px #000;
+                margin-right:4px;
+                height:26px;
+                width:27px;
+              }
+            }
+          }
           &:last-child {
             border-bottom: none;
             a {
