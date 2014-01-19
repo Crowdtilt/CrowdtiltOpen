@@ -61,15 +61,7 @@ class Admin::CampaignsController < ApplicationController
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
-<<<<<<< HEAD
-      message = ''
-      @campaign.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
-      flash.now[:danger] = message[0...-2]
-=======
       flash.now[:danger] = @campaign.errors.full_messages.join(', ')
->>>>>>> backup
       render action: "new"
       return
     end
@@ -128,15 +120,7 @@ class Admin::CampaignsController < ApplicationController
 
       # Check again for campaign validity now that we've added faqs and rewards
       if !@campaign.valid?
-<<<<<<< HEAD
-        message = ''
-        @campaign.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
-        flash.now[:danger] = message[0...-2]
-=======
         flash.now[:danger] = @campaign.errors.full_messages.join(', ')
->>>>>>> backup
         render action: "new"
         return
       end
@@ -223,15 +207,7 @@ class Admin::CampaignsController < ApplicationController
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
-<<<<<<< HEAD
-      message = ''
-      @campaign.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
-      flash.now[:danger] = message[0...-2]
-=======
       flash.now[:danger] = @campaign.errors.full_messages.join(', ')
->>>>>>> backup
       render action: "edit"
       return
     end
@@ -307,10 +283,6 @@ class Admin::CampaignsController < ApplicationController
       if payment
         @payments = [payment]
       else
-<<<<<<< HEAD
-        @payments = @campaign.payments.order("created_at ASC")
-        flash.now[:danger] = "Contributor not found for " + params[:payment_id]
-=======
         @payments = @campaign.payments_completed.order("created_at ASC")
         flash.now[:danger] = "Contributor not found for " + params[:payment_id]
       end
@@ -319,7 +291,6 @@ class Admin::CampaignsController < ApplicationController
       if @payments.blank?
         @payments = @campaign.payments_completed.order("created_at ASC")
         flash.now[:danger] = "Contributor not found for " + params[:email]
->>>>>>> backup
       end
     else
       @payments = @campaign.payments_completed.order("created_at ASC")
