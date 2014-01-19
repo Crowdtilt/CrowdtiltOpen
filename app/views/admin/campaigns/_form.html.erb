@@ -72,10 +72,13 @@
 
     </div>
 
-    <div class="field clearfix">
-      <p class="explanation">Requires the user to include shipping address when checking out.</p>
-      <label>Collect Shipping Address?</label>
-      <%= f.check_box :collect_shipping %>
+    <div id="global-shipping" class="field clearfix" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
+      <p id="campaign_collect_shipping_message" class="explanation" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">Requires the user to include shipping address when checking out.</p>
+      <p id="campaign_collect_shipping_warning" class="explanation message" style="<% if @campaign.payment_type == 'fixed' %>display:none<% end %>">If you're creating a campaign with rewards, you can select whether or not to collect shipping as you create each reward below.</p>
+      <div id="global-shipping-check">
+        <label class="message">Collect Shipping Address?</label>
+        <%= f.check_box :collect_shipping_flag %>
+      </div>
     </div>
 
     <div class="field clearfix">
@@ -109,6 +112,8 @@
         <div class="reference">
           <label>How To Reference a Reward (i.e. reward, perk, option)</label>
           <%= f.text_field :reward_reference %>
+          <label>Display number of rewards claimed after campaign has ended?</label>
+          <%= f.check_box :include_rewards_claimed %>
         </div>
         <ul>
           <% @campaign.rewards.order("price ASC").each do |reward| %>
@@ -121,22 +126,26 @@
               </tr>
               <tr>
                 <td>
-                  <div class="currency">
-                    <label for="minimumContribution">Minimum Contribution To Claim</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">$</span>
-                      <input class="form-control" name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
-                    </div>
-                    <label for="campaignTitle">Title</label>
-                    <input name="reward[][title]" type="text" value="<%= reward.title %>" class="form-control"/><br/>
-                    <label>Description</label>
-                    <textarea name="reward[][description]" class="form-control"><%= reward.description %></textarea><br/>
-                    <label>Estimated Delivery Date (i.e. May 2013)</label>
-                    <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>" class="form-control"/><br/>
-                    <label>Number Available (leave blank if unlimited)</label>
-                    <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>" class="form-control"/>
-                    <input type="hidden" name="reward[][id]" value="<%= reward.id %>" class="form-control"/>
+                  <label for="minimumContribution">Minimum Contribution To Claim</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input class="form-control" name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
                   </div>
+                  <label>Title</label>
+                  <input name="reward[][title]" type="text" value="<%= reward.title %>" class="form-control"/><br/>
+                  <label>Image URL</label>
+                  <input name="reward[][image_url]" type="text" value="<%= reward.image_url %>" class="form-control"/><br/>
+                  <label>Description</label>
+                  <textarea name="reward[][description]" class="form-control"><%= reward.description %></textarea><br/>
+                  <label>Estimated Delivery Date (i.e. May 2013)</label>
+                  <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>" class="form-control"/><br/>
+                  <label>Number Available (leave blank if unlimited)</label>
+                  <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>" class="form-control"/>
+                  <label>Collect shipping address for this reward?</label>
+                  <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
+                  <label>Display number of reward claimed after campaign has ended?</label>
+                  <input name="reward[][include_claimed]" type="checkbox" <% if reward.include_claimed %>checked="checked"<% end %>/>
+                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                 </td>
                 <td><%= reward.payments.length %></td>
                 <td>
@@ -263,7 +272,10 @@
       <%= f.check_box :include_comments %>
       <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
         <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/" target="_blank">Need one?</a>)</label>
-        <%= f.text_field :comments_shortname %>
+        <div class="input-append">
+          <%= f.text_field :comments_shortname, :placeholder => 'shortname' %>
+          <span class="add-on">.disqus.com</span>
+        </div>
       </div>
     </div>
   </fieldset>
@@ -362,6 +374,10 @@
         <p><%= api_campaign_url(id: @campaign.id)%></p>
         <label>API key</label>
         <p><%= @settings.api_key %></p>
+        <label>Example Usage (Return a JSON array of campaign data)</label>
+        <p><%= api_campaign_url(id: @campaign.id)%>?api_key=<%= @settings.api_key %></p>
+        <label>Example Usage (Return a JSON array of all payments)</label>
+        <p><%= api_campaign_url(id: @campaign.id)%>/payments?api_key=<%= @settings.api_key %></p>
       </div>
      </div>
   </fieldset>

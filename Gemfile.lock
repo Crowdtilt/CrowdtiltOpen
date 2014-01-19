@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/msaint/crowdtilt.git
-  revision: faa74632ac6c5b35f44b289e8e04252a7297f68d
+  remote: git://github.com/Crowdtilt/crowdtilt-gem.git
+  revision: 07fe38717db747e2ab5de304a382ceda973c9711
   specs:
-    crowdtilt (0.0.1)
+    crowdtilt (1.0.0)
       activesupport
       faraday (~> 0.8, < 0.10)
       faraday_middleware (~> 0.9.0)
@@ -96,10 +96,10 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    faker (1.1.2)
+    faker (1.2.0)
       i18n (~> 0.5)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     fog (1.11.1)

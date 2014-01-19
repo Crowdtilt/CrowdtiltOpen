@@ -61,6 +61,7 @@ class CampaignsController < ApplicationController
 
   def checkout_process
 
+    client_timestamp = params.has_key?(:client_timestamp) ? params[:client_timestamp].to_i : nil
     ct_user_id = params[:ct_user_id]
     ct_card_id = params[:ct_card_id]
     fullname = params[:fullname]
@@ -103,25 +104,42 @@ class CampaignsController < ApplicationController
     # TODO: Check to make sure the amount is valid here
 
     # Create the payment record in our db, if there are errors, redirect the user
-    @payment = @campaign.payments.new fullname: fullname,
-                                      email: email,
-                                      billing_postal_code: billing_postal_code,
-                                      quantity: quantity,
-                                      address_one: address_one,
-                                      address_two: address_two,
-                                      city: city,
-                                      state: state,
-                                      postal_code: postal_code,
-                                      country: country,
-                                      additional_info: additional_info
+     payment_params = {client_timestamp: client_timestamp,
+                       fullname: fullname,
+                       email: email,
+                       billing_postal_code: billing_postal_code,
+                       quantity: quantity,
+                       address_one: address_one,
+                       address_two: address_two,
+                       city: city,
+                       state: state,
+                       postal_code: postal_code,
+                       country: country,
+                       additional_info: additional_info}
+
+     @payment = @campaign.payments.new(payment_params)
 
     if !@payment.valid?
-      message = ''
-      @payment.errors.each do |key, error|
-        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-      end
-      redirect_to checkout_amount_url(@campaign), flash: { danger: message[0...-2] } and return
+      error_messages = @payment.errors.full_messages.join(', ')
+      redirect_to checkout_amount_url(@campaign), flash: { danger: error_messages } and return
     end
+
+    # Check if there's an existing payment with the same payment_params and client_timestamp. 
+    # If exists, look at the status to route accordingly. 
+    if !client_timestamp.nil? && existing_payment = @campaign.payments.where(payment_params).first
+      case existing_payment.status
+      when nil
+        flash_msg = { info: "Your payment is still being processed! If you have not received a confirmation email, please try again or contact support by emailing team@crowdhoster.com" }
+      when 'error'
+        flash_msg = { danger: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com." }
+      else
+        # A status other than nil or 'error' indicates success! Treat as original payment
+        redirect_to checkout_confirmation_url(@campaign), :status => 303, :flash => { payment_guid: @payment.ct_payment_id } and return
+      end
+      redirect_to checkout_amount_url(@campaign), flash: flash_msg and return
+    end
+
+    @payment.save
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
     begin
@@ -150,8 +168,9 @@ class CampaignsController < ApplicationController
       logger.info "CROWDTILT API RESPONSE:"
       logger.info response
     rescue => exception
+      @payment.update_attribute(:status, 'error')
       logger.info "ERROR WITH POST TO /payments: #{exception.message}"
-      redirect_to checkout_amount_url(@campaign), flash: { danger: "There was an error processing your payment, please try again or contact support by emailing team@crowdhoster.com" } and return
+      redirect_to checkout_amount_url(@campaign), flash: { danger: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
     end
 
     # Sync payment data
@@ -163,12 +182,12 @@ class CampaignsController < ApplicationController
     @campaign.update_api_data(response['payment']['campaign'])
     @campaign.save
 
-    # Send a confirmation email
-    begin
-      UserMailer.payment_confirmation(@payment, @campaign).deliver
-    rescue => exception
-      logger.info "ERROR WITH EMAIL RECEIPT: #{exception.message}"
-    end
+    # Send confirmation emails
+    UserMailer.payment_confirmation(@payment, @campaign).deliver rescue 
+      logger.info "ERROR WITH EMAIL RECEIPT: #{$!.message}"
+
+    AdminMailer.payment_notification(@payment.id).deliver rescue 
+      logger.info "ERROR WITH ADMIN NOTIFICATION EMAIL: #{$!.message}"
 
     redirect_to checkout_confirmation_url(@campaign), :status => 303, :flash => { payment_guid: @payment.ct_payment_id }
 
@@ -176,9 +195,9 @@ class CampaignsController < ApplicationController
 
   def checkout_confirmation
     @payment = Payment.where(:ct_payment_id => flash[:payment_guid]).first
-    flash[:payment_guid] = nil # Unset flash because application renders all flash vars (long-term should be refactored)
+    flash.keep(:payment_guid) # Preserve on refresh of this page only
 
-    if !@payment
+    if flash[:payment_guid].nil? || !@payment
       redirect_to campaign_home_url(@campaign)
     end
   end

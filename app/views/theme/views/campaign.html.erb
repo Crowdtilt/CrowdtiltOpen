@@ -115,6 +115,15 @@
             <div id="reserve_container">
               <div class="call_to_action_button">
                 <% if @campaign.expired? %>
+                  <% if @campaign.include_rewards_claimed? %>
+                    <div id="backing">
+                      <ul>
+                        <li class="stats-awards">
+                          <%= @campaign.rewards_claimed %> Claimed Rewards
+                        </li>
+                      </ul>
+                    </div>
+                  <% end %>
                   <span class="blue_button expired">
                     <%= @campaign.primary_call_to_action_button %>
                   </span>
@@ -190,14 +199,23 @@
                 <% @campaign.rewards.order("price ASC").each do |reward| %>
                 <% if reward.visible? %>
                   <li id="rewards_click">
-                    <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? %>" class="<%= 'disabled' if reward.sold_out? %>">
+                    <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? || @campaign.expired? %>" class="<%= 'disabled' if reward.sold_out? || @campaign.expired? %>">
                       <p class="price">$<%= number_with_precision(reward.price, precision: (reward.price*100%100==0.0 ? 0 : 2)) %></p>
                       <p class="title"><%= reward.title %></p>
+                      <% if reward.image_url.present? %><p class="image"><img src="<%= reward.image_url %>"></p><% end %>
                       <p class="description"><%= reward.description %></p>
                       <p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
-                      <p class="claimed">
-                        <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
-                      </p>
+                      <% if @campaign.expired? %>
+                        <% if reward.include_claimed? %>
+                          <p class="claimed">
+                            <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+                          </p>
+                        <% end %>
+                        <% else %>
+                          <p class="claimed">
+                            <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+                          </p>
+                    <% end %>
                     </a>
                   </li>
                 <% end %>

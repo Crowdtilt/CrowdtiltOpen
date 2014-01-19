@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   layout "admin"
   before_filter :authenticate_user!
   before_filter :verify_admin
-  before_filter :set_ct_env, only: [:admin_bank_setup, :ajax_verify]
+  before_filter :set_ct_env, only: [:admin_bank_account, :create_admin_bank_account, :delete_admin_bank_account, :ajax_verify]
 
   def admin_website
     #Handle the form submission if request is PUT
@@ -10,11 +10,7 @@ class AdminController < ApplicationController
       if @settings.update_attributes(params[:settings])
         flash.now[:success] = "Website settings successfully updated!"
       else
-        message = ''
-        @settings.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
-        flash.now[:danger] = message[0...-2]
+        flash.now[:danger] = @settings.errors.full_messages.join(', ')
       end
     end
   end
@@ -30,28 +26,34 @@ class AdminController < ApplicationController
     end
   end
 
-  def admin_bank_setup
-    redirect_to admin_processor_setup_url, flash: { danger: "Please set up your payment processor before providing your bank details" } and return unless @settings.payments_activated?
+  def create_admin_bank_account
+    if params[:ct_bank_id].blank?
+      flash = { :danger => "Looks like you have JavaScript disabled. JavaScript is required for bank account setup." }
+    else
+      begin
+        bank = {
+          id: params[:ct_bank_id]
+        }
+        Crowdtilt.post('/users/' + @ct_admin_id + '/banks/default', {bank: bank})
+      rescue => exception
+        flash = { :danger => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
+      else
+        flash = { :success => "Your bank account is all set up!" }
+      end
+    end
+    redirect_to admin_bank_account_url, :status => 303, :flash => flash
+  end
+
+  def admin_bank_account
+    unless @settings.payments_activated?
+      redirect_to admin_processor_setup_url, flash: { danger: "Please set up your payment processor before providing your bank details" } and return
+    end
+
     @bank = {}
     begin
       response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
     rescue => exception # response threw an error, default bank may not be set up
-      if request.post?
-        if params[:ct_bank_id].blank?
-          flash.now[:danger] = "An error occurred, please try again" and return
-        else
-          begin
-            bank = {
-              id: params[:ct_bank_id]
-            }
-            response = Crowdtilt.post('/users/' + @ct_admin_id + '/banks/default', {bank: bank})
-          rescue => exception
-            flash.now[:danger] = exception.message and return
-          else
-            @bank = response['bank']
-          end
-        end
-      end
+      # do nothing
     else # response is good, check for default bank
       if response['bank'] # default bank is already set up
         @bank = response['bank']
@@ -59,6 +61,23 @@ class AdminController < ApplicationController
         flash.now[:danger] = "An error occurred, please contact team@crowdhoster.com" # this should never happen
       end
     end
+  end
+
+  def delete_admin_bank_account
+    begin
+      response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
+    rescue => exception
+        flash = { :danger => "No default bank account" }
+    else
+      begin
+        Crowdtilt.delete('/users/' + @ct_admin_id + '/banks/' + response['bank']['id'])
+      rescue => exception
+        flash = { :danger => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
+      else
+        flash = { :info => "Bank account deleted successfully" }
+      end
+    end
+    redirect_to admin_bank_account_url, :status => 303, :flash => flash
   end
 
   def ajax_verify

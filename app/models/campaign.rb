@@ -13,9 +13,9 @@ class Campaign < ActiveRecord::Base
                   :tweet_text, :facebook_title, :facebook_description,  :facebook_image, :facebook_image_delete,
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
                   :stats_number_of_contributions, :stats_raised_amount, :stats_tilt_percent,
-                  :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag,
+                  :stats_unique_contributors, :published_flag, :collect_shipping_flag, :production_flag,
                   :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label,
-                  :include_comments, :comments_shortname
+                  :include_comments, :comments_shortname, :include_rewards_claimed
 
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
 
@@ -69,12 +69,29 @@ class Campaign < ActiveRecord::Base
     (self.payment_type != 'fixed' && self.rewards.length > 0)
   end
 
+  def rewards_claimed
+    @sum = 0
+    self.rewards.each do |reward|
+      @sum += reward.payments.length 
+    end
+    return @sum
+  end 
+  
+  def payments_completed
+    self.payments.where(:status => %w(authorized charged released rejected refunded offline))
+  end
+
+  def payments_successful
+    # 'rejected' is a post-tilt state, so they are included in successful payments.
+    self.payments.where(:status => %w(authorized charged released rejected offline))
+  end
+
   def raised_amount
-    payments.where("payments.status!='refunded'").sum(:amount)/100.0
+    self.payments_successful.sum(:amount)/100.0
   end
 
   def number_of_contributions
-    payments.where("payments.status!='refunded'").count
+    self.payments_successful.count
   end
 
   def tilt_percent
@@ -96,7 +113,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def payments_can_be_activated
-      if self.production_flag && !Settings.find_by_id(1).payments_activated?
+      if self.production_flag && !Settings.first.payments_activated?
         errors.add(:base, "cannot activate payments")
       end
   end

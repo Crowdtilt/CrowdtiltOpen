@@ -75,7 +75,7 @@
         <% end %>
       <% else %>
 
-      <div class="center" style="padding-left:0px"><h4>No campaigns yet!</h4></div>
+      <div class="center" style="padding-left:0px"><h4>No campaigns yet. <% if user_signed_in? && current_user.admin? %><%= link_to 'Start one now!', new_admin_campaign_path %><% end %></h4></div>
 
       <% end %>
     </div>

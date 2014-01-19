@@ -14,6 +14,7 @@ class Admin::CampaignsController < ApplicationController
   def copy
     old_campaign = Campaign.find(params[:id])
     @campaign = old_campaign.dup
+    @campaign.expiration_date = Time.now + 30.days
     @campaign.published_flag = false
     @campaign.production_flag = false
 
@@ -42,10 +43,13 @@ class Admin::CampaignsController < ApplicationController
     # Completely refresh the rewards
     old_campaign.rewards.each do |reward|
       @campaign.rewards.create title: reward.title,
+                               image_url: reward.image_url,
                                description: reward.description,
                                delivery_date: reward.delivery_date,
                                number: reward.number,
-                               price: reward.price
+                               price: reward.price,
+                               collect_shipping_flag: reward.collect_shipping_flag,
+                               include_claimed: reward.include_claimed
     end
 
     render action: "edit"
@@ -57,11 +61,15 @@ class Admin::CampaignsController < ApplicationController
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
+<<<<<<< HEAD
       message = ''
       @campaign.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
       flash.now[:danger] = message[0...-2]
+=======
+      flash.now[:danger] = @campaign.errors.full_messages.join(', ')
+>>>>>>> backup
       render action: "new"
       return
     end
@@ -107,21 +115,28 @@ class Admin::CampaignsController < ApplicationController
         params[:reward].each do |reward|
           unless reward['delete'] && reward['delete'] == 'delete'
               @campaign.rewards.create title: reward['title'],
+                                       image_url: reward['image_url'],
                                        description: reward['description'],
                                        delivery_date: reward['delivery_date'],
                                        number: reward['number'].to_i,
-                                       price: reward['price'].to_f
+                                       price: reward['price'].to_f,
+                                       collect_shipping_flag: reward['collect_shipping_flag'],
+                                       include_claimed: reward['include_claimed']
           end
         end
       end
 
       # Check again for campaign validity now that we've added faqs and rewards
       if !@campaign.valid?
+<<<<<<< HEAD
         message = ''
         @campaign.errors.each do |key, error|
           message = message + key.to_s.humanize + ' ' + error.to_s + ', '
         end
         flash.now[:danger] = message[0...-2]
+=======
+        flash.now[:danger] = @campaign.errors.full_messages.join(', ')
+>>>>>>> backup
         render action: "new"
         return
       end
@@ -180,10 +195,13 @@ class Admin::CampaignsController < ApplicationController
           if reward['id']
               r = Reward.find(reward['id'])
               r.title = reward['title']
+              r.image_url = reward['image_url']
               r.description = reward['description']
               r.delivery_date = reward['delivery_date']
               r.number = reward['number'].to_i
               r.price = reward['price'].to_f
+              r.collect_shipping_flag = reward['collect_shipping_flag']
+              r.include_claimed = reward['include_claimed']
               unless r.save
                 flash.now[:danger] = "Invalid rewards"
                 render action: "edit"
@@ -191,10 +209,13 @@ class Admin::CampaignsController < ApplicationController
               end
           else
             @campaign.rewards.create title: reward['title'],
+                                     image_url: reward['image_url'],
                                      description: reward['description'],
                                      delivery_date: reward['delivery_date'],
                                      number: reward['number'].to_i,
-                                     price: reward['price'].to_f
+                                     price: reward['price'].to_f,
+                                     collect_shipping_flag: reward['collect_shipping_flag'],
+                                     include_claimed: reward['include_claimed']
           end
         end
       end
@@ -202,11 +223,15 @@ class Admin::CampaignsController < ApplicationController
 
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?
+<<<<<<< HEAD
       message = ''
       @campaign.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
       flash.now[:danger] = message[0...-2]
+=======
+      flash.now[:danger] = @campaign.errors.full_messages.join(', ')
+>>>>>>> backup
       render action: "edit"
       return
     end
@@ -282,11 +307,22 @@ class Admin::CampaignsController < ApplicationController
       if payment
         @payments = [payment]
       else
+<<<<<<< HEAD
         @payments = @campaign.payments.order("created_at ASC")
         flash.now[:danger] = "Contributor not found for " + params[:payment_id]
+=======
+        @payments = @campaign.payments_completed.order("created_at ASC")
+        flash.now[:danger] = "Contributor not found for " + params[:payment_id]
+      end
+    elsif params.has_key?(:email) && !params[:email].blank?
+      @payments = @campaign.payments_completed.where("lower(email) = ?", params[:email].downcase)
+      if @payments.blank?
+        @payments = @campaign.payments_completed.order("created_at ASC")
+        flash.now[:danger] = "Contributor not found for " + params[:email]
+>>>>>>> backup
       end
     else
-      @payments = @campaign.payments.order("created_at ASC")
+      @payments = @campaign.payments_completed.order("created_at ASC")
     end
 
     respond_to do |format|

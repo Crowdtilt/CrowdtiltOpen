@@ -4,7 +4,7 @@
 
 "Launch your own crowdfunding site... without touching a line of code"
 
-But if you're here—well, maybe you want to touch some code.
+But if you're here&mdash;well, maybe you want to touch some code.
 
 ---
 **Demo**
@@ -34,10 +34,10 @@ Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
 ### Dependencies
 To run Crowdhoster you'll need the following prerequisites installed:
 
-* [Homebrew](http://mxcl.github.io/homebrew/) (for downloading software packages)
+* [Homebrew](http://brew.sh/) (for downloading software packages)
 
 ```
-$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+$ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 ```
 * [Git](http://git-scm.com/) (version control)
 
@@ -58,6 +58,12 @@ $ rvm use 1.9.3 --default
 $ brew install imagemagick
 ```
 
+* If you recently upgraded to OS X Mavericks (10.9) or got a new Mac computer and are having issues with the json gem during the bundle process, you may need to install the Command Line Developer Tools using the following command and clicking Install when prompted:
+
+```
+$ xcode-select --install
+```
+
 ### Service Providers
 To run Crowdhoster you'll also need to sign up for the following:
 
@@ -73,7 +79,7 @@ Get  started by:
 * Downloading a .zip of the [latest release](https://github.com/Crowdtilt/Crowdhoster/releases) to your local machine
 
   or
- 
+
 * Creating a fork of Crowdhoster and cloning it to your local machine.
 
 
@@ -164,7 +170,7 @@ Install the Heroku config plugin if you don't already have it installed
 $ heroku plugins:install git://github.com/ddollar/heroku-config.git
 ```
 
-Push the configuration to Heroku.  
+Push the configuration to Heroku.
 NOTE: If you have already written config vars to Heroku, they will not be overwritten unless you pass the `--overwrite` flag as well.
 
 ```
@@ -189,13 +195,19 @@ Launch the app!
 $ heroku open
 ```
 
+(Optional) It is highly recommended to install the Papertrail addon to create searchable logs should you run into issues. The "choklad" level is free.
+
+```
+$ heroku addons:add papertrail:choklad
+```
+
 ## Contribute
 
 Looking to help make Crowdhoster better?
 
 Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/Crowdhoster/issues).
 
-Contribute by forking the repo and working on a branch. Submit your changes via pull request. 
+Contribute by forking the repo and working on a branch. Submit your changes via pull request.
 
 A more complete contribution and style guide is coming soon!
 

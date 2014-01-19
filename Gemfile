@@ -1,26 +1,26 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+ruby '1.9.3'
 
-gem 'unicorn'
-
-#Adding support for bootstrap 3.0 and bourbon
+# Framework and core dependencies
 gem 'rails', '3.2.13'
-gem 'bootstrap-sass', '~> 3.0.2.0'
-gem 'bourbon'
-gem 'devise'
-gem 'email_spec'
-gem 'nokogiri'
 gem 'pg'
-gem "friendly_id", "~> 4.0.9"
-gem "iso_country_codes"
+gem 'unicorn'
+gem 'foreman'
 
+gem 'crowdtilt', github: 'Crowdtilt/crowdtilt-gem'
+gem 'devise'
+gem 'nokogiri'
+gem 'friendly_id', '~> 4.0.9'
+gem 'iso_country_codes'
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
 gem 'aws-sdk'
-
-gem 'foreman'
-
 gem 'active_model_serializers'
+
+# Front-end
+gem 'bootstrap-sass', '~> 3.0.2.0'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :production do
   gem 'newrelic_rpm'
@@ -33,14 +33,14 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem "asset_sync"
+  gem 'asset_sync'
 end
 
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'shoulda'
   gem 'factory_girl_rails'
+  gem 'shoulda'
 end
 
 group :development do
@@ -48,12 +48,7 @@ group :development do
 end
 
 group :test do
-  gem "faker"
-  gem "capybara"
+  gem 'faker'
+  gem 'capybara'
+  gem 'email_spec'
 end
-
-# jQuery & jQuery UI
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-
-gem 'crowdtilt', github: 'msaint/crowdtilt'

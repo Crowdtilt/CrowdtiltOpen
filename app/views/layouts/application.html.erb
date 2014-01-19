@@ -23,7 +23,7 @@
     <%= render 'layouts/social_js' %>
     <%= render 'layouts/navbar' %>
     <%= render 'theme/views/header' %>
-    <% flash.each do |key, value| %>
+    <% flash.to_hash().slice(:success, :info, :notice, :error, :alert).each do |key, value| %>
       <% if !value.blank? %><div class="alert alert-<%= key %>"><%= value %></div><% end %>
     <% end %>
     <div id="main">
@@ -32,11 +32,9 @@
     <%= render 'theme/views/footer' %>
 
     <div id="powered">
-      <a href="http://www.crowdhoster.com">
-      &nbsp;&nbsp;A Crowdhoster Site
+      <a href="http://www.crowdhoster.com">&nbsp;&nbsp;A Crowdhoster Site</a>
       &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
-      Powered by Crowdtilt
-      </a>
+      <a href="http://www.crowdtilt.com">Powered by Crowdtilt</a>
     </div>
 
     <% if Rails.env.development? %>

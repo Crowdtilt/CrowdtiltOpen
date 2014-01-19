@@ -8,7 +8,7 @@
     <div class="row">
       <div class="main_content col-md-8">
 
-        <div class="well checkout_block" style="padding-bottom: 16px">
+        <div class="well checkout_block" style="padding-bottom: 15px">
 
             <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form">
 
@@ -37,7 +37,7 @@
               <% end %>
               </fieldset>
 
-              <% if @campaign.collect_shipping %>
+              <% if (@campaign.payment_type == 'fixed' && @campaign.collect_shipping_flag) || (@reward && @reward.collect_shipping_flag) %>
               <h4>Shipping Address</h4>
 
               <fieldset>
@@ -156,6 +156,7 @@
               <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
               <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
               <input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
+              <input id="client_timestamp" type="hidden" name="client_timestamp" value="">
 
               <% if !@campaign.production_flag %>
                 <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
@@ -164,13 +165,15 @@
               <div class="payment-submit">
                 <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">Confirm payment of $<%= number_with_precision(@total, precision: 2) %></button>
                 <span class="loader" data-loader="payment_form" style="display:none"></span>
+                <div id="refresh-msg" style="display: none; color: red; margin-top: 10px">Your payment is being processed! Please do not refresh this page.</div>
               </div>
 
             </form>
             <div id="errors" style="display: none"></div>
-
+            
             <div style="text-align: right; margin-right: -16px"><%= image_tag 'crowdtilt_badge_no_card_logos.png', width: "120px", height: "36px" %></div>
         </div>
+
       </div>
 
       <div class="sidebar col-md-4">

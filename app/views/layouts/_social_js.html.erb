@@ -1,9 +1,8 @@
-<% if !@settings.facebook_app_id.blank? %>
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '<%= @settings.facebook_app_id %>',
+      appId      : '<%= @settings.facebook_app_id.present? ? @settings.facebook_app_id : 331145500360318 %>',
       status     : true,
       xfbml      : true
     });
@@ -18,7 +17,6 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-<% end %>
 
 <script>
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

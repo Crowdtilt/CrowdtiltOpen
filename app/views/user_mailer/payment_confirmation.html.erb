@@ -22,7 +22,7 @@ Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %><br/>
 <% if @campaign.goal_type == 'orders' %>
   Quantity: <%= @payment.quantity %> <br/>
 <% end %>
-<% if @campaign.collect_shipping %>
+<% if @campaign.collect_shipping_flag %>
   Shipping Address:<br/>
   <%= @payment.address_one %><br/>
   <% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>

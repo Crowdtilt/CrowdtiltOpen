@@ -11,7 +11,7 @@ Crowdhoster.campaigns =
 
     # Checkout section functions:
     if($('#checkout').length)
-      $('html,body').animate({scrollTop: $('#checkout').offset().top})
+      $('html,body').animate({scrollTop: $('#header')[0].scrollHeight})
 
     $('#quantity').on "change", (e) ->
       quantity = $(this).val()
@@ -59,6 +59,7 @@ Crowdhoster.campaigns =
         this.submit()
 
   submitPaymentForm: (form) ->
+    $('#refresh-msg').show()
     $('#errors').hide()
     $('#errors').html('')
     $('button[type="submit"]').attr('disabled', true).html('Processing, please wait...')
@@ -68,7 +69,7 @@ Crowdhoster.campaigns =
     $form = $(form)
 
     cardData =
-      number: $form.find('#card_number').val()
+      number: $form.find('#card_number').val().replace(/\s/g, "")
       expiration_month: $form.find('#expiration_month').val()
       expiration_year: $form.find('#expiration_year').val()
       security_code: $form.find('#security_code').val()
@@ -76,6 +77,7 @@ Crowdhoster.campaigns =
 
     errors = crowdtilt.card.validate(cardData)
     if !$.isEmptyObject(errors)
+      $('#refresh-msg').hide()
       $.each errors, (index, value) ->
         $('#errors').append('<p>' + value + '</p>')
       $('#errors').show()
@@ -96,8 +98,10 @@ Crowdhoster.campaigns =
         input = $('<input name="ct_card_id" value="' + token + '" type="hidden" />');
         form = document.getElementById('payment_form')
         form.appendChild(input[0])
+        $('#client_timestamp').val((new Date()).getTime())
         form.submit()
       else
+        $('#refresh-msg').hide()
         $('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Support request for a payment issue&body=PLEASE DESCRIBE YOUR PAYMENT ISSUES HERE">click here</a> to contact support.</p>')
         $('#errors').show()
         $('.loader').hide()

@@ -1,8 +1,14 @@
 var unsavedChangesChecker = function() {
     var warn;
     $('form').find(':input').each(function( i, el ) {
-        if (el.value != el.defaultValue) {
-            warn = true;
+        if (el.type === 'checkbox') {
+          if (el.checked != el.defaultChecked) {
+              warn = true;
+          }
+        } else {
+          if (el.value != el.defaultValue) {
+              warn = true;
+          }
         }
     });
     if (warn) {

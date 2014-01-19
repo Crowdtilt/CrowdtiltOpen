@@ -9,16 +9,27 @@
     <% if @payments.count > 0 %>
       <br />
 
-      <div class="search pull-left">
+      <div class="search id">
         <form accept-charset="UTF-8" action="<%= admin_campaigns_payments_path(@campaign) %>" method="get">
 
-          <input id="payment_id" type="text" name="payment_id" placeholder="Search by ID" value="<%= params[:payment_id] if params.has_key?(:payment_id) %>"/>
+          <input id="payment_id" type="text" name="payment_id" placeholder="Search by Payment ID" value="<%= params[:payment_id] if params.has_key?(:payment_id) %>"/>
           <button type="submit" class="btn btn-primary show_loader" data-loader="admin_header">Search</button>
-
-        </form>
         <% if params.has_key?(:payment_id) %>
           <%= link_to "clear", admin_campaigns_payments_path(@campaign), :class => 'show_loader', :'data-loader' => "admin_header" %>
         <% end %>
+
+        </form>
+      </div>
+      <div class="search email">
+        <form accept-charset="UTF-8" action="<%= admin_campaigns_payments_path(@campaign) %>" method="get">
+
+          <input id="payment_id" type="text" name="email" placeholder="Search by email" value="<%= params[:email] if params.has_key?(:email) %>"/>
+          <button type="submit" class="btn btn-primary show_loader" data-loader="admin_header">Search</button>
+        <% if params.has_key?(:email) %>
+          <%= link_to "clear", admin_campaigns_payments_path(@campaign), :class => 'show_loader', :'data-loader' => "admin_header" %>
+        <% end %>
+
+        </form>
       </div>
 
       <a href="<%= admin_campaigns_payments_path(format: "csv") %>" class="pull-right">
@@ -39,7 +50,7 @@
             <th>User Fee</th>
             <th>Date</th>
             <th>Status</th>
-            <th>ID</th>
+            <th>Payment ID</th>
             <th></th>
           </tr>
         </thead>

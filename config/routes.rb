@@ -6,7 +6,8 @@ Crowdhoster::Application.routes.draw do
   root                                         to: 'pages#index'
 
   # USERS
-  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }  do
+  devise_for :users, { path: 'account', controllers: { registrations: :registrations } }
+  devise_scope :user do
     match '/user/settings',                    to: 'devise/registrations#edit',             as: :user_settings
   end
 
@@ -20,7 +21,9 @@ Crowdhoster::Application.routes.draw do
   match '/admin/campaigns/:id/copy',           to: 'admin/campaigns#copy',                  as: :admin_campaigns_copy
   match '/admin/campaigns/:id/payments',       to: 'admin/campaigns#payments',              as: :admin_campaigns_payments
   match '/admin/processor-setup',              to: 'admin#admin_processor_setup',           as: :admin_processor_setup
-  match '/admin/bank-setup',                   to: 'admin#admin_bank_setup',                as: :admin_bank_setup
+  post '/admin/bank-setup',                    to: 'admin#create_admin_bank_account',       as: :create_admin_bank_account
+  get '/admin/bank-setup',                     to: 'admin#admin_bank_account',              as: :admin_bank_account
+  delete '/admin/bank-setup',                  to: 'admin#delete_admin_bank_account',       as: :delete_admin_bank_account
   match '/admin/notification-setup',           to: 'admin#admin_notification_setup',        as: :admin_notification_setup
   match '/ajax/verify',                        to: 'admin#ajax_verify',                     as: :ajax_verify
 
