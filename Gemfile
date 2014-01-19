@@ -18,7 +18,7 @@ gem 'aws-sdk'
 gem 'active_model_serializers'
 
 # Front-end
-gem 'bootstrap-sass', '2.1'
+gem 'bootstrap-sass', '~> 3.0.2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 

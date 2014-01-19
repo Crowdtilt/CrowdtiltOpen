@@ -1,215 +1,244 @@
 <div id="checkout">
   <div class="container content_box clearfix">
-    <div class="main_content">
+    
+    <div class="row">
       <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
-
-    <div class="well checkout_block" style="padding-bottom: 16px">
-
-        <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form">
-
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-          <h4 class="contact">Contact Information</h4>
-
-          <fieldset>
-          <label for="fullname">Full Name</label>
-          <input id="fullname" name="fullname" type="text">
-
-          <label for="email">Email Address</label>
-          <input id="email" name="email" type="text">
-
-          <% if @campaign.collect_additional_info %>
-          <h4>Additional Information</h4>
-
-          <label for="additional_info"><%= @campaign.additional_info_label %></label>
-          <textarea id="additional_info" name="additional_info"></textarea>
-          <% end %>
-          </fieldset>
-
-          <% if (@campaign.payment_type == 'fixed' && @campaign.collect_shipping_flag) || (@reward && @reward.collect_shipping_flag) %>
-          <h4>Shipping Address</h4>
-
-          <fieldset>
-            <div>
-              <label for="address_one">Address1</label>
-              <input id="address_one" name="address_one" type="text">
-
-              <label for="address_two">Address2</label>
-              <input id="address_two" name="address_two" type="text">
-            </div>
-          </fieldset>
-          <fieldset>
-            <div class="pull-left" style="margin-right: 14px">
-              <label for="city">City</label>
-              <input id="city" name="city" type="text" style="width:225px">
-            </div>
-            <div class="pull-right">
-              <label for="state">State/Province/Region</label>
-              <input id="state" name="state" type="text" style="width:225px">
-            </div>
-          </fieldset>
-          <fieldset>
-            <div class="pull-left" style="margin-right: 14px">
-              <label for="postal_code">Postal Code</label>
-              <input id="postal_code" name="postal_code" type="text" style="width:225px">
-            </div>
-            <div class="pull-right">
-              <label for="country">Country</label>
-              <select id="country" name="country" style="width:240px">
-                 <option value="" selected>--</option>
-                 <option value="USA" >United States</option>
-                <% (IsoCountryCodes.all.map {|code| [code.name, code.alpha3]}).sort.each do |country| %>
-                <option value="<%= country[1] %>"><%= country[0] %></option>
-                <% end %>
-              </select>
-            </div>
-          </fieldset>
-          <% end %>
-
-          <h4>Credit/Debit Card <i class="icon icon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
-
-          <fieldset>
-            <div class="clearfix">
-              <div class="card_number pull-left" style="margin-right:15px">
-                <label for="card_number">Card Number</label>
-                <input name="card_number" id="card_number" type="text" style="width:225px" autocomplete="off">
-              </div>
-              <div class="pull-left">
-                <label>Expiration</label>
-                <select id="expiration_month" style="width:118px">
-                  <option value="01" selected>01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-                <select id="expiration_year" style="width:118px">
-                  <option value="2013">2013</option>
-                  <option value="2014" selected>2014</option>
-                  <option value="2015">2015</option>
-                  <option value="2016">2016</option>
-                  <option value="2017">2017</option>
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
-                  <option value="2021">2021</option>
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                </select>
-              </div>
-            </div>
-            </fieldset>
-            <fieldset>
-              <div class="clearfix">
-                <div class="pull-left" style="margin-right: 15px;">
-                  <label for="security_code">Security Code <i class="icon icon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></i></label>
-                  <input id="security_code" name="security_code" type="text"  style="width:225px" autocomplete="off">
-                </div>
-                <div class="billing_postal_code pull-left">
-                  <label for="billing_postal_code">Billing Postal Code</label>
-                  <input id="billing_postal_code" name="billing_postal_code" type="text"  style="width:225px">
-                </div>
-              </div>
-            </fieldset>
-          <label for="card_number" class="error" style="display: none"></label>
-          <label for="security_code" class="error" style="display: none"></label>
-          <label for="billing_postal_code" class="error" style="display: none"></label>
-
-          <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
-
-          <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
-          <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
-          <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
-          <input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
-          <input id="client_timestamp" type="hidden" name="client_timestamp" value="">
-
-          <% if !@campaign.production_flag %>
-            <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
-          <% end%>
-
-          <div class="payment-submit">
-            <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">Confirm payment of $<%= number_with_precision(@total, precision: 2) %></button>
-            <span class="loader" data-loader="payment_form" style="display:none"></span>
-            <div id="refresh-msg" style="display: none; color: red; margin-top: 10px">Your payment is being processed! Please do not refresh this page.</div>
-          </div>
-
-        </form>
-        <div id="errors" style="display: none"></div>
-
-        <div style="text-align: right; margin-right: -16px"><%= image_tag 'crowdtilt_badge_no_card_logos.png', width: "120px", height: "36px" %></div>
     </div>
 
-  </div>
+    <div class="row">
+      <div class="main_content col-md-8">
 
-    <div class="sidebar">
-      <div class="crowdtilt-powered clearfix">
-        <%= image_tag 'crowdtilt_badge.png', width: "317px", height: "36px" %>
-      </div>
-      <div class="well">
-        <div class="clearfix">
-          <h4 class="pull-left">Payment Summary</h4>
-          <p class="pull-right"><%= link_to "edit", checkout_amount_path(@campaign) %></p>
+        <div class="well checkout_block" style="padding-bottom: 15px">
+
+            <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form">
+
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+              <h4 class="contact">Contact Information</h4>
+
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="fullname">Full Name</label>
+                    <input id="fullname" name="fullname" type="text">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="email">Email Address</label>
+                    <input id="email" name="email" type="text">
+                  </div>
+                </div>
+
+              <% if @campaign.collect_additional_info %>
+              <h4>Additional Information</h4>
+
+              <label for="additional_info"><%= @campaign.additional_info_label %></label>
+              <textarea id="additional_info" name="additional_info"></textarea>
+              <% end %>
+              </fieldset>
+
+              <% if (@campaign.payment_type == 'fixed' && @campaign.collect_shipping_flag) || (@reward && @reward.collect_shipping_flag) %>
+              <h4>Shipping Address</h4>
+
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="address_one">Address1</label>
+                    <input id="address_one" name="address_one" type="text">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12"
+                    <label for="address_two">Address2</label>
+                    <input id="address_two" name="address_two" type="text">
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="city">City</label>
+                    <input id="city" name="city" type="text">
+                  </div> 
+                  <div class="col-md-6">
+                    <label for="state">State/Province/Region</label>
+                    <input id="state" name="state" type="text">
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="postal_code">Postal Code</label>
+                    <input id="postal_code" name="postal_code" type="text">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                       <option value="" selected>--</option>
+                       <option value="USA" >United States</option>
+                      <% (IsoCountryCodes.all.map {|code| [code.name, code.alpha3]}).sort.each do |country| %>
+                      <option value="<%= country[1] %>"><%= country[0] %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+              <% end %>
+
+              <h4>Credit/Debit Card <i class="glyphicon glyphicon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
+
+              <fieldset>
+                <div class="clearfix">
+                  <div class="row">
+                    <div class="card_number col-md-6">
+                      <label for="card_number">Card Number</label>
+                      <input name="card_number" id="card_number" type="text" autocomplete="off">
+                      <label for="card_number" class="error" style="display: none"></label>
+                    </div>
+                    <div class="col-md-3">
+                      <label>Expiration Month</label>
+                      <select id="expiration_month">
+                        <option value="01" selected>01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label>Expiration Year</label>
+                      <select id="expiration_year">
+                        <option value="2013">2013</option>
+                        <option value="2014" selected>2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                </fieldset>
+
+                <fieldset>
+                  <div class="clearfix">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="security_code">Security Code <i class="glyphicon glyphicon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></i></label>
+                        <input id="security_code" name="security_code" type="text" autocomplete="off">
+                        <label for="security_code" class="error" style="display: none"></label>
+                      </div>
+                      <div class="billing_postal_code col-md-6">
+                        <label for="billing_postal_code">Billing Postal Code</label>
+                        <input id="billing_postal_code" name="billing_postal_code" type="text">
+                        <label for="billing_postal_code" class="error" style="display: none"></label>
+                      </div>
+                  </div>
+                </fieldset>
+              
+
+              <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
+
+              <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
+              <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
+              <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
+              <input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
+              <input id="client_timestamp" type="hidden" name="client_timestamp" value="">
+
+              <% if !@campaign.production_flag %>
+                <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
+              <% end%>
+
+              <div class="payment-submit">
+                <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">Confirm payment of $<%= number_with_precision(@total, precision: 2) %></button>
+                <span class="loader" data-loader="payment_form" style="display:none"></span>
+                <div id="refresh-msg" style="display: none; color: red; margin-top: 10px">Your payment is being processed! Please do not refresh this page.</div>
+              </div>
+
+            </form>
+            <div id="errors" style="display: none"></div>
+            
+            <div style="text-align: right; margin-right: -16px"><%= image_tag 'crowdtilt_badge_no_card_logos.png', width: "120px", height: "36px" %></div>
         </div>
 
-        <table style="width: 100%">
+      </div>
 
-          <tr>
-          <td width="225">
-          <% if @campaign.payment_type == "fixed" %>
-            <p>Subtotal (<%= "#{@quantity} x $#{number_with_precision(@campaign.fixed_payment_amount, precision: 2)}" %>)</p>
+      <div class="sidebar col-md-4">
+        <div class="crowdtilt-powered clearfix">
+          <%= image_tag 'crowdtilt_badge.png', width: "100%", height: "auto" %>
+        </div>
+        <div class="well">
+          <div class="clearfix">
+            <h4 class="pull-left">Payment Summary</h4>
+            <p class="pull-right"><%= link_to "edit", checkout_amount_path(@campaign) %></p>
+          </div>
+
+          <table style="width: 100%">
+
+            <tr>
+            <td width="225">
+            <% if @campaign.payment_type == "fixed" %>
+              <p>Subtotal (<%= "#{@quantity} x $#{number_with_precision(@campaign.fixed_payment_amount, precision: 2)}" %>)</p>
+            <% else %>
+              <p>Subtotal</p>
+            <% end %>
+            </td>
+            <td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %> </p></td>
+            </tr>
+
+            <% if @fee > 0 %>
+            <tr>
+            <td width="225"><p>Processing Fee</p></td>
+            <td style="text-align: right"><p>$<%= number_with_precision(@fee, precision: 2) %></p></td>
+            </tr>
+            <% end %>
+
+            <tr>
+            <td width="225"><p><strong>Total</strong></p></td>
+            <td style="text-align: right"><p><strong>$<%= number_with_precision(@total, precision: 2) %></strong></p></td>
+            </tr>
+
+            <% if !@campaign.production_flag %>
+            <tr>
+            <td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
+            </tr>
+            <% end %>
+
+          </table>
+
+        </div>
+
+        <% if @campaign.rewards? %>
+        <div class="well rewards">
+          <h4><%= @campaign.reward_reference.titleize %> Selected</h4>
+          <% if @reward %>
+            <p><strong><%= "#{@reward.title} ($#{short_price(@reward.price)})" %></strong></p>
+            <p><%= @reward.description %></p>
+            <p>Estimated Delivery: <%= @reward.delivery_date %></p>
           <% else %>
-            <p>Subtotal</p>
+            <p>None</p>
           <% end %>
-          </td>
-          <td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %> </p></td>
-          </tr>
-
-          <% if @fee > 0 %>
-          <tr>
-          <td width="225"><p>Processing Fee</p></td>
-          <td style="text-align: right"><p>$<%= number_with_precision(@fee, precision: 2) %></p></td>
-          </tr>
-          <% end %>
-
-          <tr>
-          <td width="225"><p><strong>Total</strong></p></td>
-          <td style="text-align: right"><p><strong>$<%= number_with_precision(@total, precision: 2) %></strong></p></td>
-          </tr>
-
-          <% if !@campaign.production_flag %>
-          <tr>
-          <td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
-          </tr>
-          <% end %>
-
-        </table>
-
-      </div>
-
-      <% if @campaign.rewards? %>
-      <div class="well rewards">
-        <h4><%= @campaign.reward_reference.titleize %> Selected</h4>
-        <% if @reward %>
-          <p><strong><%= "#{@reward.title} ($#{short_price(@reward.price)})" %></strong></p>
-          <p><%= @reward.description %></p>
-          <p>Estimated Delivery: <%= @reward.delivery_date %></p>
-        <% else %>
-          <p>None</p>
+        </div>
         <% end %>
-      </div>
-      <% end %>
 
-      <div class="custom_content">
-        <%= raw(@campaign.checkout_sidebar_content) %>
+        <div class="custom_content">
+          <%= raw(@campaign.checkout_sidebar_content) %>
+        </div>
       </div>
     </div>
-
   </div>
 </div>
 
