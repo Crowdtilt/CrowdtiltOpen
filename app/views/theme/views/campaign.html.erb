@@ -32,11 +32,27 @@
         </div>
 
       <% else %>
-
-        <div id="image">
-          <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
-        </div>
-
+		<% if @campaign.media_type == 'vimeo' %>
+                
+            <div id="video">
+            	<% if @campaign.video_placeholder.file? %>
+                	<div id="video_image">
+                    	<%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
+                    </div>
+                    <% if !@campaign.video_embed_id.blank? %>
+                    	<iframe src="//player.vimeo.com/video/<%= @campaign.video_embed_id %>?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=05597a&amp;autoplay=0" width="512" height="385" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <% end %>
+                    <% else %>
+                    	<% if !@campaign.video_embed_id.blank? %>
+                        	<iframe src="//player.vimeo.com/video/<%= @campaign.video_embed_id %>?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=05597a&amp;autoplay=0" width="512" height="385" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <% end %>
+                    <% end %>
+                </div>
+        <% else %>
+        	<div id="image">
+            	<%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
+            </div>
+        <% end %>
       <% end %>
 
       <div id="backing">
