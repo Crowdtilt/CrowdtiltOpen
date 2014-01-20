@@ -41,6 +41,7 @@ module Crowdhoster
     config.assets.initialize_on_precompile = false
 
     #Paperclip default options
+    if ENV['ENABLE_ASSET_SYNC'] == 'true'
     config.paperclip_defaults = {
       storage: :s3,
       s3_credentials: {
@@ -52,6 +53,13 @@ module Crowdhoster
       s3_protocol: 'https',
       default_url: '/images/missing_:style.jpg'
     }
+    else
+      config.paperclip_defaults = {
+      path: ":rails_root/public/assets/:id_partition/:basename.:extension",
+      url: "/assets/:id_partition/:basename.:extension",
+      default_url: '/images/missing_:style.jpg'
+    }
+    end
 
     #Mailgun options
     config.action_mailer.smtp_settings = {

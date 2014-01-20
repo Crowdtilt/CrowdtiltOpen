@@ -10,6 +10,10 @@
     <%= render 'layouts/mobile_bookmark_metas' %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    "application" %>
+    
+    <% if !@campaign.nil? && @campaign.favicon.file? %>
+      <link rel="shortcut icon" type="image/x-icon" href="<%= @campaign.favicon.url %>">
+    <% end %>
     <style type="text/css"><%= raw(@settings.custom_css) %></style>
 
     <%= javascript_include_tag "application" %>
