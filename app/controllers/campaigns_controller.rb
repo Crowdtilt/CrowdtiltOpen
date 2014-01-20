@@ -201,6 +201,20 @@ class CampaignsController < ApplicationController
       redirect_to campaign_home_url(@campaign)
     end
   end
+  
+  def delete_reward
+    if @campaign.expired?
+      redirect_to campaign_home_url(@campaign), :flash => { :error => "Reward can't be Deleted, Campaign is Expired !" }
+    else
+      @r = Reward.find(params[:reward])
+      if(@r.payments.length == 0)
+        @r.destroy
+        redirect_to campaign_home_url(@campaign), :flash => { :notice => "Reward Deleted!" }
+      else
+        redirect_to campaign_home_url(@campaign), :flash => { :error => "Reward can't be Deleted it has Payments !" }
+      end
+    end
+  end
 
   private
 
@@ -219,7 +233,7 @@ class CampaignsController < ApplicationController
   end
 
   def check_exp
-    if @campaign.expired?
+    if @campaign.expired? && !@campaign.accept_closed_project_payment?
       redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
     end
   end

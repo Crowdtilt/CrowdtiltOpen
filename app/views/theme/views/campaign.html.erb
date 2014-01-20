@@ -32,11 +32,27 @@
         </div>
 
       <% else %>
-
-        <div id="image">
-          <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
-        </div>
-
+		<% if @campaign.media_type == 'vimeo' %>
+                
+            <div id="video">
+            	<% if @campaign.video_placeholder.file? %>
+                	<div id="video_image">
+                    	<%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
+                    </div>
+                    <% if !@campaign.video_embed_id.blank? %>
+                    	<iframe src="//player.vimeo.com/video/<%= @campaign.video_embed_id %>?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=05597a&amp;autoplay=0" width="512" height="385" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <% end %>
+                    <% else %>
+                    	<% if !@campaign.video_embed_id.blank? %>
+                        	<iframe src="//player.vimeo.com/video/<%= @campaign.video_embed_id %>?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=05597a&amp;autoplay=0" width="512" height="385" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <% end %>
+                    <% end %>
+                </div>
+        <% else %>
+        	<div id="image">
+            	<%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
+            </div>
+        <% end %>
       <% end %>
 
       <div id="backing">
@@ -59,9 +75,16 @@
           <% end %>
 
           <% if !@campaign.expired? %>
-            <li class="stats" id="days">
-              <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
-              <span style="width:100px"><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
+          <script type="text/javascript">
+              $(function() {
+								 var date_expiration = '<%= @campaign.expiration_date %>';
+								 var date_moment = moment(date_expiration, 'YYYY-MM-DD HH:mm:ss').fromNow(true);
+								 var arr = date_moment.split(' ');
+								$('#days').html( (arr[0] == 'a' || arr[0] == 'an' ? '1' : arr[0]) + ' <span style="width:100px">' + arr[1].substr(0,1).toUpperCase() + arr[1].substr(1,arr[1].length-1) + ' left</span>');
+						  });
+                    </script>
+                    <li class="stats" id="days" >
+              
             </li>
           <% else %>
             <li class="stats" id="days">
@@ -96,9 +119,15 @@
         			</ul>
         		</div>
               <% end %>
-              <span class="blue_button expired">
-                <%= @campaign.primary_call_to_action_button %>
-              </span>
+              <% if @campaign.accept_closed_project_payment %>
+                  <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
+                  	<%= @campaign.primary_call_to_action_button %>
+                  </a>
+              <% else %>
+                  <span class="blue_button expired">
+                    <%= @campaign.primary_call_to_action_button %>
+                  </span>
+              <% end %>
             <% else %>
               <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
                 <%= @campaign.primary_call_to_action_button %>
@@ -168,6 +197,9 @@
             <% @campaign.rewards.order("price ASC").each do |reward| %>
             <% if reward.visible? %>
               <li id="rewards_click">
+              	<% if !@campaign.expired? && !current_user.nil? && current_user.admin? %>
+                     <div class="rewards_toolbox"><div class="toolbox_container"><div class="toolbox_item"><%= link_to (image_tag '/assets/trash.png'), reward_controller_delete_path(:reward => reward.id), data: { confirm: 'Are you sure?' } %></div></div></div>
+                <% end %>
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? || @campaign.expired? %>" class="<%= 'disabled' if reward.sold_out? || @campaign.expired? %>">
                   <p class="price">$<%= number_with_precision(reward.price, precision: (reward.price*100%100==0.0 ? 0 : 2)) %></p>
                   <p class="title"><%= reward.title %></p>
@@ -200,9 +232,15 @@
       <div><%= raw(@campaign.secondary_call_to_action_description) %></div>
       <div class="center">
         <% if @campaign.expired? %>
-          <span class="blue_button expired">
-            <%= @campaign.secondary_call_to_action_button %>
-          </span>
+        	<% if @campaign.accept_closed_project_payment %>
+                <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
+            		<%= @campaign.secondary_call_to_action_button %>
+          		</a>
+            <% else %>
+                <span class="blue_button expired">
+            		<%= @campaign.secondary_call_to_action_button %>
+          		</span>
+            <% end %>
         <% else %>
           <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
             <%= @campaign.secondary_call_to_action_button %>

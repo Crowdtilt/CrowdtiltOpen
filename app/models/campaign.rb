@@ -15,9 +15,10 @@ class Campaign < ActiveRecord::Base
                   :stats_number_of_contributions, :stats_raised_amount, :stats_tilt_percent,
                   :stats_unique_contributors, :published_flag, :collect_shipping_flag, :production_flag,
                   :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label,
-                  :include_comments, :comments_shortname, :include_rewards_claimed
+                  :include_comments, :comments_shortname, :include_rewards_claimed, :accept_closed_project_payment,
+                  :favicon, :favicon_delete
 
-  attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
+  attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete, :favicon_delete
 
   validates :name, :expiration_date, presence: true
   validates :min_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
@@ -27,7 +28,10 @@ class Campaign < ActiveRecord::Base
   before_validation { main_image.clear if main_image_delete == '1' }
   before_validation { video_placeholder.clear if video_placeholder_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
-
+  before_validation { facebook_image.clear if favicon_delete == '1' }
+  
+  has_attached_file :favicon #, :url => "/:basename.:extension", :path => ":rails_root/public/:basename.:extension"
+  
   has_attached_file :main_image,
                     styles: { main: "512x385!", medium: "640x360!", small: "190x143!", thumb: "100x100#" }
 
