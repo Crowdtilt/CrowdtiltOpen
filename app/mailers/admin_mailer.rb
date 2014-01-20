@@ -2,6 +2,8 @@ class AdminMailer < ActionMailer::Base
   layout 'default_mailer'
   default from: "payments@crowdhoster.com"
 
+  helper :campaigns
+
   def payment_notification(payment_id)
     recipients = User
       .where(admin: true, wants_admin_payment_notification: true)

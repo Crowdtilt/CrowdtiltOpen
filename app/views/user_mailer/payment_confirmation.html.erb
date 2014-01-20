@@ -3,7 +3,7 @@ Hi <%= @payment.fullname.split(' ')[0] %>,
 
 <br/><br/>
 
-This is an email receipt for your $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> contribution to <a href="<%= url_for campaign_home_url(@campaign) %>"><%= @campaign.name %></a>. If you have any questions about this campaign, please contact the campaign's organizer at <%= @settings.reply_to_email %><% if @settings.phone_number.present? %> or <%= @settings.phone_number %><% end %>.
+This is an email receipt for your <%= short_price(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, '$', 2) %> contribution to <a href="<%= url_for campaign_home_url(@campaign) %>"><%= @campaign.name %></a>. If you have any questions about this campaign, please contact the campaign's organizer at <%= @settings.reply_to_email %><% if @settings.phone_number.present? %> or <%= @settings.phone_number %><% end %>.
 
 <br/><br/>
 
@@ -14,7 +14,7 @@ This is an email receipt for your $<%= number_with_precision(@payment.amount.to_
 <strong>Payment Details:</strong><br/>
 Name: <%= @payment.fullname %> <br/>
 Date: <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/>
-Amount: $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/>
+Amount: <%= short_price(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, '$', 2) %> <br/>
 Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %><br/>
 <% if @campaign.rewards? %>
   <%= @campaign.reward_reference.titleize %> Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
