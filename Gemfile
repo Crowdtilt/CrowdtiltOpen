@@ -16,7 +16,7 @@ gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
 gem 'aws-sdk'
 gem 'active_model_serializers'
-
+gem 'momentjs-rails'
 # Front-end
 gem 'bootstrap-sass', '2.1'
 gem 'jquery-rails'

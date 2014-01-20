@@ -75,9 +75,16 @@
           <% end %>
 
           <% if !@campaign.expired? %>
-            <li class="stats" id="days">
-              <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
-              <span style="width:100px"><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
+          <script type="text/javascript">
+              $(function() {
+								 var date_expiration = '<%= @campaign.expiration_date %>';
+								 var date_moment = moment(date_expiration, 'YYYY-MM-DD HH:mm:ss').fromNow(true);
+								 var arr = date_moment.split(' ');
+								$('#days').html( (arr[0] == 'a' || arr[0] == 'an' ? '1' : arr[0]) + ' <span style="width:100px">' + arr[1].substr(0,1).toUpperCase() + arr[1].substr(1,arr[1].length-1) + ' left</span>');
+						  });
+                    </script>
+                    <li class="stats" id="days" >
+              
             </li>
           <% else %>
             <li class="stats" id="days">
