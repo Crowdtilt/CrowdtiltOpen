@@ -58,17 +58,8 @@
             </li>
           <% end %>
 
-          <% if !@campaign.expired? %>
-            <li class="stats" id="days">
-              <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
-              <span style="width:100px"><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
-            </li>
-          <% else %>
-            <li class="stats" id="days">
-              No
-              <span>days left!</span>
-            </li>
-          <% end %>
+          <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >           
+          </li>
         </ul>
 
         <% if @campaign.raised_amount < @campaign.goal_dollars %>

@@ -44,7 +44,7 @@ Crowdhoster.campaigns =
       $('input').prop('checked', false)
       $('#amount').removeClass('error')
       $('.error').hide()
-
+    
     $('#amount_form').on "submit", (e) ->
       e.preventDefault()
       $reward = $('.reward_option.selected')
@@ -57,6 +57,7 @@ Crowdhoster.campaigns =
         $('.error').html('Amount must be at least $' + $reward.attr('data-price') + ' to select that ' + $('#reward_select').attr('data-reference') + '.').show()
       else
         this.submit()
+    this.timeCheck('#days')
 
   submitPaymentForm: (form) ->
     $('#refresh-msg').show()
@@ -90,7 +91,31 @@ Crowdhoster.campaigns =
       user_id = $form.find('#ct_user_id').val()
       crowdtilt.card.create(user_id, cardData, this.cardResponseHandler)
 
-
+  timeCheck: (element) ->
+    expiration = $(element).attr("date-element")          
+    date_moment = moment.unix(expiration)
+    expired = moment().diff(date_moment, "seconds") > 0
+    if expired
+      $(element).html  "No <span>days left!</span>"
+      return
+    months = date_moment.diff(moment(), "months")
+    days = date_moment.diff(moment(), "days")
+    refDate = "months"
+    refDiff = months
+    if days < 120
+      hours = date_moment.diff(moment(), "hours")
+      if hours > 72
+        refDiff = days
+        refDate = "days"
+      else
+        if hours >= 2
+          refDiff = hours
+          refDate = "hours"
+        else
+          refDiff = date_moment.diff(moment(), "minutes")
+          refDate = "minutes"
+    $(element).html refDiff + "<span style=\"width:100px\">" + refDate + " left</span>"
+  
   cardResponseHandler: (response) ->
     switch response.status
       when 201
