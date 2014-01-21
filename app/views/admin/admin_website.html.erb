@@ -129,13 +129,15 @@
             <%= f.text_field :facebook_app_id %>
           </div>
           <div class="field clearfix">
-            <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
+            <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.  </p>
+            <div id="settings_custom_css_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
             <label>Custom CSS</label>
             <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px", :placeholder => "#campaign #funding_area { background: white; }" %>
           </div>
 
           <div class="field clearfix">
             <p class="explanation">Add your own JavaScript here. Use this field to paste in scripts for analytics tracking, retargeting, etc.</p>
+            <div id="settings_custom_js_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
             <label>Custom JavaScript</label>
             <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px", :placeholder => "<script> CODE </script>" %>
           </div>
@@ -143,9 +145,10 @@
        </div>
       </fieldset>
 
-
+      <div id="settings_custom_alert" class="alert alert-danger box-alert" style="display:none;" ></div>
       <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
       <span class="loader" data-loader="project_form" style="display:none"></span>
+      
     <% end %>
   </div>
   </div>

@@ -1,7 +1,7 @@
 Crowdhoster.admin =
 
   init: ->
-
+    isSecurityCheckWarningDisplayed = false
     _this = this
 
     #
@@ -12,6 +12,16 @@ Crowdhoster.admin =
       e.preventDefault()
       $('#advanced').slideToggle()
 
+    # Settings Form
+    $('#settings_custom_css').on "change", (e) ->
+      occ_msg = Crowdhoster.admin.checkSafety('settings_custom_css')
+      Crowdhoster.admin.checkSafetyAlert(occ_msg, 'settings_custom_css', 'settings_custom_css_alert')
+        
+    $('#settings_custom_js').on "change", (e) ->
+      occ_msg = Crowdhoster.admin.checkSafety('settings_custom_js')
+      Crowdhoster.admin.checkSafetyAlert(occ_msg, 'settings_custom_js', 'settings_custom_js_alert')
+        
+      
     #  Campaign Form
 
     $('#campaign_expiration_date').datetimepicker({
@@ -161,7 +171,31 @@ Crowdhoster.admin =
           )
 
   # Custom Named Functions
+  checkSafety : (editor) ->
+    reg = new RegExp(/(\s*[:]*?[=]?\s*["]?\s*\b(http)\s*:\s*\/\/[a-zA-Z0-9+&@#\/%?=~_-|!,;:.~-]*)/g)
+    regDisp = new RegExp(/(\b(http)\s*:\s*\/\/[a-zA-Z0-9+&@#\/%?=~_-|!,;:.~-]*)/g) 
+    str = $("#" + editor).val()
+    occ_msg = ""
+    while (result = reg.exec(str)) isnt null
+      occ_orig = str.split(result[1]).length - 1
+      occ_href = str.split("href" + result[1]).length - 1
+      if occ_orig isnt occ_href
+        occ_msg = '<strong>' + regDisp.exec(result[1])[1]+ "</strong><br />"
+    occ_msg
 
+  checkSafetyAlert : (occ_msg, element, alertElement) ->
+    if ( occ_msg != '' )
+        $('#' + alertElement).html('It looks you are trying to load external content using insecure (non-HTTPS) links. Unless you change the following links to be served over HTTPS, your contributors will see a security warning in their browser.<br />' + occ_msg + '<br />If you need any help with this, please contact team@crowdhoster.com')
+        $('#' + alertElement).slideDown()
+        $('#' + element).addClass('text-area-border')
+        Crowdhoster.admin.isSecurityCheckWarningDisplayed = false
+      else
+        $('#' + alertElement).slideUp()
+        $('#' + element).removeClass('text-area-border')
+        if( Crowdhoster.admin.checkSafety('settings_custom_css') == '' )
+          $('#settings_custom_alert').hide();
+  
+  
   submitWebsiteForm: (form) ->
     form.submit()
 
