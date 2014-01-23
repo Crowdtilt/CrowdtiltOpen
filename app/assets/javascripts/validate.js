@@ -1,3 +1,4 @@
+
 $( document ).ready(function() {
 
   // validate '/admin'
@@ -6,7 +7,19 @@ $( document ).ready(function() {
     // custom handler to call named function ""
     submitHandler: function (form) {
       $(window).unbind('beforeunload', unsavedChangesChecker);
-      Crowdhoster.admin.submitWebsiteForm(form);
+      var occ_msg_css = Crowdhoster.admin.checkSafety('settings_custom_css');
+      var occ_msg_js = Crowdhoster.admin.checkSafety('settings_custom_js');
+      if ( ( occ_msg_css != '' || occ_msg_js != '' ) && !Crowdhoster.admin.isSecurityCheckWarningDisplayed ){
+           Crowdhoster.admin.checkSafetyAlert(occ_msg_css, 'settings_custom_css', 'settings_custom_css_alert');
+           Crowdhoster.admin.checkSafetyAlert(occ_msg_js, 'settings_custom_js', 'settings_custom_js_alert');
+           $('#settings_custom_alert').html('Please see the security warnings above with your custom CSS/JS. To continue anyway, click the save button again.');
+           $('#settings_custom_alert').show();
+           $(".loader").hide();
+           Crowdhoster.admin.isSecurityCheckWarningDisplayed = true;
+      }
+      else{
+        Crowdhoster.admin.submitWebsiteForm(form); 
+      }
     },
 
     // validate the previously selected element when the user clicks out
