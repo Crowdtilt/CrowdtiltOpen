@@ -236,7 +236,28 @@
   background: rgba(211, 211, 136, 1)!important;
   text-shadow: none;
 }
+.inline-alert{
+  text-shadow: none;
+  font-size: 12px;
+  text-align: left;
+  float: right;
+  clear: both;
+  width: 385px;
+  border: 1px solid #b94a48;
+  overflow: auto;
+}
 
+.box-alert{
+  text-shadow: none;
+  text-align: left;
+  clear: both;
+  border: 1px solid #b94a48;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+.text-area-border{
+  border: 1px solid red;
+}
 .admin-alert.alert.alert-error {
   background: rgba(219, 94, 94, 1)!important;
   color: white;
