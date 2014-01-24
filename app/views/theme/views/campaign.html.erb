@@ -1,12 +1,12 @@
 <div id="campaign">
-  <div id="funding_area">
-    <div class="container clearfix">
+<div id="funding_area">
+  <div class="container clearfix">
 
-      <div class="center">
-        <h2 class="campaign_title"><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h2>
-      </div>
+    <div class="center">
+      <h2 class="campaign_title"><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h2>
+    </div>
 
-      <div class="clearfix">
+    <div class="clearfix">
       <% if @campaign.media_type == 'video' %>
 
         <div id="video">
@@ -43,19 +43,19 @@
         <ul>
 
           <% if @campaign.goal_type == 'dollars' %>
-          <li class="stats" id="backers">
-            <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
-            <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
-          </li>
-          <li class="stats">
-            <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
-            <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
-          </li>
+            <li class="stats" id="backers">
+              <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
+              <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
+            </li>
+            <li class="stats">
+              <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
+              <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
+            </li>
           <% else %>
-          <li class="stats">
-            <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
-            <span>of <%= @campaign.goal_orders %> needed</span>
-          </li>
+            <li class="stats">
+              <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
+              <span>of <%= @campaign.goal_orders %> needed</span>
+            </li>
           <% end %>
 
           <% if !@campaign.expired? %>
@@ -65,9 +65,9 @@
             </li>
           <% else %>
             <li class="stats" id="days">
-                No
-                <span>days left!</span>
-              </li>
+              No
+              <span>days left!</span>
+            </li>
           <% end %>
         </ul>
 
@@ -87,14 +87,14 @@
         <div id="reserve_container">
           <div class="call_to_action_button">
             <% if @campaign.expired? %>
-             <% if @campaign.include_rewards_claimed? %>
-             	 <div id="backing">
-        			<ul>
-        				<li class="stats-awards">
-            				<%= @campaign.rewards_claimed %> Claimed Rewards
-          				</li>
-        			</ul>
-        		</div>
+              <% if @campaign.include_rewards_claimed? %>
+                <div id="backing">
+                  <ul>
+                    <li class="stats-awards">
+                      <%= @campaign.rewards_claimed %> Claimed Rewards
+                    </li>
+                  </ul>
+                </div>
               <% end %>
               <span class="blue_button expired">
                 <%= @campaign.primary_call_to_action_button %>
@@ -112,60 +112,60 @@
       </div>
     </div>
 
-      <div class="share">
-        <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
-      </div>
-
+    <div class="share">
+      <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
     </div>
-  </div>
 
-  <div id="campaign_body">
-    <div class="container clearfix">
-      <div class="main_content <%= 'narrow' if @campaign.rewards? %>">
-        <% if @campaign.include_comments %>
-          <div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
-                <li><a href="#tab2" data-toggle="tab" onclick="load_disqus()">Comments <span class="badge badge-info" id="count"></span></a></li>
-              </ul>
-              <div class="tab-content">
-              <div class="tab-pane fade active in" id="tab1">
-                   <%= raw(@campaign.main_content) %>
-                </div>
-                <div class="tab-pane fade in" id="tab2">
-                  <div class="comment_content">
-                    <div id="disqus_thread"></div>
-                    <script type="text/javascript">
-                        var disqus_shortname = '<%= @campaign.comments_shortname.downcase %>';
-                        var disqus_identifier = '<%= @campaign.slug %>';
-                        var disqus_title = '<%= @campaign.name %>';
-                        var disqus_URL = '<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>';
-                        var disqus_developer = <%= Rails.env.production? ? 0 : 1 %>;
-                        var disqus_loaded = false;
-                        var load_disqus = function() {
-                          if (!disqus_loaded) {
-                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                            disqus_loaded = true;
-                          }
-                        };
-                    </script>
-                    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
-                  </div>
+  </div>
+</div>
+
+<div id="campaign_body">
+  <div class="container clearfix">
+    <div class="main_content <%= 'narrow' if @campaign.rewards? %>">
+      <% if @campaign.include_comments %>
+        <div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+            <li><a href="#tab2" data-toggle="tab" onclick="load_disqus()">Comments <span class="badge badge-info" id="count"></span></a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade active in" id="tab1">
+              <%= raw(@campaign.main_content) %>
+            </div>
+            <div class="tab-pane fade in" id="tab2">
+              <div class="comment_content">
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                  var disqus_shortname = '<%= @campaign.comments_shortname.downcase %>';
+                  var disqus_identifier = '<%= @campaign.slug %>';
+                  var disqus_title = '<%= @campaign.name %>';
+                  var disqus_URL = '<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>';
+                  var disqus_developer = <%= Rails.env.production? ? 0 : 1 %>;
+                  var disqus_loaded = false;
+                  var load_disqus = function() {
+                    if (!disqus_loaded) {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                      disqus_loaded = true;
+                    }
+                  };
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
               </div>
             </div>
           </div>
-        <% else %>
-             <%= raw(@campaign.main_content) %>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <%= raw(@campaign.main_content) %>
+      <% end %>
+    </div>
 
-      <% if @campaign.rewards? %>
-        <div class="rewards_sidebar">
-          <h3><%= @campaign.reward_reference.pluralize.titleize %></h3>
-          <ul>
-            <% @campaign.rewards.order("price ASC").each do |reward| %>
+    <% if @campaign.rewards? %>
+      <div class="rewards_sidebar">
+        <h3><%= @campaign.reward_reference.pluralize.titleize %></h3>
+        <ul>
+          <% @campaign.rewards.order("price ASC").each do |reward| %>
             <% if reward.visible? %>
               <li id="rewards_click">
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? || @campaign.expired? %>" class="<%= 'disabled' if reward.sold_out? || @campaign.expired? %>">
@@ -175,72 +175,72 @@
                   <p class="description"><%= reward.description %></p>
                   <p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
                   <% if @campaign.expired? %>
-                  	<% if reward.include_claimed? %>
-             	 	 <p class="claimed">
-                    	<%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
-                  	 </p>
-              	  	<% end %>
+                    <% if reward.include_claimed? %>
+                      <p class="claimed">
+                        <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+                      </p>
+                    <% end %>
                   <% else %>
-                  	 <p class="claimed">
-                    	<%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
-                  	 </p>
+                    <p class="claimed">
+                      <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+                    </p>
                   <% end %>
                 </a>
               </li>
             <% end %>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    </div>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <div id="second_call_to_action">
-    <div class="container">
-      <div><%= raw(@campaign.secondary_call_to_action_description) %></div>
-      <div class="center">
-        <% if @campaign.expired? %>
+<div id="second_call_to_action">
+  <div class="container">
+    <div><%= raw(@campaign.secondary_call_to_action_description) %></div>
+    <div class="center">
+      <% if @campaign.expired? %>
           <span class="blue_button expired">
             <%= @campaign.secondary_call_to_action_button %>
           </span>
-        <% else %>
-          <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
-            <%= @campaign.secondary_call_to_action_button %>
-          </a>
-        <% end %>
-      </div>
+      <% else %>
+        <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
+          <%= @campaign.secondary_call_to_action_button %>
+        </a>
+      <% end %>
     </div>
   </div>
+</div>
 
-  <% if @campaign.faqs.count > 0 %>
-    <div id="faq">
-      <div class="container clearfix">
-        <div class="center">
-          <h3>Frequently Asked Questions</h3>
-        </div>
-        <ul>
-            <% for i in 0...(@campaign.faqs.count/2.0).ceil %>
-            <li class=''>
-              <details class=''>
-                <summary class=''><%= @campaign.faqs[i].question %></summary>
-                <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
-              </details>
-            </li>
-          <% end %>
-        </ul>
-        <ul class="col2">
-            <% for i in (@campaign.faqs.count/2.0).ceil...@campaign.faqs.count %>
-            <li class=''>
-              <details class=''>
-                <summary class=''><%= @campaign.faqs[i].question %></summary>
-                <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
-              </details>
-            </li>
-          <% end %>
-        </ul>
+<% if @campaign.faqs.count > 0 %>
+  <div id="faq">
+    <div class="container clearfix">
+      <div class="center">
+        <h3>Frequently Asked Questions</h3>
       </div>
+      <ul>
+        <% for i in 0...(@campaign.faqs.count/2.0).ceil %>
+          <li class=''>
+            <details class=''>
+              <summary class=''><%= @campaign.faqs[i].question %></summary>
+              <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
+            </details>
+          </li>
+        <% end %>
+      </ul>
+      <ul class="col2">
+        <% for i in (@campaign.faqs.count/2.0).ceil...@campaign.faqs.count %>
+          <li class=''>
+            <details class=''>
+              <summary class=''><%= @campaign.faqs[i].question %></summary>
+              <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
+            </details>
+          </li>
+        <% end %>
+      </ul>
     </div>
-  <% end %>
+  </div>
+<% end %>
 </div>
 
 <% if @campaign.include_comments %>
