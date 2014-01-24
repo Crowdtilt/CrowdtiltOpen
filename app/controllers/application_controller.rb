@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :load_settings, :set_default_mailer_host
   after_filter :store_location
 
+   
+
   def load_settings
     @settings = Settings.first
 

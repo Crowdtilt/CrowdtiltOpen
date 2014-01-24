@@ -33,6 +33,8 @@ Crowdhoster::Application.routes.draw do
   match '/:id/checkout/process',               to: 'campaigns#checkout_process',            as: :checkout_process
   match '/:id/checkout/confirmation',          to: 'campaigns#checkout_confirmation',       as: :checkout_confirmation
   match '/:id',                                to: 'campaigns#home',                        as: :campaign_home
+  
+  
 
 
   namespace :api, defaults: {format: 'json'} do

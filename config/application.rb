@@ -7,6 +7,7 @@ if defined?(Bundler)
   Bundler.require(*Rails.groups(:assets => %w(development test)))
 end
 
+
 module Crowdhoster
 
   class Application < Rails::Application
@@ -62,6 +63,8 @@ module Crowdhoster
        :user_name => ENV['MAILGUN_USERNAME'],
        :password => ENV['MAILGUN_PASSWORD']
       }
+
+    
 
     config.processing_fee_percentage = 2.9
     config.processing_fee_flat_cents = 30
