@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116122844) do
+ActiveRecord::Schema.define(:version => 20140118102307) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20140116122844) do
     t.boolean  "include_comments",                     :default => false,        :null => false
     t.string   "comments_shortname"
     t.boolean  "include_rewards_claimed"
+    t.boolean  "accept_closed_project_payment"
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
