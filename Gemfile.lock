@@ -52,9 +52,6 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
-    bourbon (3.1.8)
-      sass (>= 3.2.0)
-      thor
     builder (3.0.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -246,7 +243,6 @@ DEPENDENCIES
   asset_sync
   aws-sdk
   bootstrap-sass (~> 3.0.2.0)
-  bourbon
   capybara
   ckeditor
   coffee-rails (~> 3.2.1)
