@@ -13,7 +13,7 @@
         <div class="field clearfix">
           <p class="explanation">This will be used as the page title (for SEO) and the name in the header. Your site name is also what contributors will see on their credit card statements.</p>
           <label>Site Name</label>
-            <%= f.text_field :site_name %>
+          <%= f.text_field :site_name %>
         </div>
 
         <div class="field clearfix">
@@ -132,14 +132,14 @@
             <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.  </p>
             <div id="settings_custom_css_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
             <label>Custom CSS</label>
-            <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px", :placeholder => "#campaign #funding_area { background: white; }" %>
+            <%= f.text_area :custom_css, rows: 8, :placeholder => "#campaign #funding_area { background: white; }" %>
           </div>
 
           <div class="field clearfix">
             <p class="explanation">Add your own JavaScript here. Use this field to paste in scripts for analytics tracking, retargeting, etc.</p>
             <div id="settings_custom_js_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
             <label>Custom JavaScript</label>
-            <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px", :placeholder => "<script> CODE </script>" %>
+            <%= f.text_area :custom_js, rows: 8, :placeholder => "<script> CODE </script>" %>
           </div>
 
        </div>

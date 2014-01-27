@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def verify_admin
     if !current_user.admin?
-      redirect_to root_url, :flash => { :notice => "You must be an admin to access that page" }
+      redirect_to root_url, :flash => { :warning => "You must be an admin to access that page" }
    end
   end
 
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
         rescue => exception
           @settings.update_attribute :initialized_flag, false
           sign_out current_user
-          redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
+          redirect_to new_user_registration_url, :flash => { :danger => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
           return
         else
           @settings.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']
@@ -74,9 +74,9 @@ class ApplicationController < ActionController::Base
         redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }
       else
         if (User.count == 0)
-            redirect_to new_user_registration_url, :flash => { :error => "Please create an account below to initialize the app." }
+            redirect_to new_user_registration_url, :flash => { :danger => "Please create an account below to initialize the app." }
          else
-            redirect_to user_session_url , :flash => { :error => "Please sign in below." }
+            redirect_to user_session_url , :flash => { :danger => "Please sign in below." }
          end
       end
     end

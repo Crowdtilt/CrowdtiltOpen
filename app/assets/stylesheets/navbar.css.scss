@@ -1,6 +1,10 @@
 #navbar {
-  .navbar-inner {
+  .navbar {
     min-height: 30px;
+  }
+
+  .navbar-left > li {
+    float: left;
   }
 
   .navbar .nav > li > a {
@@ -18,18 +22,15 @@
     vertical-align: bottom;
   }
 
+  .navbar-btn {
+    margin-top: 4px;
+    margin-bottom: 0px;
+    margin-right: 8px;
+  }
+
   .status {
-    color: white;
-    margin-top: 5px;
-    border-radius: 5px;
+    margin-top: 7px;
     margin-right:8px;
-    padding: 0px 10px;
-  }
-  .status.red {
-    background-color: red;
-  }
-  .status.green {
-    background-color: green;
   }
 
 }
