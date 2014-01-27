@@ -1,14 +1,20 @@
-<div id="password">
-  <div class="container content_box clearfix">
-  <h3>Forgot your password?</h3>
+<div id="devise-mini">
+  <div class="container">
+    <div class="well">
 
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-    <%= devise_error_messages! %>
+    <h3>Forgot your password?</h3>
 
-    <div><%= f.label :email, "Please enter your email:" %>
-    <%= f.email_field :email, :autofocus => true %></div>
+    <p>Please enter your email below.</p>
 
-    <div><%= f.submit "Send me reset password instructions", class: "btn btn-primary" %></div>
-  <% end %>
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div><%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true %></div>
+
+      <div><%= f.submit "Send password reset email", class: "btn btn-primary" %></div>
+    <% end %>
+
+    </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ gem 'unicorn'
 gem 'foreman'
 
 gem 'crowdtilt', github: 'Crowdtilt/crowdtilt-gem'
-gem 'devise', '~> 3.0.0'
+gem 'devise', '~> 3.1.0'
 gem 'nokogiri'
 gem 'friendly_id', '~> 4.0.9'
 gem 'iso_country_codes'

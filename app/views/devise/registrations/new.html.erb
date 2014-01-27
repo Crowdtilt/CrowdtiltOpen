@@ -1,13 +1,12 @@
-<div id="signup">
+<div id="devise-mini">
   <div class="container">
-
     <div class="well">
 
     <% if @settings.initialized_flag %>
-      <h4>New User?</h4>
+      <h3>New User?</h3>
       <p>Please create an account to continue.</p>
     <% else %>
-      <h4>New Crowdhoster App</h4>
+      <h3>New Crowdhoster App</h3>
       <p>Looks like this is a new Crowdhoster App! Go ahead and create a user that will serve as your site admin:</p>
     <% end %>
 
@@ -32,6 +31,5 @@
      <br/><%= link_to "Already have an account?", new_session_path(resource_name) %><br />
 
     </div>
-
   </div>
 </div>

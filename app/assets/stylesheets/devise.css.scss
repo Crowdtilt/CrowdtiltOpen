@@ -1,4 +1,4 @@
-#signin {
+#devise-mini {
   padding: 50px 0;
 
   .well {
@@ -15,25 +15,6 @@
           display: inline-block;
         }
       }
-
-      button {
-        display: inline-block;
-        margin: 10px 0px;
-      }
-    }
-  }
-}
-
-#signup {
-  padding: 50px 0;
-
-  .well {
-    width: 400px;
-    margin: 0 auto;
-    padding: 35px;
-
-    form {
-      margin-bottom: 0px;
 
       button {
         display: inline-block;
