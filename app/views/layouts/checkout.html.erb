@@ -1,0 +1,21 @@
+<% content_for :metas do %>
+  <% if @settings.indexable == false %>
+    <meta name="robots" content="noindex, nofollow">
+  <% end %>
+  <%= render 'layouts/facebook_metas' %>
+  <%= render 'layouts/mobile_bookmark_metas' %>
+<% end %>
+<% content_for :stylesheets do %>
+  <style type="text/css"><%= raw(@settings.custom_css) %></style>
+<% end %>
+<% content_for :scripts do %>
+  <%= render 'layouts/google_analytics' %>
+<% end %>
+<% content_for :header do %>
+  <%= render 'layouts/navbar' %>
+  <%= render 'theme/views/header' %>
+<% end %>
+<% content_for :footer do %>
+  <%= render 'theme/views/footer' %>
+<% end %>
+<%= render :template => 'layouts/base' %>

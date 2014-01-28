@@ -1,4 +1,5 @@
 class CampaignsController < ApplicationController
+  layout 'layouts/checkout'
   before_filter :check_init
   before_filter :load_campaign
   before_filter :check_published
@@ -8,7 +9,7 @@ class CampaignsController < ApplicationController
   # and makes it available to all routes
 
   def home
-    render 'theme/views/campaign'
+    render 'theme/views/campaign', layout: 'layouts/application'
   end
 
   def checkout_amount
