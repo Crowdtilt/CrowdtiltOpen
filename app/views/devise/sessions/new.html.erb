@@ -1,8 +1,8 @@
-<div id="signin">
+<div id="devise-mini">
   <div class="container">
-
     <div class="well">
-    <h4>Sign In</h4>
+
+    <h3>Sign In</h3>
     <p>Please sign in to continue.</p>
 
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -26,6 +26,5 @@
       Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name) %>
 
     </div>
-
   </div>
 </div>

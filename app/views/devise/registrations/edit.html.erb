@@ -1,5 +1,7 @@
-<div id="user">
-  <div class="container content_box clearfix">
+<div id="devise-mini">
+  <div class="container">
+    <div class="well">
+
     <h3>
       Account: <%= current_user.fullname %>
       <span class="loader" data-loader="user_header" style="display:none"></span>
@@ -14,19 +16,25 @@
       <div><%= f.label :email %>
       <%= f.email_field :email, :autofocus => true %></div>
 
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <br />
       <div><p>Change your password:</p></div>
       <div><%= f.label :password, "Enter your new password" %>
       <%= f.password_field :password, :autocomplete => "off" %></div>
 
       <div><%= f.label :password_confirmation, "Re-enter your new password" %>
       <%= f.password_field :password_confirmation %></div>
-      <br/><br/>
+
+      <br/><br />
       <div><%= f.label :current_password, "Current Password (we need this to confirm your changes)" %>
       <%= f.password_field :current_password %></div>
 
-      <button class="btn btn-primary" type="submit">Update</button>
+      <div><%= f.submit "Update", class: "btn btn-primary" %></div>
     <% end %>
 
+    </div>
   </div>
 </div>
-

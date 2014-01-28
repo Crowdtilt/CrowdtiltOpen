@@ -1,9 +1,9 @@
 ## Check for env file errors on startup
 
-# Only read the first 12 lines of the file into the array (in case the file has
+# Only read the first 13 lines of the file into the array (in case the file has
 # issues), then convert the array to a hash
 filename = File.join(Rails.root, ".env.example")
-env_array = File.open(filename) { |f| (1..12).map { |x| f.readline.strip.split('=') } }
+env_array = File.open(filename) { |f| (1..13).map { |x| f.readline.strip.split('=') } }
 # remove asset sync b/c checking against default value doesn't make sense here
 env_hash = Hash[*env_array.flatten].except('ENABLE_ASSET_SYNC')
 
