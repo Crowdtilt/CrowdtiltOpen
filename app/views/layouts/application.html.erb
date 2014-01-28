@@ -1,44 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <title><%= @settings.site_name %></title>
-    <% if @settings.indexable == false %>
-      <meta name="robots" content="noindex, nofollow">
-    <% end %>
-    <%= render 'layouts/facebook_metas' %>
-    <%= render 'layouts/mobile_bookmark_metas' %>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    "application" %>
-    <style type="text/css"><%= raw(@settings.custom_css) %></style>
-
-    <%= javascript_include_tag "application" %>
-    <%= render 'layouts/google_analytics' %>
-  </head>
-  <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
-    <%= render 'layouts/social_js' %>
-    <%= render 'layouts/navbar' %>
-    <%= render 'theme/views/header' %>
-    <% flash.to_hash().slice(:success, :info, :notice, :error, :alert).each do |key, value| %>
-      <% if !value.blank? %><div class="alert alert-<%= key %>"><%= value %></div><% end %>
-    <% end %>
-    <div id="main">
-      <%= yield %>
-    </div>
-    <%= render 'theme/views/footer' %>
-
-    <div id="powered">
-      <a href="http://www.crowdhoster.com">&nbsp;&nbsp;A Crowdhoster Site</a>
-      &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
-      <a href="http://www.crowdtilt.com">Powered by Crowdtilt</a>
-    </div>
-
-    <% if Rails.env.development? %>
-      <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
-    <% end %>
-
-    <%= raw(@settings.custom_js) %>
-    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
-  </body>
-</html>
+<% content_for :metas do %>
+  <% if @settings.indexable == false %>
+    <meta name="robots" content="noindex, nofollow">
+  <% end %>
+  <%= render 'layouts/facebook_metas' %>
+  <%= render 'layouts/mobile_bookmark_metas' %>
+<% end %>
+<% content_for :stylesheets do %>
+  <style type="text/css"><%= raw(@settings.custom_css) %></style>
+<% end %>
+<% content_for :scripts do %>
+  <%= render 'layouts/google_analytics' %>
+<% end %>
+<% content_for :header do %>
+  <%= render 'layouts/social_js' %>
+  <%= render 'layouts/navbar' %>
+  <%= render 'theme/views/header' %>
+<% end %>
+<% content_for :footer do %>
+  <%= render 'theme/views/footer' %>
+<% end %>
+<% content_for :body_bottom do %>
+  <%= raw(@settings.custom_js) %>
+  <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<% end %>
+<%= render :template => 'layouts/base' %>
