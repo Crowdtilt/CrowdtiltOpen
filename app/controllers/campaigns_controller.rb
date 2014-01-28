@@ -40,7 +40,7 @@ class CampaignsController < ApplicationController
       if params.has_key?(:reward) && params[:reward].to_i != 0
         begin
           @reward = Reward.find(params[:reward])
-        rescue => exception
+        rescue StandardError => exception
           redirect_to checkout_amount_url(@campaign), flash: { info: "This reward is unavailable. Please select a different reward!" }
           return
         end
@@ -65,29 +65,12 @@ class CampaignsController < ApplicationController
   end
 
   def checkout_process
-
-    client_timestamp = params.has_key?(:client_timestamp) ? params[:client_timestamp].to_i : nil
     ct_user_id = params[:ct_user_id]
     ct_card_id = params[:ct_card_id]
-    fullname = params[:fullname]
-    email = params[:email]
-    billing_postal_code = params[:billing_postal_code]
 
     #calculate amount and fee in cents
     amount = (params[:amount].to_f*100).ceil
     fee = calculate_processing_fee(amount)
-    quantity = params[:quantity].to_i
-
-    #Shipping Info
-    address_one = params.has_key?(:address_one) ? params[:address_one] : ''
-    address_two = params.has_key?(:address_two) ? params[:address_two] : ''
-    city = params.has_key?(:city) ? params[:city] : ''
-    state = params.has_key?(:state) ? params[:state] : ''
-    postal_code = params.has_key?(:postal_code) ? params[:postal_code] : ''
-    country = params.has_key?(:country) ? params[:country] : ''
-
-    #Additional Info
-    additional_info = params.has_key?(:additional_info) ? params[:additional_info] : ''
 
     @reward = false
     if params[:reward].to_i != 0
@@ -114,20 +97,8 @@ class CampaignsController < ApplicationController
     # TODO: Check to make sure the amount is valid here
 
     # Create the payment record in our db, if there are errors, redirect the user
-     payment_params = {client_timestamp: client_timestamp,
-                       fullname: fullname,
-                       email: email,
-                       billing_postal_code: billing_postal_code,
-                       quantity: quantity,
-                       address_one: address_one,
-                       address_two: address_two,
-                       city: city,
-                       state: state,
-                       postal_code: postal_code,
-                       country: country,
-                       additional_info: additional_info}
-
-     @payment = @campaign.payments.new(payment_params)
+    payment_params = basic_payment_info(params)
+    @payment = @campaign.payments.new(payment_params)
 
     if !@payment.valid?
       error_messages = @payment.errors.full_messages.join(', ')
@@ -136,7 +107,7 @@ class CampaignsController < ApplicationController
 
     # Check if there's an existing payment with the same payment_params and client_timestamp. 
     # If exists, look at the status to route accordingly. 
-    if !client_timestamp.nil? && existing_payment = @campaign.payments.where(payment_params).first
+    if !payment_params[:client_timestamp].nil? && (existing_payment = @campaign.payments.where(payment_params).first)
       case existing_payment.status
       when nil
         flash_msg = { info: "Your payment is still being processed! If you have not received a confirmation email, please try again or contact support by emailing team@crowdhoster.com" }
@@ -160,32 +131,39 @@ class CampaignsController < ApplicationController
         user_id: ct_user_id,
         card_id: ct_card_id,
         metadata: {
-          fullname: fullname,
-          email: email,
-          billing_postal_code: billing_postal_code,
-          quantity: quantity,
+          fullname: payment_params[:fullname],
+          email: payment_params[:email],
+          billing_postal_code: payment_params[:billing_postal_code],
+          quantity: payment_params[:quantity],
           reward: @reward ? @reward.id : 0,
-          additional_info: additional_info
+          additional_info: payment_params[:additional_info]
         }
       }
       @campaign.production_flag ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
 
       logger.info "CROWDTILT API REQUEST: /campaigns/#{@campaign.ct_campaign_id}/payments"
       logger.info payment
-
       response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
-
       logger.info "CROWDTILT API RESPONSE:"
       logger.info response
-    rescue => exception
-      @payment.update_attribute(:status, 'error')
-      logger.info "ERROR WITH POST TO /payments: #{exception.message}"
+    rescue Crowdtilt::ApiError => api_error
+      response = api_error.response
+      logger.error "API ERROR WITH POST TO /payments: #{response.status} #{response.body}"
+      error_attributes = {status: 'error'}
+      error_attributes[:ct_charge_request_id] = response.body['request_id'] if response.body['request_id']
+      error_attributes[:ct_charge_request_error_id] = response.body['error_id'] if response.body['error_id']
+      @payment.update_attributes(error_attributes)
+      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
+    rescue StandardError => exception
+      @payment.update_attributes({status: 'error'})
+      logger.error "ERROR WITH POST TO /payments: #{exception.message}"
       redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
     end
 
     # Sync payment data
     @payment.reward = @reward if @reward
     @payment.update_api_data(response['payment'])
+    @payment.ct_charge_request_id = response['request_id']
     @payment.save
 
     # Sync campaign data
@@ -212,7 +190,17 @@ class CampaignsController < ApplicationController
     end
   end
 
-private
+  def checkout_error
+    payment_info = basic_payment_info(params)
+    payment_info[:ct_tokenize_request_error_id] = params[:ct_tokenize_request_error_id]
+    payment_info[:status] = 'error'
+    payment = @campaign.payments.new(payment_info)
+    payment.save
+
+    render nothing: true
+  end
+
+  private
 
   def load_campaign
     @campaign = Campaign.find(params[:id])
@@ -232,6 +220,28 @@ private
     if @campaign.expired?
       redirect_to campaign_home_url(@campaign), :info => { :error => "Campaign is expired!" }
     end
+  end
+
+  # create simple payment hash from params. does not include fees/payment amounts/cc info.
+  # to be used in response to javascript payment-creation requests (eg checkout_process and checkout_error)
+  def basic_payment_info(params)
+    {
+        client_timestamp: params.has_key?(:client_timestamp) ? params[:client_timestamp].to_i : nil,
+        ct_tokenize_request_id: params[:ct_tokenize_request_id],
+        fullname: params[:fullname],
+        email: params[:email],
+        billing_postal_code: params[:billing_postal_code],
+        quantity: params[:quantity].to_i,
+
+        #Shipping Info
+        address_one: params.has_key?(:address_one) ? params[:address_one] : '',
+        address_two: params.has_key?(:address_two) ? params[:address_two] : '',
+        city: params.has_key?(:city) ? params[:city] : '',
+        state: params.has_key?(:state) ? params[:state] : '',
+        postal_code: params.has_key?(:postal_code) ? params[:postal_code] : '',
+        country: params.has_key?(:country) ? params[:country] : '',
+        additional_info: params.has_key?(:additional_info) ? params[:additional_info] : ''
+    }
   end
 
 end
