@@ -12,15 +12,10 @@
   <%= render 'layouts/google_analytics' %>
 <% end %>
 <% content_for :header do %>
-  <%= render 'layouts/social_js' %>
   <%= render 'layouts/navbar' %>
   <%= render 'theme/views/header' %>
 <% end %>
 <% content_for :footer do %>
   <%= render 'theme/views/footer' %>
-<% end %>
-<% content_for :body_bottom do %>
-  <%= raw(@settings.custom_js) %>
-  <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 <% end %>
 <%= render :template => 'layouts/base' %>

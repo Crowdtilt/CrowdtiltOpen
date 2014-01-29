@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title><%= @settings.site_name %></title>
+    <%= csrf_meta_tags %>
+    <%= yield :metas %>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= yield :stylesheets %>
+
+    <%= javascript_include_tag "application" %>
+    <%= yield :scripts %>
+  </head>
+
+  <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
+
+    <%= yield :header %>
+
+    <% if content_for?(:flash) %>
+      <%= yield :flash %>
+    <% else %>
+      <%= render 'layouts/flash', flash: flash %>
+    <% end %>
+
+    <div id="main">
+      <%= yield %>
+    </div>
+
+    <%= yield :footer %>
+
+    <div id="powered">
+      <a href="http://www.crowdhoster.com">&nbsp;&nbsp;A Crowdhoster Site</a>
+      &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
+      <a href="http://www.crowdtilt.com">Powered by Crowdtilt</a>
+    </div>
+
+    <% if Rails.env.development? %>
+      <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
+    <% end %>
+
+    <%= yield :body_bottom %>
+
+  </body>
+
+</html>

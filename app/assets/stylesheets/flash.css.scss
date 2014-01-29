@@ -1,18 +1,35 @@
 .alert {
   padding: 10px;
-  color: black;
   text-align: center;
   margin-bottom: 0px;
-}
 
-.alert.alert-success {
-  background: rgba(0, 128, 0, 0.25);
-}
+  &.alert-admin {
+    margin-top: 30px;
+  }
 
-.alert.alert-notice {
-  background: rgba(255, 255, 0, 0.25);
-}
+  &.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color:  darken(adjust-hue(#dff0d8, -10), 5%);
+  }
 
-.alert.alert-error {
-  background: rgba(255, 0, 0, 0.25);
+  &.alert-info, &.alert-notice {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color:  darken(adjust-hue(#d9edf7, -10), 7%);
+  }
+
+  &.alert-warning {
+    background: rgba(255, 255, 0, 0.25);
+    color: #8a6d3b;
+    background: #fcf8e3;
+    border-color: darken(adjust-hue(#fcf8e3, -10), 5%);
+  }
+
+  &.alert-danger, &.alert-error, &.alert-alert {
+    color: #a94442;
+    background: #f2dede;
+    border-color: darken(adjust-hue(#f2dede, -10), 5%);
+  }
+
 }
