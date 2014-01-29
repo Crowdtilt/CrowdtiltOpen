@@ -18,7 +18,7 @@ class CampaignsController < ApplicationController
       @reward = Reward.find_by_id(params[:reward])
       unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out?
         @reward = false
-        flash.now[:notice] = "Please select a different reward"
+        flash.now[:info] = "This reward is unavailable. Please select a different reward!"
       end
     end
   end
@@ -30,7 +30,7 @@ class CampaignsController < ApplicationController
         @quantity = params[:quantity].to_i
         @amount = ((@quantity * @campaign.fixed_payment_amount.to_f)*100).ceil/100.0
       else
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid quantity!" }
+        redirect_to checkout_amount_url(@campaign), flash: { warning: "Invalid quantity!" }
         return
       end
     elsif params.has_key?(:amount) && params[:amount].to_f >= @campaign.min_payment_amount
@@ -41,17 +41,21 @@ class CampaignsController < ApplicationController
         begin
           @reward = Reward.find(params[:reward])
         rescue => exception
-          redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" }
+          redirect_to checkout_amount_url(@campaign), flash: { info: "This reward is unavailable. Please select a different reward!" }
           return
         end
-        unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= @amount
-          redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid reward!" }
-          return
+        unless @reward && @reward.campaign_id == @campaign.id && @amount >= @reward.price && !@reward.sold_out?
+          if @reward.sold_out?
+            flash = { info: "This reward is unavailable. Please select a different reward!" }
+          else
+            flash = { warning: "Please enter a higher amount to redeem this reward!" }
+          end
+          redirect_to checkout_amount_url(@campaign), flash: flash and return
         end
       end
 
     else
-      redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid amount!" }
+      redirect_to checkout_amount_url(@campaign), flash: { info: "Please enter a higher amount!" }
       return
     end
 
@@ -88,8 +92,13 @@ class CampaignsController < ApplicationController
     @reward = false
     if params[:reward].to_i != 0
       @reward = Reward.find_by_id(params[:reward])
-      unless @reward && @reward.campaign_id == @campaign.id && !@reward.sold_out? && @reward.price <= amount
-        redirect_to checkout_amount_url(@campaign), flash: { error: "Please select a different reward" } and return
+      unless @reward && @reward.campaign_id == @campaign.id && amount >= @reward.price && !@reward.sold_out?
+        if @reward.sold_out?
+          flash = { info: "This reward is unavailable. Please select a different reward!" }
+        else
+          flash = { warning: "Please enter a higher amount to redeem this reward!" }
+        end
+        redirect_to checkout_amount_url(@campaign), flash: flash and return
       end
     end
 
@@ -203,7 +212,7 @@ class CampaignsController < ApplicationController
     end
   end
 
-  private
+private
 
   def load_campaign
     @campaign = Campaign.find(params[:id])
@@ -214,14 +223,14 @@ class CampaignsController < ApplicationController
   def check_published
     if !@campaign.published_flag
       unless user_signed_in? && current_user.admin?
-        redirect_to root_url, :flash => { :error => "Campaign is no longer available" }
+        redirect_to root_url, :flash => { :info => "Campaign is no longer available" }
       end
     end
   end
 
   def check_exp
     if @campaign.expired?
-      redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
+      redirect_to campaign_home_url(@campaign), :info => { :error => "Campaign is expired!" }
     end
   end
 

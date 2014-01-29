@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
 
   def verify_admin
     if !current_user.admin?
-      redirect_to root_url, :flash => { :notice => "You must be an admin to access that page" }
-   end
+      redirect_to root_url, :flash => { :error => "You must be an admin to access that page" }
+    end
   end
 
   def check_init
@@ -74,10 +74,10 @@ class ApplicationController < ActionController::Base
         redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }
       else
         if (User.count == 0)
-            redirect_to new_user_registration_url, :flash => { :error => "Please create an account below to initialize the app." }
-         else
-            redirect_to user_session_url , :flash => { :error => "Please sign in below." }
-         end
+            redirect_to new_user_registration_url, :flash => { :info => "Please create an account below to initialize the app." }
+        else
+            redirect_to user_session_url , :flash => { :info => "Please sign in below." }
+        end
       end
     end
   end

@@ -4,6 +4,9 @@
 <% content_for :header do %>
   <%= render 'layouts/navbar' %>
 <% end %>
+<% content_for :flash do %>
+  <%= render 'layouts/flash', flash: flash, admin: true %>
+<% end %>
 <% content_for :footer do %>
   <%= render 'admin/footer' %>
 <% end %>

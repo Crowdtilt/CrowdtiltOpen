@@ -17,18 +17,18 @@ class AdminController < ApplicationController
 
   def admin_processor_setup
     if request.post?
-      flash.now[:error] = "Invalid credentials" and return if params[:ct_prod_api_key].blank? || params[:ct_prod_api_secret].blank?
+      flash.now[:error] = "Missing API credentials" and return if params[:ct_prod_api_key].blank? || params[:ct_prod_api_secret].blank?
       if @settings.activate_payments(params[:ct_prod_api_key], params[:ct_prod_api_secret])
         flash.now[:success] = "Your payment processor is all set up!"
       else
-        flash.now[:error] = "Invalid credentials"
+        flash.now[:error] = "Could not activate payment processing. Please double-check your API credentials."
       end
     end
   end
 
   def create_admin_bank_account
     if params[:ct_bank_id].blank?
-      flash = { :error => "Looks like you have JavaScript disabled. JavaScript is required for bank account setup." }
+      flash = { :warning => "Looks like you have JavaScript disabled. JavaScript is required for bank account setup." }
     else
       begin
         bank = {
@@ -46,7 +46,7 @@ class AdminController < ApplicationController
 
   def admin_bank_account
     unless @settings.payments_activated?
-      redirect_to admin_processor_setup_url, flash: { error: "Please set up your payment processor before providing your bank details" } and return
+      redirect_to admin_processor_setup_url, flash: { info: "Please set up your payment processor before providing your bank details" } and return
     end
     @bank = {}
     begin
@@ -66,14 +66,14 @@ class AdminController < ApplicationController
     begin
       response = Crowdtilt.get('/users/' + @ct_admin_id + '/banks/default')
     rescue => exception
-        flash = { :error => "No default bank account" }
+        flash = { :warning => "No default bank account" }
     else
       begin
         Crowdtilt.delete('/users/' + @ct_admin_id + '/banks/' + response['bank']['id'])
       rescue => exception
         flash = { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
       else
-        flash = { :info => "Bank account deleted successfully" }
+        flash = { :success => "Bank account deleted successfully" }
       end
     end
     redirect_to admin_bank_account_url, :status => 303, :flash => flash
@@ -114,7 +114,7 @@ class AdminController < ApplicationController
       if current_user.update_attributes(params[:user])
         flash.now[:success] = "Notification settings saved!"
       else
-        flash.now[:error] = "There was an error saving your notification settings. Please try again!"
+        flash.now[:error] = "Could not save notification settings. Please try again!"
       end
     end
   end

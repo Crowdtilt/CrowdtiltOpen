@@ -1,0 +1,4 @@
+<% admin = false if local_assigns[:admin].nil? %>
+<% flash.to_hash().slice(:success, :info, :notice, :warning, :error, :alert).each do |key, value| %>
+  <% if !value.blank? %><div class="alert <%= 'alert-admin' if admin %> alert-<%= key %>"><%= value %></div><% end %>
+<% end %>

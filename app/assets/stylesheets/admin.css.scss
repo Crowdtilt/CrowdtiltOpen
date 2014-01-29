@@ -223,19 +223,6 @@
   }
 }
 
-.admin-alert {
-  margin-top: 30px!important;
-}
-
-.admin-alert.alert.alert-success {
-  background: rgba(115, 211, 107, 1)!important;
-  text-shadow: none;
-}
-
-.admin-alert.alert.alert-notice {
-  background: rgba(211, 211, 136, 1)!important;
-  text-shadow: none;
-}
 .inline-alert{
   text-shadow: none;
   font-size: 12px;
@@ -257,9 +244,4 @@
 }
 .text-area-border{
   border: 1px solid red;
-}
-.admin-alert.alert.alert-error {
-  background: rgba(219, 94, 94, 1)!important;
-  color: white;
-  text-shadow: none;
 }
