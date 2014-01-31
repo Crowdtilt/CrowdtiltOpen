@@ -1,4 +1,6 @@
 class CampaignsController < ApplicationController
+  include CheckoutMixin
+
   layout 'layouts/checkout'
   before_filter :check_init
   before_filter :load_campaign
@@ -65,17 +67,18 @@ class CampaignsController < ApplicationController
   end
 
   def checkout_process
+    payment_params = basic_payment_info(params)
+
     ct_user_id = params[:ct_user_id]
     ct_card_id = params[:ct_card_id]
 
     #calculate amount and fee in cents
-    amount = (params[:amount].to_f*100).ceil
-    fee = calculate_processing_fee(amount)
+    fee = calculate_processing_fee(payment_params[:amount])
 
     @reward = false
     if params[:reward].to_i != 0
       @reward = Reward.find_by_id(params[:reward])
-      unless @reward && @reward.campaign_id == @campaign.id && amount >= @reward.price && !@reward.sold_out?
+      unless reward_choice_validates?(@reward, @campaign, payment_params[:amount])
         if @reward.sold_out?
           flash = { info: "This reward is unavailable. Please select a different reward!" }
         else
@@ -95,12 +98,10 @@ class CampaignsController < ApplicationController
     end
 
     # TODO: Check to make sure the amount is valid here
-
     # Create the payment record in our db, if there are errors, redirect the user
-    payment_params = basic_payment_info(params)
     @payment = @campaign.payments.new(payment_params)
 
-    if !@payment.valid?
+    unless @payment.valid?
       error_messages = @payment.errors.full_messages.join(', ')
       redirect_to checkout_amount_url(@campaign), flash: { error: error_messages } and return
     end
@@ -120,14 +121,13 @@ class CampaignsController < ApplicationController
       redirect_to checkout_amount_url(@campaign), flash: flash_msg and return
     end
 
-    @payment.amount = amount
     @payment.reward = @reward if @reward
     @payment.save
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
     begin
       payment = {
-        amount: amount,
+        amount: payment_params[:amount],
         user_fee_amount: user_fee_amount,
         admin_fee_amount: admin_fee_amount,
         user_id: ct_user_id,
@@ -221,28 +221,6 @@ class CampaignsController < ApplicationController
     if @campaign.expired?
       redirect_to campaign_home_url(@campaign), :info => { :error => "Campaign is expired!" }
     end
-  end
-
-  # create simple payment hash from params. does not include fees/payment amounts/cc info.
-  # to be used in response to javascript payment-creation requests (eg checkout_process and checkout_error)
-  def basic_payment_info(params)
-    {
-        client_timestamp: params.has_key?(:client_timestamp) ? params[:client_timestamp].to_i : nil,
-        ct_tokenize_request_id: params[:ct_tokenize_request_id],
-        fullname: params[:fullname],
-        email: params[:email],
-        billing_postal_code: params[:billing_postal_code],
-        quantity: params[:quantity].to_i,
-
-        #Shipping Info
-        address_one: params.has_key?(:address_one) ? params[:address_one] : '',
-        address_two: params.has_key?(:address_two) ? params[:address_two] : '',
-        city: params.has_key?(:city) ? params[:city] : '',
-        state: params.has_key?(:state) ? params[:state] : '',
-        postal_code: params.has_key?(:postal_code) ? params[:postal_code] : '',
-        country: params.has_key?(:country) ? params[:country] : '',
-        additional_info: params.has_key?(:additional_info) ? params[:additional_info] : ''
-    }
   end
 
 end

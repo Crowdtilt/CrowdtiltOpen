@@ -81,11 +81,4 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
-  def calculate_processing_fee(amount_cents)
-    amount_cents *= Rails.configuration.processing_fee_percentage.to_f / 100
-    amount_cents += Rails.configuration.processing_fee_flat_cents
-    amount_cents.ceil
-  end
-
 end
