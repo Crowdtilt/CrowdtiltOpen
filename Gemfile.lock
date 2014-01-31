@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/Crowdtilt/crowdtilt-gem.git
-  revision: ac7dfdcdfa583803a022860ef8d559a3db1e9393
+  revision: fc5185478a33fc9a5447b0ff382fbd0823fce1be
   specs:
-    crowdtilt (1.0.0)
+    crowdtilt (1.0.1)
       activesupport
       faraday (~> 0.8.8)
       faraday_middleware (~> 0.9.0)

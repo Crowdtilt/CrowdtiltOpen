@@ -148,10 +148,10 @@ class CampaignsController < ApplicationController
       logger.info response
     rescue Crowdtilt::ApiError => api_error
       response = api_error.response
-      logger.error "API ERROR WITH POST TO /payments: #{response.status} #{response.body}"
+      logger.error "API ERROR WITH POST TO /payments: #{response[:status]} #{response[:body]}"
       error_attributes = {status: 'error'}
-      error_attributes[:ct_charge_request_id] = response.body['request_id'] if response.body['request_id']
-      error_attributes[:ct_charge_request_error_id] = response.body['error_id'] if response.body['error_id']
+      error_attributes[:ct_charge_request_id] = response[:body]['request_id'] if response[:body]['request_id']
+      error_attributes[:ct_charge_request_error_id] = response[:body]['error_id'] if response[:body]['error_id']
       @payment.update_attributes(error_attributes)
       redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing team@crowdhoster.com" } and return
     rescue StandardError => exception
