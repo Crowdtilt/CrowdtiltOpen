@@ -5,7 +5,7 @@
 
     <div class="well checkout_block" style="padding-bottom: 16px">
 
-        <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form">
+        <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form" data-error-action="<%= checkout_error_path(@campaign) %>">
 
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
           <h4 class="contact">Contact Information</h4>
