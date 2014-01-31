@@ -8,10 +8,6 @@ Crowdhoster.admin =
     # All admin pages
     #
 
-    $('a.advanced_toggle').on "click", (e) ->
-      e.preventDefault()
-      $('#advanced').slideToggle()
-
     # Customization Form
     $('#settings_custom_css').on "change", (e) ->
       occ_msg = Crowdhoster.admin.checkSafety('settings_custom_css')
@@ -22,6 +18,12 @@ Crowdhoster.admin =
       Crowdhoster.admin.checkSafetyAlert(occ_msg, 'settings_custom_js', 'settings_custom_js_alert')
 
     #  Campaign Form
+
+    $('legend.foldable').on 'click', (e) ->
+      $(this).parent().find('div.foldable').slideToggle()
+
+    # hide foldable divs, but only when javascript is enabled
+    $('div.foldable').not('.default_expanded').hide()
 
     $('#campaign_expiration_date').datetimepicker({
       timeFormat: "h:mm tt",

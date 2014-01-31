@@ -1,378 +1,393 @@
 <%= form_for([:admin, @campaign], multipart: true, html: { class: "campaign_form", id: "admin_campaign_form" }) do |f| %>
 
   <fieldset>
-  <legend>Basic Information</legend>
+    <legend class="foldable"><a>Basic Information</a></legend>
 
-    <div class="field clearfix">
-      <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
-      <label>Campaign Name</label>
-      <%= f.text_field :name %>
-    </div>
-    <div class="field clearfix">
-      <p class="explanation">If you set this to be the default campaign, the homepage will redirect to the campaign.</p>
-      <label>Default Campaign?</label>
-      <% if (@settings.default_campaign_id == @campaign.id) %>
-        <%= f.check_box :is_default,  {checked: true} %>
-      <% else %>
-        <%= f.check_box :is_default, {checked: false} %>
-      <% end %>
-    </div>
-    <div class="field clearfix">
-      <p class="explanation">You can choose to set your goal based on the dollar amount you raise, or by the number of orders your contributors make.</p>
-      <label>Goal</label>
-      <label><input id="goal_type_dollars" name="campaign[goal_type]" value="dollars" type="radio" <%= @campaign.goal_type == 'dollars' ? "checked" : "" %>>Dollar Amount</label>
-
-       <div class="amount_input currency" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
-        <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
-        <span style="position:absolute">$</span>
+    <div class="foldable default_expanded">
+      <div class="field clearfix">
+        <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
+        <label>Campaign Name</label>
+        <%= f.text_field :name %>
       </div>
-
-       <label><input id="goal_type_orders" name="campaign[goal_type]" value="orders" type="radio" <%= @campaign.goal_type == 'orders' ? "checked" : "" %>>Number of Orders</label>
-
-      <div class="orders_input" style="<%= @campaign.goal_type == 'orders' ? "" : "display:none" %>">
-        <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0) %>
+      <div class="field clearfix">
+        <p class="explanation">If you set this to be the default campaign, the homepage will redirect to the campaign.</p>
+        <label>Default Campaign?</label>
+        <% if (@settings.default_campaign_id == @campaign.id) %>
+          <%= f.check_box :is_default,  {checked: true} %>
+        <% else %>
+          <%= f.check_box :is_default, {checked: false} %>
+        <% end %>
       </div>
-    </div>
+      <div class="field clearfix">
+        <p class="explanation">You can choose to set your goal based on the dollar amount you raise, or by the number of orders your contributors make.</p>
+        <label>Goal</label>
+        <label><input id="goal_type_dollars" name="campaign[goal_type]" value="dollars" type="radio" <%= @campaign.goal_type == 'dollars' ? "checked" : "" %>>Dollar Amount</label>
 
-    <div class="field clearfix">
-      <p class="explanation">When your campaign to raise money should end.</p>
-      <label>Expiration Date</label>
-      <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')) %>
-    </div>
-  </fieldset>
-
-  <fieldset>
-  <legend>Payment Details</legend>
-
-    <div class="field clearfix">
-
-      <div id="flexible_payment_options" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
-      <label><input id="campaign_payment_type_any" name="campaign[payment_type]" value="any" type="radio" <%= @campaign.payment_type == 'any' ? "checked" : "" %>><strong>Any</strong> amount is fine.</label>
-
-      <label><input id="campaign_payment_type_min" name="campaign[payment_type]" value="min" type="radio" <%= @campaign.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>
-
-      <div id="min-amount" style="<%= @campaign.payment_type == 'min' ? "" : "display:none" %>">
-        <label class="inline"><strong>Minimum amount: $ &nbsp;</strong></label>
-        <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
-      </div>
-
-      </div>
-      <label><input id="campaign_payment_type_fixed" name="campaign[payment_type]" value="fixed" type="radio" <%= (@campaign.payment_type == 'fixed' || @campaign.goal_type == 'orders') ? "checked" : "" %>>Require a <strong>specific amount</strong> from all contributors. <i>(ex. $150 from each person)</i></label>
-
-      <div id="preset-amount" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
-        <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
-        <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
-      </div>
-
-    </div>
-
-    <div id="global-shipping" class="field clearfix" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
-      <p id="campaign_collect_shipping_message" class="explanation" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">Requires the user to include shipping address when checking out.</p>
-      <p id="campaign_collect_shipping_warning" class="explanation message" style="<% if @campaign.payment_type == 'fixed' %>display:none<% end %>">If you're creating a campaign with rewards, you can select whether or not to collect shipping as you create each reward below.</p>
-      <div id="global-shipping-check">
-        <label class="message">Collect Shipping Address?</label>
-        <%= f.check_box :collect_shipping_flag %>
-      </div>
-    </div>
-
-    <div class="field clearfix">
-      <p class="explanation">Requires the user to provide additional information in a text box, such as sizes, colors, or other details.</p>
-      <label>Collect Additional Information?</label>
-      <%= f.check_box :collect_additional_info %>
-      <div class="additional_info_input" style="<%= @campaign.collect_additional_info ? "" : "display:none" %>">
-        <label>Include a message describing what you need:</label>
-        <%= f.text_area :additional_info_label, rows: 2 %>
-      </div>
-    </div>
-
-    <div class="field clearfix">
-      <p class="explanation">This passes the <%= Rails.configuration.processing_fee_percentage %>% + <%= Rails.configuration.processing_fee_flat_cents %>¢ per-transaction processing fee onto your contributors, adding the fee amount to their contribution amount when they check out. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank account.</p>
-      <label>Pass Credit Card Processing Fee to Contributors?</label>
-      <%= f.check_box :apply_processing_fee %>
-    </div>
-
-  </fieldset>
-
-  <fieldset>
-  <legend>Rewards (optional)</legend>
-
-    <div class="field clearfix">
-      <div id="no-rewards" style="<%= 'display:none' unless @campaign.payment_type == 'fixed' %>">
-        <p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors.</p>
-      </div>
-
-      <div id="rewards" style="<%= 'display:none' if @campaign.payment_type == 'fixed' %>">
-        <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution. You can set a cap on how many of each reward are available and the minimum contribution amount needed to claim one.</p>
-        <div class="reference">
-          <label>How To Reference a Reward (i.e. reward, perk, option)</label>
-          <%= f.text_field :reward_reference %>
-          <% if @campaign.persisted? && @campaign.expired? %>
-            <label>Display number of rewards claimed after campaign has ended?</label>
-            <%= f.check_box :include_rewards_claimed %>
-          <% end %>
+        <div class="amount_input currency" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+          <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
+          <span style="position:absolute">$</span>
         </div>
-        <ul>
-          <% @campaign.rewards.order("price ASC").each do |reward| %>
-          <li>
-            <table class="table">
-              <tr>
-                <th>Reward</th>
-                <th>Number Claimed</th>
-                <th>Delete?</th>
-              </tr>
-              <tr>
-                <td>
-                  <label>Minimum Contribution To Claim</label>
-                  <div class="currency">
-                    <input name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
-                    <span style="position:absolute">$</span>
-                  </div>
-                  <label>Title</label>
-                  <input name="reward[][title]" type="text" value="<%= reward.title %>"/><br/>
-                  <label>Image URL</label>
-                  <input name="reward[][image_url]" type="text" value="<%= reward.image_url %>"/><br/>
-                  <label>Description</label>
-                  <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
-                  <label>Estimated Delivery Date (i.e. May 2013)</label>
-                  <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
-                  <label>Number Available (leave blank if unlimited)</label>
-                  <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
-                  <label>Collect shipping address for this reward?</label>
-                  <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
-                  <% if @campaign.persisted? && @campaign.expired? %>
-                  <label>Display number of reward claimed after campaign has ended?</label>
-                  <input name="reward[][include_claimed]" type="checkbox" <% if reward.include_claimed %>checked="checked"<% end %>/>
-                  <% end %>
-                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
-                </td>
-                <td><%= reward.payments.length %></td>
-                <td>
-                  <% if reward.payments.length > 0 %>
-                    N/A<input type="hidden" name="reward[][delete]" value=""/>
-                  <% else %>
-                    <input type="checkbox" name="reward[][delete]" value="delete"/>
-                  <% end %>
-                </td>
-              </tr>
-            </table>
-          </li>
-          <% end %>
-        </ul>
-        <a id="reward-add" href="#">Add Reward</a>
+
+        <label><input id="goal_type_orders" name="campaign[goal_type]" value="orders" type="radio" <%= @campaign.goal_type == 'orders' ? "checked" : "" %>>Number of Orders</label>
+
+        <div class="orders_input" style="<%= @campaign.goal_type == 'orders' ? "" : "display:none" %>">
+          <%= f.text_field :goal_orders, value: (f.object.goal_orders || 0) %>
+        </div>
+      </div>
+
+      <div class="field clearfix">
+        <p class="explanation">When your campaign to raise money should end.</p>
+        <label>Expiration Date</label>
+        <%= f.text_field :expiration_date, placeholder: "Click to select date", value: (@campaign.expiration_date.blank? ? '' : @campaign.expiration_date.strftime('%m/%d/%Y %I:%M %P %Z')) %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="foldable"><a>Payment Details</a></legend>
+
+    <div class="foldable">
+      <div class="field clearfix">
+
+        <div id="flexible_payment_options" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+          <label><input id="campaign_payment_type_any" name="campaign[payment_type]" value="any" type="radio" <%= @campaign.payment_type == 'any' ? "checked" : "" %>><strong>Any</strong> amount is fine.</label>
+
+          <label><input id="campaign_payment_type_min" name="campaign[payment_type]" value="min" type="radio" <%= @campaign.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>
+
+          <div id="min-amount" style="<%= @campaign.payment_type == 'min' ? "" : "display:none" %>">
+            <label class="inline"><strong>Minimum amount: $ &nbsp;</strong></label>
+            <%= f.text_field :min_payment_amount, value: (number_with_precision(f.object.min_payment_amount, :precision => 2) || 0) %>
+          </div>
+
+        </div>
+        <label><input id="campaign_payment_type_fixed" name="campaign[payment_type]" value="fixed" type="radio" <%= (@campaign.payment_type == 'fixed' || @campaign.goal_type == 'orders') ? "checked" : "" %>>Require a <strong>specific amount</strong> from all contributors. <i>(ex. $150 from each person)</i></label>
+
+        <div id="preset-amount" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
+          <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
+          <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>
+        </div>
+
+      </div>
+
+      <div id="global-shipping" class="field clearfix" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">
+        <p id="campaign_collect_shipping_message" class="explanation" style="<%= @campaign.payment_type == 'fixed' ? "" : "display:none" %>">Requires the user to include shipping address when checking out.</p>
+        <p id="campaign_collect_shipping_warning" class="explanation message" style="<% if @campaign.payment_type == 'fixed' %>display:none<% end %>">If you're creating a campaign with rewards, you can select whether or not to collect shipping as you create each reward below.</p>
+        <div id="global-shipping-check">
+          <label class="message">Collect Shipping Address?</label>
+          <%= f.check_box :collect_shipping_flag %>
+        </div>
+      </div>
+
+      <div class="field clearfix">
+        <p class="explanation">Requires the user to provide additional information in a text box, such as sizes, colors, or other details.</p>
+        <label>Collect Additional Information?</label>
+        <%= f.check_box :collect_additional_info %>
+        <div class="additional_info_input" style="<%= @campaign.collect_additional_info ? "" : "display:none" %>">
+          <label>Include a message describing what you need:</label>
+          <%= f.text_area :additional_info_label, rows: 2 %>
+        </div>
+      </div>
+
+      <div class="field clearfix">
+        <p class="explanation">This passes the <%= Rails.configuration.processing_fee_percentage %>% + <%= Rails.configuration.processing_fee_flat_cents %>¢ per-transaction processing fee onto your contributors, adding the fee amount to their contribution amount when they check out. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank account.</p>
+        <label>Pass Credit Card Processing Fee to Contributors?</label>
+        <%= f.check_box :apply_processing_fee %>
       </div>
     </div>
 
   </fieldset>
 
   <fieldset>
-  <legend>Page Content</legend>
+    <legend class="foldable"><a>Rewards (optional)</a></legend>
 
-    <div class="field clearfix">
-      <p class="explanation">A few other ideas: supporter, order, preorder, donor, contributor, participant, purchase.</p>
-      <label>How To Reference a Contributor (i.e. 'backer' )</label>
-      <%= f.text_field :contributor_reference %>
+    <div class="foldable">
+      <div class="field clearfix">
+        <div id="no-rewards" style="<%= 'display:none' unless @campaign.payment_type == 'fixed' %>">
+          <p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors.</p>
+        </div>
+
+        <div id="rewards" style="<%= 'display:none' if @campaign.payment_type == 'fixed' %>">
+          <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution. You can set a cap on how many of each reward are available and the minimum contribution amount needed to claim one.</p>
+          <div class="reference">
+            <label>How To Reference a Reward (i.e. reward, perk, option)</label>
+            <%= f.text_field :reward_reference %>
+            <% if @campaign.persisted? && @campaign.expired? %>
+              <label>Display number of rewards claimed after campaign has ended?</label>
+              <%= f.check_box :include_rewards_claimed %>
+            <% end %>
+          </div>
+          <ul>
+            <% @campaign.rewards.order("price ASC").each do |reward| %>
+              <li>
+                <table class="table">
+                  <tr>
+                    <th>Reward</th>
+                    <th>Number Claimed</th>
+                    <th>Delete?</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Minimum Contribution To Claim</label>
+                      <div class="currency">
+                        <input name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
+                        <span style="position:absolute">$</span>
+                      </div>
+                      <label>Title</label>
+                      <input name="reward[][title]" type="text" value="<%= reward.title %>"/><br/>
+                      <label>Image URL</label>
+                      <input name="reward[][image_url]" type="text" value="<%= reward.image_url %>"/><br/>
+                      <label>Description</label>
+                      <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
+                      <label>Estimated Delivery Date (i.e. May 2013)</label>
+                      <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
+                      <label>Number Available (leave blank if unlimited)</label>
+                      <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
+                      <label>Collect shipping address for this reward?</label>
+                      <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
+                      <% if @campaign.persisted? && @campaign.expired? %>
+                        <label>Display number of reward claimed after campaign has ended?</label>
+                        <input name="reward[][include_claimed]" type="checkbox" <% if reward.include_claimed %>checked="checked"<% end %>/>
+                      <% end %>
+                      <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
+                    </td>
+                    <td><%= reward.payments.length %></td>
+                    <td>
+                      <% if reward.payments.length > 0 %>
+                        N/A<input type="hidden" name="reward[][delete]" value=""/>
+                      <% else %>
+                        <input type="checkbox" name="reward[][delete]" value="delete"/>
+                      <% end %>
+                    </td>
+                  </tr>
+                </table>
+              </li>
+            <% end %>
+          </ul>
+          <a id="reward-add" href="#">Add Reward</a>
+        </div>
+      </div>
     </div>
 
-    <div class="field clearfix">
-      <p class="explanation">We STRONGLY recommend including a video with your project. Just paste the youtube video id (it's the 11 character code that comes at the very end of the youtube url). You can also specify a placeholder image to show over top of the video in case you don't like your video's thumbnail.  Alternatively, you can choose to simply upload an image to show instead of a video.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend class="foldable"><a>Page Content</a></legend>
+
+    <div class="foldable">
+      <div class="field clearfix">
+        <p class="explanation">A few other ideas: supporter, order, preorder, donor, contributor, participant, purchase.</p>
+        <label>How To Reference a Contributor (i.e. 'backer' )</label>
+        <%= f.text_field :contributor_reference %>
+      </div>
+
+      <div class="field clearfix">
+        <p class="explanation">We STRONGLY recommend including a video with your project. Just paste the youtube video id (it's the 11 character code that comes at the very end of the youtube url). You can also specify a placeholder image to show over top of the video in case you don't like your video's thumbnail.  Alternatively, you can choose to simply upload an image to show instead of a video.</p>
 
         <label class="inline"><input id="campaign_media_type_video" name="campaign[media_type]" value="video" type="radio" <%= @campaign.media_type == 'video' ? "checked" : "" %>>Use Video</label>
 
         <label class="inline ml-20"><input id="campaign_media_type_image" name="campaign[media_type]" value="image" type="radio" <%= @campaign.media_type == 'image' ? "checked" : "" %>>Use Image</label>
 
-      <div id="video-options" style="<%= @campaign.media_type == 'video' ? "" : "display:none" %>">
-        <label>Youtube Video ID</label>
-        <%= f.text_field :video_embed_id %>
-        <label>Video Placeholder</label>
-        <% if @campaign.video_placeholder.file? %>
-          <%= image_tag @campaign.video_placeholder.url(:thumb) %><br/>
-          <%= f.file_field :video_placeholder %><br/>
-          <%= f.check_box :video_placeholder_delete %><span>Delete current image</span>
-        <% else %>
-          <%= f.file_field :video_placeholder %>
-        <% end  %>
+        <div id="video-options" style="<%= @campaign.media_type == 'video' ? "" : "display:none" %>">
+          <label>Youtube Video ID</label>
+          <%= f.text_field :video_embed_id %>
+          <label>Video Placeholder</label>
+          <% if @campaign.video_placeholder.file? %>
+            <%= image_tag @campaign.video_placeholder.url(:thumb) %><br/>
+            <%= f.file_field :video_placeholder %><br/>
+            <%= f.check_box :video_placeholder_delete %><span>Delete current image</span>
+          <% else %>
+            <%= f.file_field :video_placeholder %>
+          <% end  %>
+        </div>
+
+        <div id="image-options" style="<%= @campaign.media_type == 'image' ? "" : "display:none"%>">
+          <label>Image</label>
+          <% if @campaign.main_image.file? %>
+            <%= image_tag @campaign.main_image.url(:thumb) %><br/>
+            <%= f.file_field :main_image %><br/>
+            <%= f.check_box :main_image_delete %><span>Delete current image</span>
+          <% else %>
+            <%= f.file_field :main_image %>
+          <% end  %>
+        </div>
       </div>
 
-      <div id="image-options" style="<%= @campaign.media_type == 'image' ? "" : "display:none"%>">
-        <label>Image</label>
-        <% if @campaign.main_image.file? %>
-          <%= image_tag @campaign.main_image.url(:thumb) %><br/>
-          <%= f.file_field :main_image %><br/>
-          <%= f.check_box :main_image_delete %><span>Delete current image</span>
-        <% else %>
-          <%= f.file_field :main_image %>
-        <% end  %>
+      <div class="field clearfix">
+        <p class="explanation">This text is displayed on the primary call to action button. Common choices include 'Pay', 'Contribute', 'Back this Project', 'Reserve for $199', etc.</p>
+        <label>Primary Call to Action Button</label>
+        <%= f.text_field :primary_call_to_action_button %>
       </div>
-    </div>
 
-    <div class="field clearfix">
-      <p class="explanation">This text is displayed on the primary call to action button. Common choices include 'Pay', 'Contribute', 'Back this Project', 'Reserve for $199', etc.</p>
-      <label>Primary Call to Action Button</label>
-      <%= f.text_field :primary_call_to_action_button %>
-    </div>
+      <div class="field clearfix">
+        <label>Primary Call to Action Description</label>
+        <p class="explanation inline">This formatted text gets displayed near the primary call to action button.</p>
+        <%= f.cktext_area :primary_call_to_action_description %>
+      </div>
 
-    <div class="field clearfix">
-      <label>Primary Call to Action Description</label>
-      <p class="explanation inline">This formatted text gets displayed near the primary call to action button.</p>
-      <%= f.cktext_area :primary_call_to_action_description %>
-    </div>
+      <div class="field clearfix">
+        <label>Main Content</label>
+        <p class="explanation inline">This is the meat and potatoes of your website&mdash;include rich text and images to engage your contributors!</p>
+        <%= f.cktext_area :main_content %>
+      </div>
 
-    <div class="field clearfix">
-      <label>Main Content</label>
-      <p class="explanation inline">This is the meat and potatoes of your website&mdash;include rich text and images to engage your contributors!</p>
-      <%= f.cktext_area :main_content %>
-    </div>
+      <div class="field clearfix">
+        <p class="explanation">This text is displayed on the second call to action button position near the bottom of the homepage.</p>
+        <label>Secondary Call to Action Button</label>
+        <%= f.text_field :secondary_call_to_action_button %>
+      </div>
 
-    <div class="field clearfix">
-      <p class="explanation">This text is displayed on the second call to action button position near the bottom of the homepage.</p>
-      <label>Secondary Call to Action Button</label>
-      <%= f.text_field :secondary_call_to_action_button %>
-    </div>
+      <div class="field clearfix">
+        <label>Secondary Call to Action Description</label>
+        <p class="explanation inline">This formatted text gets displayed near the secondary call to action button.</p>
+        <%= f.cktext_area :secondary_call_to_action_description %>
+      </div>
 
-    <div class="field clearfix">
-      <label>Secondary Call to Action Description</label>
-      <p class="explanation inline">This formatted text gets displayed near the secondary call to action button.</p>
-      <%= f.cktext_area :secondary_call_to_action_description %>
-    </div>
-
-    <div class="field clearfix">
-      <label>FAQs</label>
-      <p class="explanation inline">Add as many question/answer pairs as you'd like to display in the FAQ section of the homepage.</p>
-      <ul class="faq sortable">
-        <% iterator = 1 %>
-        <% @campaign.faqs.each do |faq| %>
-        <li>
-          <span><%= iterator %></span>
-          <input type="hidden" name="faq[][sort_order]" value="<%= iterator %>" />
-          <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
-          <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
-          <a href="#" class="faq-delete icon-trash"></a>
-        </li>
-        <% iterator+=1 %>
-        <% end %>
-        <li>
-          <span><%= @campaign.faqs.count + 1 %></span>
-          <input type="hidden" name="faq[][sort_order]" value="<%= @campaign.faqs.count + 1 %>" />
-          <textarea name="faq[][question]" placeholder="Question"></textarea>
-          <textarea name="faq[][answer]" placeholder="Answer"></textarea>
-          <a href="#" class="faq-delete icon-trash"></a>
-         </li>
-      </ul>
-      <a id="faq-add" href="#">Add FAQ</a>
+      <div class="field clearfix">
+        <label>FAQs</label>
+        <p class="explanation inline">Add as many question/answer pairs as you'd like to display in the FAQ section of the homepage.</p>
+        <ul class="faq sortable">
+          <% iterator = 1 %>
+          <% @campaign.faqs.each do |faq| %>
+            <li>
+              <span><%= iterator %></span>
+              <input type="hidden" name="faq[][sort_order]" value="<%= iterator %>" />
+              <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
+              <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
+              <a href="#" class="faq-delete icon-trash"></a>
+            </li>
+            <% iterator+=1 %>
+          <% end %>
+          <li>
+            <span><%= @campaign.faqs.count + 1 %></span>
+            <input type="hidden" name="faq[][sort_order]" value="<%= @campaign.faqs.count + 1 %>" />
+            <textarea name="faq[][question]" placeholder="Question"></textarea>
+            <textarea name="faq[][answer]" placeholder="Answer"></textarea>
+            <a href="#" class="faq-delete icon-trash"></a>
+          </li>
+        </ul>
+        <a id="faq-add" href="#">Add FAQ</a>
+      </div>
     </div>
   </fieldset>
 
   <fieldset>
-  <legend>Comments (optional)</legend>
-    <div class="field clearfix">
-      <label>Include a user comment section?</label>
-      <p class="explanation">Add a comment section where backers can discuss your campaign. You will need a free moderator account from <a href="https://disqus.com/admin/signup/" target="_blank">Disqus.</a></p>
-      <%= f.check_box :include_comments %>
-      <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
-        <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/" target="_blank">Need one?</a>)</label>
-        <div class="input-append">
-          <%= f.text_field :comments_shortname, :placeholder => 'shortname' %>
-          <span class="add-on">.disqus.com</span>
+    <legend class="foldable"><a>Comments</a></legend>
+
+    <div class="foldable">
+      <div class="field clearfix">
+        <label>Include a user comment section?</label>
+        <p class="explanation">Add a comment section where backers can discuss your campaign. You will need a free moderator account from <a href="https://disqus.com/admin/signup/" target="_blank">Disqus.</a></p>
+        <%= f.check_box :include_comments %>
+        <div class="include_comments_input" style="<%= @campaign.include_comments ? "" : "display:none" %>">
+          <label>Enter your Disqus Site Shortname (<a href="https://disqus.com/admin/signup/" target="_blank">Need one?</a>)</label>
+          <div class="input-append">
+            <%= f.text_field :comments_shortname, :placeholder => 'shortname' %>
+            <span class="add-on">.disqus.com</span>
+          </div>
         </div>
       </div>
     </div>
   </fieldset>
 
   <fieldset>
-  <legend>Checkout Page Content</legend>
+    <legend class="foldable"><a>Checkout Page Content</a></legend>
 
-    <div class="field clearfix">
-      <label>Checkout Sidebar Content</label>
-      <p class="explanation inline">This content is displayed on the right sidebar of the checkout page. A question/answer format is often used.</p>
-      <%= f.cktext_area :checkout_sidebar_content %>
+    <div class="foldable">
+      <div class="field clearfix">
+        <label>Checkout Sidebar Content</label>
+        <p class="explanation inline">This content is displayed on the right sidebar of the checkout page. A question/answer format is often used.</p>
+        <%= f.cktext_area :checkout_sidebar_content %>
+      </div>
+
+      <div class="field clearfix">
+        <label>Confirmation Page Content</label>
+        <p class="explanation inline">This content appears on the confirmation page when a contributor completes a successful transaction.</p>
+        <%= f.cktext_area :confirmation_page_content %>
+      </div>
     </div>
-
-    <div class="field clearfix">
-      <label>Confirmation Page Content</label>
-      <p class="explanation inline">This content appears on the confirmation page when a contributor completes a successful transaction.</p>
-      <%= f.cktext_area :confirmation_page_content %>
-    </div>
-
   </fieldset>
 
   <fieldset>
-  <legend>Sharing Details</legend>
+    <legend class="foldable"><a>Sharing Details</a></legend>
 
-    <div class="field clearfix">
-      <p class="explanation">This is the default text that will be used for the tweet button.</p>
-      <label>Tweet Text</label>
-      <%= f.text_area :tweet_text, rows: 2 %>
-    </div>
+    <div class="foldable">
+      <div class="field clearfix">
+        <p class="explanation">This is the default text that will be used for the tweet button.</p>
+        <label>Tweet Text</label>
+        <%= f.text_area :tweet_text, rows: 2 %>
+      </div>
 
-    <div class="field clearfix">
-      <p class="explanation">The title shown when your site is shared via Facebook. Leave this blank if you want to use your project name.</p>
-      <label>Facebook Title</label>
-      <%= f.text_field :facebook_title %>
-    </div>
+      <div class="field clearfix">
+        <p class="explanation">The title shown when your site is shared via Facebook. Leave this blank if you want to use your project name.</p>
+        <label>Facebook Title</label>
+        <%= f.text_field :facebook_title %>
+      </div>
 
-    <div class="field clearfix">
-      <p class="explanation">The description shown when your site is shared via Facebook.</p>
-      <label>Facebook Description</label>
-      <%= f.text_area :facebook_description, rows: 2 %>
-    </div>
+      <div class="field clearfix">
+        <p class="explanation">The description shown when your site is shared via Facebook.</p>
+        <label>Facebook Description</label>
+        <%= f.text_area :facebook_description, rows: 2 %>
+      </div>
 
-    <div class="field clearfix">
-      <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
-      <label>Facebook Image</label>
-      <% if @campaign.facebook_image.file? %>
-        <%= image_tag @campaign.facebook_image.url(:thumb) %><br/>
-        <%= f.file_field :facebook_image %><br/>
-        <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
-      <% else %>
-        <%= f.file_field :facebook_image %>
-      <% end  %>
-    </div>
-
-  </fieldset>
-
-  <fieldset>
-  <legend>Publish</legend>
-
-    <div class="field clearfix">
-      <p class="explanation">Check this box and click save below to make this campaign visible to non-admins.<br><br>If this box is checked, the campaign will show up on your homepage and be accessible to all visitors to your site.</p>
-      <label>Visible to non-admins?</label>
-      <%= f.check_box :published_flag %>
-    </div>
-
-    <div class="field clearfix">
-      <% if !f.object.production_flag %>
-        <p class="explanation">Check this box and click save below once you're ready to activate payments and launch your campaign.<br><br>WARNING: Once you activate payments and launch your campaign, you won't be able to run further test transactions.</p>
-        <% if @settings.payments_activated? %>
-          <label>Activate payments and launch your campaign</label>
-          <%= f.check_box :production_flag %>
+      <div class="field clearfix">
+        <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
+        <label>Facebook Image</label>
+        <% if @campaign.facebook_image.file? %>
+          <%= image_tag @campaign.facebook_image.url(:thumb) %><br/>
+          <%= f.file_field :facebook_image %><br/>
+          <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
         <% else %>
-          You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit <%= link_to "Payment Settings", admin_bank_account_path, target: "_blank" %> from the admin menu to do this.
-        <% end %>
-      <% else %>
-        <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>
-        <label><i class="icon-ok"></i> Payments activated</label>
-      <% end %>
+          <%= f.file_field :facebook_image %>
+        <% end  %>
+      </div>
     </div>
 
+  </fieldset>
+
+  <fieldset>
+    <legend class="foldable"><a>Publish</a></legend>
+
+    <div class="foldable default_expanded">
+      <div class="field clearfix">
+        <p class="explanation">Check this box and click save below to make this campaign visible to non-admins.<br><br>If this box is checked, the campaign will show up on your homepage and be accessible to all visitors to your site.</p>
+        <label>Visible to non-admins?</label>
+        <%= f.check_box :published_flag %>
+      </div>
+
+      <div class="field clearfix">
+        <% if !@campaign.production_flag %>
+          <p class="explanation">Check this box and click save below once you're ready to activate payments and launch your campaign.<br><br>WARNING: Once you activate payments and launch your campaign, you won't be able to run further test transactions.</p>
+          <% if @settings.payments_activated? %>
+            <label>Activate payments and launch your campaign</label>
+            <%= f.check_box :production_flag %>
+          <% else %>
+            You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit <%= link_to "Payment Settings", admin_bank_account_path, target: "_blank" %> from the admin menu to do this.
+          <% end %>
+        <% else %>
+          <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>
+          <label><i class="icon-ok"></i> Payments activated</label>
+        <% end %>
+      </div>
+    </div>
   </fieldset>
 
   <% if @campaign.persisted? %>
-  <fieldset>
-    <legend><a class="advanced_toggle" href="#">Advanced Settings (click to expand)</a></legend>
-    <div id="advanced" style="display:none">
-      <div class="field clearfix">
-        <p class="explanation">An api key to use the Crowdhoster API for <%=@campaign.name %>. This allows you to hook your campaign data into third party apps like <a href="https://backerkit.com/" target="_blank">BackerKit</a>.  More coming soon!</p>
-        <label>API Endpoint</label>
-        <p><%= api_campaign_url(id: @campaign.id)%></p>
-        <label>API key</label>
-        <p><%= @settings.api_key %></p>
-        <label>Example Usage (Return a JSON array of campaign data)</label>
-        <p><%= api_campaign_url(id: @campaign.id)%>?api_key=<%= @settings.api_key %></p>
-        <label>Example Usage (Return a JSON array of all payments)</label>
-        <p><%= api_campaign_url(id: @campaign.id)%>/payments?api_key=<%= @settings.api_key %></p>
+    <fieldset>
+      <legend class="foldable"><a>Advanced Settings</a></legend>
+      <div class="foldable">
+          <div class="field clearfix">
+            <p class="explanation">An api key to use the Crowdhoster API for <%=@campaign.name %>. This allows you to hook your campaign data into third party apps like <a href="https://backerkit.com/" target="_blank">BackerKit</a>.  More coming soon!</p>
+            <label>API Endpoint</label>
+            <p><%= api_campaign_url(id: @campaign.id)%></p>
+            <label>API key</label>
+            <p><%= @settings.api_key %></p>
+            <label>Example Usage (Return a JSON array of campaign data)</label>
+            <p><%= api_campaign_url(id: @campaign.id)%>?api_key=<%= @settings.api_key %></p>
+            <label>Example Usage (Return a JSON array of all payments)</label>
+            <p><%= api_campaign_url(id: @campaign.id)%>/payments?api_key=<%= @settings.api_key %></p>
+          </div>
       </div>
-     </div>
-  </fieldset>
+    </fieldset>
   <% end %>
 
 
