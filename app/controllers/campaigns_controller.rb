@@ -120,6 +120,8 @@ class CampaignsController < ApplicationController
       redirect_to checkout_amount_url(@campaign), flash: flash_msg and return
     end
 
+    @payment.amount = amount
+    @payment.reward = @reward if @reward
     @payment.save
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
@@ -161,7 +163,6 @@ class CampaignsController < ApplicationController
     end
 
     # Sync payment data
-    @payment.reward = @reward if @reward
     @payment.update_api_data(response['payment'])
     @payment.ct_charge_request_id = response['request_id']
     @payment.save
