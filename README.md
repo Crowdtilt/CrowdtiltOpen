@@ -202,6 +202,22 @@ $ heroku open
 $ heroku addons:add papertrail:choklad
 ```
 
+## Purging your Crowdtilt API Keys
+
+If for some reason your api keys are compromised and you need to reset them you can do the following:
+
+```
+ruby purge.rb remote_name new_sanbox_key new_secret_key
+```
+
+If you don't know the name of your heroku remote do the following before running the script above to list the names of your remotes:
+
+```
+git remote -v
+```
+
+* Note you should also change these keys in your `.env` file.
+
 ## Contribute
 
 Looking to help make Crowdhoster better?
