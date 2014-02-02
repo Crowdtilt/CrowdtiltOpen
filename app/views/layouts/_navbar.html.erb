@@ -28,6 +28,10 @@
              <a href="<%= edit_admin_campaign_path(@campaign) %>"><i class="icon-edit icon-white"></i> Edit campaign</a>
            </li>
 
+           <li>
+             <a href="<%= admin_campaigns_payments_path(@campaign) %>"><i class="icon-list icon-white"></i> View payments</a>
+           </li>
+
            <% if !@campaign.published_flag %>
              <li class="status red show_tooltip" data-placement="bottom" data-title="Visible to ADMINS ONLY">
                Not published
