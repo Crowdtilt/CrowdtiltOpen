@@ -1,11 +1,11 @@
 <div id="admin">
   <div class="container content_box clearfix">
 
-  <%= render 'admin/header', active: 'website' %>
+  <%= render 'admin/header', active: 'homepage' %>
 
-  <div id="admin_website">
+  <div id="admin_homepage">
 
-    <%= form_for(@settings, url: admin_website_path, multipart: true, html: { id: "admin_website_form" }) do |f| %>
+    <%= form_for(@settings, url: admin_homepage_path, multipart: true, html: { id: "admin_homepage_form" }) do |f| %>
 
       <fieldset>
       <legend>Basic Information</legend>

@@ -7,8 +7,8 @@
   <li class="<%= 'active' if active == 'campaigns' %>">
     <%= link_to "Campaigns", admin_campaigns_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
-  <li class="<%= 'active' if active == 'website' %>">
-    <%= link_to "Website", admin_website_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  <li class="<%= 'active' if active == 'homepage' %>">
+    <%= link_to "Homepage", admin_homepage_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
   <li class="<%= 'active' if active == 'payments' %>">
     <%= link_to "Payment Settings", admin_processor_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
