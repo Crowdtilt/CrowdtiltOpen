@@ -12,10 +12,11 @@ Crowdhoster::Application.routes.draw do
   end
 
   # ADMIN
-  match '/admin',                      to: 'admin#admin_website',                   as: :admin_website
+  get '/admin',                                to: 'admin#admin_dashboard',                 as: :admin_dashboard
+  match '/admin/website',                      to: 'admin#admin_website',                   as: :admin_website
   namespace :admin do
     resources :campaigns
-    post '/payments/:id/refund',                to: 'payments#refund_payment',               as: :admin_payment_refund
+    post '/payments/:id/refund',               to: 'payments#refund_payment',               as: :admin_payment_refund
   end
 
   match '/admin/campaigns/:id/copy',           to: 'admin/campaigns#copy',                  as: :admin_campaigns_copy
