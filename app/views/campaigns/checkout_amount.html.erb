@@ -12,7 +12,7 @@
             <h4 class="amount_header">Please choose a quantity: </h4>
             <br/>
 
-              <span>$<%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %>&nbsp; x &nbsp;</span>
+              <span><%= short_price(@campaign.fixed_payment_amount, '$', 2) %>&nbsp; x &nbsp;</span>
               <select id="quantity" name="quantity" style="width:65px">
                 <option value="01" selected>01</option>
                 <option value="02">02</option>
@@ -25,7 +25,7 @@
                 <option value="09">09</option>
                 <option value="10">10</option>
               </select>
-              <span>&nbsp; = &nbsp;$<span id="total"><%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %></span></span>
+              <span>&nbsp; = &nbsp;$<span id="total"><%= short_price(@campaign.fixed_payment_amount, '', 2) %></span></span>
 
             </div>
 
@@ -40,7 +40,7 @@
               <input id="amount" type="text" name="amount" value="<%= short_price(@reward.price) if @reward %>"/>&nbsp;&nbsp;
               <span style="position:absolute">$</span>
             </div>
-            <span class="minimum">Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
+            <span class="minimum">Minimum is <%= short_price(@campaign.min_payment_amount, '$', 2) %></span>
             <label class="error hide"></label>
             </div>
             <input id="quantity" type="hidden" name="quantity" value="1"/>
@@ -51,7 +51,7 @@
             <div id="reward_select" data-reference="<%= @campaign.reward_reference %>">
             <h4>Select your <%= @campaign.reward_reference %>: </h4>
             <ul>
-              <li class="reward_option active <%= raw('hide') if @reward %> clearfix" data-id="0" data-price="<%= short_price(@campaign.min_payment_amount) %>">
+              <li class="reward_option active <%= raw('hide') if @reward %> clearfix" data-id="0" data-price="<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %>">
                   <input class="reward_input" type="radio" name="reward" value="0">
                   <label class="price"></label>
                   <div class="reward_description">
@@ -61,9 +61,9 @@
               </li>
               <% @campaign.rewards.order("price ASC").each do |reward| %>
               <% if reward.visible? %>
-                <li class="reward_option <%= raw('active') unless reward.sold_out? %> <%= ((@reward.id == reward.id) ? raw('selected') : raw('hide')) if @reward %> clearfix" data-id="<%= reward.id %>" data-price="<%= short_price(reward.price) %>">
+                <li class="reward_option <%= raw('active') unless reward.sold_out? %> <%= ((@reward.id == reward.id) ? raw('selected') : raw('hide')) if @reward %> clearfix" data-id="<%= reward.id %>" data-price="<%= number_with_precision(reward.price, precision: 2) %>">
                   <input class="reward_input" type="radio" name="reward" value="<%= reward.id %>" <%= raw('disabled') if reward.sold_out? %><%= raw('checked="checked"') if @reward && @reward.id == reward.id %>>
-                  <label class="price">$<%= short_price(reward.price) %> +</label>
+                  <label class="price"><%= short_price(reward.price, '$') %> +</label>
                   <div class="reward_description">
                     <p class="title"><%= reward.title %></p>
                     <p class="claimed">

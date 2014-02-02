@@ -169,7 +169,7 @@
             <% if reward.visible? %>
               <li id="rewards_click">
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? || @campaign.expired? %>" class="<%= 'disabled' if reward.sold_out? || @campaign.expired? %>">
-                  <p class="price">$<%= number_with_precision(reward.price, precision: (reward.price*100%100==0.0 ? 0 : 2)) %></p>
+                  <p class="price"><%= short_price(reward.price, '$') %></p>
                   <p class="title"><%= reward.title %></p>
                   <% if reward.image_url.present? %><p class="image"><img src="<%= reward.image_url %>"></p><% end %>
                   <p class="description"><%= reward.description %></p>

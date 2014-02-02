@@ -1,6 +1,8 @@
 class UserMailer < ActionMailer::Base
   layout 'default_mailer'
 
+  helper :campaigns
+
   def payment_confirmation(payment, campaign)
     @settings = Settings.first
     @payment = payment

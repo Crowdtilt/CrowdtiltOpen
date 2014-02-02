@@ -18,7 +18,7 @@ Crowdhoster.campaigns =
       $amount = $('#amount')
       new_amount = parseFloat($amount.attr('data-original')) * quantity
       $amount.val(new_amount)
-      $('#total').html(new_amount.toFixed(2))
+      $('#total').html(new_amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");)
 
     $('#amount').on "keyup", (e) ->
       $(this).addClass('edited')

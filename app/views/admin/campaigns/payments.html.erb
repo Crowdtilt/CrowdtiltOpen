@@ -62,8 +62,8 @@
             <% if @campaign.goal_type == 'orders' %>
             <td><%= payment.quantity %></td>
             <% end %>
-            <td class="amount">$<%= number_with_precision(payment.amount.to_f/100.0, precision: 2) %></td>
-            <td class="user_fee_amount">$<%= number_with_precision(payment.user_fee_amount.to_f/100.0, precision: 2) %></td>
+            <td class="amount"><%= short_price(payment.amount.to_f/100.0, '$', 2) %></td>
+            <td class="user_fee_amount"><%= short_price(payment.user_fee_amount.to_f/100.0, '$', 2) %></td>
             <td><%= payment.created_at.strftime("%m/%d/%Y") %></td>
             <td class="status"><%= payment.status %></td>
             <td class="ct_payment_id"><%= payment.ct_payment_id %></td>

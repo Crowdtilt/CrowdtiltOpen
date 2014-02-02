@@ -25,14 +25,14 @@
 
           <td>
             <% if campaign.goal_type == "dollars" %>
-              $<%= number_with_precision(campaign.goal_dollars.to_f, precision: 2) %>
+              <%= short_price(campaign.goal_dollars.to_f, '$', 2) %>
             <% else %>
               <%= campaign.goal_orders %>
             <% end %>
           </td>
           <td>
             <% if campaign.goal_type == "dollars" %>
-              $<%= number_with_precision(campaign.stats_raised_amount.to_f, precision: 2) %>
+              <%= short_price(campaign.stats_raised_amount.to_f, '$', 2) %>
             <% else %>
               <%= campaign.orders %>
             <% end %>

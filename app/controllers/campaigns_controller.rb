@@ -27,6 +27,7 @@ class CampaignsController < ApplicationController
 
   def checkout_payment
     @reward = false
+    params[:amount].sub!(',', '') if params[:amount].present?
     if @campaign.payment_type == "fixed"
       if params.has_key?(:quantity)
         @quantity = params[:quantity].to_i

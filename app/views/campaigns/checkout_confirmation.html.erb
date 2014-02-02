@@ -14,7 +14,7 @@
       <% end%>
       <p>
       <strong>Date:</strong><br/> <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/><br/>
-      <strong>Amount:</strong><br/> $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/><br/>
+      <strong>Amount:</strong><br/> <%= short_price(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, '$', 2) %> <br/><br/>
       <strong>Card:</strong><br/> <%= @payment.card_type %> ************<%= @payment.card_last_four %>
       (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/><br/>
       <% if @campaign.rewards? %>
