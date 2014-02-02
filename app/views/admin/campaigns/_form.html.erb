@@ -330,25 +330,19 @@
   <legend>Publish</legend>
 
     <div class="field clearfix">
-      <p class="explanation">Campaigns that are not published are accessible only by admins, which is helpful for both previewing new campaigns and archiving old campaigns you no longer want users to access. Once published, the campaign will show up on your homepage and be accessible to all visitors to your site.</p>
-      <label>Publish this campaign?</label>
+      <p class="explanation">Check this box and click save below to make this campaign visible to non-admins.<br><br>If this box is checked, the campaign will show up on your homepage and be accessible to all visitors to your site.</p>
+      <label>Visible to non-admins?</label>
       <%= f.check_box :published_flag %>
     </div>
 
-  </fieldset>
-
-
-  <fieldset>
-  <legend>Payment Mode</legend>
-
     <div class="field clearfix">
       <% if !f.object.production_flag %>
-        <p class="explanation">Campaigns remain in 'sandbox' mode until you choose to activate real payments. This lets you run test transactions on the campaign. WARNING: once you activate payments, you cannot go back to sandbox mode.</p>
+        <p class="explanation">Check this box and click save below once you're ready to activate payments and launch your campaign.<br><br>WARNING: Once you activate payments and launch your campaign, you won't be able to run further test transactions.</p>
         <% if @settings.payments_activated? %>
-          <label>Activate payments?</label>
+          <label>Activate payments and launch your campaign</label>
           <%= f.check_box :production_flag %>
         <% else %>
-          You must set up your payment processor before activating payments. Visit "Payment Settings" from the admin menu to do this.
+          You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit "Payment Settings" from the admin menu to do this.
         <% end %>
       <% else %>
         <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>
