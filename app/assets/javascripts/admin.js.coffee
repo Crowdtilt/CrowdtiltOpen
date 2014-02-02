@@ -12,16 +12,15 @@ Crowdhoster.admin =
       e.preventDefault()
       $('#advanced').slideToggle()
 
-    # Settings Form
+    # Customization Form
     $('#settings_custom_css').on "change", (e) ->
       occ_msg = Crowdhoster.admin.checkSafety('settings_custom_css')
       Crowdhoster.admin.checkSafetyAlert(occ_msg, 'settings_custom_css', 'settings_custom_css_alert')
-        
+
     $('#settings_custom_js').on "change", (e) ->
       occ_msg = Crowdhoster.admin.checkSafety('settings_custom_js')
       Crowdhoster.admin.checkSafetyAlert(occ_msg, 'settings_custom_js', 'settings_custom_js_alert')
-        
-      
+
     #  Campaign Form
 
     $('#campaign_expiration_date').datetimepicker({
@@ -173,7 +172,7 @@ Crowdhoster.admin =
   # Custom Named Functions
   checkSafety : (editor) ->
     reg = new RegExp(/(\s*[:]*?[=]?\s*["]?\s*\b(http)\s*:\s*\/\/[a-zA-Z0-9+&@#\/%?=~_-|!,;:.~-]*)/g)
-    regDisp = new RegExp(/(\b(http)\s*:\s*\/\/[a-zA-Z0-9+&@#\/%?=~_-|!,;:.~-]*)/g) 
+    regDisp = new RegExp(/(\b(http)\s*:\s*\/\/[a-zA-Z0-9+&@#\/%?=~_-|!,;:.~-]*)/g)
     str = $("#" + editor).val()
     occ_msg = ""
     while (result = reg.exec(str)) isnt null
@@ -194,8 +193,7 @@ Crowdhoster.admin =
         $('#' + element).removeClass('text-area-border')
         if( Crowdhoster.admin.checkSafety('settings_custom_css') == '' )
           $('#settings_custom_alert').hide();
-  
-  
+
   submitWebsiteForm: (form) ->
     form.submit()
 

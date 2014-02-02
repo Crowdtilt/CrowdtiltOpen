@@ -30,6 +30,17 @@ class AdminController < ApplicationController
     end
   end
 
+  def admin_customize
+    #Handle the form submission if request is PUT
+    if request.put?
+      if @settings.update_attributes(params[:settings])
+        flash.now[:success] = "Customizations successfully applied!"
+      else
+        flash.now[:error] = @settings.errors.full_messages.join(', ')
+      end
+    end
+  end
+
   def admin_processor_setup
     if request.post?
       flash.now[:error] = "Missing API credentials" and return if params[:ct_prod_api_key].blank? || params[:ct_prod_api_secret].blank?
