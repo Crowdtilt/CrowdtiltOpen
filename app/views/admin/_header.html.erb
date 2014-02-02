@@ -10,13 +10,17 @@
   <li class="<%= 'active' if active == 'customize' %>">
     <%= link_to "Customize", admin_customize_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
-  <li class="<%= 'active' if active == 'site_settings' %>">
-    <%= link_to "Site Settings", admin_site_settings_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-  </li>
-  <li class="<%= 'active' if active == 'payments' %>">
-    <%= link_to "Payment Settings", admin_processor_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-  </li>
-  <li class="<%= 'active' if active == 'notifications' %>">
-    <%= link_to "Notification Settings", admin_notification_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">
+        Settings
+        <b class="caret"></b>
+      </a>
+    <ul class="dropdown-menu">
+      <%= link_to "Site Settings", admin_site_settings_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+      <%= link_to "Payment Settings", admin_processor_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+      <%= link_to "Notification Settings", admin_notification_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+    </ul>
   </li>
 </ul>
