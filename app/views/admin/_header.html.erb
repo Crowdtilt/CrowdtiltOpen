@@ -1,7 +1,4 @@
-<h3>
-  <%= link_to 'Admin', admin_dashboard_path %> > <%= link_to @settings.site_name, root_path %>
-  <span class="loader" data-loader="admin_header" style="display:none"></span>
-</h3>
+<%= render 'admin/breadcrumbs', crumbs: @breadcrumbs %>
 
 <ul class="nav nav-pills">
   <li class="<%= 'active' if active == 'campaigns' %>">

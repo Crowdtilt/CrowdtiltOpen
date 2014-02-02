@@ -1,7 +1,9 @@
 class Admin::CampaignsController < ApplicationController
+  include AdminMixin
   layout "admin"
   before_filter :authenticate_user!
   before_filter :verify_admin
+  before_filter { |c| c.create_breadcrumb ['Campaigns', admin_campaigns_path] }
 
   def index
     @campaigns = Campaign.order("created_at ASC")
@@ -9,6 +11,7 @@ class Admin::CampaignsController < ApplicationController
 
   def new
     @campaign = Campaign.new
+    create_breadcrumb(['New Campaign', new_admin_campaign_path])
   end
 
   def copy
@@ -139,6 +142,7 @@ class Admin::CampaignsController < ApplicationController
 
   def edit
     @campaign = Campaign.find(params[:id])
+    create_breadcrumb(['Edit Campaign', edit_admin_campaign_path(@campaign)])
   end
 
   def update
@@ -294,6 +298,7 @@ class Admin::CampaignsController < ApplicationController
       @payments = @campaign.payments_completed.order("created_at ASC")
     end
 
+    create_breadcrumb(['Payments', admin_campaigns_payments_path(@campaign)])
     respond_to do |format|
       format.html
       format.csv { send_data @payments.to_csv, filename: "#{@campaign.name}.csv" }
