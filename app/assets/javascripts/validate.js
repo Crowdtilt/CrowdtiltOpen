@@ -4,24 +4,6 @@ $( document ).ready(function() {
   // validate '/admin/site-settings'
   $("#admin_site_settings_form").validate({
 
-    // custom handler to call named function ""
-    submitHandler: function (form) {
-      $(window).unbind('beforeunload', unsavedChangesChecker);
-      var occ_msg_css = Crowdhoster.admin.checkSafety('settings_custom_css');
-      var occ_msg_js = Crowdhoster.admin.checkSafety('settings_custom_js');
-      if ( ( occ_msg_css != '' || occ_msg_js != '' ) && !Crowdhoster.admin.isSecurityCheckWarningDisplayed ){
-           Crowdhoster.admin.checkSafetyAlert(occ_msg_css, 'settings_custom_css', 'settings_custom_css_alert');
-           Crowdhoster.admin.checkSafetyAlert(occ_msg_js, 'settings_custom_js', 'settings_custom_js_alert');
-           $('#settings_custom_alert').html('Please see the security warnings above with your custom CSS/JS. To continue anyway, click the save button again.');
-           $('#settings_custom_alert').show();
-           $(".loader").hide();
-           Crowdhoster.admin.isSecurityCheckWarningDisplayed = true;
-      }
-      else{
-        Crowdhoster.admin.submitWebsiteForm(form); 
-      }
-    },
-
     // validate the previously selected element when the user clicks out
     onfocusout: function(element) {
       $(element).valid();
@@ -59,6 +41,29 @@ $( document ).ready(function() {
       },
       "settings[facebook_app_id]": {
         digits: "Your Facebook app ID should only consist of numbers"
+      }
+    }
+
+  });
+
+  // validate customizations
+  $("#admin_customize_form").validate({
+
+    // custom handler to call named function ""
+    submitHandler: function (form) {
+      $(window).unbind('beforeunload', unsavedChangesChecker);
+      var occ_msg_css = Crowdhoster.admin.checkSafety('settings_custom_css');
+      var occ_msg_js = Crowdhoster.admin.checkSafety('settings_custom_js');
+      if ( ( occ_msg_css != '' || occ_msg_js != '' ) && !Crowdhoster.admin.isSecurityCheckWarningDisplayed ){
+           Crowdhoster.admin.checkSafetyAlert(occ_msg_css, 'settings_custom_css', 'settings_custom_css_alert');
+           Crowdhoster.admin.checkSafetyAlert(occ_msg_js, 'settings_custom_js', 'settings_custom_js_alert');
+           $('#settings_custom_alert').html('Please see the security warnings above with your custom CSS/JS. To continue anyway, click the save button again.');
+           $('#settings_custom_alert').show();
+           $(".loader").hide();
+           Crowdhoster.admin.isSecurityCheckWarningDisplayed = true;
+      }
+      else{
+        Crowdhoster.admin.submitWebsiteForm(form);
       }
     }
 
