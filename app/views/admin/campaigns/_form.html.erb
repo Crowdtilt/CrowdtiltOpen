@@ -346,7 +346,7 @@
           <label>Activate payments and launch your campaign</label>
           <%= f.check_box :production_flag %>
         <% else %>
-          You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit "Payment Settings" from the admin menu to do this.
+          You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit <%= link_to "Payment Settings", admin_bank_account_path %> from the admin menu to do this.
         <% end %>
       <% else %>
         <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>
