@@ -10,6 +10,9 @@
   <li class="<%= 'active' if active == 'homepage' %>">
     <%= link_to "Homepage", admin_homepage_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
+  <li class="<%= 'active' if active == 'site_settings' %>">
+    <%= link_to "Site Settings", admin_site_settings_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
+  </li>
   <li class="<%= 'active' if active == 'payments' %>">
     <%= link_to "Payment Settings", admin_processor_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>

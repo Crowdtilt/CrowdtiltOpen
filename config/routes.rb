@@ -14,6 +14,7 @@ Crowdhoster::Application.routes.draw do
   # ADMIN
   get '/admin',                                to: 'admin#admin_dashboard',                 as: :admin_dashboard
   match '/admin/homepage',                     to: 'admin#admin_homepage',                  as: :admin_homepage
+  match '/admin/site-settings',                to: 'admin#admin_site_settings',             as: :admin_site_settings
   namespace :admin do
     resources :campaigns
     post '/payments/:id/refund',               to: 'payments#refund_payment',               as: :admin_payment_refund
