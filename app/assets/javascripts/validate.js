@@ -1,8 +1,8 @@
 
 $( document ).ready(function() {
 
-  // validate '/admin'
-  $("#admin_website_form").validate({
+  // validate '/admin/site-settings'
+  $("#admin_site_settings_form").validate({
 
     // custom handler to call named function ""
     submitHandler: function (form) {

@@ -8,11 +8,22 @@ class AdminController < ApplicationController
     redirect_to admin_campaigns_url, flash: flash
   end
 
-  def admin_website
+  def admin_homepage
     #Handle the form submission if request is PUT
     if request.put?
       if @settings.update_attributes(params[:settings])
-        flash.now[:success] = "Website settings successfully updated!"
+        flash.now[:success] = "Homepage successfully updated!"
+      else
+        flash.now[:error] = @settings.errors.full_messages.join(', ')
+      end
+    end
+  end
+
+  def admin_site_settings
+    #Handle the form submission if request is PUT
+    if request.put?
+      if @settings.update_attributes(params[:settings])
+        flash.now[:success] = "Site settings successfully updated!"
       else
         flash.now[:error] = @settings.errors.full_messages.join(', ')
       end
