@@ -4,6 +4,10 @@ class AdminController < ApplicationController
   before_filter :verify_admin
   before_filter :set_ct_env, only: [:admin_bank_account, :create_admin_bank_account, :delete_admin_bank_account, :ajax_verify]
 
+  def admin_dashboard
+    redirect_to admin_campaigns_url, flash: flash
+  end
+
   def admin_website
     #Handle the form submission if request is PUT
     if request.put?
