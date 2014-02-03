@@ -1,100 +1,106 @@
 <div id="admin">
   <div class="container content_box clearfix">
 
-  <%= render 'admin/header', active: 'site_settings' %>
+  <%= render 'admin/header', active: 'settings' %>
 
-  <div id="admin_site_settings">
+    <div id="admin_site_settings">
 
-    <%= form_for(@settings, url: admin_site_settings_path, multipart: true, html: { id: "admin_site_settings_form" }) do |f| %>
+      <%= form_for(@settings, url: admin_site_settings_path, multipart: true, html: { id: "admin_site_settings_form" }) do |f| %>
 
-      <fieldset>
-      <legend>Basic Information</legend>
+        <fieldset>
+          <legend class="foldable"><a>Basic Information</a></legend>
 
-        <div class="field clearfix">
-          <p class="explanation">This will be used as the page title (for SEO) and the name in the header. Your site name is also what contributors will see on their credit card statements.</p>
-          <label>Site Name</label>
-            <%= f.text_field :site_name %>
-        </div>
+          <div class="foldable default_expanded">
+            <div class="field clearfix">
+              <p class="explanation">This will be used as the page title (for SEO) and the name in the header. Your site name is also what contributors will see on their credit card statements.</p>
+              <label>Site Name</label>
+              <%= f.text_field :site_name %>
+            </div>
 
-        <div class="field clearfix">
-          <p class="explanation">Enter an email address where contributors can reach you.</p>
-          <label>Reply To Email</label>
-          <%= f.text_field :reply_to_email %>
-        </div>
-        <div class="field clearfix">
-          <p class="explanation">Enter a phone number where contributors can reach you.</p>
-          <label>Contact Phone Number (Optional)</label>
-          <%= f.text_field :phone_number, :placeholder => "555-555-5555" %>
-        </div>
+            <div class="field clearfix">
+              <p class="explanation">Enter an email address where contributors can reach you.</p>
+              <label>Reply To Email</label>
+              <%= f.text_field :reply_to_email %>
+            </div>
+            <div class="field clearfix">
+              <p class="explanation">Enter a phone number where contributors can reach you.</p>
+              <label>Contact Phone Number (Optional)</label>
+              <%= f.text_field :phone_number, :placeholder => "555-555-5555" %>
+            </div>
 
-        <div class="field clearfix">
-          <p class="explanation">If you would like to display a logo instead of your site name in the header, upload it here. Resize the image before uploading for best results in your template.</p>
-          <label>Logo</label>
-          <% if @settings.logo_image.file? %>
-            <%= image_tag @settings.logo_image.url(:thumb) %><br/>
-            <%= f.file_field :logo_image %><br/>
-            <%= f.check_box :logo_image_delete %><span>Delete current image</span>
-          <% else %>
-            <%= f.file_field :logo_image %>
-          <% end  %>
-        </div>
+            <div class="field clearfix">
+              <p class="explanation">If you would like to display a logo instead of your site name in the header, upload it here. Resize the image before uploading for best results in your template.</p>
+              <label>Logo</label>
+              <% if @settings.logo_image.file? %>
+                <%= image_tag @settings.logo_image.url(:thumb) %><br/>
+                <%= f.file_field :logo_image %><br/>
+                <%= f.check_box :logo_image_delete %><span>Delete current image</span>
+              <% else %>
+                <%= f.file_field :logo_image %>
+              <% end  %>
+            </div>
 
-        <div class="field clearfix">
-          <p class="explanation">This will place a link in the header to your blog or other such website where you can provide updates. For example, "Updates" could link to "http://myblog.com"</p>
-          <label>Header Link</label>
-          <label>Link Text</label>
-          <%= f.text_field :header_link_text %>
-          <label>URL</label>
-          <%= f.text_field :header_link_url %>
-        </div>
-
-      </fieldset>
-
-      <fieldset>
-      <legend>Google Analytics</legend>
-
-        <div class="field clearfix">
-          <p class="explanation">If would like to add tracking to your site, <a href="http://www.google.com/analytics/" target="_blank">sign up for an account</a>, then paste your tracking ID here.</p>
-          <label>Google Analytics ID</label>
-          <%= f.text_field :google_id, :placeholder => "UA-0000000-0" %>
-        </div>
-
-      </fieldset>
-
-      <fieldset>
-      <legend>Footer Content</legend>
-
-        <div class="field clearfix">
-          <p class="explanation">The text shown in the footer beside the copyright symbol.</p>
-          <label>Copyright Text</label>
-          <%= f.text_field :copyright_text %>
-        </div>
-
-      </fieldset>
-
-
-      <fieldset>
-      <legend><a class="advanced_toggle" href="#">Advanced Settings (click to expand)</a></legend>
-        <div id="advanced" style="display:none">
-
-          <div class="field clearfix">
-            <p class="explanation">Uncheck this box if you would like all campaigns to be private and not appear on search engines like Google.</p>
-            <label>Allow search engines to index your Crowdhoster site</label>
-            <%= f.check_box :indexable %>
-          </div>
-          <div class="field clearfix">
-            <p class="explanation">If you're using a custom domain (eg: campaigns.YourSite.com), you'll need to include a custom Facebook app ID here. Visit https://developers.facebook.com/apps to create a free app for your site.</p>
-            <label>Custom Facebook App ID</label>
-            <%= f.text_field :facebook_app_id %>
+            <div class="field clearfix">
+              <p class="explanation">This will place a link in the header to your blog or other such website where you can provide updates. For example, "Updates" could link to "http://myblog.com"</p>
+              <label>Header Link</label>
+              <label>Link Text</label>
+              <%= f.text_field :header_link_text %>
+              <label>URL</label>
+              <%= f.text_field :header_link_url %>
+            </div>
           </div>
 
-       </div>
-      </fieldset>
+        </fieldset>
 
-      <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
-      <span class="loader" data-loader="project_form" style="display:none"></span>
+        <fieldset>
+          <legend class="foldable default_expanded"><a>Google Analytics</a></legend>
 
-    <% end %>
-  </div>
+          <div class="foldable default_expanded">
+            <div class="field clearfix">
+              <p class="explanation">If would like to add tracking to your site, <a href="http://www.google.com/analytics/" target="_blank">sign up for an account</a>, then paste your tracking ID here.</p>
+              <label>Google Analytics ID</label>
+              <%= f.text_field :google_id, :placeholder => "UA-0000000-0" %>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <fieldset>
+          <legend class="foldable"><a>Footer Content</a></legend>
+
+          <div class="foldable default_expanded">
+            <div class="field clearfix">
+              <p class="explanation">The text shown in the footer beside the copyright symbol.</p>
+              <label>Copyright Text</label>
+              <%= f.text_field :copyright_text %>
+            </div>
+          </div>
+
+        </fieldset>
+
+
+        <fieldset>
+          <legend class="foldable"><a>Advanced Settings</a></legend>
+          <div class="foldable">
+
+            <div class="field clearfix">
+              <p class="explanation">Uncheck this box if you would like all campaigns to be private and not appear on search engines like Google.</p>
+              <label>Allow search engines to index your Crowdhoster site</label>
+              <%= f.check_box :indexable %>
+            </div>
+            <div class="field clearfix">
+              <p class="explanation">If you're using a custom domain (eg: campaigns.YourSite.com), you'll need to include a custom Facebook app ID here. Visit https://developers.facebook.com/apps to create a free app for your site.</p>
+              <label>Custom Facebook App ID</label>
+              <%= f.text_field :facebook_app_id %>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
+        <span class="loader" data-loader="project_form" style="display:none"></span>
+
+      <% end %>
+    </div>
   </div>
 </div>

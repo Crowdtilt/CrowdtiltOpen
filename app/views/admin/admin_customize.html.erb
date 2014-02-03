@@ -1,37 +1,38 @@
 <div id="admin">
   <div class="container content_box clearfix">
 
-  <%= render 'admin/header', active: 'customize' %>
+    <%= render 'admin/header', active: 'customize' %>
 
-  <div id="admin_customize_settings">
+    <div id="admin_customize">
 
-    <%= form_for(@settings, url: admin_customize_path, multipart: true, html: { id: "admin_customize_form" }) do |f| %>
+      <%= form_for(@settings, url: admin_customize_path, multipart: true, html: { id: "admin_customize_form" }) do |f| %>
 
-      <legend>Customize</legend>
-        <div id="customize_tools">
+        <fieldset>
+          <legend class="foldable"><a>Customize</a></legend>
+          <div class="foldable default_expanded" id="customize_tools">
 
-          <div class="field clearfix">
-            <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
-            <div id="settings_custom_css_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
-            <label>Custom CSS</label>
-            <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px", :placeholder => "#campaign #funding_area { background: white; }" %>
+            <div class="field clearfix">
+              <p class="explanation">Add your own CSS styles to fully customize the look and feel of your site.</p>
+              <div id="settings_custom_css_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
+              <label>Custom CSS</label>
+              <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px", :placeholder => "#campaign #funding_area { background: white; }" %>
+            </div>
+
+            <div class="field clearfix">
+              <p class="explanation">Add your own JavaScript here. Use this field to paste in scripts for analytics tracking, retargeting, etc.</p>
+              <div id="settings_custom_js_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
+              <label>Custom JavaScript</label>
+              <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px", :placeholder => "<script> CODE </script>" %>
+            </div>
+
           </div>
+        </fieldset>
 
-          <div class="field clearfix">
-            <p class="explanation">Add your own JavaScript here. Use this field to paste in scripts for analytics tracking, retargeting, etc.</p>
-            <div id="settings_custom_js_alert" class="alert alert-danger inline-alert" style="display:none;" ></div>
-            <label>Custom JavaScript</label>
-            <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px", :placeholder => "<script> CODE </script>" %>
-          </div>
+        <div id="settings_custom_alert" class="alert alert-danger box-alert" style="display:none;" ></div>
+        <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
+        <span class="loader" data-loader="project_form" style="display:none"></span>
 
-       </div>
-      </fieldset>
-
-      <div id="settings_custom_alert" class="alert alert-danger box-alert" style="display:none;" ></div>
-      <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
-      <span class="loader" data-loader="project_form" style="display:none"></span>
-
-    <% end %>
-  </div>
+      <% end %>
+    </div>
   </div>
 </div>

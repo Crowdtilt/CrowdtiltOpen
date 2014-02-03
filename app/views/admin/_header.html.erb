@@ -10,7 +10,7 @@
   <li class="<%= 'active' if active == 'customize' %>">
     <%= link_to "Customize", admin_customize_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
   </li>
-  <li class="dropdown">
+  <li class="dropdown<%= " active" if active == "settings" %>">
     <a class="dropdown-toggle"
        data-toggle="dropdown"
        href="#">
