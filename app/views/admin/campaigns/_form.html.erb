@@ -139,11 +139,11 @@
                   <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
                   <label>Collect shipping address for this reward?</label>
                   <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
-                  <label>Display number of reward claimed after campaign has ended?</label>
                   <% if @campaign.expiration_date && @campaign.expired? %>
+                  <label>Display number of reward claimed after campaign has ended?</label>
                   <input name="reward[][include_claimed]" type="checkbox" <% if reward.include_claimed %>checked="checked"<% end %>/>
-                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                   <% end %>
+                  <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                 </td>
                 <td><%= reward.payments.length %></td>
                 <td>
