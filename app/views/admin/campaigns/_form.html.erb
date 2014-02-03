@@ -106,7 +106,7 @@
         <div class="reference">
           <label>How To Reference a Reward (i.e. reward, perk, option)</label>
           <%= f.text_field :reward_reference %>
-          <% if @campaign.expiration_date && @campaign.expired? %>
+          <% if @campaign.persisted? && @campaign.expired? %>
             <label>Display number of rewards claimed after campaign has ended?</label>
             <%= f.check_box :include_rewards_claimed %>
           <% end %>
@@ -139,7 +139,7 @@
                   <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
                   <label>Collect shipping address for this reward?</label>
                   <input name="reward[][collect_shipping_flag]" type="checkbox" <% if reward.collect_shipping_flag %>checked="checked"<% end %>/>
-                  <% if @campaign.expiration_date && @campaign.expired? %>
+                  <% if @campaign.persisted? && @campaign.expired? %>
                   <label>Display number of reward claimed after campaign has ended?</label>
                   <input name="reward[][include_claimed]" type="checkbox" <% if reward.include_claimed %>checked="checked"<% end %>/>
                   <% end %>
@@ -346,7 +346,7 @@
           <label>Activate payments and launch your campaign</label>
           <%= f.check_box :production_flag %>
         <% else %>
-          You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit <%= link_to "Payment Settings", admin_bank_account_path %> from the admin menu to do this.
+          You must set up your payment processor before activating payments and launching your campaign. <br><br>Visit <%= link_to "Payment Settings", admin_bank_account_path, target: "_blank" %> from the admin menu to do this.
         <% end %>
       <% else %>
         <p class="explanation">You have activated payments for this campaign, which means transactions WILL be processed. This cannot be undone for this campaign. If you activated payments by mistake, we recommend ending and un-publishing this campaign and creating a new one.</p>
