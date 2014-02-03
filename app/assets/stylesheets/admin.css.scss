@@ -245,3 +245,22 @@
 .text-area-border{
   border: 1px solid red;
 }
+
+
+legend {
+  &.foldable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+div {
+  .foldable {
+    display: block;
+  }
+}
+
+.reward_table {
+  display: none;
+}

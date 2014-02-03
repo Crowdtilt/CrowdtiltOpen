@@ -3,15 +3,20 @@ $( document ).ready(function() {
 
   // validate '/admin/site-settings'
   $("#admin_site_settings_form").validate({
+    //  by default, validate ignores any currently hidden fields, which is a problem since we allow users to hide fields.
+    ignore: [],
 
     // validate the previously selected element when the user clicks out
     onfocusout: function(element) {
       $(element).valid();
     },
 
-    // hide the loader when form is not valid
+    // hide the loader when form is not valid and make sure individual errored fields are displayed
     invalidHandler: function(event, validator) {
       $(".loader").hide();
+      validator.errorList.forEach(function(item, index, array) {
+        $(item.element).closest('div.foldable').show();
+      });
     },
 
     // validation rules
@@ -21,7 +26,7 @@ $( document ).ready(function() {
       "settings[phone_number]": { phoneUS: true },
       "settings[header_link_url]": { url: true },
       "settings[tweet_text]": { maxlength: 120 },
-      "settings[facebook_app_id]": { digits: true },
+      "settings[facebook_app_id]": { digits: true }
     },
     // validation messages
     messages: {
@@ -55,12 +60,12 @@ $( document ).ready(function() {
       var occ_msg_css = Crowdhoster.admin.checkSafety('settings_custom_css');
       var occ_msg_js = Crowdhoster.admin.checkSafety('settings_custom_js');
       if ( ( occ_msg_css != '' || occ_msg_js != '' ) && !Crowdhoster.admin.isSecurityCheckWarningDisplayed ){
-           Crowdhoster.admin.checkSafetyAlert(occ_msg_css, 'settings_custom_css', 'settings_custom_css_alert');
-           Crowdhoster.admin.checkSafetyAlert(occ_msg_js, 'settings_custom_js', 'settings_custom_js_alert');
-           $('#settings_custom_alert').html('Please see the security warnings above with your custom CSS/JS. To continue anyway, click the save button again.');
-           $('#settings_custom_alert').show();
-           $(".loader").hide();
-           Crowdhoster.admin.isSecurityCheckWarningDisplayed = true;
+        Crowdhoster.admin.checkSafetyAlert(occ_msg_css, 'settings_custom_css', 'settings_custom_css_alert');
+        Crowdhoster.admin.checkSafetyAlert(occ_msg_js, 'settings_custom_js', 'settings_custom_js_alert');
+        $('#settings_custom_alert').html('Please see the security warnings above with your custom CSS/JS. To continue anyway, click the save button again.');
+        $('#settings_custom_alert').show();
+        $(".loader").hide();
+        Crowdhoster.admin.isSecurityCheckWarningDisplayed = true;
       }
       else{
         Crowdhoster.admin.submitWebsiteForm(form);
@@ -71,6 +76,8 @@ $( document ).ready(function() {
 
   // validate '/admin/campaigns/_form'
   $("#admin_campaign_form").validate({
+    //  by default, validate ignores any currently hidden fields, which is a problem since we allow users to hide fields.
+    ignore: [],
 
     // custom handler to call named function ""
     submitHandler: function (form) {
@@ -86,9 +93,12 @@ $( document ).ready(function() {
       }
     },
 
-    // hide the loading spinner when form is invalid
+    // hide the loader when form is not valid and make sure individual errored fields are displayed
     invalidHandler: function(event, validator) {
       $(".loader").hide();
+      validator.errorList.forEach(function(item, index, array) {
+        $(item.element).closest('div.foldable').show();
+      });
     },
 
     // validation rules
@@ -99,7 +109,9 @@ $( document ).ready(function() {
       "campaign[expiration_date]": { required: true, date: true },
       "campaign[min_payment_amount]": { required: true, number: true, min: 1 },
       "campaign[fixed_payment_amount]": { required: true, number: true, min: 1 },
-      "campaign[additional_info_label]": { required: true },
+      "campaign[additional_info_label]": { required: {depends: function(element) {
+        return $('#campaign_collect_additional_info:checked').length > 0;
+      }}},
       "campaign[reward_reference]": { required: true },
       "reward[][price]": { required: true, number: true },
       "reward[][title]": { required: true },
@@ -111,7 +123,9 @@ $( document ).ready(function() {
       "campaign[video_embed_id]": { minlength: 11 , maxlength: 11},
       "campaign[primary_call_to_action_button]": { required: true },
       "campaign[secondary_call_to_action_button]": { required: true },
-      "campaign[comments_shortname]": { required: true },
+      "campaign[comments_shortname]": { required: { depends: function(element) {
+        return $('#campaign_include_comments:checked').length > 0;
+      }}},
       "campaign[tweet_text]": { maxlength: 120 }
     },
     // validation messages
@@ -328,7 +342,7 @@ $( document ).ready(function() {
       billing_postal_code: {
         required: "We need your billing postal code",
         minlength: "That doesn't look like a valid postal code",
-        maxlength: "That doesn't look like a valid postal code",
+        maxlength: "That doesn't look like a valid postal code"
       }
     }
 
