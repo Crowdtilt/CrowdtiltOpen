@@ -3,10 +3,11 @@
 
   <%= render 'admin/header', active: 'customize' %>
 
-  <div id="admin_customize_settings">
+  <div id="admin_customize">
 
     <%= form_for(@settings, url: admin_customize_path, multipart: true, html: { id: "admin_customize_form" }) do |f| %>
 
+      <fieldset>
       <legend>Customize</legend>
         <div id="customize_tools">
 
@@ -24,7 +25,7 @@
             <%= f.text_area :custom_js, rows: 3, style: "width:400px; height: 200px", :placeholder => "<script> CODE </script>" %>
           </div>
 
-       </div>
+        </div>
       </fieldset>
 
       <div id="settings_custom_alert" class="alert alert-danger box-alert" style="display:none;" ></div>
