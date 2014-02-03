@@ -138,6 +138,8 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
+    momentjs-rails (2.5.0)
+      railties (>= 3.1)
     multi_json (1.7.6)
     multipart-post (1.2.0)
     net-scp (1.1.1)
@@ -260,6 +262,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   lograge
+  momentjs-rails
   newrelic_rpm
   nokogiri
   paperclip (~> 3.0)

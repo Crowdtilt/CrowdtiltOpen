@@ -29,3 +29,4 @@
 //= require validate
 //= require event_tracking
 //= require unsaved_changes.js
+//= require moment
