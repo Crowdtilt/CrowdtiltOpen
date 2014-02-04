@@ -4,6 +4,8 @@ Crowdhoster.campaigns =
 
     _this = this
 
+    this.timeCheck('#days')
+
     $("#video_image").on "click", ->
       $("#player").removeClass("hidden")
       $("#player").css('display', 'block')
@@ -57,7 +59,6 @@ Crowdhoster.campaigns =
         $('.error').html('Amount must be at least $' + $reward.attr('data-price') + ' to select that ' + $('#reward_select').attr('data-reference') + '.').show()
       else
         this.submit()
-    this.timeCheck('#days')
 
   submitPaymentForm: (form) ->
     $('#refresh-msg').show()
