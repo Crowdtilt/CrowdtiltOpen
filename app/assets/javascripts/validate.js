@@ -6,6 +6,11 @@ $( document ).ready(function() {
     //  by default, validate ignores any currently hidden fields, which is a problem since we allow users to hide fields.
     ignore: [],
 
+    submitHandler: function (form) {
+      $(window).unbind('beforeunload', unsavedChangesChecker);
+      form.submit();
+    },
+
     // validate the previously selected element when the user clicks out
     onfocusout: function(element) {
       $(element).valid();
@@ -52,11 +57,21 @@ $( document ).ready(function() {
   });
 
   // validate customizations
-  $("#admin_customize_form").validate({
+  $("#admin_homepage_form").validate({
 
     // custom handler to call named function ""
     submitHandler: function (form) {
       $(window).unbind('beforeunload', unsavedChangesChecker);
+      form.submit();
+    }
+
+  });
+
+  // validate customizations
+  $("#admin_customize_form").validate({
+
+    // custom handler to call named function ""
+    submitHandler: function (form) {
       var occ_msg_css = Crowdhoster.admin.checkSafety('settings_custom_css');
       var occ_msg_js = Crowdhoster.admin.checkSafety('settings_custom_js');
       if ( ( occ_msg_css != '' || occ_msg_js != '' ) && !Crowdhoster.admin.isSecurityCheckWarningDisplayed ){
@@ -66,8 +81,8 @@ $( document ).ready(function() {
         $('#settings_custom_alert').show();
         $(".loader").hide();
         Crowdhoster.admin.isSecurityCheckWarningDisplayed = true;
-      }
-      else{
+      } else {
+        $(window).unbind('beforeunload', unsavedChangesChecker);
         Crowdhoster.admin.submitWebsiteForm(form);
       }
     }

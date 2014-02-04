@@ -20,9 +20,5 @@ $(function() {
   var elements = '#admin_homepage_form, #admin_site_settings_form, #admin_campaign_form, #admin_customize_form';
   if ($(elements).length) {
     $(window).bind('beforeunload', unsavedChangesChecker);
-
-    $(elements).submit(function() {
-      $(window).unbind('beforeunload', unsavedChangesChecker);
-    });
   }
 });
