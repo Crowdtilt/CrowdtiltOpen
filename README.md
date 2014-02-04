@@ -216,7 +216,7 @@ A more complete contribution and style guide is coming soon!
 
 Want to get in touch? Email [team@crowdhoster.com](mailto:team@crowdhoster.com).
 
-#### MIT License. Copyright 2013 Crowdtilt.
+#### MIT License. Copyright 2014 Crowdtilt.
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
