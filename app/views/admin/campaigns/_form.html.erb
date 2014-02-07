@@ -227,6 +227,27 @@
       <div class="field clearfix">
         <label>Main Content</label>
         <p class="explanation inline">This is the meat and potatoes of your website&mdash;include rich text and images to engage your contributors!</p>
+
+        <label for="campaign_content_use_tabs" class="inline">Use Tabs</label>
+        <input type="radio" name="campaign[use_tabs]" id="campaign_content_use_tabs" value="true" <%= 'checked' if @campaign.use_tabs? %>>
+        <label for="campaign_content_single_page" class="inline">Single Page</label>
+        <input type="radio" name="campaign[use_tabs]" id="campaign_content_single_page" value="false" <%= 'checked' unless @campaign.use_tabs? %>>
+
+        <div id="tabs_tabs">
+          <ul>
+            <% tabs_list_items(@campaign).each do |li| %>
+              <%= li %>
+            <% end %>
+          </ul>
+          <% @campaign.tabs.each do |tab| %>
+            <%= f.fields_for(:tabs, tab) do |builder| %>
+              <%= render("tab_fields", f: builder) %>
+            <% end %>
+          <% end %>
+        </div>
+        <br>
+        <%= link_to_add_fields "Add Tab", f, :tabs %>
+
         <%= f.cktext_area :main_content %>
       </div>
 

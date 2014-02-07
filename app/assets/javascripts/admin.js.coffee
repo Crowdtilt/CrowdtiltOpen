@@ -133,6 +133,72 @@ Crowdhoster.admin =
             $this.find('input[name="faq[][sort_order]"]').val(iterator)
             iterator++
 
+    # custom tab stuff
+    $ ->
+      tabs = $('#tabs_tabs').tabs()
+      tabs.find( ".ui-tabs-nav" ).sortable
+        axis: "x",
+        stop: ->
+          tabs.tabs('refresh')
+        update: ->
+          iterator = 1
+          $('#tabs_tabs li a').each ->
+            $this = $(this)
+            $($this.attr('href')).find('input.tabs_sort_order').attr('value', iterator)
+            iterator++
+
+    $ ->
+      CKEDITOR.replaceAll('ckeditor_field')
+
+    $ ->
+      CKEDITOR.on 'instanceReady', ->
+        # hide/show
+        uses_tabs = $('#campaign_content_use_tabs:checked').length > 0
+        if uses_tabs
+          $('#cke_campaign_main_content').hide()
+        else
+          $('div#tabs_tabs, #tab-add').hide()
+
+    $('#tabs_tabs').on 'input', 'input.tabs_title', (e) ->
+      val = $(this).val()
+      div_id = $(this).parent().attr('id')
+      $('#tabs_tabs li a[href=#'+div_id+']').html(val)
+
+    $('#campaign_content_single_page, #campaign_content_use_tabs').on 'change', (e) ->
+      if $(e.target).val() == 'false'
+        # picked single page, show that editor and hide tabs
+        $('div#tabs_tabs, #tab-add').hide()
+        $('#cke_campaign_main_content').show()
+      else
+        $('div#tabs_tabs, #tab-add').show()
+        $('#cke_campaign_main_content').hide()
+
+    $('.tab-add').on 'click', (e) ->
+      e.preventDefault()
+      $('#tabs_tabs').tabs('destroy')
+      time = new Date().getTime()
+      regexp = new RegExp($(this).data('id'), 'g')
+      new_fields = $(this).data('fields').replace(regexp, time)
+      $('#tabs_tabs div.tab:last').after(new_fields)
+      CKEDITOR.replace($('#tabs_tabs div.tab:visible:last textarea').get()[0])
+      $('#tabs_tabs div.tab:visible:last input.tabs_title').val('New Tab')
+      $li = $('#tabs_tabs li:visible:last').clone()
+      $li.find('a').attr('href', '#tab_'+time).html('New Tab')
+      $li.appendTo('#tabs_tabs ul')
+      $('#tabs_tabs').tabs()
+      $('#tabs_tabs li:visible:last').click()
+
+    $('#tabs_tabs').on 'click', '.tab-remove', (e) ->
+      e.preventDefault()
+      if $('#tabs_tabs li[role=tab]:visible').length > 1
+        if confirm('Remove this tab?')
+          $(this).siblings('input[type=hidden][id$=destroy]').val('1')
+          parent_div = $(this).parent('div.tab')
+          parent_div.hide()
+          $('#tabs_tabs li[aria-controls="' + parent_div.attr('id') + '"]').hide()
+          $('#tabs_tabs li:visible:first > a').click()
+      else
+        alert('Cannot remove final tab. You might want to switch to Single Page instead.')
 
     $('.refund-payment').on 'click', (e) ->
       row = $(this).parent().parent()

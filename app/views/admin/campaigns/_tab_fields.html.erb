@@ -1,0 +1,9 @@
+<% id = (dom_id(f.object).eql? 'new_tab') ? "tab_#{f.object.object_id}" : dom_id(f.object) %>
+<%= content_tag :div, class: 'tab', id: id do %>
+  <%= f.label :title, 'Title: ', style: 'display:inline' %>
+  <%= f.text_field :title , class: 'tabs_title' %><br />
+  <%= f.text_area :content, class: 'ckeditor_field' %>
+  <%= f.hidden_field :sort_order, class: 'tabs_sort_order' %>
+  <%= f.hidden_field :_destroy %><br>
+  <%= link_to 'remove', '#', class: 'tab-remove' %>
+<% end %>
