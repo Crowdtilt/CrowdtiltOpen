@@ -1,0 +1,82 @@
+<div id="admin">
+  <div class="container content_box clearfix">
+
+  <%= render 'admin/header', active: 'campaigns' %>
+
+  <div id="admin_campaigns">
+    <h4><%= @campaign.name %></h4>
+    <%= form_for [:admin, @payment], :url => admin_payment_update_path(@campaign,@payment.ct_payment_id)  , html: { class: "payment_form", id: "admin_payment_form", method: "post" } do |f|%>
+  <fieldset>
+    <legend class="foldable"><a>Payer Information</a></legend>
+
+    <div class="foldable default_expanded">
+      <div class="field clearfix">
+        <p class="explanation">This is the payer full name as entered on checkout</p>
+        <label>Full Name</label>
+        <%= f.text_field :fullname %>
+      </div>
+      <div class="field clearfix">
+        <p class="explanation">This is the payer email address as entered on checkout</p>
+        <label>Email</label>
+        <%= f.text_field :email %>
+      </div>
+      
+    </div>
+  </fieldset>
+
+  
+
+  <fieldset>
+    <legend class="foldable"><a>Payment Details</a></legend>
+
+    <div class="foldable">
+      <div class="field clearfix">
+        <label>Status</label> <%= f.text_field :status, :disabled => true %>
+        <label>Amount</label> <%= f.text_field :amount, :disabled => true %>
+        <label>User Fee Amount</label> <%= f.text_field :user_fee_amount, :disabled => true %>
+        <label>Admin Fee Amount</label> <%= f.text_field :admin_fee_amount, :disabled => true %>
+        <label>Card Type</label> <%= f.text_field :card_type, :disabled => true %>
+        <label>Card Last Four</label> <%= f.text_field :card_last_four, :disabled => true %>
+        <label>Card Expiration Month</label> <%= f.text_field :card_expiration_month, :disabled => true %>
+        <label>Card Expiration Year</label> <%= f.text_field :card_expiration_year, :disabled => true %>
+        <label>Quantity</label> <%= f.text_field :quantity, :disabled => true %>
+      </div>
+    </div>
+  </fieldset>
+
+
+  <fieldset>
+    <legend class="foldable"><a>Address Details</a></legend>
+
+    <div class="foldable">
+      <div class="field clearfix">
+        
+        <label>Address1</label> <%= f.text_field :address_one, :disabled => true %>
+        <label>Address2</label> <%= f.text_field :address_two, :disabled => true %>
+        <label>City</label> <%= f.text_field :city, :disabled => true %>
+        <label>State/Province/Region</label> <%= f.text_field :state, :disabled => true %>
+        <label>Postal Code</label> <%= f.text_field :postal_code, :disabled => true %>
+        <label>Billing Postal Code</label> <%= f.text_field :billing_postal_code, :disabled => true %>
+        <label>Country</label> <%= f.text_field :country, :disabled => true %>
+      </div>
+    </div>
+  </fieldset>
+  
+  <fieldset>
+    <legend class="foldable"><a>Additional</a></legend>
+
+    <div class="foldable">
+      <div class="field clearfix">
+        
+        <label>Additional Info</label> <%= f.text_area :additional_info, :disabled => true %>
+        
+      </div>
+    </div>
+  </fieldset>
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "payment_form" %>
+  <span class="loader" data-loader="payment_form" style="display:none"></span>
+    <% end %>
+
+  </div>
+  </div>
+</div>
