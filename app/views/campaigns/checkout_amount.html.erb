@@ -37,7 +37,7 @@
             <h4 class="amount_header">Please enter an amount: </h4>
             <br/>
             <div class="amount_input" style="position:relative">
-              <input id="amount" type="text" name="amount" value="<%= short_price(@reward.price) if @reward %>"/>&nbsp;&nbsp;
+              <input id="amount" type="text" name="amount" value="<%= number_with_precision(@reward.price, precision: 2) if @reward %>"/>&nbsp;&nbsp;
               <span style="position:absolute">$</span>
             </div>
             <span class="minimum">Minimum is <%= short_price(@campaign.min_payment_amount, '$', 2) %></span>
