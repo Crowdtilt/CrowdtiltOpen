@@ -1,38 +1,26 @@
-# Crowdhoster
+# CrowdtiltOpen
 
-![Crowdhoster index](https://s3.amazonaws.com/crowdhoster/github_assets/readmeScreenshot.png)
-
-"Launch your own crowdfunding site... without touching a line of code"
-
-But if you're here&mdash;well, maybe you want to touch some code.
+Launch your own advanced crowdfunding page
 
 ---
 **Demo**
 
-You can play with a complete working demo at [demo.crowdhoster.com/admin](http://demo.crowdhoster.com/admin)
-
-Use these credentials to log in:
-
-email: demo@crowdhoster.com | password: crowdhoster
+You can play with a complete working demo at [open.crowdtilt.com](http://open.crowdtilt.com)
 
 **Quick Links:**
 
 "I want to launch my own campaign without touching any code."
 
-[Head to the main Crowdhoster page](http://crowdhoster.com).
+[Head to the main CrowdtiltOpen page](http://open.crowdtilt.com).
 
-"I want help customizing my Crowdhoster page."
+"I want to contact the CrowtiltOpen team."
 
-[Check out this Crowdhoster setup guide](http://www.crowdhoster.com/setup).
-
-"I want to contact the Crowdhoster team."
-
-Email us directly: [team@crowdhoster.com](mailto:team@crowdhoster.com)
+Email us directly: [open@crowdtilt.com](mailto:open@crowdtilt.com)
 
 ## Install
 
 ### Dependencies
-To run Crowdhoster you'll need the following prerequisites installed:
+To run CrowdtiltOpen you'll need the following prerequisites installed:
 
 * [Homebrew](http://brew.sh/) (for downloading software packages)
 
@@ -76,11 +64,11 @@ To run Crowdhoster you'll also need to sign up for the following:
 
 Get  started by:
 
-* Downloading a .zip of the [latest release](https://github.com/Crowdtilt/Crowdhoster/releases) to your local machine
+* Downloading a .zip of the [latest release](https://github.com/Crowdtilt/CrowdtiltOpen/releases) to your local machine
 
   or
 
-* Creating a fork of Crowdhoster and cloning it to your local machine.
+* Creating a fork of CrowdtiltOpen and cloning it to your local machine.
 
 
 
@@ -204,17 +192,15 @@ $ heroku addons:add papertrail:choklad
 
 ## Contribute
 
-Looking to help make Crowdhoster better?
+Looking to help make CrowdtiltOpen better?
 
-Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/Crowdhoster/issues).
+Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/CrowdtiltOpen/issues).
 
 Contribute by forking the repo and working on a branch. Submit your changes via pull request.
 
-A more complete contribution and style guide is coming soon!
-
 ## Contact and License
 
-Want to get in touch? Email [team@crowdhoster.com](mailto:team@crowdhoster.com).
+Want to get in touch? Email [open@crowdtilt.com](mailto:open@crowdtilt.com).
 
 #### MIT License. Copyright 2014 Crowdtilt.
 Permission is hereby granted, free of charge, to any person obtaining
