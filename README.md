@@ -13,7 +13,7 @@ You can play with a complete working demo at [open.crowdtilt.com](http://open.cr
 
 [Head to the main CrowdtiltOpen page](http://open.crowdtilt.com).
 
-"I want to contact the CrowtiltOpen team."
+"I want to contact the CrowdtiltOpen team."
 
 Email us directly: [open@crowdtilt.com](mailto:open@crowdtilt.com)
 
