@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140128001609) do
+ActiveRecord::Schema.define(:version => 20140204235751) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20140128001609) do
     t.boolean  "include_comments",                     :default => false,        :null => false
     t.string   "comments_shortname"
     t.boolean  "include_rewards_claimed"
+    t.boolean  "use_tabs"
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
@@ -183,6 +184,15 @@ ActiveRecord::Schema.define(:version => 20140128001609) do
     t.boolean  "indexable",                   :default => true
     t.integer  "default_campaign_id"
     t.string   "phone_number"
+  end
+
+  create_table "tabs", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "sort_order"
+    t.integer  "campaign_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
