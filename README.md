@@ -35,7 +35,7 @@ $ brew install git
 * RVM, ruby 1.9.3, and the Rails gem
 
 ```
-$ \curl -L https://get.rvm.io | bash -s stable --rails --ruby=1.9.3
+$ curl -L https://get.rvm.io | bash -s stable --rails --ruby=1.9.3
 $ rvm use 1.9.3 --default
 ```
 * [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) (database)
