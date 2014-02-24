@@ -66,7 +66,7 @@
             <td class="user_fee_amount"><%= short_price(payment.user_fee_amount.to_f/100.0, '$', 2) %></td>
             <td><%= payment.created_at.strftime("%m/%d/%Y") %></td>
             <td class="status"><%= payment.status %></td>
-            <td class="ct_payment_id"><%= payment.ct_payment_id %></td>
+            <td class="ct_payment_id"><%= link_to payment.ct_payment_id, admin_payment_path(:payment_id => payment.ct_payment_id) %></td>
             <td><% if ['authorized', 'charged'].include? payment.status %><a class="refund-payment" style="cursor: pointer">Refund</a><% end %></td>
             <td style="width: 18px"><span class="loader" style="display: none"></span></td>
           </tr>

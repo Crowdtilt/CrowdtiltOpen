@@ -254,6 +254,17 @@ class Admin::CampaignsController < ApplicationController
     end
   end
 
+  def edit_payment
+    if ( @campaign.nil? )
+      @campaign = Campaign.find(params[:id])
+    end
+    if ( @payment.nil? )
+      @payment = Payment.find_by_ct_payment_id(params[:payment_id].strip)
+    end
+    create_breadcrumb(['Edit Payment', admin_payment_path(@payment,@campaign)])
+    
+  end
+  
   def payments
 #     @campaign = Campaign.find(params[:id])
 #     page = params[:page] || 1
