@@ -196,7 +196,13 @@ Looking to help make CrowdtiltOpen better?
 
 Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/CrowdtiltOpen/issues).
 
-Contribute by forking the repo and working on a branch. Submit your changes via pull request.
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Write your code
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new pull request
+7. We'll send you a Crowdtilt tshirt
 
 ## Contact and License
 
