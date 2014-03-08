@@ -79,18 +79,32 @@ Crowdhoster.campaigns =
 
     errors = crowdtilt.card.validate(cardData)
     if !$.isEmptyObject(errors)
-      $('#refresh-msg').hide()
       $.each errors, (index, value) ->
         $('#errors').append('<p>' + value + '</p>')
-      $('#errors').show()
-      $('.loader').hide()
-      $button = $('button[type="submit"]')
-      $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
-      $('#card_number').attr('name', 'card_number')
-      $('#security_code').attr('name', 'security_code')
+      Crowdhoster.campaigns.resetPaymentForm()
     else
-      user_id = $form.find('#ct_user_id').val()
-      crowdtilt.card.create(user_id, cardData, this.cardResponseHandler)
+      console.log('no errors. creating user')
+      $.post($form.attr('data-user-create-action'), { email: $(document.getElementById('email')).val() })
+      .fail((jqXHR, textStatus) ->
+          $('#errors').append('<p>Something went wrong. Please contact support.</p>')
+          Crowdhoster.campaigns.resetPaymentForm())
+      .done((user_id) ->
+        console.log(user_id)
+        if user_id == 'error'
+          $('#errors').append('<p>Unable to create user. Please contact support.</p>')
+          Crowdhoster.campaigns.resetPaymentForm()
+        else
+          $('#ct_user_id').val(user_id)
+          crowdtilt.card.create(user_id, cardData, Crowdhoster.campaigns.cardResponseHandler))
+
+  resetPaymentForm: (with_errors = true) ->
+    $('#refresh-msg').hide()
+    $('#errors').show() if with_errors
+    $('.loader').hide()
+    $button = $('button[type="submit"]')
+    $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
+    $('#card_number').attr('name', 'card_number')
+    $('#security_code').attr('name', 'security_code')
 
   timeCheck: (element) ->
     expiration = $(element).attr("date-element")          
