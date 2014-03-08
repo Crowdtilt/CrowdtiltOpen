@@ -83,19 +83,18 @@ Crowdhoster.campaigns =
         $('#errors').append('<p>' + value + '</p>')
       Crowdhoster.campaigns.resetPaymentForm()
     else
-      console.log('no errors. creating user')
       $.post($form.attr('data-user-create-action'), { email: $(document.getElementById('email')).val() })
-      .fail((jqXHR, textStatus) ->
-          $('#errors').append('<p>Something went wrong. Please contact support.</p>')
-          Crowdhoster.campaigns.resetPaymentForm())
       .done((user_id) ->
-        console.log(user_id)
-        if user_id == 'error'
-          $('#errors').append('<p>Unable to create user. Please contact support.</p>')
-          Crowdhoster.campaigns.resetPaymentForm()
+        $('#ct_user_id').val(user_id)
+        crowdtilt.card.create(user_id, cardData, Crowdhoster.campaigns.cardResponseHandler)
+      )
+      .fail((jqXHR, textStatus) ->
+        Crowdhoster.campaigns.resetPaymentForm()
+        if jqXHR.status == 400
+          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Support request for creating user payment">click here</a> to email support.</p>')
         else
-          $('#ct_user_id').val(user_id)
-          crowdtilt.card.create(user_id, cardData, Crowdhoster.campaigns.cardResponseHandler))
+          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Unable to create user payment">click here</a> to email support.</p>')
+      )
 
   resetPaymentForm: (with_errors = true) ->
     $('#refresh-msg').hide()
