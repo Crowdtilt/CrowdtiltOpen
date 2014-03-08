@@ -202,6 +202,15 @@ class CampaignsController < ApplicationController
     render nothing: true
   end
 
+  def ajax_create_payment_user
+    @campaign.production_flag? ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
+    begin
+      render text: Crowdtilt.create_user(email: params[:email])['id']
+    rescue
+      render text: 'error', status: 400
+    end
+  end
+
   private
 
   def load_campaign

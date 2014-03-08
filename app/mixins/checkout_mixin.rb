@@ -32,6 +32,7 @@ module CheckoutMixin
     }
 
     info[:amount] = (params[:amount].to_f*100).ceil if params[:amount]
+    info[:ct_user_id] = params[:ct_user_id] if params[:ct_user_id]
 
     info
   end
