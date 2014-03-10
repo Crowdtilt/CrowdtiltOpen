@@ -5,7 +5,7 @@
 
     <div class="well checkout_block" style="padding-bottom: 16px">
 
-        <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form" data-error-action="<%= checkout_error_path(@campaign) %>">
+        <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form" data-error-action="<%= checkout_error_path(@campaign) %>" data-user-create-action="<%= ajax_create_payment_user_path(@campaign) %>">
 
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
           <h4 class="contact">Contact Information</h4>
@@ -120,7 +120,7 @@
           <label for="security_code" class="error" style="display: none"></label>
           <label for="billing_postal_code" class="error" style="display: none"></label>
 
-          <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
+          <input id="ct_user_id" type="hidden" name="ct_user_id" value="">
 
           <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
           <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
@@ -133,7 +133,9 @@
           <% end%>
 
           <div class="payment-submit">
-            <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">Confirm payment of $<%= number_with_precision(@total, :delimiter => ",", precision: 2) %></button>
+            <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">
+              Confirm payment of $<%= number_with_precision(@total, :delimiter => ",", precision: 2) %>
+            </button>
             <span class="loader" data-loader="payment_form" style="display:none"></span>
             <div id="refresh-msg" style="display: none; color: red; margin-top: 10px">Your payment is being processed! Please do not refresh this page.</div>
           </div>

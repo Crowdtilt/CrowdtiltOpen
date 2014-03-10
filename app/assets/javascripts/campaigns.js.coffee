@@ -79,18 +79,31 @@ Crowdhoster.campaigns =
 
     errors = crowdtilt.card.validate(cardData)
     if !$.isEmptyObject(errors)
-      $('#refresh-msg').hide()
       $.each errors, (index, value) ->
         $('#errors').append('<p>' + value + '</p>')
-      $('#errors').show()
-      $('.loader').hide()
-      $button = $('button[type="submit"]')
-      $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
-      $('#card_number').attr('name', 'card_number')
-      $('#security_code').attr('name', 'security_code')
+      Crowdhoster.campaigns.resetPaymentForm()
     else
-      user_id = $form.find('#ct_user_id').val()
-      crowdtilt.card.create(user_id, cardData, this.cardResponseHandler)
+      $.post($form.attr('data-user-create-action'), { email: $(document.getElementById('email')).val() })
+      .done((user_id) ->
+        $('#ct_user_id').val(user_id)
+        crowdtilt.card.create(user_id, cardData, Crowdhoster.campaigns.cardResponseHandler)
+      )
+      .fail((jqXHR, textStatus) ->
+        Crowdhoster.campaigns.resetPaymentForm()
+        if jqXHR.status == 400
+          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Support request for creating user payment">click here</a> to email support.</p>')
+        else
+          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:team@crowdhoster.com?subject=Unable to create user payment">click here</a> to email support.</p>')
+      )
+
+  resetPaymentForm: (with_errors = true) ->
+    $('#refresh-msg').hide()
+    $('#errors').show() if with_errors
+    $('.loader').hide()
+    $button = $('button[type="submit"]')
+    $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
+    $('#card_number').attr('name', 'card_number')
+    $('#security_code').attr('name', 'security_code')
 
   timeCheck: (element) ->
     expiration = $(element).attr("date-element")          

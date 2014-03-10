@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140128001609) do
+ActiveRecord::Schema.define(:version => 20140307205637) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20140128001609) do
     t.string   "ct_tokenize_request_error_id"
     t.string   "ct_charge_request_id"
     t.string   "ct_charge_request_error_id"
+    t.string   "ct_user_id"
   end
 
   create_table "rewards", :force => true do |t|
