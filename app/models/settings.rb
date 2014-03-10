@@ -39,13 +39,6 @@ class Settings < ActiveRecord::Base
         self.ct_prod_api_secret = secret
         begin
           Crowdtilt.production(self)
-          production_guest = {
-            firstname: 'Crowdhoster',
-            lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
-            email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
-          }
-          production_guest = Crowdtilt.post('/users', {user: production_guest})
-
           production_admin = {
             firstname: 'Crowdhoster',
             lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
@@ -55,7 +48,6 @@ class Settings < ActiveRecord::Base
         rescue => exception
           return false
         else
-          self.ct_production_guest_id = production_guest['user']['id']
           self.ct_production_admin_id = production_admin['user']['id']
           self.save
         end
@@ -63,7 +55,7 @@ class Settings < ActiveRecord::Base
   end
 
   def payments_activated?
-    !self.ct_prod_api_key.blank? && !self.ct_prod_api_secret.blank? && !self.ct_production_guest_id.blank? && !self.ct_production_admin_id.blank?
+    !self.ct_prod_api_key.blank? && !self.ct_prod_api_secret.blank? && !self.ct_production_admin_id.blank?
   end
 
   private

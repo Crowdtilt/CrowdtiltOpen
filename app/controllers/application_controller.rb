@@ -46,13 +46,6 @@ class ApplicationController < ActionController::Base
         # Create the Crowdtilt API Users
         begin
           Crowdtilt.sandbox
-          sandbox_guest = {
-            firstname: 'Crowdhoster',
-            lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
-            email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
-          }
-          sandbox_guest = Crowdtilt.post('/users', {user: sandbox_guest})
-
           sandbox_admin = {
             firstname: 'Crowdhoster',
             lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
@@ -65,7 +58,6 @@ class ApplicationController < ActionController::Base
           redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
           return
         else
-          @settings.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']
           @settings.update_attribute :ct_sandbox_admin_id, sandbox_admin['user']['id']
         end
 
