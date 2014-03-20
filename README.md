@@ -1,4 +1,4 @@
-# CrowdtiltOpen
+# Crowdtilt Open
 
 Launch your own advanced crowdfunding page
 
@@ -11,16 +11,16 @@ You can play with a complete working demo at [open.crowdtilt.com](http://open.cr
 
 "I want to launch my own campaign without touching any code."
 
-[Head to the main CrowdtiltOpen page](http://open.crowdtilt.com).
+[Head to the main Crowdtilt Open page](http://open.crowdtilt.com).
 
-"I want to contact the CrowdtiltOpen team."
+"I want to contact the Crowdtilt Open team."
 
 Email us directly: [open@crowdtilt.com](mailto:open@crowdtilt.com)
 
 ## Install
 
 ### Dependencies
-To run CrowdtiltOpen you'll need the following prerequisites installed:
+To run Crowdtilt Open you'll need the following prerequisites installed:
 
 * [Homebrew](http://brew.sh/) (for downloading software packages)
 
@@ -68,7 +68,7 @@ Get  started by:
 
   or
 
-* Creating a fork of CrowdtiltOpen and cloning it to your local machine.
+* Creating a fork of Crowdtilt Open and cloning it to your local machine.
 
 
 
@@ -192,7 +192,7 @@ $ heroku addons:add papertrail:choklad
 
 ## Contribute
 
-Looking to help make CrowdtiltOpen better?
+Looking to help make Crowdtilt Open better?
 
 Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/CrowdtiltOpen/issues).
 
