@@ -65,32 +65,19 @@ class Campaign < ActiveRecord::Base
   end
 
   def rewards?
-    (self.payment_type != 'fixed' && self.rewards.length > 0)
+    (self.payment_type != 'fixed' && self.rewards.count > 0)
   end
 
   def rewards_claimed
-    @sum = 0
-    self.rewards.each do |reward|
-      @sum += reward.payments.length 
-    end
-    return @sum
+    self.payments.joins(:reward).successful.count
   end 
-  
-  def payments_completed
-    self.payments.where(:status => %w(authorized charged released rejected refunded offline))
-  end
-
-  def payments_successful
-    # 'rejected' is a post-tilt state, so they are included in successful payments.
-    self.payments.where(:status => %w(authorized charged released rejected offline))
-  end
 
   def raised_amount
-    self.payments_successful.sum(:amount)/100.0
+    self.payments.successful.sum(:amount)/100.0
   end
 
   def number_of_contributions
-    self.payments_successful.count
+    self.payments.successful.count
   end
 
   def tilt_percent
