@@ -67,7 +67,7 @@
                   <div class="reward_description">
                     <p class="title"><%= reward.title %></p>
                     <p class="claimed">
-                      <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed
+                      <%= reward.payments.successful.count %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed
                       <% if reward.sold_out? %> (All gone!) <% end %>
                     </p>
                     <p class="description"><%= reward.description %></p>

@@ -13,6 +13,9 @@ class Payment < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :reward
 
+  scope :successful, where(status: %w(authorized charged released rejected offline))
+  scope :completed, where(status: %w(authorized charged released rejected refunded offline))
+
   def self.to_csv(options={})
     #db_columns = %w{fullname email quantity amount user_fee_amount created_at status ct_payment_id}
     csv_columns = ['Name', 'Email', 'Quantity', 'Amount', 'User Fee', 'Date', 'Reward',

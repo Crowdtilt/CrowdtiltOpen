@@ -150,9 +150,9 @@
                       <% end %>
                       <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
                     </td>
-                    <td><%= reward.payments.length %></td>
+                    <td><%= reward.payments.successful.count %></td>
                     <td>
-                      <% if reward.payments.length > 0 %>
+                      <% if reward.payments.successful.count > 0 %>
                         N/A<input type="hidden" name="reward[][delete]" value=""/>
                       <% else %>
                         <input type="checkbox" name="reward[][delete]" value="delete"/>

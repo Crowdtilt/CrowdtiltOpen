@@ -168,12 +168,12 @@
                   <% if @campaign.expired? %>
                     <% if reward.include_claimed? %>
                       <p class="claimed">
-                        <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+                        <%= reward.payments.successful.count %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
                       </p>
                     <% end %>
                   <% else %>
                     <p class="claimed">
-                      <%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+                      <%= reward.payments.successful.count %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
                     </p>
                   <% end %>
                 </a>

@@ -9,11 +9,15 @@ class Reward < ActiveRecord::Base
   has_many :payments
 
   def sold_out?
-    !self.unlimited? && number_of_payments >= self.number
+    !self.unlimited? && self.number_of_successful_payments >= self.number
   end
 
   def number_of_payments
     self.payments.count
+  end
+
+  def number_of_successful_payments
+    self.payments.successful.count
   end
 
   def unlimited?
