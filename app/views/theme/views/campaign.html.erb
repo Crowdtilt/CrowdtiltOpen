@@ -58,7 +58,7 @@
             </li>
           <% end %>
 
-          <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >           
+          <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >
           </li>
         </ul>
 
@@ -95,6 +95,9 @@
                 <%= @campaign.primary_call_to_action_button %>
               </a>
             <% end %>
+          </div>
+          <div class="powered_by_crowdtilt">
+            <a href="http://open.crowdtilt.com/?utm_source=powered_by&utm_medium=base&utm_campaign=link_powered_by" target="_blank"><%= image_tag 'powered_by@2x.png', width: "141px", height: "16px" %></a>
           </div>
           <div class="call_to_action_description">
             <%= raw(@campaign.primary_call_to_action_description) %>
@@ -199,6 +202,9 @@
           <%= @campaign.secondary_call_to_action_button %>
         </a>
       <% end %>
+      <div class="powered_by_crowdtilt">
+        <a href="http://open.crowdtilt.com/?utm_source=powered_by&utm_medium=base&utm_campaign=link_powered_by" target="_blank"><%= image_tag 'powered_by@2x.png', width: "141px", height: "16px" %></a>
+      </div>
     </div>
   </div>
 </div>

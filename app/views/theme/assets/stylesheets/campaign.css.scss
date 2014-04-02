@@ -58,6 +58,11 @@
         text-align: center;
       }
 
+      .powered_by_crowdtilt {
+        text-align: center;
+        padding-bottom: 8px;
+      }
+
       .call_to_action_description {
         p, span {
           line-height: 1;
@@ -110,7 +115,7 @@
           font-family: $primary_font, $secondary_font, $tertiary_font;
         }
       }
-      
+
       .stats-awards {
         float: left;
         width:70%;
