@@ -1,6 +1,6 @@
 # Crowdtilt Open
 
-Launch your own advanced crowdfunding page
+Launch your own advanced crowdfunding page.
 
 ---
 **Demo**
@@ -9,13 +9,9 @@ You can play with a complete working demo at [open.crowdtilt.com](http://open.cr
 
 **Quick Links:**
 
-"I want to launch my own campaign without touching any code."
+Want to launch your campaign without touching any code? [Head to the main Crowdtilt Open page](http://open.crowdtilt.com).
 
-[Head to the main Crowdtilt Open page](http://open.crowdtilt.com).
-
-"I want to contact the Crowdtilt Open team."
-
-Email us directly: [open@crowdtilt.com](mailto:open@crowdtilt.com)
+Have questions? Email us directly: [open@crowdtilt.com](mailto:open@crowdtilt.com)
 
 ## Install
 
@@ -53,12 +49,12 @@ $ xcode-select --install
 ```
 
 ### Service Providers
-To run Crowdhoster you'll also need to sign up for the following:
+To run Crowdtilt Open, you'll also need to do the following:
 
-* a [Balanced](https://www.balancedpayments.com/) account (test marketplace and live marketplace)
-* the [Crowdtilt API](https://www.crowdtilt.com/learn/developers) - Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdhoster&body=Hi! I'd like to deploy a Crowdhoster app. The Github readme sent me here to ask for an API key. Thanks!) to get your API keys
-* [AWS](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets. The bucket should be in the US Standard (us-east-1) zone.
-* [Mailgun](http://www.mailgun.com/) (free)
+* Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdtilt Open&body=Hi! I'd like to deploy a Crowdtilt Open app. The Github readme sent me here to ask for an API key. Thanks!) to get your Crowdtilt API keys
+* Create an [Amazon Web Services S3 account](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets. The bucket should be in the US Standard (us-east-1) zone.
+* Sign up for [Mailgun](http://www.mailgun.com/) (free)
+* When you're ready to activate payments, sign up for a [Balanced Payments](https://www.balancedpayments.com/) account.
 
 ### Local Setup
 
@@ -88,13 +84,17 @@ $ cp .env.example .env
 
 Then open up the .env file and fill in the variables with your app_name and credentials. Leave `ENABLE_ASSET_SYNC` set to 'true' if you plan to use AWS to host your assets (recommended). The bucket for asset syncing should be in the US Standard (us-east-1) zone.
 
-The `SECRET_TOKEN`  and `DEVISE_SECRET_KEY` variables should be at least 30 characters and all random, no regular words or you'll be exposed to dictionary attacks.  Do NOT reuse the same secret token - you'll need to generate it twice. You can generate a new one by running this command from the root of your project directory:
+Generate your `SECRET_TOKEN`  and `DEVISE_SECRET_KEY` by running the following command from the root of your project directory. 
+
+Do NOT reuse the same secret token - you'll need to generate it twice. 
 
 ```
 $ foreman run rake secret
 ```
 
 Important: Your `APP_NAME` must not have a space in it. Underscores and hypens are accepted.
+
+Your .env file should look something like this:
 
 ```
 APP_NAME=myawesomeapp
@@ -135,6 +135,9 @@ Run the console
 ```
 $ foreman run rails c
 ```
+
+Visit your site at: [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
+
 
 ### Deploying to Heroku
 
