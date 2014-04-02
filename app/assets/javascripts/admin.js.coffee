@@ -164,7 +164,7 @@ Crowdhoster.admin =
               backgroundColor: '#d9534f'
             }, 300, 'swing')
             setTimeout(() ->
-              alert('Sorry, this payment could not be refunded. These funds may have already been released to you. If you have any questions, please contact team@crowdhoster.com with the payment ID.')
+              alert('Sorry, this payment could not be refunded. These funds may have already been released to you. If you have any questions, please contact open@crowdtilt.com with the payment ID.')
             , 300)
           )
           .always(() ->
@@ -186,7 +186,7 @@ Crowdhoster.admin =
 
   checkSafetyAlert : (occ_msg, element, alertElement) ->
     if ( occ_msg != '' )
-        $('#' + alertElement).html('It looks you are trying to load external content using insecure (non-HTTPS) links. Unless you change the following links to be served over HTTPS, your contributors will see a security warning in their browser.<br />' + occ_msg + '<br />If you need any help with this, please contact team@crowdhoster.com')
+        $('#' + alertElement).html('It looks you are trying to load external content using insecure (non-HTTPS) links. Unless you change the following links to be served over HTTPS, your contributors will see a security warning in their browser.<br />' + occ_msg + '<br />If you need any help with this, please contact open@crowdtilt.com')
         $('#' + alertElement).slideDown()
         $('#' + element).addClass('text-area-border')
         Crowdhoster.admin.isSecurityCheckWarningDisplayed = false

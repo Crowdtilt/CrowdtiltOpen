@@ -67,7 +67,7 @@ class AdminController < ApplicationController
         }
         Crowdtilt.post('/users/' + @ct_admin_id + '/banks/default', {bank: bank})
       rescue => exception
-        flash = { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
+        flash = { :error => "An error occurred, please contact open@crowdtilt.com: #{exception.message}" }
       else
         flash = { :success => "Your bank account is all set up!" }
       end
@@ -88,7 +88,7 @@ class AdminController < ApplicationController
       if response['bank'] # default bank is already set up
         @bank = response['bank']
       else
-        flash.now[:error] = "An error occurred, please contact team@crowdhoster.com" # this should never happen
+        flash.now[:error] = "An error occurred, please contact open@crowdtilt.com" # this should never happen
       end
     end
     create_breadcrumb(['Bank Setup', admin_bank_account_path])
@@ -103,7 +103,7 @@ class AdminController < ApplicationController
       begin
         Crowdtilt.delete('/users/' + @ct_admin_id + '/banks/' + response['bank']['id'])
       rescue => exception
-        flash = { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
+        flash = { :error => "An error occurred, please contact open@crowdtilt.com: #{exception.message}" }
       else
         flash = { :success => "Bank account deleted successfully" }
       end

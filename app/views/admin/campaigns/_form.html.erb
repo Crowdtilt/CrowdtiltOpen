@@ -46,7 +46,7 @@
   <fieldset>
     <legend class="foldable"><a>Payment Details</a></legend>
 
-    <div class="foldable">
+    <div class="foldable default_expanded">
       <div class="field clearfix">
 
         <div id="flexible_payment_options" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
@@ -100,7 +100,7 @@
   <fieldset>
     <legend class="foldable"><a>Rewards (optional)</a></legend>
 
-    <div class="foldable">
+    <div class="foldable default_expanded">
       <div class="field clearfix">
         <div id="no-rewards" style="<%= 'display:none' unless @campaign.payment_type == 'fixed' %>">
           <p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors.</p>
@@ -173,7 +173,7 @@
   <fieldset>
     <legend class="foldable"><a>Page Content</a></legend>
 
-    <div class="foldable">
+    <div class="foldable default_expanded">
       <div class="field clearfix">
         <p class="explanation">A few other ideas: supporter, order, preorder, donor, contributor, participant, purchase.</p>
         <label>How To Reference a Contributor (i.e. 'backer' )</label>
@@ -273,7 +273,7 @@
   <fieldset>
     <legend class="foldable"><a>Comments</a></legend>
 
-    <div class="foldable">
+    <div class="foldable default_expanded">
       <div class="field clearfix">
         <label>Include a user comment section?</label>
         <p class="explanation">Add a comment section where backers can discuss your campaign. You will need a free moderator account from <a href="https://disqus.com/admin/signup/" target="_blank">Disqus.</a></p>
@@ -292,7 +292,7 @@
   <fieldset>
     <legend class="foldable"><a>Checkout Page Content</a></legend>
 
-    <div class="foldable">
+    <div class="foldable default_expanded">
       <div class="field clearfix">
         <label>Checkout Sidebar Content</label>
         <p class="explanation inline">This content is displayed on the right sidebar of the checkout page. A question/answer format is often used.</p>
@@ -310,7 +310,7 @@
   <fieldset>
     <legend class="foldable"><a>Sharing Details</a></legend>
 
-    <div class="foldable">
+    <div class="foldable default_expanded">
       <div class="field clearfix">
         <p class="explanation">This is the default text that will be used for the tweet button.</p>
         <label>Tweet Text</label>
@@ -376,7 +376,7 @@
       <legend class="foldable"><a>Advanced Settings</a></legend>
       <div class="foldable">
           <div class="field clearfix">
-            <p class="explanation">An api key to use the Crowdhoster API for <%=@campaign.name %>. This allows you to hook your campaign data into third party apps like <a href="https://backerkit.com/" target="_blank">BackerKit</a>.  More coming soon!</p>
+            <p class="explanation">An api key to use the Crowdtilt Open API for <%=@campaign.name %>. This allows you to hook your campaign data into third party apps like <a href="https://backerkit.com/" target="_blank">BackerKit</a>.  More coming soon!</p>
             <label>API Endpoint</label>
             <p><%= api_campaign_url(id: @campaign.id)%></p>
             <label>API key</label>
