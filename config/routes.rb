@@ -3,7 +3,7 @@ Crowdhoster::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   # PAGES
-  root                                                                  to: 'pages#index'
+  root                                                                   to: 'pages#index'
 
   # USERS
   devise_for :users, { path: 'account' }
