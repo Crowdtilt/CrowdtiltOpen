@@ -150,12 +150,6 @@ Create a new Heroku app
 $ heroku create {APP NAME}
 ```
 
-Enable the use of environment variables during asset precompiling
-
-```
-$ heroku labs:enable user-env-compile
-```
-
 Install the Heroku config plugin if you don't already have it installed
 
 ```
