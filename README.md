@@ -1,22 +1,22 @@
-# Crowdtilt Open
+# Tilt Open
 
 Launch your own advanced crowdfunding page.
 
 ---
 **Demo**
 
-You can play with a complete working demo at [open.crowdtilt.com](http://open.crowdtilt.com)
+You can play with a complete working demo at [open.tilt.com](http://open.tilt.com)
 
 **Quick Links:**
 
-Want to launch your campaign without touching any code? [Head to the main Crowdtilt Open page](http://open.crowdtilt.com).
+Want to launch your campaign without touching any code? [Head to the main tilt Open page](http://open.tilt.com).
 
-Have questions? Email us directly: [open@crowdtilt.com](mailto:open@crowdtilt.com)
+Have questions? Email us directly: [open@tilt.com](mailto:open@tilt.com)
 
 ## Install
 
 ### Dependencies
-To run Crowdtilt Open you'll need the following prerequisites installed:
+To run Tilt Open you'll need the following prerequisites installed:
 
 * [Homebrew](http://brew.sh/) (for downloading software packages)
 
@@ -49,9 +49,9 @@ $ xcode-select --install
 ```
 
 ### Service Providers
-To run Crowdtilt Open, you'll also need to do the following:
+To run Tilt Open, you'll also need to do the following:
 
-* Email [support.api@crowdtilt.com](mailto:support.api@crowdtilt.com?subject=API Key Request for Crowdtilt Open&body=Hi! I'd like to deploy a Crowdtilt Open app. The Github readme sent me here to ask for an API key. Thanks!) to get your Crowdtilt API keys
+* Email [support.api@tilt.com](mailto:support.api@tilt.com?subject=API Key Request for Tilt Open&body=Hi! I'd like to deploy a Tilt Open app. The Github readme sent me here to ask for an API key. Thanks!) to get your Tilt API keys
 * Create an [Amazon Web Services S3 account](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets. The bucket should be in the US Standard (us-east-1) zone.
 * Sign up for [Mailgun](http://www.mailgun.com/) (free)
 * When you're ready to activate payments, sign up for a [Balanced Payments](https://www.balancedpayments.com/) account.
@@ -64,7 +64,7 @@ Get  started by:
 
   or
 
-* Creating a fork of Crowdtilt Open and cloning it to your local machine.
+* Creating a fork of Tilt Open and cloning it to your local machine.
 
 
 
@@ -84,9 +84,9 @@ $ cp .env.example .env
 
 Then open up the .env file and fill in the variables with your app_name and credentials. Leave `ENABLE_ASSET_SYNC` set to 'true' if you plan to use AWS to host your assets (recommended). The bucket for asset syncing should be in the US Standard (us-east-1) zone.
 
-Generate your `SECRET_TOKEN`  and `DEVISE_SECRET_KEY` by running the following command from the root of your project directory. 
+Generate your `SECRET_TOKEN`  and `DEVISE_SECRET_KEY` by running the following command from the root of your project directory.
 
-Do NOT reuse the same secret token - you'll need to generate it twice. 
+Do NOT reuse the same secret token - you'll need to generate it twice.
 
 ```
 $ foreman run rake secret
@@ -189,7 +189,7 @@ $ heroku addons:add papertrail:choklad
 
 ## Contribute
 
-Looking to help make Crowdtilt Open better?
+Looking to help make Tilt Open better?
 
 Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/CrowdtiltOpen/issues).
 
@@ -199,13 +199,13 @@ Our feature development roadmap and bugs are inputted as issues. See a complete 
 4. Commit your changes (`git commit -am 'Add some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new pull request
-7. We'll send you a Crowdtilt tshirt
+7. We'll send you a Tilt tshirt
 
 ## Contact and License
 
-Want to get in touch? Email [open@crowdtilt.com](mailto:open@crowdtilt.com).
+Want to get in touch? Email [open@tilt.com](mailto:open@tilt.com).
 
-#### MIT License. Copyright 2014 Crowdtilt.
+#### MIT License. Copyright 2014 Tilt.com.
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
@@ -226,4 +226,4 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
-Brought to you by the team at [Crowdtilt](http://crowdtilt.com) // Group fund anything
+Brought to you by the team at [Tilt](http://tilt.com) // Group fund anything

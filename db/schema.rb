@@ -149,13 +149,13 @@ ActiveRecord::Schema.define(:version => 20140307205637) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "site_name",                   :default => "Crowdtilt Open",     :null => false
+    t.string   "site_name",                   :default => "Tilt Open",     :null => false
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
-    t.boolean  "initialized_flag",            :default => false,                :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
+    t.boolean  "initialized_flag",            :default => false,           :null => false
     t.string   "logo_image_file_name"
     t.string   "logo_image_content_type"
     t.integer  "logo_image_file_size"
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(:version => 20140307205637) do
     t.string   "ct_production_admin_id"
     t.string   "ct_production_guest_id"
     t.string   "api_key"
-    t.string   "reply_to_email",              :default => "open@crowdtilt.com", :null => false
+    t.string   "reply_to_email",              :default => "open@tilt.com", :null => false
     t.text     "custom_js"
     t.string   "mailgun_route_id"
     t.string   "ct_prod_api_key"

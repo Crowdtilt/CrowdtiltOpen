@@ -107,14 +107,14 @@ class CampaignsController < ApplicationController
       redirect_to checkout_amount_url(@campaign), flash: { error: error_messages } and return
     end
 
-    # Check if there's an existing payment with the same payment_params and client_timestamp. 
-    # If exists, look at the status to route accordingly. 
+    # Check if there's an existing payment with the same payment_params and client_timestamp.
+    # If exists, look at the status to route accordingly.
     if !payment_params[:client_timestamp].nil? && (existing_payment = @campaign.payments.where(payment_params).first)
       case existing_payment.status
       when nil
-        flash_msg = { info: "Your payment is still being processed! If you have not received a confirmation email, please try again or contact support by emailing open@crowdtilt.com" }
+        flash_msg = { info: "Your payment is still being processed! If you have not received a confirmation email, please try again or contact support by emailing open@tilt.com" }
       when 'error'
-        flash_msg = { error: "There was an error processing your payment. Please try again or contact support by emailing open@crowdtilt.com." }
+        flash_msg = { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com." }
       else
         # A status other than nil or 'error' indicates success! Treat as original payment
         redirect_to checkout_confirmation_url(@campaign), :status => 303, :flash => { payment_guid: @payment.ct_payment_id } and return
@@ -156,11 +156,11 @@ class CampaignsController < ApplicationController
       error_attributes[:ct_charge_request_id] = response[:body]['request_id'] if response[:body]['request_id']
       error_attributes[:ct_charge_request_error_id] = response[:body]['error_id'] if response[:body]['error_id']
       @payment.update_attributes(error_attributes)
-      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@crowdtilt.com" } and return
+      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com" } and return
     rescue StandardError => exception
       @payment.update_attributes({status: 'error'})
       logger.error "ERROR WITH POST TO /payments: #{exception.message}"
-      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@crowdtilt.com" } and return
+      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com" } and return
     end
 
     # Sync payment data
