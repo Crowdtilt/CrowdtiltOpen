@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
         rescue => exception
           @settings.update_attribute :initialized_flag, false
           sign_out current_user
-          redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact open@crowdtilt.com: #{exception.message}" }
+          redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact open@tilt.com: #{exception.message}" }
           return
         else
           @settings.update_attribute :ct_sandbox_admin_id, sandbox_admin['user']['id']

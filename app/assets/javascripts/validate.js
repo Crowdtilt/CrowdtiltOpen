@@ -44,7 +44,7 @@ $( document ).ready(function() {
         phoneUS: "Hmm. That doesn't look like a valid phone number. <br> ex: 555-555-5555"
       },
       "settings[header_link_url]": {
-        url: "Hmm. That doesn't look like a valid URL. ex: http://crowdtilt.com"
+        url: "Hmm. That doesn't look like a valid URL. ex: http://www.tilt.com"
       },
       "settings[tweet_text]": {
         maxlength: "Oops! Must be under 120 characters so we have room to include the link to your campaign"

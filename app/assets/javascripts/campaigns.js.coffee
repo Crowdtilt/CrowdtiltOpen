@@ -91,9 +91,9 @@ Crowdhoster.campaigns =
       .fail((jqXHR, textStatus) ->
         Crowdhoster.campaigns.resetPaymentForm()
         if jqXHR.status == 400
-          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:open@crowdtilt.com?subject=Support request for creating user payment">click here</a> to email support.</p>')
+          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:open@tilt.com?subject=Support request for creating user payment">click here</a> to email support.</p>')
         else
-          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:open@crowdtilt.com?subject=Unable to create user payment">click here</a> to email support.</p>')
+          $('#errors').append('<p>Sorry, we weren\'t able to process your contribution. Please try again.</p><br><p>If you continue to experience issues, please <a href="mailto:open@tilt.com?subject=Unable to create user payment">click here</a> to email support.</p>')
       )
 
   resetPaymentForm: (with_errors = true) ->
@@ -106,7 +106,7 @@ Crowdhoster.campaigns =
     $('#security_code').attr('name', 'security_code')
 
   timeCheck: (element) ->
-    expiration = $(element).attr("date-element")          
+    expiration = $(element).attr("date-element")
     date_moment = moment.unix(expiration)
     expired = moment().diff(date_moment, "seconds") > 0
     if expired
@@ -129,7 +129,7 @@ Crowdhoster.campaigns =
           refDiff = date_moment.diff(moment(), "minutes")
           refDate = "minutes"
     $(element).html refDiff + "<span style=\"width:100px\">" + refDate + " left</span>"
-  
+
   cardResponseHandler: (response) ->
     form = document.getElementById('payment_form')
     request_id_token = response.request_id
@@ -152,7 +152,7 @@ Crowdhoster.campaigns =
       else
         # show an error, re-enable the form submit button, save a record of errored payment
         $('#refresh-msg').hide()
-        $('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p><br><p>If you continue to experience issues, please <a href="mailto:open@crowdtilt.com?subject=Support request for a payment issue&body=PLEASE DESCRIBE YOUR PAYMENT ISSUES HERE">click here</a> to contact support.</p>')
+        $('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p><br><p>If you continue to experience issues, please <a href="mailto:open@tilt.com?subject=Support request for a payment issue&body=PLEASE DESCRIBE YOUR PAYMENT ISSUES HERE">click here</a> to contact support.</p>')
         $('#errors').show()
         $('.loader').hide()
         $button = $('button[type="submit"]')
