@@ -3,6 +3,13 @@ worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 timeout Integer(ENV['WEB_TIMEOUT'] || 30)
 preload_app true
 
+APP_ROOT =  File.expand_path("../..", __FILE__)
+stdout_path "#{APP_ROOT}/log/unicorn.log"
+stderr_path "#{APP_ROOT}/log/unicorn.log"
+pid "#{APP_ROOT}/tmp/unicorn.pid"
+
+
+
 before_fork do |server, worker|
   Signal.trap 'TERM' do
     puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
