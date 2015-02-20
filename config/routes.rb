@@ -2,6 +2,9 @@ Crowdhoster::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
+  # REFERRAL LINKS
+  match '/u/:referral_code',                   to: 'pages#index'
+
   # PAGES
   root                                         to: 'pages#index'
 

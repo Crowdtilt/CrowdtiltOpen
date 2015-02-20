@@ -8,6 +8,7 @@
         <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form" data-error-action="<%= checkout_error_path(@campaign) %>" data-user-create-action="<%= ajax_create_payment_user_path(@campaign) %>">
 
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <input name='referred_by' type='hidden' value="<%= cookies[:referral_code] %>" />
           <h4 class="contact">Contact Information</h4>
 
           <fieldset>

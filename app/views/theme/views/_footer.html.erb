@@ -1,5 +1,13 @@
 <div id="footer">
   <div class="container clearfix">
+  	<% if(cookies[:referral_code]) %>
+  		<% referral_user = User.where(referral_code: cookies[:referral_code]) %>
+  		<% if referral_user.length > 0 %>
+  			<p class='pull-left'>Referred by <strong><%= referral_user[0].fullname %> (<%= cookies[:referral_code] %>)</strong>
+  		<% else %>
+  			<p class='pull-left'>Referred by <strong><%= cookies[:referral_code] %></strong>
+  		<% end %>
+  	<% end %>
     <p class="pull-right">© <%= @settings.copyright_text %> | <a target="_blank" href="http://open.tilt.com/privacy">Privacy Policy</a></p>
   </div>
 </div>
