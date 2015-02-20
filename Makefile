@@ -1,10 +1,11 @@
 all:
-	bundle exec foreman start
+	RAILS_ENV=production bundle exec foreman start;
 
+stop:
+	cat tmp/unicorn.pid | xargs kill -QUIT ;
 
 restart:
-	cat tmp/unicorn.pid | xargs kill -QUIT ;
-	make	
+	make stop; make;
 
 logs:
 	tail -f log/unicorn.log;

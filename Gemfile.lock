@@ -249,7 +249,7 @@ DEPENDENCIES
   aws-sdk
   bootstrap-sass (= 2.1)
   capybara
-  ckeditor
+  ckeditor (= 4.0.4)
   coffee-rails (~> 3.2.1)
   crowdtilt!
   devise (~> 3.2.0)
