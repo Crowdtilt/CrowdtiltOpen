@@ -10,7 +10,7 @@
     <hr />
     <h4>
       Your Referral Link:<br/><br/>
-      <% link = request.protocol + request.host_with_port + "/u/" + current_user.referral_code %>
+      <% link = "https://" + request.host_with_port + "/u/" + current_user.referral_code %>
       <a href='<%= link %>'><%= link %></a>
     </h4>
     <hr />
