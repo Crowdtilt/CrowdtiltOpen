@@ -30,13 +30,7 @@
     </div>
 
     <%= yield :footer %>
-
-    <div id="powered">
-      <a href="http://open.tilt.com">&nbsp;&nbsp;A Tilt Open Site</a>
-      &nbsp;&nbsp;<%= image_tag 'crowdtiltcircle.png' %>&nbsp;&nbsp;
-      <a href="http://www.tilt.com">Powered by Tilt</a>
-    </div>
-
+    
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>

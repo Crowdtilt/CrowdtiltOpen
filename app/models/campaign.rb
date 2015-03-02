@@ -4,6 +4,7 @@ class Campaign < ActiveRecord::Base
   has_many :faqs, dependent: :destroy, :order => 'sort_order'
   has_many :payments
   has_many :rewards
+  has_many :campaign_tiers, :order => 'min_users ASC'
 
   attr_accessible :name, :goal_type, :goal_dollars, :goal_orders,  :expiration_date, :ct_campaign_id, :media_type,
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
@@ -50,6 +51,32 @@ class Campaign < ActiveRecord::Base
     self.is_paid = campaign['is_paid'].to_i == 0 ? false : true
   end
 
+  def stats_raised_amount
+    self[:stats_raised_amount].to_i + (self.fake_users * self.fixed_payment_amount)
+  end
+
+  def current_tier_price
+    price = self.base_price;
+    if(!self.current_tier.nil?)
+      price = self.current_tier.price_at_tier
+    end
+
+    price
+  end
+
+  def current_tier
+    max_users = 0;
+    tier = nil
+    self.campaign_tiers.each do |t|
+      if(self.orders >= t.min_users && max_users <= t.min_users)
+        tier = t
+        max_users = t.min_users
+      end
+    end
+
+    tier
+  end
+
   def set_goal
     if self.goal_type == 'orders'
       self.goal_dollars = ((self.fixed_payment_amount * self.goal_orders)*100).round/100.0
@@ -81,7 +108,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def tilt_percent
-    (raised_amount / goal_dollars) * 100.0
+    (self.stats_raised_amount / goal_dollars) * 100.0
   end
 
   private

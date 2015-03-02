@@ -39,41 +39,29 @@
 
       <% end %>
 
+      <div id="tiers" class='col-sm-6'>
+        <h2>Current Price: <%= number_to_currency @campaign.current_tier_price, :precision => 0 %></h2>
+        <% count = 0 %>
+        <% @campaign.campaign_tiers.each do |t| %>
+          <% count = count + 1 %>
+          <h3>Tier <%= count %> <small><%= number_to_currency t.price_at_tier, :precision => 0 %> (<%= number_to_human t.pct_off, :precision => 0 %>% off)</small></h3>
+          <div id='progress_bg' class='small'>
+            <div id='progress' class='' style='width: <%= t.pct_complete.to_i %>%;'>
+            </div>
+          </div>
+          <br />
+        <% end %>
+      </div>
+
       <div id="backing">
         <ul>
-
-          <% if @campaign.goal_type == 'dollars' %>
-            <li class="stats" id="backers">
-              <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
-              <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
-            </li>
-            <li class="stats">
-              <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
-              <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
-            </li>
-          <% else %>
-            <li class="stats">
-              <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
-              <span>of <%= @campaign.goal_orders %> needed</span>
-            </li>
-          <% end %>
-
+          <li class="stats">
+            <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
+            <span>of <%= @campaign.goal_orders %> needed</span>
+          </li>
           <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >
           </li>
         </ul>
-
-        <% if @campaign.raised_amount < @campaign.goal_dollars %>
-          <div id='progress_bg' class='small'>
-            <div id='progress' class='' style='width: <%= @campaign.tilt_percent.to_i %>%;'>
-            </div>
-          </div>
-        <% else %>
-          <div id="progress_bg">
-            <div id="progress">
-            </div>
-            <div id='progress_text'><%= @campaign.tilt_percent.ceil %>% <%= @campaign.progress_text %></div>
-          </div>
-        <% end %>
 
         <div id="reserve_container">
           <div class="call_to_action_button">
@@ -95,9 +83,6 @@
                 <%= @campaign.primary_call_to_action_button %>
               </a>
             <% end %>
-          </div>
-          <div class="powered_by_crowdtilt">
-            <a href="http://open.tilt.com/?utm_source=powered_by&utm_medium=base&utm_campaign=link_powered_by" target="_blank"><%= image_tag 'powered_by_tilt.png', width: "104px" %></a>
           </div>
           <div class="call_to_action_description">
             <%= raw(@campaign.primary_call_to_action_description) %>
