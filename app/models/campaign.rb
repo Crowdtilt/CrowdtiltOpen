@@ -55,6 +55,17 @@ class Campaign < ActiveRecord::Base
     self[:stats_raised_amount].to_i + (self.fake_users * self.fixed_payment_amount)
   end
 
+  def price_at_additional_qty(amount)
+    expected_orders = self.orders + amount
+    price = self.base_price
+    tier = self.tier_for_orders expected_orders
+    if(!tier.nil?)
+      price = tier.price_at_tier
+    end
+
+    price
+  end
+
   def current_tier_price
     price = self.base_price;
     if(!self.current_tier.nil?)
@@ -65,10 +76,14 @@ class Campaign < ActiveRecord::Base
   end
 
   def current_tier
+    self.tier_for_orders self.orders
+  end
+
+  def tier_for_orders(order_amount)
     max_users = 0;
     tier = nil
     self.campaign_tiers.each do |t|
-      if(self.orders >= t.min_users && max_users <= t.min_users)
+      if(order_amount >= t.min_users && max_users <= t.min_users)
         tier = t
         max_users = t.min_users
       end

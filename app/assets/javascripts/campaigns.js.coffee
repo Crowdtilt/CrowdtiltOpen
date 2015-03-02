@@ -16,11 +16,14 @@ Crowdhoster.campaigns =
       $('html,body').animate({scrollTop: $('#header')[0].scrollHeight})
 
     $('#quantity').on "change", (e) ->
+      unit_price_at_qty = parseFloat($(":selected", this).attr('data-price-at-qty'));
       quantity = $(this).val()
       $amount = $('#amount')
       new_amount = parseFloat($amount.attr('data-original')) * quantity
+      new_amount_display = unit_price_at_qty * quantity
+      $("#unit-price-at-qty").html("$" + unit_price_at_qty.toFixed(2));
       $amount.val(new_amount)
-      $('#total').html(new_amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");)
+      $('#total').html(new_amount_display.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");)
 
     $('#amount').on "keyup", (e) ->
       $(this).addClass('edited')
