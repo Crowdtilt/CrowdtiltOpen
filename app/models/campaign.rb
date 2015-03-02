@@ -75,6 +75,22 @@ class Campaign < ActiveRecord::Base
     price
   end
 
+  def next_tier 
+    tier = self.campaign_tiers.first
+    self.campaign_tiers.each do |t|
+      if(self.orders < t.min_users)
+        tier = t
+        break 
+      end
+    end
+
+    tier
+  end
+
+  def until_next_tier
+    self.next_tier.min_users - self.orders
+  end
+
   def current_tier
     self.tier_for_orders self.orders
   end

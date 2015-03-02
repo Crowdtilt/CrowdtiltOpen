@@ -10,4 +10,12 @@ class CampaignTier < ActiveRecord::Base
   	orders = self.campaign.orders
   	(1.0 * [orders, self.min_users].min / self.min_users) * 100.0
   end
+
+  def complete
+  	self.pct_complete >= 100
+  end
+
+  def remaining
+  	return [0, self.min_users - self.campaign.orders].max
+  end
 end

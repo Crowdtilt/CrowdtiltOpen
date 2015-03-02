@@ -12,10 +12,14 @@
 
     <%= javascript_include_tag "application" %>
     <%= yield :scripts %>
+
+    <script src="//use.typekit.net/yau8ugv.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   </head>
 
   <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> <body class='tk-proxima-nova-alt'><!--<![endif]-->
 
     <%= yield :header %>
 

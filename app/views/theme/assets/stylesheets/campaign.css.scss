@@ -2,6 +2,36 @@
   /*************************************
   ********** FUNDING AREA **************
   **************************************/
+  #right-column h3 {
+    text-align: center;
+  }
+
+  .tier-list {
+    .price {
+      font-size:30px;
+      float: left;
+      width:25%;
+      border-right: 1px solid white;
+      margin-right:5px;
+    }
+
+    .list-group-item-success {
+      .price {
+        text-decoration: line-through;
+      }
+    }
+
+    .people-needed {
+      float:left;
+      width:70%;
+      text-align: center;
+    }
+
+    .remaining {
+      font-size:30px;
+      font-weight: bold;
+    }
+  }
 
   #funding_area {
     width: 100%;
@@ -22,7 +52,6 @@
 
     #video {
       float: left;
-      width: 512px;
       height: 385px;
       background: #fff;
       -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
@@ -37,7 +66,6 @@
 
     #image {
       float: left;
-      width: 512px;
       height: 385px;
       -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
       -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
@@ -70,10 +98,12 @@
       }
     }
 
+    .backing-wrapper {
+      text-align: center;
+    }
+
     #backing {
-      float: left;
-      width: 392px;
-      margin: 20px 0 0 34px;
+      margin-left:15px;
 
       ul {
         margin: 0;
@@ -201,8 +231,8 @@
     }
 
     .share {
-      margin-left: 100px;
-      margin-top: 24px;
+      margin-left: 34px;
+      margin-bottom: 20px;
     }
   }
 
