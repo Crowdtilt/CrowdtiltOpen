@@ -9,3 +9,8 @@ restart:
 
 logs:
 	tail -f log/unicorn.log;
+
+
+local:
+	bundle exec foreman run unicorn -p 5000 -c ./config/unicorn.rb
+

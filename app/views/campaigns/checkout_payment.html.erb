@@ -140,7 +140,7 @@
 
           <div class="payment-submit javascript-only">
             <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">
-              Confirm payment of $<%= number_with_precision(@total, :delimiter => ",", precision: 2) %>
+              Confirm payment of $<%= number_with_precision(@display_total, :delimiter => ",", precision: 2) %>
             </button>
             <span class="loader" data-loader="payment_form" style="display:none"></span>
             <div id="refresh-msg" style="display: none; color: red; margin-top: 10px">Your payment is being processed! Please do not refresh this page.</div>
@@ -174,12 +174,12 @@
           <tr>
           <td width="225">
           <% if @campaign.payment_type == "fixed" %>
-            <p>Subtotal (<%= "#{@quantity} x #{short_price(@campaign.fixed_payment_amount, '$', 2)}" %>)</p>
+            <p>Subtotal (<%= "#{@quantity} x #{short_price(@campaign.price_at_additional_qty(@quantity), '$', 2)}" %>)</p>
           <% else %>
             <p>Subtotal</p>
           <% end %>
           </td>
-          <td style="text-align: right"><p><%= short_price(@amount, '$', 2) %></p></td>
+          <td style="text-align: right"><p><%= short_price(@display_subtotal, '$', 2) %></p></td>
           </tr>
 
           <% if @fee > 0 %>
@@ -191,7 +191,7 @@
 
           <tr>
           <td width="225"><p><strong>Total</strong></p></td>
-          <td style="text-align: right"><p><strong><%= short_price(@total, '$', 2) %></strong></p></td>
+          <td style="text-align: right"><p><strong><%= short_price(@display_total, '$', 2) %></strong></p></td>
           </tr>
 
           <% if !@campaign.production_flag %>

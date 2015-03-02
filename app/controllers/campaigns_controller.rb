@@ -62,8 +62,10 @@ class CampaignsController < ApplicationController
       return
     end
 
+    @display_subtotal = @campaign.price_at_additional_qty(@quantity) * @quantity
     @fee = (@campaign.apply_processing_fee)? calculate_processing_fee(@amount * 100)/100.0 : 0
     @total = @amount + @fee
+    @display_total = @display_subtotal + @fee
 
   end
 
