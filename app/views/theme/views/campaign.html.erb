@@ -112,7 +112,8 @@
               </div>
               <div class='people-needed'>
                 <% if t == @campaign.current_tier then %>
-                    Current Price
+                    Current Price<br />
+                    Activated with <strong><%= t.min_users.to_s %> Orders</strong>
                 <% elsif t.complete then %>
                     Activated with <%= t.min_users.to_s %> Orders
                 <% else %>
