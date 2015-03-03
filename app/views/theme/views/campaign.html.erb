@@ -46,13 +46,13 @@
                 <small>Starting Price: <span class='msrp'><%= number_to_currency @campaign.base_price, :precision => 0 %></span></small><br />
                 Current Price: <%= number_to_currency @campaign.current_tier_price, :precision => 0 %>
                 <br />
-                <small>(<%= @campaign.current_tier.pct_off %>% Savings)</small>
+                <small>(<%= number_to_human @campaign.current_tier.pct_off, :precision => 0 %>% Savings)</small>
               </h2>
               <hr />
               <div id="backing">
                 <ul>
                   <li class="stats">
-                    <%= @campaign.until_next_tier %> Orders <span> needed for <br /><%= @campaign.next_tier.pct_off %>% off</span>
+                    <%= @campaign.until_next_tier %> Orders <span> needed for <br /><%= number_to_human @campaign.next_tier.pct_off, :precision => 0 %>% off</span>
                   </li>
                   <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >
                   </li>
@@ -108,7 +108,7 @@
               <div class='price'>
                 <%= number_to_currency t.price_at_tier, :precision => 0 %>
                 <br />
-                <small><%= t.pct_off %>% Off</small>
+                <small><%= number_to_human t.pct_off, :precision => 0 %>% Off</small>
               </div>
               <div class='people-needed'>
                 <% if t == @campaign.current_tier then %>
