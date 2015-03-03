@@ -21,7 +21,7 @@
       }
     }
 
-    .list-group-item-success {
+    .list-group-item-success:not(.active) {
       .price {
         text-decoration: line-through;
       }

@@ -103,14 +103,16 @@
           <% count = 0 %>
           <% @campaign.campaign_tiers.each do |t| %>
             <% count = count + 1 %>
-            <a href="#" class="list-group-item list-group-item-<%= if t.complete then 'success' else 'info' end %>">
+            <a href="#" class="list-group-item list-group-item-<%= if t.complete then 'success' else 'info' end %> <%= if t == @campaign.current_tier then 'active' else '' end %>">
               <div class='price'>
                 <%= number_to_currency t.price_at_tier, :precision => 0 %>
                 <br />
                 <small><%= t.pct_off %>% Off</small>
               </div>
               <div class='people-needed'>
-                <% if t.complete then %>
+                <% if t == @campaign.current_tier then %>
+                    Current Price
+                <% elsif t.complete then %>
                     Activated with <%= t.min_users.to_s %> Orders
                 <% else %>
                     <span class='remaining'><%= t.remaining.to_s %></span> More Orders to Activate
