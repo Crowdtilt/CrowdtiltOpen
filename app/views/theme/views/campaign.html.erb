@@ -51,9 +51,6 @@
               <hr />
               <div id="backing">
                 <ul>
-                  <li class="stats">
-                    <%= @campaign.until_next_tier %> Orders <span> needed for <br /><%= number_to_human @campaign.next_tier.pct_off, :precision => 0 %>% off</span>
-                  </li>
                   <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >
                   </li>
                 </ul>
