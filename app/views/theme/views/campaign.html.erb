@@ -10,10 +10,10 @@
 
     <!-- BEGIN LEFT COLUMN -->
     <div>
-      <div id="left-column" class='col-md-8'>
+      <div id="left-column" class='col-xs-8'>
         <!-- BEGIN MEDIA -->
         <% if @campaign.media_type == 'video' %>
-          <div id="video" class='col-md-6'>
+          <div id="video" class='col-xs-6'>
             <% if @campaign.video_placeholder.file? %>
               <div id="video_image">
                 <%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
@@ -35,14 +35,15 @@
             <% end %>
           </div>
         <% else %>
-          <div id="image" class='col-md-6'>
+          <div id="image" class='col-xs-6'>
             <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
           </div>
         <% end %>
         <!-- END MEDIA -->
           <!-- BEGIN RESERVE -->
-          <div class='col-md-6 backing-wrapper'>
+          <div class='col-xs-6 backing-wrapper'>
               <h2>
+                <small>Starting Price: <span class='msrp'><%= number_to_currency @campaign.base_price, :precision => 0 %></span></small><br />
                 Current Price: <%= number_to_currency @campaign.current_tier_price, :precision => 0 %>
                 <br />
                 <small>(<%= @campaign.current_tier.pct_off %>% Savings)</small>
@@ -89,14 +90,14 @@
           <!-- BEGIN CONTENT -->
           <div class='clearfix'></div>
           <hr />
-          <div class='col-md-12 well'>
+          <div class='col-xs-12 well'>
             <%= raw(@campaign.main_content) %>
           </div>
           <!-- END CONTENT -->
         </div>
       </div>
       <!-- BEGIN TIERS -->
-      <div id="right-column" class='col-md-4'>
+      <div id="right-column" class='col-xs-4'>
         <h3><%= @campaign.orders %> Total Orders</h3>
         <hr />
         <div class="list-group tier-list">
@@ -124,7 +125,7 @@
             <br />
           <% end %>
         </div>
-        <p class='tier-hint'>The more orders, the more everyone saves. <a href='#' data-toggle="modal" data-target="#learn-more-modal">Learn More</a></p>
+        <p class='tier-hint'>The more orders, the more everyone saves! <a href='#' data-toggle="modal" data-target="#learn-more-modal">Learn More</a></p>
       </div>
       <!-- END TIERS -->
     </div>
