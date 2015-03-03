@@ -1,9 +1,10 @@
 <div id="checkout">
-  <div class="container content_box clearfix">
-    <div class="main_content">
+  <div class="container well clearfix">
+    <div class="col-sm-12">
       <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
+      <hr />
 
-      <div class="well checkout_block">
+      <div class="well white checkout_block">
         <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
 
           <% if @campaign.payment_type == 'fixed' %>
@@ -81,8 +82,8 @@
             </div>
           <% end %>
 
-
-          <button type="submit" class="btn btn-primary" id="continue_to_checkout">Continue to checkout</button>
+          <hr />
+          <button type="submit" class="btn btn-lg btn-primary" id="continue_to_checkout">Continue to checkout</button>
 
         </form>
       </div>
