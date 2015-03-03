@@ -13,6 +13,12 @@
       width:25%;
       border-right: 1px solid white;
       margin-right:5px;
+      line-height:24px;
+
+      small {
+        font-size: 14px;
+        opacity: 0.8;
+      }
     }
 
     .list-group-item-success {
