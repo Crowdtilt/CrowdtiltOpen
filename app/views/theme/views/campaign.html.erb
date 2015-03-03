@@ -121,18 +121,25 @@
 
               <div class='clearfix'></div>
             </a>
-
-            <!-- <h3>Tier <%= count %> <small><%= number_to_currency t.price_at_tier, :precision => 0 %> (<%= number_to_human t.pct_off, :precision => 0 %>% off)</small></h3>
-            <div id='progress_bg' class='small'>
-              <div id='progress' class='' style='width: <%= t.pct_complete.to_i %>%;'>
-              </div>
-            </div> -->
             <br />
           <% end %>
         </div>
+        <p class='tier-hint'>The more orders, the more everyone saves. <a href='#' data-toggle="modal" data-target="#learn-more-modal">Learn More</a></p>
       </div>
       <!-- END TIERS -->
     </div>
 
   </div>
 </div>
+
+<!-- Learn More Modal -->
+<div class="modal fade" id="learn-more-modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <p>When you join a Cinco de Buyo campaign, you pledge to purchase the product at the current price. This may not be the price you pay, as the more orders for the campaign, the lower amount everyone pays. Once the campaign is over, you will be charged the amount associated with the total number of orders for that campaign.</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

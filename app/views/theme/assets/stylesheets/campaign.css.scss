@@ -1,4 +1,5 @@
 #campaign {
+
   /*************************************
   ********** FUNDING AREA **************
   **************************************/
@@ -6,7 +7,13 @@
     text-align: center;
   }
 
+  .tier-hint {
+    text-align: center;
+  }
+
   .tier-list {
+    margin-bottom: 0px;
+
     .price {
       font-size:30px;
       float: left;
