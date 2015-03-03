@@ -59,3 +59,12 @@ select, input[type="file"],select, textarea, input[type="text"], input[type="pas
 #checkout .sidebar {
 	width:33.333333%;
 }
+
+#campaign #faq ul {
+	width:100%;
+	margin:0px;
+
+	li {
+		width:inherit;
+	}
+}

@@ -10,10 +10,10 @@
 
     <!-- BEGIN LEFT COLUMN -->
     <div>
-      <div id="left-column" class='col-xs-8'>
+      <div id="left-column" class='col-sm-8'>
         <!-- BEGIN MEDIA -->
         <% if @campaign.media_type == 'video' %>
-          <div id="video" class='col-xs-6'>
+          <div id="video" class='col-sm-6 col-xs-12'>
             <% if @campaign.video_placeholder.file? %>
               <div id="video_image">
                 <%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
@@ -35,13 +35,15 @@
             <% end %>
           </div>
         <% else %>
-          <div id="image" class='col-xs-6'>
+          <div id="image" class='col-sm-6 col-xs-12'>
             <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
           </div>
         <% end %>
+        <div class='clearfix visible-xs'></div>
+        <hr class='visible-xs' />
         <!-- END MEDIA -->
           <!-- BEGIN RESERVE -->
-          <div class='col-xs-6 backing-wrapper'>
+          <div class='col-sm-6 backing-wrapper'>
               <h2>
                 <small>Starting Price: <span class='msrp'><%= number_to_currency @campaign.base_price, :precision => 0 %></span></small><br />
                 Current Price: <%= number_to_currency @campaign.current_tier_price, :precision => 0 %>
@@ -83,17 +85,39 @@
             </div>
           </div>
           <!-- END RESERVE -->
-          <!-- BEGIN CONTENT -->
-          <div class='clearfix'></div>
-          <hr />
-          <div class='col-xs-12 well'>
-            <%= raw(@campaign.main_content) %>
+          <!-- BEGIN CONTENT for >= SM browsers -->
+          <div class='hidden-xs'>
+            <div class='clearfix'></div>
+            <hr />
+            <div class='col-sm-12 well'>
+              <%= raw(@campaign.main_content) %>
+
+              <% if @campaign.faqs.count > 0 %>
+              <div id="faq">
+                <div class="clearfix">
+                  <h2>Frequently Asked Questions</h2>
+                  <hr />
+                  <ul>
+                    <% for i in 0...(@campaign.faqs.count) %>
+                      <li class='col-sm-12'>
+                        <details>
+                          <summary><%= @campaign.faqs[i].question %></summary>
+                          <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
+                        </details>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            <% end %>
+            </div>
           </div>
           <!-- END CONTENT -->
+          <div class='clearfix'></div>
         </div>
       </div>
       <!-- BEGIN TIERS -->
-      <div id="right-column" class='col-xs-4'>
+      <div id="right-column" class='col-sm-4'>
         <h3><%= @campaign.orders %> Total Orders</h3>
         <hr />
         <div class="list-group tier-list">
@@ -125,6 +149,36 @@
         <p class='tier-hint'>The more orders, the more everyone saves! <a href='#' data-toggle="modal" data-target="#learn-more-modal">Learn More</a></p>
       </div>
       <!-- END TIERS -->
+
+      <!-- BEGIN CONTENT for XS browsers -->
+      <div class='col-sm-8 visible-xs'>
+        <div class='clearfix'></div>
+        <hr />
+        <div class='col-sm-12 well'>
+          <%= raw(@campaign.main_content) %>
+
+          <% if @campaign.faqs.count > 0 %>
+          <div id="faq">
+            <div class="clearfix">
+              <h2>Frequently Asked Questions</h2>
+              <hr />
+              <ul>
+                <% for i in 0...(@campaign.faqs.count) %>
+                  <li class='col-sm-12'>
+                    <details>
+                      <summary><%= @campaign.faqs[i].question %></summary>
+                      <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
+                    </details>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>
+      <!-- END CONTENT -->
+
     </div>
 
   </div>
