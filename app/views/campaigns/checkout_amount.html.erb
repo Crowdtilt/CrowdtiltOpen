@@ -1,9 +1,8 @@
 <div id="checkout">
   <div class="container well clearfix">
-    <div class="col-sm-12">
-      <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
-      <hr />
-
+    <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
+    <hr />
+    <div class="col-sm-8">
       <div class="well white checkout_block">
         <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
 
@@ -87,13 +86,35 @@
 
         </form>
       </div>
-
     </div>
+    <div class="col-sm-4">
+      <h3><%= @campaign.orders %> + Your <span data-campaign-qty="<%= @campaign.orders %>" class='their-qty'>1</span> = <strong><span class='total-qty'><%= @campaign.orders + 1 %></span> Total Orders</strong></h3>
+        <hr />
+        <div class="list-group tier-list">
+          <% count = 0 %>
+          <% @campaign.campaign_tiers.each do |t| %>
+            <% count = count + 1 %>
+            <a data-min-qty="<%= t.min_users %>" href="#" class="tier list-group-item list-group-item-<%= if t.complete then 'success' else 'info' end %> <%= if t == @campaign.current_tier then 'active' else '' end %>">
+              <div class='price'>
+                <%= number_to_currency t.price_at_tier, :precision => 0 %>
+                <br />
+                <small><%= number_to_human t.pct_off, :precision => 0 %>% Off</small>
+              </div>
+              <div class='people-needed'>
+                <% if t == @campaign.current_tier then %>
+                    Current Price<br />
+                    Activated with <strong><%= t.min_users.to_s %> Orders</strong>
+                <% elsif t.complete then %>
+                    Activated with <%= t.min_users.to_s %> Orders
+                <% else %>
+                    <span class='remaining'><%= t.remaining.to_s %></span> More Orders to Activate
+                <% end %>
+              </div>
 
-    <div class="sidebar">
-      <div class="custom_content">
-        <%= raw(@campaign.checkout_sidebar_content) %>
-      </div>
+              <div class='clearfix'></div>
+            </a>
+            <br />
+          <% end %>
     </div>
 
   </div>

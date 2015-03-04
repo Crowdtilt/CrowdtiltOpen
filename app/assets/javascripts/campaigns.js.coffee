@@ -17,13 +17,38 @@ Crowdhoster.campaigns =
 
     $('#quantity').on "change", (e) ->
       unit_price_at_qty = parseFloat($(":selected", this).attr('data-price-at-qty'));
-      quantity = $(this).val()
+      quantity = parseInt($(this).val())
       $amount = $('#amount')
+      functional_total = quantity + parseInt($(".their-qty").attr("data-campaign-qty"))
       new_amount = parseFloat($amount.attr('data-original')) * quantity
       new_amount_display = unit_price_at_qty * quantity
       $("#unit-price-at-qty").html("$" + unit_price_at_qty.toFixed(2));
       $amount.val(new_amount)
-      $('#total').html(new_amount_display.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");)
+      $('#total').html(new_amount_display.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+      $(".their-qty").html(quantity)
+      $(".total-qty").html(functional_total)
+
+      # loop over the tiers and update them
+      current_tier = null
+      $(".tier-list .tier").each (i, item) ->
+        min = parseInt $(item).attr "data-min-qty"
+        $item = $(item);
+        $item.removeClass "list-group-item-success"
+        $item.removeClass "list-group-item-info"
+        $item.removeClass "active"
+        
+        # we havent reached this tier
+        if(functional_total < min)
+          $item.addClass "list-group-item-info"
+          $(".people-needed", $item).html "<span class='remaining'>" + (min - functional_total) + "</span> More Orders to Activate"
+        else 
+          $item.addClass "list-group-item-success"
+          $(".people-needed", $item).html "Activated with "+min+" Orders"
+          current_tier = $item
+
+      current_tier.addClass "active"
+      $(".people-needed", current_tier).html "Current Price<br />Activated with <strong>"+min+" Orders</strong>"
+
 
     $('#amount').on "keyup", (e) ->
       $(this).addClass('edited')

@@ -7,45 +7,6 @@
     text-align: center;
   }
 
-  .tier-hint {
-    text-align: center;
-  }
-
-  .tier-list {
-    margin-bottom: 0px;
-
-    .price {
-      font-size:30px;
-      float: left;
-      width:25%;
-      border-right: 1px solid white;
-      margin-right:5px;
-      line-height:24px;
-
-      small {
-        font-size: 14px;
-        opacity: 0.8;
-      }
-    }
-
-    .list-group-item-success:not(.active) {
-      .price {
-        text-decoration: line-through;
-      }
-    }
-
-    .people-needed {
-      float:left;
-      width:70%;
-      text-align: center;
-    }
-
-    .remaining {
-      font-size:30px;
-      font-weight: bold;
-    }
-  }
-
   #funding_area {
     width: 100%;
     padding: 40px 0;
