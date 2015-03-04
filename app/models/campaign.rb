@@ -115,7 +115,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def expired?
-    self.expiration_date < Time.current
+    self.expiration_date < Time.current or self.sold_out
   end
 
   def orders

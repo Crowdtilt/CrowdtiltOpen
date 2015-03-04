@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150304152801) do
+ActiveRecord::Schema.define(:version => 20150304203638) do
 
   create_table "campaign_tiers", :force => true do |t|
     t.integer  "campaign_id"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20150304152801) do
     t.boolean  "include_rewards_claimed"
     t.integer  "fake_users",                           :default => 0
     t.decimal  "base_price"
+    t.boolean  "sold_out",                             :default => false
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true

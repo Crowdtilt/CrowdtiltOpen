@@ -69,6 +69,11 @@ select, input[type="file"],select, textarea, input[type="text"], input[type="pas
 	}
 }
 
+#campaign #funding_area #backing #sold-out.stats {
+	border:none;
+	margin-top: 16px;
+}
+
 #main #checkout {
 	background: #f6f6f6;
 }
