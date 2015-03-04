@@ -1,13 +1,42 @@
 <div id="checkout">
-  <div class="container content_box clearfix">
-    <div class="main_content">
+  <div class="container clearfix">
+    <div class="col-sm-8">
+      <h2>You Have Successfully Contributed!</h2>
       <%= raw(@campaign.confirmation_page_content) %>
+      <% if(@campaign.current_tier != @campaign.tier_for_orders(@campaign.orders - @payment.quantity)) then %>
+        <div class="alert alert-success" role="alert">Congrats! Your purchase caused this campaign to advance to the next tier, now everyone can party!</div>
+      <% end %>
+
+      <h3>
+      <% 
+        current_tier = @campaign.current_tier
+        is_last = current_tier == @campaign.campaign_tiers.last 
+        link = "https://" + request.host_with_port + "/u/" + @payment.referral_code.code
+        if is_last then
+      %>
+        You got this for the lowest possible price, let your friends know they can too!
+      <% else %>
+        <strong><%= @campaign.until_next_tier %> more orders</strong> and you will only pay <strong><%= number_to_currency @campaign.next_tier.price_at_tier, :precision => 0 %></strong>, share with your friends and family to increase everyones savings!
+      <% end %>
+      </h3>
+
+      <hr />
+      
+      <h3>Here's a link to share with your friends! <br /><small><a href='<%= link %>'><%= link %></a></small></h3>
       <div class="share clearfix">
-        <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
+        <div id="share_buttons">
+          <div class="like"><div class="fb-like" data-href="<%= link %>" data-send="false" data-layout="button_count" data-width="70" data-show-faces="false"></div></div>
+          <div class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= link %>" data-text="<%= @campaign.tweet_text.blank? ? @settings.site_name : @campaign.tweet_text %>">Tweet</a></div>
+          <div class="pin">
+            <a href="//www.pinterest.com/pin/create/button/?url=<%=u link %>&media=<%=u "https://" + request.host_with_port + @campaign.main_image.url(:main) %>&description=<%=u @campaign.tweet_text %>" data-pin-do="buttonPin" data-pin-config="beside" data-pin-color="red"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a>
+          </div>
+        </div>
       </div>
-      <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>"><%= @campaign.name %> homepage</a></p>
+
+      <br /><hr />
+      <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>">the campaign.</a></p>
     </div>
-    <div class="well confirmation_sidebar" id="completed_purchase">
+    <div class="well white confirmation_sidebar col-sm-4" id="completed_purchase">
       <h4>Payment Summary</h4>
       <% if !@campaign.production_flag %>
         <div style="color: red; margin-bottom: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>

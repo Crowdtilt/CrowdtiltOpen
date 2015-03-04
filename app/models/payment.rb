@@ -79,6 +79,16 @@ class Payment < ActiveRecord::Base
     date.strftime("%m/%d/%Y")
   end
 
+  def referral_code
+    code = ReferralCode.where(email: self.email)
+    if(code.length > 0)
+      return code[0]
+    else
+      code = ReferralCode.create(code:('0'..'9').to_a.concat(('A'..'Z').to_a).concat(('a'..'z').to_a).shuffle[0,8].join, email: self.email, comment:"purchase #" + self.id.to_s)
+      code
+    end
+  end
+
   # return the referral code for the user who made this payment
   # returns nil if no user is found or if they do not have a referral
   # source
