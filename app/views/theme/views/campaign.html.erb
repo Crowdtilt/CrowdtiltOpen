@@ -199,3 +199,42 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<% if @campaign.expired? %>
+<!-- Email capture modal -->
+<%= form_for(ReferralCode.new, :url => "/capture") do |f| %>
+<div class="modal fade" id="get-email">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Sale Over</h4>
+      </div>
+      <div class="modal-body">
+        <% if !flash[:info].nil? %>
+          <%= flash[:info] %>
+        <% else %>
+          <p>We're sorry but this sale is already over. Join our waiting list for early access to the next deal!</p>
+          <%= f.email_field :email, :class => "form-control", :placeholder => "Enter your email..." %>
+          <%= f.hidden_field :comment, :value => "email capture form" %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <% if flash[:info].nil? %>
+          <button type="button" class="btn btn-primary">Sign me up!</button>
+        <% end %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<% end %>
+
+<script type="text/javascript">
+  $('#get-email').modal({ });
+  $("#get-email .btn-primary").on("click", function(){
+    console.log("CLICKED", $(this).closest("form"));
+    $(this).closest("form").submit();
+  });
+</script>
+<% end %>
