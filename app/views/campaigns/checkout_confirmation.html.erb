@@ -30,10 +30,12 @@
       <h3>Here's a link to share with your friends! <br /><small><a href='<%= link %>'><%= link %></a></small></h3>
       <div class="share clearfix">
         <div id="share_buttons">
-          <div class="like"><div class="fb-like" data-href="<%= link %>" data-send="false" data-layout="button_count" data-width="70" data-show-faces="false"></div></div>
+          <div class="like">
+            <div class="fb-share-button" data-href="<%= link %>" data-layout="button_count"></div>
+          </div>
           <div class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= link %>" data-text="<%= @campaign.tweet_text.blank? ? @settings.site_name : @campaign.tweet_text %>">Tweet</a></div>
           <div class="pin">
-            <a href="//www.pinterest.com/pin/create/button/?url=<%=u link %>&media=<%=u "https://" + request.host_with_port + @campaign.main_image.url(:main) %>&description=<%=u @campaign.tweet_text %>" data-pin-do="buttonPin" data-pin-config="beside" data-pin-color="red"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a>
+            <a href="//www.pinterest.com/pin/create/button/?url=<%=u link %>&media=<%=u "https://s3.amazonaws.com/hd_wowza/cincodebuyo/uploads/campaigns/main_images/000/000/002/main.jpeg?1425496859" %>&description=<%=u @campaign.tweet_text %>" data-pin-do="buttonPin" data-pin-config="beside" data-pin-color="red"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a>
           </div>
         </div>
       </div>
