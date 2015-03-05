@@ -119,4 +119,4 @@ select, input[type="file"],select, textarea, input[type="text"], input[type="pas
   }
 
 
-  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover { z-index:1!important; }
+  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover { z-index:0!important; }
