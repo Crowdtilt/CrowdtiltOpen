@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150304203638) do
+ActiveRecord::Schema.define(:version => 20150305172801) do
 
   create_table "campaign_tiers", :force => true do |t|
     t.integer  "campaign_id"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20150304203638) do
     t.string   "ct_charge_request_error_id"
     t.string   "ct_user_id"
     t.text     "referred_by"
+    t.text     "ip_addr"
   end
 
   create_table "referral_codes", :force => true do |t|

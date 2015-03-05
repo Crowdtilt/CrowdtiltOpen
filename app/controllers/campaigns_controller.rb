@@ -125,6 +125,7 @@ class CampaignsController < ApplicationController
     end
 
     @payment.reward = @reward if @reward
+    @payment.ip_addr = request.remote_ip
     @payment.save
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user

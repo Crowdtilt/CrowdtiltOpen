@@ -1,3 +1,4 @@
+
 <div id="checkout">
   <div class="container content_box clearfix">
     <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
@@ -145,10 +146,6 @@
 
           <hr />
 
-          <% if !@campaign.production_flag %>
-            <div style="color: red; margin-top: 10px;" class='center'>This campaign is in sandbox mode, your card will not actually be charged.</div>
-          <% end%>
-
           <div class="payment-submit javascript-only center">
             <button class="btn btn-lg btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">
               Confirm payment of $<%= number_with_precision(@display_total, :delimiter => ",", precision: 2) %>
@@ -201,12 +198,6 @@
           <td width="225"><p><strong>Total</strong></p></td>
           <td style="text-align: right"><p><strong><%= short_price(@display_total, '$', 2) %></strong></p></td>
           </tr>
-
-          <% if !@campaign.production_flag %>
-          <tr>
-          <td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
-          </tr>
-          <% end %>
 
         </table>
 

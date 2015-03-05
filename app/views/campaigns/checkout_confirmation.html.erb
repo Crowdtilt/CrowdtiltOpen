@@ -43,9 +43,6 @@
     </div>
     <div class="well white confirmation_sidebar col-sm-4" id="completed_purchase">
       <h4>Payment Summary</h4>
-      <% if !@campaign.production_flag %>
-        <div style="color: red; margin-bottom: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
-      <% end%>
       <p>
       <strong>Date:</strong><br/> <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/><br/>
       <strong>Minimum Payment Amount:</strong><br/> <%= short_price(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, '$', 2) %> <br/><br/>

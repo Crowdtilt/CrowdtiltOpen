@@ -6,7 +6,8 @@ class Payment < ActiveRecord::Base
                   :ct_charge_request_id, :ct_charge_request_error_id,
                   :ct_tokenize_request_id, :ct_tokenize_request_error_id,
                   :ct_user_id,
-                  :referred_by
+                  :referred_by,
+                  :ip_addr
 
   validates :fullname, :quantity, presence: true
   validates :email, presence: true, email: true

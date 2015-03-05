@@ -7,10 +7,6 @@ This is an email receipt for your <%= short_price(@payment.amount.to_f/100.0 + @
 
 <br/><br/>
 
-<% if !@campaign.production_flag %>
-  <div style="color: red">This campaign is in sandbox mode, your card will not actually be charged.</div><br/><br/>
-<% end%>
-
 <strong>Payment Details:</strong><br/>
 Name: <%= @payment.fullname %> <br/>
 Date: <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/>
