@@ -131,7 +131,7 @@ class CampaignsController < ApplicationController
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
     begin
         require "stripe"
-        Stripe.api_key = "sk_test_Y0pzmIwfwOQtcxIgzGDFlHxb"
+        Stripe.api_key = ENV['STRIPE_KEY']
 
         response = Stripe::Charge.create(
           :amount => payment_params[:amount],
