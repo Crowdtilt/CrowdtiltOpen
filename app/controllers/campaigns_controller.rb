@@ -129,49 +129,71 @@ class CampaignsController < ApplicationController
 
     # Execute the payment via the Crowdtilt API, if it fails, redirect user
     begin
-      payment = {
-        amount: payment_params[:amount],
-        user_fee_amount: user_fee_amount,
-        admin_fee_amount: admin_fee_amount,
-        user_id: ct_user_id,
-        card_id: ct_card_id,
-        metadata: {
-          fullname: payment_params[:fullname],
-          email: payment_params[:email],
-          billing_postal_code: payment_params[:billing_postal_code],
-          quantity: payment_params[:quantity],
-          reward: @reward ? @reward.id : 0,
-          additional_info: payment_params[:additional_info]
-        }
-      }
-      @campaign.production_flag ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
+        require "stripe"
+        Stripe.api_key = "sk_test_Y0pzmIwfwOQtcxIgzGDFlHxb"
 
-      logger.info "CROWDTILT API REQUEST: /campaigns/#{@campaign.ct_campaign_id}/payments"
-      logger.info payment
-      response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
-      logger.info "CROWDTILT API RESPONSE:"
-      logger.info response
-    rescue Crowdtilt::ApiError => api_error
-      response = api_error.response
-      logger.error "API ERROR WITH POST TO /payments: #{response[:status]} #{response[:body]}"
-      error_attributes = {status: 'error'}
-      error_attributes[:ct_charge_request_id] = response[:body]['request_id'] if response[:body]['request_id']
-      error_attributes[:ct_charge_request_error_id] = response[:body]['error_id'] if response[:body]['error_id']
-      @payment.update_attributes(error_attributes)
-      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com" } and return
-    rescue StandardError => exception
-      @payment.update_attributes({status: 'error'})
-      logger.error "ERROR WITH POST TO /payments: #{exception.message}"
-      redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com" } and return
+        response = Stripe::Charge.create(
+          :amount => payment_params[:amount],
+          :currency => "usd",
+          :source => { 
+            :object => "card",
+            :number => params[:card_no],
+            :exp_month => params[:expiration_month],
+            :exp_year => params[:expiration_year],
+            :name => payment_params[:fullname],
+            :cvc => params[:security_code],
+            :address_zip => params[:billing_postal_code]
+          },
+          :description => "Cincodebuyo campaign authorization",
+          :capture => false
+        )
+      rescue => e
+        redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing info@cincodebuyo.com" } and return
+
+
+    #   payment = {
+    #     amount: payment_params[:amount],
+    #     user_fee_amount: user_fee_amount,
+    #     admin_fee_amount: admin_fee_amount,
+    #     user_id: ct_user_id,
+    #     card_id: ct_card_id,
+    #     metadata: {
+    #       fullname: payment_params[:fullname],
+    #       email: payment_params[:email],
+    #       billing_postal_code: payment_params[:billing_postal_code],
+    #       quantity: payment_params[:quantity],
+    #       reward: @reward ? @reward.id : 0,
+    #       additional_info: payment_params[:additional_info]
+    #     }
+    #   }
+    #   @campaign.production_flag ? Crowdtilt.production(@settings) : Crowdtilt.sandbox
+
+    #   logger.info "CROWDTILT API REQUEST: /campaigns/#{@campaign.ct_campaign_id}/payments"
+    #   logger.info payment
+    #   response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
+    #   logger.info "CROWDTILT API RESPONSE:"
+    #   logger.info response
+    # rescue Crowdtilt::ApiError => api_error
+    #   response = api_error.response
+    #   logger.error "API ERROR WITH POST TO /payments: #{response[:status]} #{response[:body]}"
+    #   error_attributes = {status: 'error'}
+    #   error_attributes[:ct_charge_request_id] = response[:body]['request_id'] if response[:body]['request_id']
+    #   error_attributes[:ct_charge_request_error_id] = response[:body]['error_id'] if response[:body]['error_id']
+    #   @payment.update_attributes(error_attributes)
+    #   redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com" } and return
+    # rescue StandardError => exception
+    #   @payment.update_attributes({status: 'error'})
+    #   logger.error "ERROR WITH POST TO /payments: #{exception.message}"
+    #   redirect_to checkout_amount_url(@campaign), flash: { error: "There was an error processing your payment. Please try again or contact support by emailing open@tilt.com" } and return
     end
 
     # Sync payment data
-    @payment.update_api_data(response['payment'])
-    @payment.ct_charge_request_id = response['request_id']
+    @payment.update_api_data(response)
+    @payment.ct_charge_request_id = response['id']
     @payment.save
 
     # Sync campaign data
-    @campaign.update_api_data(response['payment']['campaign'])
+    @campaign.update_api_data(@payment.amount)
     @campaign.save
 
     # Send confirmation emails

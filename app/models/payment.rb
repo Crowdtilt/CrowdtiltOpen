@@ -57,12 +57,12 @@ class Payment < ActiveRecord::Base
     self.ct_payment_id = payment['id']
     self.status = payment['status']
     self.amount = payment['amount']
-    self.user_fee_amount = payment['user_fee_amount']
-    self.admin_fee_amount = payment['admin_fee_amount']
-    self.card_type = payment['card']['card_type']
-    self.card_last_four = payment['card']['last_four']
-    self.card_expiration_month = payment['card']['expiration_month']
-    self.card_expiration_year = payment['card']['expiration_year']
+    self.user_fee_amount = 0
+    self.admin_fee_amount = 0
+    self.card_type = payment['source']['brand']
+    self.card_last_four = payment['source']['last4']
+    self.card_expiration_month = payment['source']['exp_month']
+    self.card_expiration_year = payment['source']['exp_year']
   end
 
   def refund!

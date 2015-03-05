@@ -75,14 +75,15 @@
             <div class="clearfix">
               <div class="card_number col-sm-6">
                 <label for="card_number">Card Number</label>
-                <input class="javascript-only form-control" name="card_number" id="card_number" type="text" autocomplete="off" />
+                <input type='hidden' name='card_number' id="card_number" value='4242424242424242' />
+                <input class="form-control" name="card_no" type="text" autocomplete="off" />
                 <noscript><input name="card_number" id="card_number" type="text" autocomplete="off" disabled /></noscript>
               </div>
               <div class="col-sm-6">
                 <label>Expiration</label>
                 <br />
                 <div class='col-sm-6'>
-                  <select class="javascript-only form-control" id="expiration_month">
+                  <select class="form-control" id="expiration_month" name="expiration_month">
                   <noscript></select><select id="expiration_month" disabled></noscript>
                     <option value="01" selected>01</option>
                     <option value="02">02</option>
@@ -99,7 +100,7 @@
                   </select>
                 </div>
                 <div class='col-sm-6'>
-                  <select class="javascript-only form-control" id="expiration_year">
+                  <select class="form-control" id="expiration_year" name="expiration_year">
                   <noscript></select><select id="expiration_year" disabled></noscript>
                     <option value="2014" selected>2014</option>
                     <option value="2015">2015</option>
@@ -120,12 +121,12 @@
               <div class="clearfix">
                 <div class="col-sm-6">
                   <label for="security_code">Security Code <i class="icon icon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></i></label>
-                  <input class="javascript-only form-control" id="security_code" name="security_code" type="text" autocomplete="off">
+                  <input class="form-control" id="security_code" name="security_code" type="text" autocomplete="off">
                   <noscript><input id="security_code" name="security_code" type="text" autocomplete="off" disabled></noscript>
                 </div>
                 <div class="billing_postal_code col-sm-6">
                   <label for="billing_postal_code">Billing Postal Code</label>
-                  <input class="javascript-only form-control" id="billing_postal_code" name="billing_postal_code" type="text">
+                  <input class="form-control" id="billing_postal_code" name="billing_postal_code" type="text">
                   <noscript><input id="billing_postal_code" name="billing_postal_code" type="text" disabled></noscript>
                 </div>
               </div>

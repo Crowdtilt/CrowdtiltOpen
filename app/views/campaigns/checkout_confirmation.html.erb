@@ -11,7 +11,12 @@
       <% 
         current_tier = @campaign.current_tier
         is_last = current_tier == @campaign.campaign_tiers.last 
-        link = "https://" + request.host_with_port + "/u/" + @payment.referral_code.code
+        if(@payment.referral_code.code.nil?)
+          link = "https://" + request.host_with_port
+        else
+          link = "https://" + request.host_with_port + "/u/" + @payment.referral_code.code
+        end
+          
         if is_last then
       %>
         You got this for the lowest possible price, let your friends know they can too!

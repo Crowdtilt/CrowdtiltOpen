@@ -40,19 +40,26 @@ class Campaign < ActiveRecord::Base
 
   before_save :set_min_amount
 
-  def update_api_data(campaign)
-    self.ct_campaign_id = campaign['id']
-    self.stats_number_of_contributions = campaign['stats']['number_of_contributions']
-    self.stats_raised_amount = campaign['stats']['raised_amount']/100.0
-    self.stats_tilt_percent = campaign['stats']['tilt_percent']
-    self.stats_unique_contributors = campaign['stats']['unique_contributors']
-    self.is_tilted = campaign['is_tilted'].to_i == 0 ? false : true
-    self.is_expired = campaign['is_expired'].to_i == 0 ? false : true
-    self.is_paid = campaign['is_paid'].to_i == 0 ? false : true
+  def update_api_data(amount)
+    # self.ct_campaign_id = campaign['id']
+    self.stats_raised_amount = amount / 100.0
+    self.stats_number_of_contributions = self.orders
+    self.stats_unique_contributors = self.payments.length
+    self.stats_tilt_percent = 100
+    self.is_tilted = true
+    self.is_paid = false
+    self.is_expired = self.expired?
   end
 
   def stats_raised_amount
-    self[:stats_raised_amount].to_i + (self.fake_users * self.fixed_payment_amount)
+    total = 0
+    self.payments.each do |p| 
+      if(p.status === "paid")
+        total = total + (p.amount / 100.0)
+      end
+    end
+
+    total + (self.fake_users * self.fixed_payment_amount)
   end
 
   def price_at_additional_qty(amount)
