@@ -117,3 +117,6 @@ select, input[type="file"],select, textarea, input[type="text"], input[type="pas
       font-weight: bold;
     }
   }
+
+
+  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover { z-index:1!important; }

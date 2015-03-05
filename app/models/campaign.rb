@@ -42,7 +42,7 @@ class Campaign < ActiveRecord::Base
 
   def update_api_data(amount)
     # self.ct_campaign_id = campaign['id']
-    self.stats_raised_amount = amount / 100.0
+    # self.stats_raised_amount = amount / 100.0
     self.stats_number_of_contributions = self.orders
     self.stats_unique_contributors = self.payments.length
     self.stats_tilt_percent = 100
