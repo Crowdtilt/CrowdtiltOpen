@@ -3,15 +3,13 @@
 Launch your own advanced crowdfunding page.
 
 ---
-**Demo**
 
-You can play with a complete working demo at [open.tilt.com](http://open.tilt.com)
+## Please Note
 
-**Quick Links:**
+The Tilt API is currently being updated as we transition from Balanced Payments to Stripe as our primary payments processor. During this time, we aren't issuing new API credentials.
 
-Want to launch your campaign without touching any code? [Head to the main tilt Open page](http://open.tilt.com).
+In the meantime, we encourage you to check out our hosted version of [Tilt/Open](http://open.tilt.com) and we'd love to answer any questions you have at support.api@tilt.com.
 
-Have questions? Email us directly: [open@tilt.com](mailto:open@tilt.com)
 
 ## Install
 
@@ -47,14 +45,6 @@ $ brew install imagemagick
 ```
 $ xcode-select --install
 ```
-
-### Service Providers
-To run Tilt Open, you'll also need to do the following:
-
-* Email [support.api@tilt.com](mailto:support.api@tilt.com?subject=API Key Request for Tilt Open&body=Hi! I'd like to deploy a Tilt Open app. The Github readme sent me here to ask for an API key. Thanks!) to get your Tilt API keys
-* Create an [Amazon Web Services S3 account](http://aws.amazon.com/s3/) (free) and set up a bucket for your assets. The bucket should be in the US Standard (us-east-1) zone.
-* Sign up for [Mailgun](http://www.mailgun.com/) (free)
-* When you're ready to activate payments, sign up for a [Balanced Payments](https://www.balancedpayments.com/) account.
 
 ### Local Setup
 
@@ -203,7 +193,7 @@ Our feature development roadmap and bugs are inputted as issues. See a complete 
 
 ## Contact and License
 
-Want to get in touch? Email [open@tilt.com](mailto:open@tilt.com).
+Want to get in touch? Email [support.api@tilt.com](mailto:support.api@tilt.com).
 
 #### MIT License. Copyright 2014 Tilt.com.
 Permission is hereby granted, free of charge, to any person obtaining
