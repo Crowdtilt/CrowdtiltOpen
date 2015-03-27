@@ -6,10 +6,9 @@ Launch your own advanced crowdfunding page.
 
 ## Please Note
 
-The Tilt API is currently being updated as we transition from Balanced Payments to Stripe as our primary payments processor. During this time, we aren't issuing new API credentials.
+The open source version of Tilt Open contained in this repo is no longer in active development and we are no longer issuing Sandbox API credentials.
 
-In the meantime, we encourage you to check out our hosted version of [Tilt/Open](http://open.tilt.com) and we'd love to answer any questions you have at support.api@tilt.com.
-
+Please visit [open.tilt.com](https://open.tilt.com) to see the newest features we've added to the hosted version.
 
 ## Install
 
@@ -177,23 +176,9 @@ $ heroku open
 $ heroku addons:add papertrail:choklad
 ```
 
-## Contribute
-
-Looking to help make Tilt Open better?
-
-Our feature development roadmap and bugs are inputted as issues. See a complete list by [clicking here](https://github.com/Crowdtilt/CrowdtiltOpen/issues).
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Write your code
-4. Commit your changes (`git commit -am 'Add some feature'`)
-5. Push to the branch (`git push origin my-new-feature`)
-6. Create new pull request
-7. We'll send you a Tilt tshirt
-
 ## Contact and License
 
-Want to get in touch? Email [support.api@tilt.com](mailto:support.api@tilt.com).
+Want to get in touch? Email [questions@tilt.com](mailto:questions@tilt.com).
 
 #### MIT License. Copyright 2014 Tilt.com.
 Permission is hereby granted, free of charge, to any person obtaining
