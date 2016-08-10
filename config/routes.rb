@@ -41,7 +41,7 @@ Crowdhoster::Application.routes.draw do
 
 
   namespace :api, defaults: {format: 'json'} do
-    scope module: :v0  do
+    scope module: :v0 do
       resources :campaigns, only: :show do
         resources :payments, only: :index
       end

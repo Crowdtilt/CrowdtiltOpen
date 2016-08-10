@@ -31,7 +31,8 @@ class Admin::CampaignsController < ApplicationController
       }
       Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
-    rescue => exception
+    rescue => exception.to_s
+      flash.now[:error] = exception
       redirect_to admin_campaigns, :flash => { :error => "Could not copy campaign" }
     else
       @campaign.update_api_data(response['campaign'])
