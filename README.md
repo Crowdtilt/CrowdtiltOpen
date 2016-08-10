@@ -8,7 +8,7 @@ Launch your own advanced crowdfunding page.
 
 The open source version of Tilt Open contained in this repo is no longer in active development and we are no longer issuing Sandbox API credentials.
 
-Please visit [open.tilt.com](https://open.tilt.com) to see the newest features we've added to the hosted version.
+Please visit [tilt.com/pro](https://tilt.com/pro) to see the newest features we've added to the hosted version.
 
 ## Install
 
