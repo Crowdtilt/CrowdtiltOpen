@@ -1,7 +1,11 @@
 #campaign {
+
   /*************************************
   ********** FUNDING AREA **************
   **************************************/
+  #right-column h3 {
+    text-align: center;
+  }
 
   #funding_area {
     width: 100%;
@@ -22,7 +26,6 @@
 
     #video {
       float: left;
-      width: 512px;
       height: 385px;
       background: #fff;
       -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
@@ -36,12 +39,13 @@
     }
 
     #image {
+      padding-top:50px;
       float: left;
-      width: 512px;
       height: 385px;
       -moz-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
       -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
       box-shadow: 0 2px 6px rgba(0,0,0,.39); /* drop shadow */
+      background:white;
     }
 
     #reserve_container {
@@ -70,10 +74,12 @@
       }
     }
 
+    .backing-wrapper {
+      text-align: center;
+    }
+
     #backing {
-      float: left;
-      width: 392px;
-      margin: 20px 0 0 34px;
+      margin-left:15px;
 
       ul {
         margin: 0;
@@ -201,8 +207,8 @@
     }
 
     .share {
-      margin-left: 100px;
-      margin-top: 24px;
+      margin-left: 34px;
+      margin-bottom: 20px;
     }
   }
 

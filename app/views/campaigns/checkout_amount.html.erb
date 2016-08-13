@@ -1,9 +1,9 @@
 <div id="checkout">
-  <div class="container content_box clearfix">
-    <div class="main_content">
-      <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
-
-      <div class="well checkout_block">
+  <div class="container well clearfix">
+    <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
+    <hr />
+    <div class="col-sm-8">
+      <div class="well white checkout_block">
         <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
 
           <% if @campaign.payment_type == 'fixed' %>
@@ -12,20 +12,20 @@
             <h4 class="amount_header">Please choose a quantity: </h4>
             <br/>
 
-              <span><%= short_price(@campaign.fixed_payment_amount, '$', 2) %>&nbsp; x &nbsp;</span>
+              <span><span id='unit-price-at-qty'><%= short_price(@campaign.price_at_additional_qty(1), '$', 2) %></span>&nbsp; x &nbsp;</span>
               <select id="quantity" name="quantity" style="width:65px">
-                <option value="01" selected>01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 1 %>" value="01" selected>01</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 2 %>" value="02">02</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 3 %>" value="03">03</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 4 %>" value="04">04</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 5 %>" value="05">05</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 6 %>" value="06">06</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 7 %>" value="07">07</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 8 %>" value="08">08</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 9 %>" value="09">09</option>
+                <option data-price-at-qty="<%= @campaign.price_at_additional_qty 10 %>" value="10">10</option>
               </select>
-              <span>&nbsp; = &nbsp;$<span id="total"><%= short_price(@campaign.fixed_payment_amount, '', 2) %></span></span>
+              <span>&nbsp; = &nbsp;$<span id="total"><%= short_price(@campaign.price_at_additional_qty(1), '', 2) %></span></span>
 
             </div>
 
@@ -81,18 +81,40 @@
             </div>
           <% end %>
 
-
-          <button type="submit" class="btn btn-primary" id="continue_to_checkout">Continue to checkout</button>
+          <hr />
+          <button type="submit" class="btn btn-lg btn-primary" id="continue_to_checkout">Continue to checkout</button>
 
         </form>
       </div>
-
     </div>
+    <div class="col-sm-4">
+      <h3><%= @campaign.orders %> + Your <span data-campaign-qty="<%= @campaign.orders %>" class='their-qty'>1</span> = <strong><span class='total-qty'><%= @campaign.orders + 1 %></span> Total Orders</strong></h3>
+        <hr />
+        <div class="list-group tier-list">
+          <% count = 0 %>
+          <% @campaign.campaign_tiers.each do |t| %>
+            <% count = count + 1 %>
+            <a data-min-qty="<%= t.min_users %>" href="#" class="tier list-group-item list-group-item-<%= if t.complete then 'success' else 'info' end %> <%= if t == @campaign.current_tier then 'active' else '' end %>">
+              <div class='price'>
+                <%= number_to_currency t.price_at_tier, :precision => 0 %>
+                <br />
+                <small><%= number_to_human t.pct_off, :precision => 0 %>% Off</small>
+              </div>
+              <div class='people-needed'>
+                <% if t == @campaign.current_tier then %>
+                    Current Price<br />
+                    Activated with <strong><%= t.min_users.to_s %> Orders</strong>
+                <% elsif t.complete then %>
+                    Activated with <%= t.min_users.to_s %> Orders
+                <% else %>
+                    <span class='remaining'><%= t.remaining.to_s %></span> More Orders to Activate
+                <% end %>
+              </div>
 
-    <div class="sidebar">
-      <div class="custom_content">
-        <%= raw(@campaign.checkout_sidebar_content) %>
-      </div>
+              <div class='clearfix'></div>
+            </a>
+            <br />
+          <% end %>
     </div>
 
   </div>

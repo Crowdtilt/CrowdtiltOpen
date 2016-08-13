@@ -1,21 +1,24 @@
+
 <div id="checkout">
   <div class="container content_box clearfix">
-    <div class="main_content">
-      <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
-
-    <div class="well checkout_block" style="padding-bottom: 16px">
-
+    <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
+    <div>
+        <div class="well col-sm-8 white checkout_block" style="padding-bottom: 16px">
         <form accept-charset="UTF-8" action="<%= checkout_process_path(@campaign) %>" method="post" id="payment_form" data-error-action="<%= checkout_error_path(@campaign) %>" data-user-create-action="<%= ajax_create_payment_user_path(@campaign) %>">
 
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <input name='referred_by' type='hidden' value="<%= cookies[:referral_code] %>" />
           <h4 class="contact">Contact Information</h4>
 
-          <fieldset>
-          <label for="fullname">Full Name</label>
-          <input id="fullname" name="fullname" type="text">
+          <div class='col-sm-12'>
+            <label for="fullname">Full Name</label>
+            <input id="fullname" name="fullname" type="text" class='form-control' />
+          </div>
 
-          <label for="email">Email Address</label>
-          <input id="email" name="email" type="text">
+          <div class='col-sm-12'>
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="text" class='form-control' />
+          </div>
 
           <% if @campaign.collect_additional_info %>
           <h4>Additional Information</h4>
@@ -29,32 +32,33 @@
           <h4>Shipping Address</h4>
 
           <fieldset>
-            <div>
-              <label for="address_one">Address1</label>
-              <input id="address_one" name="address_one" type="text">
-
-              <label for="address_two">Address2</label>
-              <input id="address_two" name="address_two" type="text">
+            <div class='col-sm-12'>
+              <label for="address_one">Address Line 1</label>
+              <input id="address_one" name="address_one" type="text" class='form-control' />
+            </div>
+            <div class='col-sm-12'>
+              <label for="address_two">Address Line 2</label>
+              <input id="address_two" name="address_two" type="text" class='form-control' />
             </div>
           </fieldset>
           <fieldset>
-            <div class="pull-left" style="margin-right: 14px">
+            <div class="col-sm-6">
               <label for="city">City</label>
-              <input id="city" name="city" type="text" style="width:225px">
+              <input id="city" name="city" type="text" class='form-control' />
             </div>
-            <div class="pull-right">
+            <div class="col-sm-6">
               <label for="state">State/Province/Region</label>
-              <input id="state" name="state" type="text" style="width:225px">
+              <input id="state" name="state" type="text" class='form-control' />
             </div>
           </fieldset>
           <fieldset>
-            <div class="pull-left" style="margin-right: 14px">
+            <div class="col-sm-6">
               <label for="postal_code">Postal Code</label>
-              <input id="postal_code" name="postal_code" type="text" style="width:225px">
+              <input id="postal_code" name="postal_code" type="text" class='form-control' />
             </div>
-            <div class="pull-right">
+            <div class="col-sm-6">
               <label for="country">Country</label>
-              <select id="country" name="country" style="width:240px">
+              <select id="country" name="country" class='form-control'>
                  <option value="" selected>--</option>
                  <option value="USA" >United States</option>
                 <% (IsoCountryCodes.all.map {|code| [code.name, code.alpha3]}).sort.each do |country| %>
@@ -65,59 +69,66 @@
           </fieldset>
           <% end %>
 
+          <hr />
           <h4>Credit/Debit Card <i class="icon icon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
 
           <fieldset>
             <div class="clearfix">
-              <div class="card_number pull-left" style="margin-right:15px">
+              <div class="card_number col-sm-6">
                 <label for="card_number">Card Number</label>
-                <input class="javascript-only" name="card_number" id="card_number" type="text" style="width:225px" autocomplete="off">
-                <noscript><input name="card_number" id="card_number" type="text" style="width:225px" autocomplete="off" disabled></noscript>
+                <input type='hidden' name='card_number' id="card_number" value='4242424242424242' />
+                <input class="form-control" name="card_no" type="text" autocomplete="off" />
+                <noscript><input name="card_number" id="card_number" type="text" autocomplete="off" disabled /></noscript>
               </div>
-              <div class="pull-left">
+              <div class="col-sm-6">
                 <label>Expiration</label>
-                <select class="javascript-only" id="expiration_month" style="width:118px">
-                <noscript></select><select id="expiration_month" style="width:118px" disabled></noscript>
-                  <option value="01" selected>01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-                <select class="javascript-only" id="expiration_year" style="width:118px">
-                <noscript></select><select id="expiration_year" style="width:118px" disabled></noscript>
-                  <option value="2014" selected>2014</option>
-                  <option value="2015">2015</option>
-                  <option value="2016">2016</option>
-                  <option value="2017">2017</option>
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
-                  <option value="2021">2021</option>
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                </select>
+                <br />
+                <div class='col-sm-6'>
+                  <select class="form-control" id="expiration_month" name="expiration_month">
+                  <noscript></select><select id="expiration_month" disabled></noscript>
+                    <option value="01" selected>01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div class='col-sm-6'>
+                  <select class="form-control" id="expiration_year" name="expiration_year">
+                  <noscript></select><select id="expiration_year" disabled></noscript>
+                    <option value="2014" selected>2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                  </select>
+                </div>
               </div>
             </div>
             </fieldset>
             <fieldset>
               <div class="clearfix">
-                <div class="pull-left" style="margin-right: 15px;">
+                <div class="col-sm-6">
                   <label for="security_code">Security Code <i class="icon icon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></i></label>
-                  <input class="javascript-only" id="security_code" name="security_code" type="text"  style="width:225px" autocomplete="off">
-                  <noscript><input id="security_code" name="security_code" type="text"  style="width:225px" autocomplete="off" disabled></noscript>
+                  <input class="form-control" id="security_code" name="security_code" type="text" autocomplete="off">
+                  <noscript><input id="security_code" name="security_code" type="text" autocomplete="off" disabled></noscript>
                 </div>
-                <div class="billing_postal_code pull-left">
+                <div class="billing_postal_code col-sm-6">
                   <label for="billing_postal_code">Billing Postal Code</label>
-                  <input class="javascript-only" id="billing_postal_code" name="billing_postal_code" type="text"  style="width:225px">
-                  <noscript><input id="billing_postal_code" name="billing_postal_code" type="text"  style="width:225px" disabled></noscript>
+                  <input class="form-control" id="billing_postal_code" name="billing_postal_code" type="text">
+                  <noscript><input id="billing_postal_code" name="billing_postal_code" type="text" disabled></noscript>
                 </div>
               </div>
             </fieldset>
@@ -133,13 +144,11 @@
           <input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
           <input id="client_timestamp" type="hidden" name="client_timestamp" value="">
 
-          <% if !@campaign.production_flag %>
-            <div style="color: red; margin-top: 10px;">This campaign is in sandbox mode, your card will not actually be charged.</div>
-          <% end%>
+          <hr />
 
-          <div class="payment-submit javascript-only">
-            <button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">
-              Confirm payment of $<%= number_with_precision(@total, :delimiter => ",", precision: 2) %>
+          <div class="payment-submit javascript-only center">
+            <button class="btn btn-lg btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">
+              Confirm payment of $<%= number_with_precision(@display_total, :delimiter => ",", precision: 2) %>
             </button>
             <span class="loader" data-loader="payment_form" style="display:none"></span>
             <div id="refresh-msg" style="display: none; color: red; margin-top: 10px">Your payment is being processed! Please do not refresh this page.</div>
@@ -153,16 +162,13 @@
         </form>
         <div id="errors" style="display: none"></div>
 
-        <div style="text-align: right; margin-right: -16px"><%= image_tag 'powered_by_tilt.png', width: "104px", height: "36px" %></div>
+        <div style="text-align: right;"><%= image_tag 'powered_by_tilt.png', width: "104px", height: "36px" %></div>
     </div>
 
   </div>
 
-    <div class="sidebar">
-      <div class="crowdtilt-powered clearfix">
-        <%= image_tag 'tilt_badge.png' %>
-      </div>
-      <div class="well">
+    <div class="col-sm-4">
+      <div class="well white">
         <div class="clearfix">
           <h4 class="pull-left">Payment Summary</h4>
           <p class="pull-right"><%= link_to "edit", checkout_amount_path(@campaign) %></p>
@@ -173,12 +179,12 @@
           <tr>
           <td width="225">
           <% if @campaign.payment_type == "fixed" %>
-            <p>Subtotal (<%= "#{@quantity} x #{short_price(@campaign.fixed_payment_amount, '$', 2)}" %>)</p>
+            <p>Subtotal (<%= "#{@quantity} x #{short_price(@campaign.price_at_additional_qty(@quantity), '$', 2)}" %>)</p>
           <% else %>
             <p>Subtotal</p>
           <% end %>
           </td>
-          <td style="text-align: right"><p><%= short_price(@amount, '$', 2) %></p></td>
+          <td style="text-align: right"><p><%= short_price(@display_subtotal, '$', 2) %></p></td>
           </tr>
 
           <% if @fee > 0 %>
@@ -190,17 +196,14 @@
 
           <tr>
           <td width="225"><p><strong>Total</strong></p></td>
-          <td style="text-align: right"><p><strong><%= short_price(@total, '$', 2) %></strong></p></td>
+          <td style="text-align: right"><p><strong><%= short_price(@display_total, '$', 2) %></strong></p></td>
           </tr>
-
-          <% if !@campaign.production_flag %>
-          <tr>
-          <td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
-          </tr>
-          <% end %>
 
         </table>
 
+      </div>
+      <div class="crowdtilt-powered clearfix pull-right">
+        <%= image_tag 'tilt_badge.png' %>
       </div>
 
       <% if @campaign.rewards? %>

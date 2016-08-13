@@ -1,7 +1,9 @@
 development:
   adapter: postgresql
   database: <%= ENV['APP_NAME'].to_s + '_dev' %>
-  host: localhost
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -9,11 +11,14 @@ development:
 test:
   adapter: postgresql
   database: <%= ENV['APP_NAME'].to_s + '_test' %>
-  host: localhost
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 production:
   adapter: postgresql
   database: <%= ENV['APP_NAME'] %>
-  host: localhost
-  username: <%= ENV['PRODUCTION_DATABASE_USERNAME'] %>
-  password: <%= ENV['PRODUCTION_DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+

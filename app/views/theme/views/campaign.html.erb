@@ -3,258 +3,237 @@
   <div class="container clearfix">
 
     <div class="center">
-      <h2 class="campaign_title"><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h2>
+      <h1 class="campaign_title"><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h1>
     </div>
-
-    <div class="clearfix">
-      <% if @campaign.media_type == 'video' %>
-
-        <div id="video">
-          <% if @campaign.video_placeholder.file? %>
-            <div id="video_image">
-              <%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
-            </div>
-            <% if !@campaign.video_embed_id.blank? %>
-              <div id="player" class="hidden" style="display: none;">
-                <object width="512" height="385">
-                  <param name="movie" value="https://www.youtube.com/v/<%= @campaign.video_embed_id %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
-                  <param name="allowFullScreen" value="true" />
-                  <param name="allowscriptaccess" value="always" />
-                  <embed src="https://www.youtube.com/v/<%= @campaign.video_embed_id %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
-                </object>
+    <hr />
+    <br />
+    <!-- BEGIN LEFT COLUMN -->
+    <div>
+      <div id="left-column" class='col-sm-8'>
+        <!-- BEGIN MEDIA -->
+        <% if @campaign.media_type == 'video' %>
+          <div id="video" class='col-sm-6 col-xs-12'>
+            <% if @campaign.video_placeholder.file? %>
+              <div id="video_image">
+                <%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
               </div>
-            <% end %>
-          <% else %>
-            <% if !@campaign.video_embed_id.blank? %>
-              <iframe width='512' height='385' src="https://www.youtube.com/embed/<%= @campaign.video_embed_id %>?rel=0"></iframe>
-            <% end %>
-          <% end %>
-        </div>
-
-      <% else %>
-
-        <div id="image">
-          <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
-        </div>
-
-      <% end %>
-
-      <div id="backing">
-        <ul>
-
-          <% if @campaign.goal_type == 'dollars' %>
-            <li class="stats" id="backers">
-              <%= number_with_delimiter @campaign.number_of_contributions.to_i, :delimiter => "," %>
-              <span><%= @campaign.contributor_reference.pluralize(@campaign.number_of_contributions.to_i) %></span>
-            </li>
-            <li class="stats">
-              <%= number_to_currency @campaign.raised_amount.ceil, :precision => 0 %>
-              <span>of <%= number_to_currency @campaign.goal_dollars.ceil, :precision => 0 %></span>
-            </li>
-          <% else %>
-            <li class="stats">
-              <%= @campaign.orders %> <%= @campaign.contributor_reference.pluralize(@campaign.orders) %>
-              <span>of <%= @campaign.goal_orders %> needed</span>
-            </li>
-          <% end %>
-
-          <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" >
-          </li>
-        </ul>
-
-        <% if @campaign.raised_amount < @campaign.goal_dollars %>
-          <div id='progress_bg' class='small'>
-            <div id='progress' class='' style='width: <%= @campaign.tilt_percent.to_i %>%;'>
-            </div>
-          </div>
-        <% else %>
-          <div id="progress_bg">
-            <div id="progress">
-            </div>
-            <div id='progress_text'><%= @campaign.tilt_percent.ceil %>% <%= @campaign.progress_text %></div>
-          </div>
-        <% end %>
-
-        <div id="reserve_container">
-          <div class="call_to_action_button">
-            <% if @campaign.expired? %>
-              <% if @campaign.include_rewards_claimed? %>
-                <div id="backing">
-                  <ul>
-                    <li class="stats-awards">
-                      <%= @campaign.rewards_claimed %> Claimed Rewards
-                    </li>
-                  </ul>
+              <% if !@campaign.video_embed_id.blank? %>
+                <div id="player" class="hidden" style="display: none;">
+                  <object width="512" height="385">
+                    <param name="movie" value="https://www.youtube.com/v/<%= @campaign.video_embed_id %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
+                    <param name="allowFullScreen" value="true" />
+                    <param name="allowscriptaccess" value="always" />
+                    <embed src="https://www.youtube.com/v/<%= @campaign.video_embed_id %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
+                  </object>
                 </div>
               <% end %>
-              <span class="blue_button expired">
-                <%= @campaign.primary_call_to_action_button %>
-              </span>
             <% else %>
-              <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
-                <%= @campaign.primary_call_to_action_button %>
-              </a>
+              <% if !@campaign.video_embed_id.blank? %>
+                <iframe width='512' height='385' src="https://www.youtube.com/embed/<%= @campaign.video_embed_id %>?rel=0"></iframe>
+              <% end %>
             <% end %>
           </div>
-          <div class="powered_by_crowdtilt">
-            <a href="http://open.tilt.com/?utm_source=powered_by&utm_medium=base&utm_campaign=link_powered_by" target="_blank"><%= image_tag 'powered_by_tilt.png', width: "104px" %></a>
+        <% else %>
+          <div id="image" class='col-sm-6 col-xs-12'>
+            <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
           </div>
-          <div class="call_to_action_description">
-            <%= raw(@campaign.primary_call_to_action_description) %>
-          </div>
-        </div>
-      </div>
-    </div>
+        <% end %>
+        <div class='clearfix visible-xs'></div>
+        <hr class='visible-xs' />
+        <!-- END MEDIA -->
+          <!-- BEGIN RESERVE -->
+          <div class='col-sm-6 backing-wrapper'>
+              <h2>
+                <small>Starting Price: <span class='msrp'><%= number_to_currency @campaign.base_price, :precision => 0 %></span></small><br />
+                Current Price: <%= number_to_currency @campaign.current_tier_price, :precision => 0 %>
+                <br />
+                <small>(<%= number_to_human @campaign.current_tier.pct_off, :precision => 0 %>% Savings)</small>
+              </h2>
+              <hr />
+              <div id="backing">
+                <ul>
+                  <% if @campaign.sold_out then %>
+                    <li class="stats" id="sold-out">SOLD OUT</li>
+                  <% else %>
+                    <li class="stats" id="days" date-element="<%= @campaign.expiration_date.to_i %>" ></li>
+                  <% end %>
+                </ul>
+              </div>
 
-    <div class="share">
-      <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
-    </div>
-
-  </div>
-</div>
-
-<div id="campaign_body">
-  <div class="container clearfix">
-    <div class="main_content <%= 'narrow' if @campaign.rewards? %>">
-      <% if @campaign.include_comments %>
-        <div class="tabbable <%= 'narrow' if @campaign.rewards? %>">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
-            <li><a href="#tab2" data-toggle="tab" onclick="load_disqus()">Comments <span class="badge badge-info" id="count"></span></a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade active in" id="tab1">
-              <%= raw(@campaign.main_content) %>
-            </div>
-            <div class="tab-pane fade in" id="tab2">
-              <div class="comment_content">
-                <div id="disqus_thread"></div>
-                <script type="text/javascript">
-                  var disqus_shortname = '<%= @campaign.comments_shortname.downcase %>';
-                  var disqus_identifier = '<%= @campaign.slug %>';
-                  var disqus_title = '<%= @campaign.name %>';
-                  var disqus_URL = '<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>';
-                  var disqus_developer = <%= Rails.env.production? ? 0 : 1 %>;
-                  var disqus_loaded = false;
-                  var load_disqus = function() {
-                    if (!disqus_loaded) {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                      disqus_loaded = true;
-                    }
-                  };
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
+              <div id="reserve_container">
+                <div class="share"><%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %></div>
+                <div class="call_to_action_button">
+                <% if @campaign.expired? %>
+                  <% if @campaign.include_rewards_claimed? %>
+                    <div id="backing">
+                      <ul>
+                        <li class="stats-awards">
+                          <%= @campaign.rewards_claimed %> Claimed Rewards
+                        </li>
+                      </ul>
+                    </div>
+                  <% end %>
+                  <span class="blue_button expired">
+                    <%= @campaign.primary_call_to_action_button %>
+                  </span>
+                <% else %>
+                  <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="main_cta">
+                    <%= @campaign.primary_call_to_action_button %>
+                  </a>
+                <% end %>
+              </div>
+              <div class="call_to_action_description">
+                <%= raw(@campaign.primary_call_to_action_description) %>
               </div>
             </div>
           </div>
-        </div>
-      <% else %>
-        <%= raw(@campaign.main_content) %>
-      <% end %>
-    </div>
+          <!-- END RESERVE -->
+          <!-- BEGIN CONTENT for >= SM browsers -->
+          <div class='hidden-xs'>
+            <div class='clearfix'></div>
+            <hr />
+            <div class='col-sm-12 well'>
+              <%= raw(@campaign.main_content) %>
 
-    <% if @campaign.rewards? %>
-      <div class="rewards_sidebar">
-        <h3><%= @campaign.reward_reference.pluralize.titleize %></h3>
-        <ul>
-          <% @campaign.rewards.order("price ASC").each do |reward| %>
-            <% if reward.visible? %>
-              <li id="rewards_click">
-                <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? || @campaign.expired? %>" class="<%= 'disabled' if reward.sold_out? || @campaign.expired? %>">
-                  <p class="price"><%= short_price(reward.price, '$') %></p>
-                  <p class="title"><%= reward.title %></p>
-                  <% if reward.image_url.present? %><p class="image"><img src="<%= reward.image_url %>"></p><% end %>
-                  <p class="description"><%= reward.description %></p>
-                  <p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
-                  <% if @campaign.expired? %>
-                    <% if reward.include_claimed? %>
-                      <p class="claimed">
-                        <%= reward.payments.successful.count %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
-                      </p>
+              <% if @campaign.faqs.count > 0 %>
+              <div id="faq">
+                <div class="clearfix">
+                  <h2>Frequently Asked Questions</h2>
+                  <hr />
+                  <ul>
+                    <% for i in 0...(@campaign.faqs.count) %>
+                      <li class='col-sm-12'>
+                        <details>
+                          <summary><%= @campaign.faqs[i].question %></summary>
+                          <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
+                        </details>
+                      </li>
                     <% end %>
-                  <% else %>
-                    <p class="claimed">
-                      <%= reward.payments.successful.count %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
-                    </p>
-                  <% end %>
-                </a>
-              </li>
+                  </ul>
+                </div>
+              </div>
             <% end %>
+            </div>
+          </div>
+          <!-- END CONTENT -->
+          <div class='clearfix'></div>
+        </div>
+      </div>
+      <!-- BEGIN TIERS -->
+      <div id="right-column" class='col-sm-4'>
+        <h3><%= @campaign.orders %> Total Orders</h3>
+        <hr />
+        <div class="list-group tier-list">
+          <% count = 0 %>
+          <% @campaign.campaign_tiers.each do |t| %>
+            <% count = count + 1 %>
+            <a href="#" class="list-group-item list-group-item-<%= if t.complete then 'success' else 'info' end %> <%= if t == @campaign.current_tier then 'active' else '' end %>">
+              <div class='price'>
+                <%= number_to_currency t.price_at_tier, :precision => 0 %>
+                <br />
+                <small><%= number_to_human t.pct_off, :precision => 0 %>% Off</small>
+              </div>
+              <div class='people-needed'>
+                <% if t == @campaign.current_tier then %>
+                    Current Price<br />
+                    Activated with <strong><%= t.min_users.to_s %> Orders</strong>
+                <% elsif t.complete then %>
+                    Activated with <%= t.min_users.to_s %> Orders
+                <% else %>
+                    <span class='remaining'><%= t.remaining.to_s %></span> More Orders to Activate
+                <% end %>
+              </div>
+
+              <div class='clearfix'></div>
+            </a>
+            <br />
           <% end %>
-        </ul>
+        </div>
+        <p class='tier-hint'>The more orders, the more everyone saves! <a href='#' data-toggle="modal" data-target="#learn-more-modal">Learn More</a></p>
       </div>
-    <% end %>
+      <!-- END TIERS -->
+
+      <!-- BEGIN CONTENT for XS browsers -->
+      <div class='col-sm-8 visible-xs'>
+        <div class='clearfix'></div>
+        <hr />
+        <div class='col-sm-12 well'>
+          <%= raw(@campaign.main_content) %>
+
+          <% if @campaign.faqs.count > 0 %>
+          <div id="faq">
+            <div class="clearfix">
+              <h2>Frequently Asked Questions</h2>
+              <hr />
+              <ul>
+                <% for i in 0...(@campaign.faqs.count) %>
+                  <li class='col-sm-12'>
+                    <details>
+                      <summary><%= @campaign.faqs[i].question %></summary>
+                      <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
+                    </details>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>
+      <!-- END CONTENT -->
+
+    </div>
+
   </div>
 </div>
 
-<div id="second_call_to_action">
-  <div class="container">
-    <div><%= raw(@campaign.secondary_call_to_action_description) %></div>
-    <div class="center">
-      <% if @campaign.expired? %>
-          <span class="blue_button expired">
-            <%= @campaign.secondary_call_to_action_button %>
-          </span>
-      <% else %>
-        <a href="<%= url_for checkout_amount_path(@campaign) %>" class="blue_button" id="secondary_cta">
-          <%= @campaign.secondary_call_to_action_button %>
-        </a>
-      <% end %>
-      <div class="powered_by_crowdtilt">
-        <a href="http://open.tilt.com/?utm_source=powered_by&utm_medium=base&utm_campaign=link_powered_by" target="_blank"><%= image_tag 'powered_by_tilt.png', width: "104px" %></a>
+<!-- Learn More Modal -->
+<div class="modal fade" id="learn-more-modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <p>When you join a Cinco de Buyo campaign, you pledge to purchase the product at the current price. This may not be the price you pay, as the more orders for the campaign, the lower amount everyone pays. Once the campaign is over, you will be charged the amount associated with the total number of orders for that campaign.</p>
       </div>
-    </div>
-  </div>
-</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-<% if @campaign.faqs.count > 0 %>
-  <div id="faq">
-    <div class="container clearfix">
-      <div class="center">
-        <h3>Frequently Asked Questions</h3>
+<% if @campaign.expired? %>
+<!-- Email capture modal -->
+<%= form_for(ReferralCode.new, :url => "/capture") do |f| %>
+<div class="modal fade" id="get-email">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Sale Over</h4>
       </div>
-      <ul>
-        <% for i in 0...(@campaign.faqs.count/2.0).ceil %>
-          <li class=''>
-            <details class=''>
-              <summary class=''><%= @campaign.faqs[i].question %></summary>
-              <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
-            </details>
-          </li>
+      <div class="modal-body">
+        <% if !flash[:info].nil? %>
+          <%= flash[:info] %>
+        <% else %>
+          <p>We're sorry but this sale is already over. Join our waiting list for early access to the next deal!</p>
+          <%= f.email_field :email, :class => "form-control", :placeholder => "Enter your email..." %>
+          <%= f.hidden_field :comment, :value => "email capture form" %>
         <% end %>
-      </ul>
-      <ul class="col2">
-        <% for i in (@campaign.faqs.count/2.0).ceil...@campaign.faqs.count %>
-          <li class=''>
-            <details class=''>
-              <summary class=''><%= @campaign.faqs[i].question %></summary>
-              <p><%= raw(@campaign.faqs[i].answer.gsub("\n", '<br/>')) %></p>
-            </details>
-          </li>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <% if flash[:info].nil? %>
+          <button type="button" class="btn btn-primary">Sign me up!</button>
         <% end %>
-      </ul>
-    </div>
-  </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <% end %>
-</div>
 
-<% if @campaign.include_comments %>
-  <div class="hide"><a href="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>#disqus_thread" data-disqus-identifier="<%= @campaign.slug %>" id="parse"></a></div>
-  <script type="text/javascript">
-    var disqus_shortname = '<%= @campaign.comments_shortname.downcase %>';
-    (function () {
-      $.getScript("//disqus.com/forums/"+disqus_shortname+"/get_num_replies.js?url0="+encodeURIComponent("<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"));
-    }());
-  </script>
-  <script>
-    window.onload = function(){
-
-      var parse = document.getElementById('parse');
-      var count = document.getElementById('count');
-
-      count.innerHTML=parseInt(parse.innerHTML,10);
-    };
-  </script>
+<script type="text/javascript">
+  $('#get-email').modal({ });
+  $("#get-email .btn-primary").on("click", function(){
+    console.log("CLICKED", $(this).closest("form"));
+    $(this).closest("form").submit();
+  });
+</script>
 <% end %>

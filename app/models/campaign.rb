@@ -4,6 +4,7 @@ class Campaign < ActiveRecord::Base
   has_many :faqs, dependent: :destroy, :order => 'sort_order'
   has_many :payments
   has_many :rewards
+  has_many :campaign_tiers, :order => 'min_users ASC'
 
   attr_accessible :name, :goal_type, :goal_dollars, :goal_orders,  :expiration_date, :ct_campaign_id, :media_type,
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
@@ -39,15 +40,79 @@ class Campaign < ActiveRecord::Base
 
   before_save :set_min_amount
 
-  def update_api_data(campaign)
-    self.ct_campaign_id = campaign['id']
-    self.stats_number_of_contributions = campaign['stats']['number_of_contributions']
-    self.stats_raised_amount = campaign['stats']['raised_amount']/100.0
-    self.stats_tilt_percent = campaign['stats']['tilt_percent']
-    self.stats_unique_contributors = campaign['stats']['unique_contributors']
-    self.is_tilted = campaign['is_tilted'].to_i == 0 ? false : true
-    self.is_expired = campaign['is_expired'].to_i == 0 ? false : true
-    self.is_paid = campaign['is_paid'].to_i == 0 ? false : true
+  def update_api_data(amount)
+    # self.ct_campaign_id = campaign['id']
+    # self.stats_raised_amount = amount / 100.0
+    self.stats_number_of_contributions = self.orders
+    self.stats_unique_contributors = self.payments.length
+    self.stats_tilt_percent = 100
+    self.is_tilted = true
+    self.is_paid = false
+    self.is_expired = self.expired?
+  end
+
+  def stats_raised_amount
+    total = 0
+    self.payments.each do |p| 
+      if(p.status === "paid")
+        total = total + (p.amount / 100.0)
+      end
+    end
+
+    total + (self.fake_users * self.fixed_payment_amount)
+  end
+
+  def price_at_additional_qty(amount)
+    expected_orders = self.orders + amount
+    price = self.base_price
+    tier = self.tier_for_orders expected_orders
+    if(!tier.nil?)
+      price = tier.price_at_tier
+    end
+
+    price
+  end
+
+  def current_tier_price
+    price = self.base_price;
+    if(!self.current_tier.nil?)
+      price = self.current_tier.price_at_tier
+    end
+
+    price
+  end
+
+  def next_tier 
+    tier = self.campaign_tiers.first
+    self.campaign_tiers.each do |t|
+      if(self.orders < t.min_users)
+        tier = t
+        break 
+      end
+    end
+
+    tier
+  end
+
+  def until_next_tier
+    self.next_tier.min_users - self.orders
+  end
+
+  def current_tier
+    self.tier_for_orders self.orders
+  end
+
+  def tier_for_orders(order_amount)
+    max_users = 0;
+    tier = nil
+    self.campaign_tiers.each do |t|
+      if(order_amount >= t.min_users && max_users <= t.min_users)
+        tier = t
+        max_users = t.min_users
+      end
+    end
+
+    tier
   end
 
   def set_goal
@@ -57,7 +122,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def expired?
-    self.expiration_date < Time.current
+    self.expiration_date < Time.current or self.sold_out
   end
 
   def orders
@@ -81,7 +146,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def tilt_percent
-    (raised_amount / goal_dollars) * 100.0
+    (self.stats_raised_amount / goal_dollars) * 100.0
   end
 
   private

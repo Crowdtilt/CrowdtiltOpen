@@ -10,7 +10,7 @@ $text_shadow: 0 1px 0px #fff;
 $font_size: 22px;
 
 // Lockitron uses ProximaNova Regular, but that costs money, so we're defaulting to Helveitca Neue instead.
-$primary_font:   "Helvetica Neue";
+$primary_font:   "proxima-nova-alt";
 $secondary_font: "Helvetica";
 $tertiary_font:  "Arial";
 
@@ -29,7 +29,7 @@ $tertiary_font:  "Arial";
 
 h1 {
   margin: 0 auto;
-  font-family: Helvetica;
+  font-family: $primary_font;
   font-size: 42px;
   font-weight: bold;
   color: $h1_color;
@@ -76,7 +76,7 @@ h5 {
 }
 
 p {
-  font-family: "Helvetica Neue","Helvetica","Arial";
+  font-family: $primary_font, $secondary_font, $tertiary_font;
   color: #6b6b6b;
   font-size: 18px;
   line-height: 1.5;

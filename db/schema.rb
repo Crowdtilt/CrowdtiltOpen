@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140307205637) do
+ActiveRecord::Schema.define(:version => 20150305172801) do
+
+  create_table "campaign_tiers", :force => true do |t|
+    t.integer  "campaign_id"
+    t.decimal  "price_at_tier"
+    t.integer  "min_users"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -71,6 +79,9 @@ ActiveRecord::Schema.define(:version => 20140307205637) do
     t.boolean  "include_comments",                     :default => false,        :null => false
     t.string   "comments_shortname"
     t.boolean  "include_rewards_claimed"
+    t.integer  "fake_users",                           :default => 0
+    t.decimal  "base_price"
+    t.boolean  "sold_out",                             :default => false
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
@@ -131,6 +142,16 @@ ActiveRecord::Schema.define(:version => 20140307205637) do
     t.string   "ct_charge_request_id"
     t.string   "ct_charge_request_error_id"
     t.string   "ct_user_id"
+    t.text     "referred_by"
+    t.text     "ip_addr"
+  end
+
+  create_table "referral_codes", :force => true do |t|
+    t.text     "email"
+    t.text     "code"
+    t.text     "comment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rewards", :force => true do |t|
@@ -202,9 +223,12 @@ ActiveRecord::Schema.define(:version => 20140307205637) do
     t.string   "fullname"
     t.boolean  "admin",                            :default => false
     t.boolean  "wants_admin_payment_notification", :default => true,  :null => false
+    t.text     "referral_code"
+    t.text     "referred_by"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["referral_code"], :name => "users_referral_code_key", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

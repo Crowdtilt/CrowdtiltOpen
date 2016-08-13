@@ -5,7 +5,9 @@ class Payment < ActiveRecord::Base
                   :additional_info, :client_timestamp,
                   :ct_charge_request_id, :ct_charge_request_error_id,
                   :ct_tokenize_request_id, :ct_tokenize_request_error_id,
-                  :ct_user_id
+                  :ct_user_id,
+                  :referred_by,
+                  :ip_addr
 
   validates :fullname, :quantity, presence: true
   validates :email, presence: true, email: true
@@ -56,12 +58,12 @@ class Payment < ActiveRecord::Base
     self.ct_payment_id = payment['id']
     self.status = payment['status']
     self.amount = payment['amount']
-    self.user_fee_amount = payment['user_fee_amount']
-    self.admin_fee_amount = payment['admin_fee_amount']
-    self.card_type = payment['card']['card_type']
-    self.card_last_four = payment['card']['last_four']
-    self.card_expiration_month = payment['card']['expiration_month']
-    self.card_expiration_year = payment['card']['expiration_year']
+    self.user_fee_amount = 0
+    self.admin_fee_amount = 0
+    self.card_type = payment['source']['brand']
+    self.card_last_four = payment['source']['last4']
+    self.card_expiration_month = payment['source']['exp_month']
+    self.card_expiration_year = payment['source']['exp_year']
   end
 
   def refund!
@@ -76,6 +78,28 @@ class Payment < ActiveRecord::Base
 
   def self.display_date(date)
     date.strftime("%m/%d/%Y")
+  end
+
+  def referral_code
+    code = ReferralCode.where(email: self.email)
+    if(code.length > 0)
+      return code[0]
+    else
+      code = ReferralCode.create(code:('0'..'9').to_a.concat(('A'..'Z').to_a).concat(('a'..'z').to_a).shuffle[0,8].join, email: self.email, comment:"purchase #" + self.id.to_s)
+      code
+    end
+  end
+
+  # return the referral code for the user who made this payment
+  # returns nil if no user is found or if they do not have a referral
+  # source
+  def get_user_referral_code()
+    user = User.where(email: self.email)
+    if(user.length > 0) 
+      return user[0].referred_by
+    else 
+      return nil
+    end
   end
 
 end

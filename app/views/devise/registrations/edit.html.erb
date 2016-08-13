@@ -7,6 +7,15 @@
       <span class="loader" data-loader="user_header" style="display:none"></span>
     </h3>
 
+    <hr />
+    <h4>
+      Your Referral Link:<br/><br/>
+      <% link = "https://" + request.host_with_port + "/u/" + current_user.referral_code %>
+      <a href='<%= link %>'><%= link %></a>
+    </h4>
+    <hr />
+
+
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>
 

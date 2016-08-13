@@ -21,6 +21,9 @@ module CheckoutMixin
         billing_postal_code: params[:billing_postal_code],
         quantity: params[:quantity].to_i,
 
+        #Referral
+        referred_by: params[:referred_by],
+
         #Shipping Info
         address_one: params.has_key?(:address_one) ? params[:address_one] : '',
         address_two: params.has_key?(:address_two) ? params[:address_two] : '',

@@ -4,6 +4,15 @@ class ApplicationController < ActionController::Base
   before_filter :load_settings, :set_default_mailer_host
   after_filter :store_location
 
+  def capture
+    if(params.has_key?(:referral_code)) 
+      ReferralCode.create(params[:referral_code]);
+      redirect_to root_url, :flash => { :info => "Thank you for you're interest, we'll contact you before the next sale starts!" }
+    else
+      redirect_to root_url, :flash => { :error => "We're sorry there seems to have been an issue with your submission. Please try again later." }
+    end
+  end
+
   def load_settings
     @settings = Settings.first
 

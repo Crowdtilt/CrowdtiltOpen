@@ -3,3 +3,120 @@
 @import "header";
 @import "campaign";
 @import "homepage";
+
+#learn-more-modal, #get-email {
+	width:auto;
+	margin:0px;
+	z-index:1060;
+	background:none;
+	border:none;
+	top: 50%;
+	margin-top: -130px;
+
+	.modal-content {
+		padding:30px;
+
+		.close {
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			font-size: 40px;
+		}
+	}
+}
+
+.modal-backdrop {
+	position: fixed!important;
+}
+
+.call_to_action_description p {
+	font-size:14px;
+}
+
+.msrp {
+	text-decoration:line-through;
+}
+
+#campaign #funding_area #backing #days.stats {
+	text-align: center;
+	padding: 0px;
+	font-size: 34px;
+}
+
+select, input[type="file"],select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input 
+{
+	height:34px;
+}
+
+.well.white {
+	background:white;
+}
+
+.container {
+	width:auto;
+}
+
+#checkout .sidebar {
+	width:33.333333%;
+}
+
+#campaign #faq ul {
+	width:100%;
+	margin:0px;
+
+	li {
+		width:inherit;
+	}
+}
+
+#campaign #funding_area #backing #sold-out.stats {
+	border:none;
+	margin-top: 16px;
+}
+
+#main #checkout {
+	background: #f6f6f6;
+}
+
+
+.tier-hint {
+    text-align: center;
+  }
+
+  .tier-list {
+    margin-bottom: 0px;
+
+    .price {
+      font-size:30px;
+      float: left;
+      width:25%;
+      border-right: 1px solid white;
+      margin-right:5px;
+      line-height:24px;
+
+      small {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+    }
+
+    .list-group-item-success:not(.active) {
+      .price {
+        text-decoration: line-through;
+      }
+    }
+
+    .people-needed {
+      float:left;
+      width:70%;
+      text-align: center;
+    }
+
+    .remaining {
+      font-size:30px;
+      font-weight: bold;
+    }
+  }
+
+
+  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover { z-index:0!important; }

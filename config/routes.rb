@@ -2,6 +2,9 @@ Crowdhoster::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
+  # REFERRAL LINKS
+  match '/u/:referral_code',                   to: 'pages#index'
+
   # PAGES
   root                                         to: 'pages#index'
 
@@ -31,6 +34,7 @@ Crowdhoster::Application.routes.draw do
   match '/ajax/verify',                        to: 'admin#ajax_verify',                     as: :ajax_verify
 
   # CAMPAIGNS
+  match '/capture',                        to: 'application#capture'
   match '/:id/checkout/amount',                to: 'campaigns#checkout_amount',             as: :checkout_amount
   match '/:id/checkout/payment',               to: 'campaigns#checkout_payment',            as: :checkout_payment
   match '/:id/checkout/process',               to: 'campaigns#checkout_process',            as: :checkout_process
