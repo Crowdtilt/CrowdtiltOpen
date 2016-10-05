@@ -162,6 +162,9 @@
           <% @campaign.rewards.order("price ASC").each do |reward| %>
             <% if reward.visible? %>
               <li id="rewards_click">
+              	<% if !@campaign.expired? && !current_user.nil? && current_user.admin? %>
+                     <div class="rewards_toolbox"><div class="toolbox_container"><div class="toolbox_item"><%= link_to (image_tag '/assets/trash.png'), reward_controller_delete_path(:reward => reward.id), data: { confirm: 'Are you sure?' } %></div></div></div>
+                <% end %>
                 <a href="<%= url_for(checkout_amount_path(@campaign, reward: reward.id)) %>"  onclick="<%= 'return false' if reward.sold_out? || @campaign.expired? %>" class="<%= 'disabled' if reward.sold_out? || @campaign.expired? %>">
                   <p class="price"><%= short_price(reward.price, '$') %></p>
                   <p class="title"><%= reward.title %></p>
