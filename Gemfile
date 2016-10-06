@@ -17,6 +17,8 @@ gem 'ckeditor'
 gem 'aws-sdk'
 gem 'active_model_serializers'
 gem 'momentjs-rails'
+gem 'sass', '3.2.13'
+
 # Front-end
 gem 'bootstrap-sass', '2.1'
 gem 'jquery-rails'
